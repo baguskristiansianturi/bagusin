@@ -1,473 +1,138 @@
 /* =========================================================
-BAGUSIN
-GLOBAL SITE SCRIPT
-Phase 09 — Global Navigation
-========================================================= */
-
+   BAGUSIN — GLOBAL SITE SCRIPT
+   Safe global utilities for every page.
+   ========================================================= */
 (function () {
-"use strict";
+  "use strict";
 
-/* =======================================================
-DOM READY
-======================================================= */
-
-function onReady(callback) {
-
-```
-if (
-  document.readyState === "loading"
-) {
-
-  document.addEventListener(
-    "DOMContentLoaded",
-    callback,
-    {
-      once: true
+  function onReady(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+    } else {
+      callback();
     }
-  );
-
-} else {
-
-  callback();
-
-}
-```
-
-}
-
-onReady(function () {
-
-```
-/* =====================================================
-   SITE READY STATE
-   ===================================================== */
-
-document.documentElement.classList.add(
-  "js"
-);
-
-document.documentElement.classList.remove(
-  "no-js"
-);
-
-
-/* =====================================================
-   CURRENT YEAR
-   ===================================================== */
-
-const yearElements =
-  document.querySelectorAll(
-    "[data-current-year]"
-  );
-
-const currentYear =
-  new Date().getFullYear();
-
-
-yearElements.forEach(
-  function (element) {
-
-    element.textContent =
-      String(currentYear);
-
   }
-);
 
+  onReady(function () {
+    document.documentElement.classList.add("js");
+    document.documentElement.classList.remove("no-js");
 
-/* =====================================================
-   SMOOTH INTERNAL ANCHOR
-   ===================================================== */
+    /* Current year */
+    document.querySelectorAll("[data-current-year]").forEach(function (element) {
+      element.textContent = String(new Date().getFullYear());
+    });
 
-const anchorLinks =
-  document.querySelectorAll(
-    'a[href^="#"]'
-  );
+    /* Smooth internal anchors with sticky-header offset */
+    document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+      link.addEventListener("click", function (event) {
+        const href = link.getAttribute("href");
+        if (!href || href === "#" || href.length <= 1) return;
 
-
-anchorLinks.forEach(
-  function (link) {
-
-    link.addEventListener(
-      "click",
-      function (event) {
-
-        const href =
-          link.getAttribute("href");
-
-
-        if (
-          !href ||
-          href === "#" ||
-          href.length <= 1
-        ) {
+        let target;
+        try {
+          target = document.querySelector(href);
+        } catch (_) {
           return;
         }
-
-
-        const target =
-          document.querySelector(href);
-
-
-        if (!target) {
-          return;
-        }
-
+        if (!target) return;
 
         event.preventDefault();
 
-
-        const header =
-          document.querySelector(
-            "#site-header"
-          );
-
-
-        const headerHeight =
-          header
-            ? header.offsetHeight
-            : 0;
-
-
+        const header = document.querySelector("#site-header");
+        const headerHeight = header ? header.offsetHeight : 0;
         const targetPosition =
           target.getBoundingClientRect().top +
           window.scrollY -
           headerHeight -
           16;
 
+        const reduceMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
 
         window.scrollTo({
-          top: Math.max(
-            0,
-            targetPosition
-          ),
-          behavior:
-            window.matchMedia(
-              "(prefers-reduced-motion: reduce)"
-            ).matches
-              ? "auto"
-              : "smooth"
+          top: Math.max(0, targetPosition),
+          behavior: reduceMotion ? "auto" : "smooth"
         });
 
-
-        target.setAttribute(
-          "tabindex",
-          "-1"
-        );
-
-
-        window.setTimeout(
-          function () {
-
-            target.focus({
-              preventScroll: true
-            });
-
-          },
-          350
-        );
-
-      }
-    );
-
-  }
-);
-
-
-/* =====================================================
-   EXTERNAL LINKS
-   ===================================================== */
-
-const links =
-  document.querySelectorAll(
-    "a[href]"
-  );
-
-
-links.forEach(
-  function (link) {
-
-    const href =
-      link.getAttribute("href");
-
-
-    if (!href) {
-      return;
-    }
-
-
-    const isExternal =
-      /^https?:\/\//i.test(
-        href
-      );
-
-
-    if (!isExternal) {
-      return;
-    }
-
-
-    try {
-
-      const url =
-        new URL(href);
-
-
-      if (
-        url.origin !==
-        window.location.origin
-      ) {
-
-        link.setAttribute(
-          "target",
-          "_blank"
-        );
-
-        link.setAttribute(
-          "rel",
-          "noopener noreferrer"
-        );
-
-      }
-
-    } catch (error) {
-
-      /* Invalid URL:
-         leave the original link untouched. */
-
-    }
-
-  }
-);
-
-
-/* =====================================================
-   LAZY IMAGE SAFETY
-   ===================================================== */
-
-const images =
-  document.querySelectorAll(
-    "img"
-  );
-
-
-images.forEach(
-  function (image) {
-
-    if (
-      !image.hasAttribute(
-        "loading"
-      )
-    ) {
-
-      image.setAttribute(
-        "loading",
-        "lazy"
-      );
-
-    }
-
-
-    if (
-      !image.hasAttribute(
-        "decoding"
-      )
-    ) {
-
-      image.setAttribute(
-        "decoding",
-        "async"
-      );
-
-    }
-
-  }
-);
-
-
-/* =====================================================
-   IMAGE ERROR HANDLING
-   ===================================================== */
-
-images.forEach(
-  function (image) {
-
-    image.addEventListener(
-      "error",
-      function () {
-
-        image.classList.add(
-          "is-image-error"
-        );
-
-        image.setAttribute(
-          "data-image-error",
-          "true"
-        );
-
-      },
-      {
-        once: true
-      }
-    );
-
-  }
-);
-
-
-/* =====================================================
-   DETAILS / SUMMARY ACCESSIBILITY
-   ===================================================== */
-
-const details =
-  document.querySelectorAll(
-    "details"
-  );
-
-
-details.forEach(
-  function (item) {
-
-    const summary =
-      item.querySelector(
-        "summary"
-      );
-
-
-    if (!summary) {
-      return;
-    }
-
-
-    summary.setAttribute(
-      "role",
-      "button"
-    );
-
-
-    summary.setAttribute(
-      "aria-expanded",
-      item.open
-        ? "true"
-        : "false"
-    );
-
-
-    item.addEventListener(
-      "toggle",
-      function () {
-
-        summary.setAttribute(
-          "aria-expanded",
-          item.open
-            ? "true"
-            : "false"
-        );
-
-      }
-    );
-
-  }
-);
-
-
-/* =====================================================
-   EXTERNAL FORM PROTECTION
-   ===================================================== */
-
-const forms =
-  document.querySelectorAll(
-    "form"
-  );
-
-
-forms.forEach(
-  function (form) {
-
-    form.addEventListener(
-      "submit",
-      function () {
-
-        form.classList.add(
-          "is-submitting"
-        );
-
-      }
-    );
-
-  }
-);
-
-
-/* =====================================================
-   BACK TO TOP
-   ===================================================== */
-
-const backToTop =
-  document.querySelector(
-    "[data-back-to-top]"
-  );
-
-
-if (backToTop) {
-
-  function updateBackToTop() {
-
-    const visible =
-      window.scrollY >
-      window.innerHeight;
-
-
-    backToTop.toggleAttribute(
-      "hidden",
-      !visible
-    );
-
-  }
-
-
-  window.addEventListener(
-    "scroll",
-    updateBackToTop,
-    {
-      passive: true
-    }
-  );
-
-
-  updateBackToTop();
-
-
-  backToTop.addEventListener(
-    "click",
-    function () {
-
-      window.scrollTo({
-        top: 0,
-        behavior:
-          window.matchMedia(
-            "(prefers-reduced-motion: reduce)"
-          ).matches
-            ? "auto"
-            : "smooth"
+        target.setAttribute("tabindex", "-1");
+        window.setTimeout(function () {
+          target.focus({ preventScroll: true });
+        }, reduceMotion ? 0 : 350);
       });
+    });
 
+    /* Safe treatment for true external links */
+    document.querySelectorAll("a[href]").forEach(function (link) {
+      const href = link.getAttribute("href");
+      if (!href || !/^https?:\/\//i.test(href)) return;
+
+      try {
+        const url = new URL(href, window.location.href);
+        if (url.origin !== window.location.origin) {
+          link.setAttribute("target", "_blank");
+          link.setAttribute("rel", "noopener noreferrer");
+        }
+      } catch (_) {}
+    });
+
+    /* Image performance + graceful error state */
+    document.querySelectorAll("img").forEach(function (image) {
+      if (!image.hasAttribute("loading")) image.setAttribute("loading", "lazy");
+      if (!image.hasAttribute("decoding")) image.setAttribute("decoding", "async");
+
+      image.addEventListener(
+        "error",
+        function () {
+          image.classList.add("is-image-error");
+          image.setAttribute("data-image-error", "true");
+        },
+        { once: true }
+      );
+    });
+
+    /* Details / summary accessibility state */
+    document.querySelectorAll("details").forEach(function (item) {
+      const summary = item.querySelector("summary");
+      if (!summary) return;
+
+      summary.setAttribute("role", "button");
+      summary.setAttribute("aria-expanded", item.open ? "true" : "false");
+
+      item.addEventListener("toggle", function () {
+        summary.setAttribute("aria-expanded", item.open ? "true" : "false");
+      });
+    });
+
+    /* Form submission state */
+    document.querySelectorAll("form").forEach(function (form) {
+      form.addEventListener("submit", function () {
+        form.classList.add("is-submitting");
+      });
+    });
+
+    /* Optional back-to-top control */
+    const backToTop = document.querySelector("[data-back-to-top]");
+    if (backToTop) {
+      const updateBackToTop = function () {
+        backToTop.toggleAttribute("hidden", window.scrollY <= window.innerHeight);
+      };
+
+      window.addEventListener("scroll", updateBackToTop, { passive: true });
+      updateBackToTop();
+
+      backToTop.addEventListener("click", function () {
+        const reduceMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+        window.scrollTo({
+          top: 0,
+          behavior: reduceMotion ? "auto" : "smooth"
+        });
+      });
     }
-  );
 
-}
-
-
-/* =====================================================
-   ANNOUNCE PAGE READY
-   ===================================================== */
-
-document.dispatchEvent(
-  new CustomEvent(
-    "bagusin:ready"
-  )
-);
-```
-
-});
-
+    document.dispatchEvent(new CustomEvent("bagusin:ready"));
+  });
 })();
