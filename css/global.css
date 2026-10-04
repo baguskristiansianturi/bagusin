@@ -786,6 +786,8 @@ a:focus-visible {
    MOBILE BASE
    ========================================================= */
 
+@media (max-width: 47.999rem) {
+
   .section-header {
     margin-bottom: var(--space-8);
   }
