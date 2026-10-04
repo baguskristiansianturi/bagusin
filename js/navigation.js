@@ -200,7 +200,7 @@
       header?.classList.toggle("is-sticky", window.scrollY > 8);
     }, { passive: true });
 
-    const desktopQuery = window.matchMedia("(min-width: 64rem)");
+    const desktopQuery = window.matchMedia("(min-width: 56rem)");
     const handleViewport = function () {
       if (desktopQuery.matches && menuOpen) closeMenu();
     };
