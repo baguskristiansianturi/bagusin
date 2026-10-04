@@ -1,0 +1,266 @@
+/* =========================================================
+   BAGUSIN
+   DESIGN SYSTEM — GLOBAL VARIABLES
+   Phase 08
+   ========================================================= */
+
+:root {
+
+  /* -------------------------------------------------------
+     COLOR SYSTEM
+     ------------------------------------------------------- */
+
+  --color-white: #ffffff;
+  --color-black: #111111;
+
+  --color-text: #171a19;
+  --color-text-soft: #505856;
+  --color-text-muted: #737b78;
+
+  --color-surface: #ffffff;
+  --color-surface-soft: #f7f9f8;
+  --color-surface-muted: #f0f3f2;
+
+  --color-border: #e3e8e6;
+  --color-border-strong: #d2dad7;
+
+  --color-accent: #66b7a7;
+  --color-accent-dark: #3f9181;
+  --color-accent-soft: #e7f4f0;
+
+  --color-success: #3d8c6d;
+  --color-warning: #b98535;
+  --color-danger: #b65d5d;
+
+  /* -------------------------------------------------------
+     BACKGROUNDS
+     ------------------------------------------------------- */
+
+  --bg-page: var(--color-white);
+  --bg-soft: var(--color-surface-soft);
+  --bg-muted: var(--color-surface-muted);
+  --bg-dark: #111514;
+
+  /* -------------------------------------------------------
+     TYPOGRAPHY
+     ------------------------------------------------------- */
+
+  --font-sans:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  --font-serif:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  --font-mono:
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+
+  --line-tight: 1.1;
+  --line-heading: 1.2;
+  --line-normal: 1.55;
+  --line-relaxed: 1.75;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* -------------------------------------------------------
+     SPACING SYSTEM
+     ------------------------------------------------------- */
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 1.75rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-14: 3.5rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-28: 7rem;
+  --space-32: 8rem;
+
+  /* -------------------------------------------------------
+     LAYOUT
+     ------------------------------------------------------- */
+
+  --container-xs: 30rem;
+  --container-sm: 40rem;
+  --container-md: 48rem;
+  --container-lg: 64rem;
+  --container-xl: 75rem;
+  --container-2xl: 87.5rem;
+
+  --content-width: var(--container-xl);
+  --article-width: 48rem;
+  --narrow-width: 42rem;
+
+  --page-padding: 1.25rem;
+
+  /* -------------------------------------------------------
+     HEADER
+     ------------------------------------------------------- */
+
+  --header-height: 4.5rem;
+  --header-height-mobile: 4rem;
+
+  /* -------------------------------------------------------
+     BORDERS / RADIUS
+     ------------------------------------------------------- */
+
+  --border-width: 1px;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-pill: 999px;
+
+  /* -------------------------------------------------------
+     SHADOWS
+     ------------------------------------------------------- */
+
+  --shadow-xs:
+    0 1px 2px rgba(17, 21, 20, 0.04);
+
+  --shadow-sm:
+    0 4px 14px rgba(17, 21, 20, 0.06);
+
+  --shadow-md:
+    0 10px 30px rgba(17, 21, 20, 0.08);
+
+  --shadow-lg:
+    0 20px 50px rgba(17, 21, 20, 0.10);
+
+  /* -------------------------------------------------------
+     TRANSITIONS
+     ------------------------------------------------------- */
+
+  --transition-fast:
+    150ms ease;
+
+  --transition-base:
+    220ms ease;
+
+  --transition-slow:
+    350ms ease;
+
+  --transition-smooth:
+    420ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* -------------------------------------------------------
+     Z-INDEX
+     ------------------------------------------------------- */
+
+  --z-base: 1;
+  --z-content: 10;
+  --z-header: 100;
+  --z-dropdown: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+
+  /* -------------------------------------------------------
+     ACCESSIBILITY
+     ------------------------------------------------------- */
+
+  --focus-ring:
+    0 0 0 3px rgba(102, 183, 167, 0.28);
+
+  --touch-target: 2.75rem;
+
+  /* -------------------------------------------------------
+     IMAGE RATIOS
+     ------------------------------------------------------- */
+
+  --ratio-square: 1 / 1;
+  --ratio-landscape: 16 / 10;
+  --ratio-wide: 16 / 9;
+  --ratio-editorial: 3 / 2;
+  --ratio-portrait: 4 / 5;
+
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (min-width: 48rem) {
+
+  :root {
+    --page-padding: 2rem;
+  }
+
+}
+
+
+/* =========================================================
+   DESKTOP
+   ========================================================= */
+
+@media (min-width: 64rem) {
+
+  :root {
+    --page-padding: 2.5rem;
+  }
+
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+   ========================================================= */
+
+@media (min-width: 90rem) {
+
+  :root {
+    --page-padding: 3rem;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  :root {
+    --transition-fast: 0ms;
+    --transition-base: 0ms;
+    --transition-slow: 0ms;
+    --transition-smooth: 0ms;
+  }
+
+}

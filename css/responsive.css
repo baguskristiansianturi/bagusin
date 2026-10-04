@@ -1,0 +1,652 @@
+ /* =========================================================
+   BAGUSIN
+   GLOBAL RESPONSIVE SYSTEM
+   Phase 08 — Design System
+   ========================================================= */
+
+
+/* =========================================================
+   GLOBAL SAFETY
+   ========================================================= */
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  min-width: 320px;
+}
+
+main,
+section,
+article,
+aside,
+header,
+footer,
+nav,
+div {
+  min-width: 0;
+}
+
+img,
+video,
+iframe,
+svg,
+canvas {
+  max-width: 100%;
+}
+
+
+/* =========================================================
+   CONTAINER SAFETY
+   ========================================================= */
+
+.container,
+.container--narrow,
+.container--article {
+  max-width: 100%;
+}
+
+.container > *,
+.container--narrow > *,
+.container--article > * {
+  min-width: 0;
+}
+
+
+/* =========================================================
+   GRID SAFETY
+   ========================================================= */
+
+.grid {
+  width: 100%;
+}
+
+.grid > * {
+  min-width: 0;
+}
+
+
+/* =========================================================
+   FLEX SAFETY
+   ========================================================= */
+
+.flex > *,
+.flex-wrap > * {
+  min-width: 0;
+}
+
+
+/* =========================================================
+   TEXT SAFETY
+   ========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+span,
+strong,
+small,
+label,
+button {
+  overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   TABLE SAFETY
+   ========================================================= */
+
+.table-wrapper,
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-wrapper table,
+.table-responsive table {
+  min-width: 36rem;
+}
+
+
+/* =========================================================
+   FORM SAFETY
+   ========================================================= */
+
+input,
+textarea,
+select {
+  width: 100%;
+  max-width: 100%;
+}
+
+button,
+.button {
+  max-width: 100%;
+}
+
+
+/* =========================================================
+   TOUCH TARGETS
+   ========================================================= */
+
+button,
+.button,
+.site-nav__link,
+.header-action,
+.mobile-nav__link,
+.site-footer__link,
+.social-link,
+.social-button,
+.share-button {
+  min-height: var(--touch-target);
+}
+
+
+/* =========================================================
+   MOBILE BASE
+   320px — 479px
+   ========================================================= */
+
+@media (max-width: 29.999rem) {
+
+  :root {
+    --page-padding: 1rem;
+  }
+
+
+  /* -------------------------------------------------------
+     TYPOGRAPHY
+     ------------------------------------------------------- */
+
+  h1 {
+    font-size: clamp(
+      2rem,
+      10vw,
+      2.75rem
+    );
+
+    line-height: 1.08;
+  }
+
+  h2 {
+    font-size: clamp(
+      1.75rem,
+      8vw,
+      2.25rem
+    );
+  }
+
+  h3 {
+    font-size: 1.35rem;
+  }
+
+  .section-title {
+    font-size: clamp(
+      1.75rem,
+      8vw,
+      2.25rem
+    );
+  }
+
+
+  /* -------------------------------------------------------
+     SECTIONS
+     ------------------------------------------------------- */
+
+  .section {
+    padding-block: 3rem;
+  }
+
+  .section--small {
+    padding-block: 2.5rem;
+  }
+
+  .section--large {
+    padding-block: 4rem;
+  }
+
+  .section--xl {
+    padding-block: 5rem;
+  }
+
+
+  /* -------------------------------------------------------
+     BUTTONS
+     ------------------------------------------------------- */
+
+  .button {
+    min-height: 2.75rem;
+    padding-inline: 1rem;
+  }
+
+  .button--large {
+    min-height: 3rem;
+    padding-inline: 1.15rem;
+  }
+
+
+  /* -------------------------------------------------------
+     BUTTON GROUPS
+     ------------------------------------------------------- */
+
+  .button-group,
+  .actions,
+  .hero-actions {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .button-group .button,
+  .actions .button,
+  .hero-actions .button {
+    width: 100%;
+  }
+
+
+  /* -------------------------------------------------------
+     MEDIA
+     ------------------------------------------------------- */
+
+  .media {
+    border-radius: var(--radius-md);
+  }
+
+
+  /* -------------------------------------------------------
+     CARDS
+     ------------------------------------------------------- */
+
+  .card,
+  .article-card,
+  .featured-card,
+  .category-card,
+  .project-card {
+    border-radius: var(--radius-md);
+  }
+
+
+  /* -------------------------------------------------------
+     SEARCH
+     ------------------------------------------------------- */
+
+  .search-field {
+    width: 100%;
+  }
+
+
+  /* -------------------------------------------------------
+     BREADCRUMB
+     ------------------------------------------------------- */
+
+  .breadcrumb {
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+
+  /* -------------------------------------------------------
+     TABLE OF CONTENTS
+     ------------------------------------------------------- */
+
+  .toc {
+    width: 100%;
+  }
+
+
+  /* -------------------------------------------------------
+     SHARE
+     ------------------------------------------------------- */
+
+  .share-bar {
+    width: 100%;
+  }
+
+  .share-button {
+    flex: 1 1 auto;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   360px — 479px
+   ========================================================= */
+
+@media (min-width: 30rem) and (max-width: 29.999rem) {
+
+  :root {
+    --page-padding: 1rem;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   480px — 767px
+   ========================================================= */
+
+@media (min-width: 30rem) and (max-width: 47.999rem) {
+
+  :root {
+    --page-padding: 1.25rem;
+  }
+
+
+  /* -------------------------------------------------------
+     TYPOGRAPHY
+     ------------------------------------------------------- */
+
+  h1 {
+    font-size: clamp(
+      2.25rem,
+      8vw,
+      3.25rem
+    );
+  }
+
+  h2 {
+    font-size: clamp(
+      1.875rem,
+      6vw,
+      2.5rem
+    );
+  }
+
+
+  /* -------------------------------------------------------
+     SECTIONS
+     ------------------------------------------------------- */
+
+  .section {
+    padding-block: 3.5rem;
+  }
+
+  .section--large {
+    padding-block: 4.5rem;
+  }
+
+
+  /* -------------------------------------------------------
+     BUTTON GROUP
+     ------------------------------------------------------- */
+
+  .button-group,
+  .actions,
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .button-group .button,
+  .actions .button,
+  .hero-actions .button {
+    width: auto;
+  }
+
+}
+
+
+/* =========================================================
+   TABLET
+   768px — 1023px
+   ========================================================= */
+
+@media (min-width: 48rem) and (max-width: 63.999rem) {
+
+  :root {
+    --page-padding: 2rem;
+  }
+
+
+  /* -------------------------------------------------------
+     TYPOGRAPHY
+     ------------------------------------------------------- */
+
+  h1 {
+    font-size: clamp(
+      2.75rem,
+      6vw,
+      4rem
+    );
+  }
+
+
+  /* -------------------------------------------------------
+     SECTION
+     ------------------------------------------------------- */
+
+  .section {
+    padding-block: 4rem;
+  }
+
+
+  /* -------------------------------------------------------
+     CONTENT
+     ------------------------------------------------------- */
+
+  .container,
+  .container--narrow,
+  .container--article {
+    width: min(
+      calc(100% - (var(--page-padding) * 2)),
+      var(--content-width)
+    );
+  }
+
+
+  /* -------------------------------------------------------
+     TWO COLUMN LAYOUT
+     ------------------------------------------------------- */
+
+  .layout-two-column,
+  .content-sidebar {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(15rem, 20rem);
+  }
+
+
+  /* -------------------------------------------------------
+     CARD GRIDS
+     ------------------------------------------------------- */
+
+  .grid--3,
+  .grid--4 {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+/* =========================================================
+   DESKTOP
+   1024px — 1439px
+   ========================================================= */
+
+@media (min-width: 64rem) and (max-width: 89.999rem) {
+
+  :root {
+    --page-padding: 2.5rem;
+  }
+
+
+  /* -------------------------------------------------------
+     SECTION
+     ------------------------------------------------------- */
+
+  .section {
+    padding-block: 4.5rem;
+  }
+
+
+  /* -------------------------------------------------------
+     TWO COLUMN
+     ------------------------------------------------------- */
+
+  .layout-two-column,
+  .content-sidebar {
+    display: grid;
+
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(16rem, 20rem);
+
+    gap: var(--space-10);
+  }
+
+
+  /* -------------------------------------------------------
+     THREE COLUMN
+     ------------------------------------------------------- */
+
+  .layout-three-column {
+    display: grid;
+
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
+    gap: var(--space-8);
+  }
+
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+   1440px+
+   ========================================================= */
+
+@media (min-width: 90rem) {
+
+  :root {
+    --page-padding: 3rem;
+  }
+
+
+  /* -------------------------------------------------------
+     CONTAINER
+     ------------------------------------------------------- */
+
+  .container,
+  .container--narrow,
+  .container--article {
+    margin-inline: auto;
+  }
+
+
+  /* -------------------------------------------------------
+     SECTION
+     ------------------------------------------------------- */
+
+  .section {
+    padding-block: 5rem;
+  }
+
+
+  /* -------------------------------------------------------
+     TWO COLUMN
+     ------------------------------------------------------- */
+
+  .layout-two-column,
+  .content-sidebar {
+    display: grid;
+
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(18rem, 22rem);
+
+    gap: var(--space-12);
+  }
+
+
+  /* -------------------------------------------------------
+     THREE COLUMN
+     ------------------------------------------------------- */
+
+  .layout-three-column {
+    display: grid;
+
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
+    gap: var(--space-10);
+  }
+
+}
+
+
+/* =========================================================
+   PRINT
+   ========================================================= */
+
+@media print {
+
+  html,
+  body {
+    overflow: visible;
+    background: #ffffff;
+    color: #000000;
+  }
+
+  .site-header,
+  .site-footer,
+  .mobile-nav,
+  .mobile-nav-overlay,
+  .share-bar,
+  .skip-link {
+    display: none !important;
+  }
+
+  .container,
+  .container--narrow,
+  .container--article {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  a {
+    color: #000000;
+    text-decoration: underline;
+  }
+
+  .section {
+    padding-block: 1rem;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+}
