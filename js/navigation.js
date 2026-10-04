@@ -139,7 +139,7 @@
         return;
       }
       event.preventDefault();
-      window.location.href = "/search/?q=" + encodeURIComponent(query);
+      window.location.href = "/bagusin/search/?q=" + encodeURIComponent(query);
     });
 
     searchPanel?.querySelectorAll("[data-search-suggestion]").forEach(function (button) {
