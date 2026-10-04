@@ -139,7 +139,8 @@
         return;
       }
       event.preventDefault();
-      window.location.href = "/bagusin/search/?q=" + encodeURIComponent(query);
+      const searchBase = window.location.pathname.startsWith("/bagusin/en/") ? "/bagusin/en/search/" : "/bagusin/search/";
+      window.location.href = searchBase + "?q=" + encodeURIComponent(query);
     });
 
     searchPanel?.querySelectorAll("[data-search-suggestion]").forEach(function (button) {
