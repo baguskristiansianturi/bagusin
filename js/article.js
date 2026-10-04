@@ -181,7 +181,7 @@
         overlay.setAttribute("role","dialog");
         overlay.setAttribute("aria-modal","true");
         overlay.setAttribute("aria-label","Image preview");
-        overlay.innerHTML='<button type="button" class="article-lightbox__close" aria-label="${isEnglish?"Close image":"Tutup gambar"}">×</button><img alt="">';
+        overlay.innerHTML='<button type="button" class="article-lightbox__close" aria-label="' + (isEnglish ? "Close image" : "Tutup gambar") + '">×</button><img alt="">';
 
         const zoom=overlay.querySelector("img");
         zoom.src=img.currentSrc||img.src;
