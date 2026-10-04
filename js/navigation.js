@@ -197,8 +197,13 @@
       closeDropdowns();
     });
 
+    let stickyFrame = 0;
     window.addEventListener("scroll", function () {
-      header?.classList.toggle("is-sticky", window.scrollY > 8);
+      if (stickyFrame) return;
+      stickyFrame = window.requestAnimationFrame(function () {
+        stickyFrame = 0;
+        header?.classList.toggle("is-sticky", window.scrollY > 8);
+      });
     }, { passive: true });
 
     const desktopQuery = window.matchMedia("(min-width: 56rem)");
