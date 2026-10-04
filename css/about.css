@@ -1,0 +1,20 @@
+/* BAGUSIN — ABOUT PAGE */
+.about-hero{padding-top:clamp(4rem,9vw,7rem);padding-bottom:clamp(4rem,8vw,6rem);background:radial-gradient(circle at 82% 18%,rgba(102,183,167,.13),transparent 28rem)}
+.about-hero__inner,.about-split,.about-links,.about-final{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(18rem,.75fr);gap:clamp(2.5rem,7vw,6rem);align-items:end}
+.about-hero h1{max-width:48rem}
+.about-hero__lead{max-width:42rem;margin-top:1.5rem;font-size:clamp(1.1rem,2.2vw,1.35rem);line-height:1.75}
+.about-hero__aside{padding:1.25rem 0;border-top:1px solid var(--color-border)}
+.about-hero__aside span{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent-dark)}
+.about-hero__aside p{margin-top:.75rem;font-size:.92rem}
+.about-copy{max-width:42rem}.about-copy p+p{margin-top:1.35rem}
+.about-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.about-grid article{padding:1.5rem;border:1px solid var(--color-border);border-radius:var(--radius-xl);background:var(--color-white)}
+.about-grid article>span{font-size:.72rem;font-weight:700;color:var(--color-accent-dark)}
+.about-grid h3{margin-top:1.5rem;font-size:1.35rem}.about-grid p{margin-top:.55rem;font-size:.88rem;line-height:1.7}
+.about-link-list{border-top:1px solid var(--color-border)}
+.about-link-list a{display:grid;grid-template-columns:1fr 1.3fr auto;gap:1rem;align-items:center;padding:1.15rem 0;border-bottom:1px solid var(--color-border);color:var(--color-text)}
+.about-link-list a:hover{color:var(--color-accent-dark)}.about-link-list strong{font-size:1rem}.about-link-list span{font-size:.82rem;color:var(--color-text-soft)}.about-link-list b{font-size:1rem;font-weight:500}
+.about-final{align-items:center}.about-final h2{color:var(--color-white)}.about-final .section-kicker{color:var(--color-accent)}.about-final p{max-width:38rem;margin-top:.7rem;color:rgba(255,255,255,.7)}
+@media(max-width:47.999rem){.about-hero{padding-top:3.25rem}.about-hero__inner,.about-split,.about-links,.about-final{grid-template-columns:1fr;gap:2rem}.about-hero__lead{font-size:1.05rem}.about-grid{grid-template-columns:1fr}.about-grid article{padding:1.25rem}.about-grid h3{margin-top:1rem}.about-link-list a{grid-template-columns:1fr auto;gap:.25rem .75rem}.about-link-list span{grid-column:1/-1}.about-final .button{width:100%}}
+@media(max-width:29.999rem){.about-hero__lead{font-size:1rem}.about-link-list a{padding-block:1rem}}
+@media(prefers-reduced-motion:reduce){.about-link-list a{transition:none}}
