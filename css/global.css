@@ -786,24 +786,6 @@ a:focus-visible {
    MOBILE BASE
    ========================================================= */
 
-@media (max-width: 47.999rem) {
-
-  .section {
-    padding-block: var(--space-12);
-  }
-
-  .section--small {
-    padding-block: var(--space-10);
-  }
-
-  .section--large {
-    padding-block: var(--space-16);
-  }
-
-  .section--xl {
-    padding-block: var(--space-20);
-  }
-
   .section-header {
     margin-bottom: var(--space-8);
   }
@@ -859,14 +841,6 @@ a:focus-visible {
 /* =========================================================
    LARGE DESKTOP
    ========================================================= */
-
-@media (min-width: 90rem) {
-
-  .section {
-    padding-block: var(--space-20);
-  }
-
-}
 
 
 /* =========================================================
