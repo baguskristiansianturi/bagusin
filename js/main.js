@@ -76,10 +76,18 @@
       } catch (_) {}
     });
 
-    /* Image performance + graceful error state */
-    document.querySelectorAll("img").forEach(function (image) {
-      if (!image.hasAttribute("loading")) image.setAttribute("loading", "lazy");
+    /* Image performance + graceful error state.
+       Keep the first content image discoverable for LCP; lazy-load the rest.
+       This is a fallback for future pages that add real image assets. */
+    const images = Array.from(document.images);
+    images.forEach(function (image, index) {
+      if (!image.hasAttribute("loading")) {
+        image.setAttribute("loading", index === 0 ? "eager" : "lazy");
+      }
       if (!image.hasAttribute("decoding")) image.setAttribute("decoding", "async");
+      if (index === 0 && !image.hasAttribute("fetchpriority")) {
+        image.setAttribute("fetchpriority", "high");
+      }
 
       image.addEventListener(
         "error",
