@@ -78,7 +78,7 @@
 .journal-topics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-6);margin-top:var(--space-10)}
 @media (max-width:71.999rem){
   .article-layout{grid-template-columns:minmax(0,1fr) minmax(14rem,17rem);gap:clamp(1.5rem,4vw,3rem)}
-  .article-sidebar{grid-column:1;position:sticky;top:calc(var(--header-height) + 1rem)}
+  .article-sidebar{grid-column:2;position:sticky;top:calc(var(--header-height) + 1rem)}
   .article-sidebar .toc{margin-bottom:var(--space-7)}
   .journal-topics{grid-template-columns:1fr}
   .featured-card{grid-template-columns:1fr}
