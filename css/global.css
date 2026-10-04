@@ -12,10 +12,13 @@
 html {
   background: var(--bg-page);
   color: var(--color-text);
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-height) + 1rem);
 }
 
 body {
   background: var(--bg-page);
+  overflow-x: clip;
   color: var(--color-text);
   font-family: var(--font-sans);
   font-size: var(--text-base);
@@ -337,7 +340,8 @@ a:hover {
 
 a:focus-visible {
   border-radius: var(--radius-sm);
-  outline: none;
+  outline: 2px solid var(--color-accent-dark);
+  outline-offset: 3px;
   box-shadow: var(--focus-ring);
 }
 
@@ -393,7 +397,8 @@ a:focus-visible {
 }
 
 .button:focus-visible {
-  outline: none;
+  outline: 2px solid var(--color-accent-dark);
+  outline-offset: 3px;
   box-shadow: var(--focus-ring);
 }
 
