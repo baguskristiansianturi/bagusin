@@ -9,8 +9,8 @@
     {title:"Work With Me",category:"Work",type:"Service",description:"Project-based remote work: copywriting, content, landing page, website, web application, software, dan improvement.",url:"/bagusin/work/",keywords:"work services copywriting content writing seo landing page ads website web application software engineering database ui ux maintenance"},
     {title:"Portfolio",category:"Work",type:"Portfolio",description:"Project, concept, dan experiment yang dibangun, diuji, dan dieksplorasi.",url:"/bagusin/portfolio/",keywords:"portfolio project concept experiment software website bali bagus dev studio load delivery"},
     {title:"YouTube",category:"YouTube",type:"Channel",description:"Video journal tentang travel, remote work, freelancing, software engineering, building, dan field notes.",url:"/bagusin/youtube/",keywords:"youtube video travel remote work freelancing software building field notes"},
-    {title:"About Bagusin",category:"About",type:"Page",description:"Mengenal Bagusin sebagai personal publication dan independent software studio.",url:"/bagusin/about/",keywords:"about bagusin personal publication independent software studio bagus kristian sianturi"},
-    {title:"Author — Bagus Kristian Sianturi",category:"Author",type:"Page",description:"Tentang penulis, freelancer, dan software engineer di balik Bagusin.",url:"/bagusin/author/",keywords:"author bagus kristian sianturi writer freelancer software engineer full stack"},
+    {title:"About BagusIn",category:"About",type:"Page",description:"Mengenal BagusIn sebagai personal publication dan independent software studio.",url:"/bagusin/about/",keywords:"about bagusin personal publication independent software studio bagus kristian sianturi"},
+    {title:"Author — Bagus Kristian Sianturi",category:"Author",type:"Page",description:"Tentang penulis, freelancer, dan software engineer di balik BagusIn.",url:"/bagusin/author/",keywords:"author bagus kristian sianturi writer freelancer software engineer full stack"},
     {title:"Contact",category:"Contact",type:"Page",description:"Mulai dari masalah. Ceritakan kebutuhan sebelum menentukan solusi, scope, timeline, dan biaya.",url:"/bagusin/contact/",keywords:"contact project problem requirement scope quotation remote"},
     {title:"Bali Bagus Dev Studio",category:"Portfolio · Project",type:"Project",description:"Project software studio yang dibangun dan dikerjakan secara langsung.",url:"/bagusin/portfolio/",keywords:"bali bagus dev studio website software project"},
     {title:"Bagus Load & Delivery",category:"Portfolio · Experiment",type:"Experiment",description:"Eksperimen product dan software untuk marketplace material konstruksi serta coordinated delivery.",url:"/bagusin/portfolio/",keywords:"bagus load delivery marketplace construction software experiment bali"}
@@ -37,7 +37,7 @@
     empty.hidden=found.length>0;
     results.hidden=found.length===0;
     count.textContent=query?found.length+" hasil untuk “"+query+"”":found.length+" halaman & tulisan";
-    heading.textContent=query?"Hasil pencarian":"Explore Bagusin";
+    heading.textContent=query?"Hasil pencarian":"Explore BagusIn";
   }
   form.addEventListener("submit",function(event){
     event.preventDefault();
