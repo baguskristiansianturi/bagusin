@@ -10,6 +10,7 @@
     if(!article)return;
 
     const progress=document.querySelector("[data-reading-progress] span");
+    let progressFrame = 0;
     function updateProgress(){
       if(!progress)return;
       const start=article.getBoundingClientRect().top+window.scrollY;
@@ -17,8 +18,15 @@
       const value=end<=start?0:Math.min(1,Math.max(0,(window.scrollY-start)/Math.max(1,end-start)));
       progress.style.width=(value*100)+"%";
     }
-    window.addEventListener("scroll",updateProgress,{passive:true});
-    window.addEventListener("resize",updateProgress,{passive:true});
+    function scheduleProgress(){
+      if(progressFrame)return;
+      progressFrame=window.requestAnimationFrame(function(){
+        progressFrame=0;
+        updateProgress();
+      });
+    }
+    window.addEventListener("scroll",scheduleProgress,{passive:true});
+    window.addEventListener("resize",scheduleProgress,{passive:true});
     updateProgress();
 
     const tocList=document.querySelector("[data-toc-list]");
