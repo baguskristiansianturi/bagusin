@@ -1,0 +1,23 @@
+/* Bagusin — English editorial page layer */
+.en-page .page-hero{padding-block:clamp(5rem,10vw,8rem);border-bottom:1px solid var(--color-border)}
+.en-page .page-hero__inner{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(15rem,.7fr);gap:4rem;align-items:end}
+.en-page .page-hero h1{max-width:48rem;margin:0}
+.en-page .lead{max-width:42rem;margin-top:1.25rem;font-size:clamp(1.05rem,2vw,1.3rem);line-height:1.7}
+.en-page .hero-note{padding:1.25rem;border-left:2px solid var(--color-accent);color:var(--color-text-soft)}
+.en-page .hero-note strong{display:block;margin-bottom:.35rem}
+.en-page .content-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem}
+.en-page .content-card{padding:1.5rem;border:1px solid var(--color-border);border-radius:var(--radius-lg);background:var(--color-white)}
+.en-page .content-card h2,.en-page .content-card h3{margin-top:.5rem}
+.en-page .content-card p{margin-top:.6rem}
+.en-page .number{font:600 .72rem var(--font-mono);color:var(--color-accent-dark)}
+.en-page .prose-copy{max-width:46rem}
+.en-page .prose-copy>*+*{margin-top:1.25rem}
+.en-page .dark-panel{background:var(--bg-dark);color:#fff}
+.en-page .dark-panel h2,.en-page .dark-panel p{color:#fff}
+.en-page .link-row{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.5rem}
+.en-page .search-field{display:flex;max-width:42rem;margin-top:1.5rem;overflow:hidden;border:1px solid var(--color-border-strong);border-radius:var(--radius-md);background:#fff}
+.en-page .search-field input{min-width:0;flex:1;height:3.25rem;padding:0 1rem;border:0;outline:0;background:transparent}
+.en-page .search-field .button{border-radius:0}
+@media(max-width:63.999rem){.en-page .page-hero__inner{grid-template-columns:1fr;gap:2rem}.en-page .content-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:47.999rem){.en-page .page-hero{padding-block:4rem}.en-page .page-hero__inner{gap:1.5rem}.en-page .content-grid{grid-template-columns:1fr}.en-page .link-row,.en-page .link-row .button{width:100%}.en-page .search-field{width:100%}}
+@media(prefers-reduced-motion:reduce){.en-page a{transition:none}}
