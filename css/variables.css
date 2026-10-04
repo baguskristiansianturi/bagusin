@@ -194,7 +194,8 @@
      ------------------------------------------------------- */
 
   --focus-ring:
-    0 0 0 3px rgba(102, 183, 167, 0.28);
+    0 0 0 3px var(--color-white),
+    0 0 0 5px var(--color-accent-dark);
 
   --touch-target: 2.75rem;
 
