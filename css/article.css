@@ -89,3 +89,41 @@
   .journal-next{flex-direction:column;align-items:flex-start;padding:var(--space-6)}
   .journal-next .button{width:100%}
 }
+
+
+/* =========================================================
+   REMOTE WORK COLLECTION
+   ========================================================= */
+
+.remote-work-pillars {
+  align-items: stretch;
+}
+
+.remote-work-pillar {
+  height: 100%;
+  border-color: var(--color-border);
+  background: var(--color-white);
+  transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.remote-work-pillar:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+
+.remote-work-pillar__title {
+  margin-top: var(--space-5);
+  font-size: clamp(1.2rem, 2.5vw, 1.45rem);
+}
+
+.remote-work-pillar p {
+  margin-top: var(--space-3);
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 47.999rem) {
+  .remote-work-pillars {
+    gap: var(--space-4);
+  }
+}
