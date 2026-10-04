@@ -15,6 +15,7 @@
     if(!article)return;
 
     const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isEnglish=document.documentElement.lang.toLowerCase().startsWith("en");
 
     /* Reading progress */
     const progress=document.querySelector("[data-reading-progress] span");
@@ -121,9 +122,9 @@
           document.execCommand("copy");
           field.remove();
         }
-        announce(button,"Tersalin");
+        announce(button,isEnglish?"Copied":"Tersalin");
       }catch(_){
-        announce(button,"Salin gagal");
+        announce(button,isEnglish?"Copy failed":"Salin gagal");
       }
     }
 
@@ -180,7 +181,7 @@
         overlay.setAttribute("role","dialog");
         overlay.setAttribute("aria-modal","true");
         overlay.setAttribute("aria-label","Image preview");
-        overlay.innerHTML='<button type="button" class="article-lightbox__close" aria-label="Tutup gambar">×</button><img alt="">';
+        overlay.innerHTML='<button type="button" class="article-lightbox__close" aria-label="${isEnglish?"Close image":"Tutup gambar"}">×</button><img alt="">';
 
         const zoom=overlay.querySelector("img");
         zoom.src=img.currentSrc||img.src;
