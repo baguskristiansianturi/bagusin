@@ -91,19 +91,19 @@ body {
 
 .section {
   width: 100%;
-  padding-block: var(--space-16);
+  padding-block: clamp(3rem, 5vw, 4.5rem);
 }
 
 .section--small {
-  padding-block: var(--space-12);
+  padding-block: clamp(2.5rem, 4vw, 3.5rem);
 }
 
 .section--large {
-  padding-block: var(--space-24);
+  padding-block: clamp(4rem, 7vw, 6rem);
 }
 
 .section--xl {
-  padding-block: var(--space-32);
+  padding-block: clamp(5rem, 9vw, 8rem);
 }
 
 .section--soft {
