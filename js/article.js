@@ -52,62 +52,15 @@
     const images=article.querySelectorAll("img");
     images.forEach(function(img){
       img.style.cursor="zoom-in";
-      img.setAttribute("tabindex","0");
-      img.setAttribute("role","button");
-      img.setAttribute("aria-label",img.alt ? "Perbesar gambar: "+img.alt : "Perbesar gambar");
-
-      function openLightbox(){
+      img.addEventListener("click",function(){
         const overlay=document.createElement("div");
         overlay.className="article-lightbox";
-        overlay.setAttribute("role","dialog");
-        overlay.setAttribute("aria-modal","true");
-        overlay.setAttribute("aria-label","Pratinjau gambar");
-
-        const close=document.createElement("button");
-        close.type="button";
-        close.className="article-lightbox__close";
-        close.setAttribute("aria-label","Tutup gambar");
-        close.textContent="×";
-
-        const zoom=document.createElement("img");
-        zoom.src=img.currentSrc||img.src;
-        zoom.alt=img.alt||"";
-        zoom.decoding="async";
-
-        overlay.appendChild(close);
-        overlay.appendChild(zoom);
+        overlay.innerHTML='<button type="button" class="article-lightbox__close" aria-label="Tutup gambar">×</button><img alt="">';
+        const zoom=overlay.querySelector("img");zoom.src=img.currentSrc||img.src;zoom.alt=img.alt||"";
         document.body.appendChild(overlay);
         document.body.classList.add("lightbox-open");
-
-        function closeLightbox(){
-          overlay.remove();
-          document.body.classList.remove("lightbox-open");
-          img.focus({preventScroll:true});
-          document.removeEventListener("keydown",onKeydown);
-        }
-        function onKeydown(event){
-          if(event.key==="Escape"){
-            event.preventDefault();
-            closeLightbox();
-          }
-        }
-
-        close.addEventListener("click",closeLightbox);
-        overlay.addEventListener("click",function(event){
-          if(event.target===overlay) closeLightbox();
-        });
-        document.addEventListener("keydown",onKeydown);
-        close.focus();
-      }
-
-      img.addEventListener("click",openLightbox);
-      img.addEventListener("keydown",function(event){
-        if(event.key==="Enter" || event.key===" "){
-          event.preventDefault();
-          openLightbox();
-        }
+        overlay.addEventListener("click",function(e){if(e.target===overlay||e.target.closest(".article-lightbox__close")){overlay.remove();document.body.classList.remove("lightbox-open");}});
       });
     });
-);
   });
 })();
