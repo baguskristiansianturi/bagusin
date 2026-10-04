@@ -69,14 +69,26 @@
       }, 0);
     }
 
-    function closeMenu() {
+    function setMobileNavInteractivity(disabled) {
+      if (!mobileNav) return;
+      if ("inert" in mobileNav) mobileNav.inert = disabled;
+    }
+
+    function focusMobileMenu() {
+      const target = mobileClose || mobileNav?.querySelector("a, button, input, select, textarea");
+      target?.focus();
+    }
+
+    function closeMenu(restoreFocus) {
       menuOpen = false;
       setExpanded(mobileToggle, false);
       mobileToggle?.setAttribute("aria-label", "Buka menu");
       mobileNav?.classList.remove("is-open");
       mobileNav?.setAttribute("aria-hidden", "true");
+      setMobileNavInteractivity(true);
       setHidden(mobileOverlay, true);
       document.body.classList.remove("menu-open");
+      if (restoreFocus) mobileToggle?.focus();
     }
 
     function openMenu() {
@@ -89,8 +101,10 @@
       mobileToggle?.setAttribute("aria-label", "Tutup menu");
       mobileNav.classList.add("is-open");
       mobileNav.setAttribute("aria-hidden", "false");
+      setMobileNavInteractivity(false);
       setHidden(mobileOverlay, false);
       document.body.classList.add("menu-open");
+      window.setTimeout(focusMobileMenu, 0);
     }
 
     mobileToggle?.addEventListener("click", function (event) {
@@ -99,7 +113,7 @@
       menuOpen ? closeMenu() : openMenu();
     });
 
-    mobileClose?.addEventListener("click", closeMenu);
+    mobileClose?.addEventListener("click", function () { closeMenu(true); });
     mobileOverlay?.addEventListener("click", closeMenu);
 
     mobileNav?.querySelectorAll("a").forEach(function (link) {
@@ -180,8 +194,7 @@
       if (event.key !== "Escape") return;
 
       if (menuOpen) {
-        closeMenu();
-        mobileToggle?.focus();
+        closeMenu(true);
         return;
       }
       if (searchOpen) {
@@ -236,6 +249,7 @@
     setHidden(languageMenu, true);
     setHidden(mobileOverlay, true);
     mobileNav?.setAttribute("aria-hidden", "true");
+    setMobileNavInteractivity(true);
     setExpanded(searchToggle, false);
     setExpanded(languageToggle, false);
     setExpanded(mobileToggle, false);
