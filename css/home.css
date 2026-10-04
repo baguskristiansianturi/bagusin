@@ -14,7 +14,7 @@
 .home-hero__aside-label{display:block;margin-bottom:var(--space-3);color:var(--color-accent-dark);font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
 .home-hero__aside p{font-size:.94rem;line-height:1.7}
 .home-hero__aside .text-link{margin-top:var(--space-5)}
-.home-section{padding-block:clamp(4rem,8vw,7rem)}
+.home-section{padding-block:clamp(3.5rem,6vw,5.25rem)}
 .home-section__header{margin-bottom:clamp(2rem,5vw,3.5rem)}
 .home-story-grid{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:clamp(1rem,2vw,1.5rem)}
 .home-story{display:flex;flex-direction:column;min-width:0}
