@@ -1,0 +1,50 @@
+/* BAGUSIN — SEARCH PAGE */
+.search-hero{padding-top:clamp(3rem,7vw,6rem);padding-bottom:clamp(2.5rem,6vw,5rem);background:radial-gradient(circle at 85% 20%,rgba(102,183,167,.14),transparent 30%),var(--bg-page)}
+.search-hero__lead{max-width:44rem;margin-top:1rem;font-size:clamp(1rem,2vw,1.15rem)}
+.search-page-form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.75rem;max-width:52rem;margin-top:2rem}
+.search-page-form input{min-width:0;min-height:3.25rem;padding:.75rem 1rem;border:1px solid var(--color-border-strong);border-radius:var(--radius-md);background:var(--color-white);color:var(--color-text);font:inherit}
+.search-page-form input:focus{outline:none;border-color:var(--color-accent-dark);box-shadow:var(--focus-ring)}
+.search-page-suggestions{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-top:1rem}
+.search-page-suggestions__label{margin-right:.25rem;color:var(--color-text-muted);font-size:var(--text-xs);font-weight:var(--weight-semibold);text-transform:uppercase;letter-spacing:.06em}
+.search-page-suggestions button{min-height:2.5rem;padding:.45rem .8rem;border:1px solid var(--color-border);border-radius:999px;background:transparent;color:var(--color-text-soft);font:inherit;font-size:var(--text-xs);cursor:pointer;transition:background-color var(--transition-base),border-color var(--transition-base),color var(--transition-base),transform var(--transition-base)}
+.search-page-suggestions button:hover{background:var(--bg-soft);border-color:var(--color-border-strong);color:var(--color-text);transform:translateY(-1px)}
+.search-results-section{min-height:30rem}
+.search-results-header{display:flex;align-items:end;justify-content:space-between;gap:2rem;margin-bottom:2rem}
+.search-results-count{margin:0;color:var(--color-text-muted);font-size:var(--text-sm)}
+.search-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.search-result{display:flex;flex-direction:column;min-width:0;padding:1.5rem;border:1px solid var(--color-border);border-radius:var(--radius-lg);background:var(--color-white);transition:transform var(--transition-base),border-color var(--transition-base),box-shadow var(--transition-base)}
+.search-result:hover{transform:translateY(-2px);border-color:var(--color-border-strong);box-shadow:var(--shadow-sm)}
+.search-result__meta{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-bottom:.85rem}
+.search-result__category{color:var(--color-accent-dark);font-size:var(--text-xs);font-weight:var(--weight-semibold);text-transform:uppercase;letter-spacing:.05em}
+.search-result__type{color:var(--color-text-muted);font-size:var(--text-xs)}
+.search-result h3{margin:0;font-size:clamp(1.2rem,2.2vw,1.55rem)}
+.search-result h3 a{color:var(--color-text)}
+.search-result h3 a:hover{color:var(--color-accent-dark)}
+.search-result p{margin-top:.65rem;font-size:var(--text-sm);line-height:1.65}
+.search-result__link{margin-top:auto;padding-top:1.2rem;color:var(--color-text);font-size:var(--text-sm);font-weight:var(--weight-semibold)}
+.search-empty{padding:clamp(2rem,5vw,4rem);border:1px solid var(--color-border);border-radius:var(--radius-lg);background:var(--bg-soft)}
+.search-empty__eyebrow{display:block;color:var(--color-accent-dark);font-size:var(--text-xs);font-weight:var(--weight-semibold);text-transform:uppercase;letter-spacing:.06em}
+.search-empty h2{margin-top:.5rem;font-size:clamp(1.5rem,4vw,2.2rem)}
+.search-empty p{max-width:40rem;margin-top:.75rem}
+.search-empty__actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem}
+.search-note{border-top:1px solid var(--color-border)}
+.search-note__inner{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:3rem;align-items:start}
+.search-note__inner p{margin:0;max-width:42rem}
+@media (max-width:767px){
+  .search-page-form{grid-template-columns:1fr}
+  .search-page-form .button{width:100%}
+  .search-results-header{display:block}
+  .search-results-count{margin-top:.5rem}
+  .search-results{grid-template-columns:1fr}
+  .search-note__inner{grid-template-columns:1fr;gap:1.25rem}
+}
+@media (max-width:479px){
+  .search-hero{padding-top:2.5rem}
+  .search-page-suggestions{align-items:flex-start}
+  .search-result{padding:1.15rem}
+  .search-empty__actions{flex-direction:column}
+  .search-empty__actions .button{width:100%}
+}
+@media (prefers-reduced-motion:reduce){
+  .search-result,.search-page-suggestions button{transition:none}
+}
