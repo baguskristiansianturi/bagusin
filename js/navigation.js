@@ -191,6 +191,27 @@
     });
 
     document.addEventListener("keydown", function (event) {
+      if (menuOpen && event.key === "Tab" && mobileNav) {
+        const focusable = Array.from(mobileNav.querySelectorAll(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )).filter(function (element) {
+          return !element.hidden && element.getClientRects().length;
+        });
+
+        if (focusable.length) {
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        }
+      }
+
       if (event.key !== "Escape") return;
 
       if (menuOpen) {
