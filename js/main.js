@@ -55,9 +55,11 @@
           behavior: reduceMotion ? "auto" : "smooth"
         });
 
-        target.setAttribute("tabindex", "-1");
+        const hadTabindex = target.hasAttribute("tabindex");
+        if (!hadTabindex) target.setAttribute("tabindex", "-1");
         window.setTimeout(function () {
           target.focus({ preventScroll: true });
+          if (!hadTabindex) target.removeAttribute("tabindex");
         }, reduceMotion ? 0 : 350);
       });
     });
