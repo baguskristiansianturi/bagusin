@@ -19,7 +19,7 @@
   border-bottom-color:rgba(0,0,0,.08);
   box-shadow:0 8px 28px rgba(0,0,0,.07);
 }
-.site-header__inner{
+.site-header__inner{max-width:var(--content-width,71.25rem);
   position:relative;
   display:flex;
   align-items:center;
@@ -34,7 +34,7 @@
 .site-brand__name{display:block;color:var(--color-text,#111);font-size:1rem;font-weight:800;letter-spacing:-.035em;white-space:nowrap}
 .site-brand__tagline{display:block;color:var(--color-text-muted,#777);font-size:.6rem;font-weight:600;letter-spacing:.08em;line-height:1.2;text-transform:uppercase;white-space:nowrap}
 
-.site-nav{display:none;min-width:0;margin-left:auto}
+.site-nav{display:none;min-width:0;flex:0 1 auto;margin-left:auto}
 .site-nav__list{display:flex;align-items:center;gap:.1rem}
 .site-nav__item{position:relative}
 .site-nav__link,.nav-dropdown-toggle{
@@ -67,7 +67,7 @@
   position:absolute;top:100%;left:0;z-index:60;width:100%;padding:.85rem var(--page-padding,1.25rem) 1rem;border-bottom:1px solid var(--color-border,#e7e7e7);background:rgba(255,255,255,.98);box-shadow:0 14px 32px rgba(0,0,0,.08);
 }
 .header-search[hidden]{display:none}
-.header-search__inner{width:100%;max-width:var(--container-xl,75rem);margin-inline:auto}
+.header-search__inner{width:min(calc(100% - (var(--page-padding,1.25rem) * 2)),var(--content-width,71.25rem));margin-inline:auto}
 .header-search .search-field{display:flex;align-items:center;width:100%;min-height:3rem;overflow:hidden;border:1px solid #d5d5d5;border-radius:.75rem;background:#fff}
 .header-search .search-field:focus-within{border-color:#3f9181;box-shadow:0 0 0 3px rgba(102,183,167,.14)}
 .header-search .search-field input{min-width:0;width:100%;height:3rem;border:0;outline:0;background:transparent;font-size:.9rem}
@@ -110,7 +110,7 @@ body.menu-open{overflow:hidden}
   .site-brand__tagline{font-size:.63rem}
   .header-search{padding-inline:var(--page-padding,2rem)}
 }
-@media (min-width:64rem){
+@media (min-width:56rem){
   .site-nav{display:block}
   .mobile-menu-toggle{display:none}
   .mobile-nav,.mobile-nav-overlay{display:none!important}
