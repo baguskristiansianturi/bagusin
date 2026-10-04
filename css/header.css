@@ -21,7 +21,7 @@
 }
 .site-header__inner{
   position:relative;
-  width:min(calc(100% - (var(--page-padding,1.25rem) * 2)),var(--content-width,68rem));
+  width:calc(100% - (var(--page-padding,1.25rem) * 2));
   max-width:var(--content-width,68rem);
   margin-inline:auto;
   padding-inline:0;
