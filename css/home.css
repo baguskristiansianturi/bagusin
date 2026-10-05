@@ -39,7 +39,7 @@
 }
 .home-hero__inner{position:relative}
 .home-hero__inner{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(15rem,.65fr);gap:clamp(2.5rem,7vw,6rem);align-items:end}
-.home-hero__copy h1{max-width:52rem;margin-top:var(--space-3);font-size:clamp(3rem,9vw,6.5rem);letter-spacing:-.055em}
+.home-hero__copy h1{max-width:52rem;margin-top:var(--space-3);font-size:clamp(3rem,7vw,5.5rem);letter-spacing:-.055em}
 .home-hero__lead{max-width:44rem;margin-top:var(--space-6);font-size:clamp(1.05rem,2vw,1.25rem);line-height:1.7}
 .home-hero__actions{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-top:var(--space-8)}
 .home-hero__notes{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:var(--space-6)}
