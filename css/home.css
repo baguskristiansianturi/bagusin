@@ -456,7 +456,7 @@
    viewport-height, but still content-driven and never forced on mobile. */
 @media (min-width: 64rem) {
   .home-hero {
-    min-height: calc(100svh - 4.5rem);
+    min-height: var(--hero-min-height);
     display: grid;
     align-items: center;
   }
