@@ -43,6 +43,15 @@ Implemented on branch `redesign/cp-06-living-archive`.
 - Places now connects its current state back to the living room/home.
 - No fabricated videos, destinations, ratings, or travel claims were added.
 
+## CP-07 — Monetization / Small Doors
+Implemented on branch `redesign/cp-07-monetization`.
+- Added Jastip, Advertising, and Classified Ads as separate lightweight pages.
+- Monetization is presented as optional doors around the house, not the site's primary identity or funnel.
+- Jastip is explicitly COMING SOON and tied to real movement/location rather than pretending to be an always-open store.
+- Advertising is enquiry-based with clear editorial boundaries; payment does not buy opinions or positive coverage.
+- Classified Ads is PLANNED, not presented as a working marketplace; relevance, clarity, and moderation principles are stated before launch.
+- Homepage now introduces the three doors quietly and the sitemap includes their routes.
+- No fake listings, prices, sponsors, transactions, testimonials, or monetization results were invented.
+
 ## Next
-- CP-07: Jastip / advertising / classified monetization without overpowering the house.
 - CP-08: responsive, accessibility, performance and link audit.
