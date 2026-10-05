@@ -45,7 +45,8 @@
   form.addEventListener("submit",function(event){
     event.preventDefault();
     const query=input.value.trim();
-    const prefix=window.location.hostname.endsWith("github.io")?"/bagusin":"";\n    const target=query?prefix+"/search/?q="+encodeURIComponent(query):prefix+"/search/";
+    const prefix=window.location.hostname.endsWith("github.io")?"/bagusin":"";
+    const target=query?prefix+"/search/?q="+encodeURIComponent(query):prefix+"/search/";
     window.location.href=target;
   });
   document.querySelectorAll("[data-page-suggestion]").forEach(function(button){

@@ -7,6 +7,107 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     const header = document.querySelector("[data-site-header], .site-header");
+
+    /* CP-18 — normalize the shared header before binding interactions.
+       Older pages were carrying slightly different header markup. Build one
+       navigation contract at runtime so every route exposes the same paths,
+       Work menu, search, language switcher, and mobile menu. */
+    function getSiteContext() {
+      const rawPath = (window.location.pathname || "/").split("?")[0].split("#")[0];
+      const isProjectHost = window.location.hostname.endsWith("github.io");
+      const projectPrefix = isProjectHost ? "/bagusin" : "";
+      const isEnglish = rawPath === "/en/" || rawPath.startsWith("/en/") ||
+        rawPath.startsWith("/bagusin/en/") || rawPath === "/bagusin/en";
+      return { projectPrefix, isEnglish };
+    }
+
+    function normalizeHeaderMarkup() {
+      if (!header) return;
+      const context = getSiteContext();
+      const p = context.projectPrefix;
+      const lang = context.isEnglish ? "en/" : "";
+      const labels = context.isEnglish ? {
+        blog: "Blog", places: "Places", services: "Services",
+        work: "Work", servicesNote: "Professional project-based work",
+        workNote: "Projects, concepts & experiments",
+        youtube: "YouTube", about: "About", contact: "Contact",
+        menu: "Menu", search: "Search BagusIn", searchButton: "Search",
+        openSearch: "Open search", closeSearch: "Close search"
+      } : {
+        blog: "Blog", places: "Places", services: "Services",
+        work: "Work", servicesNote: "Professional project-based work",
+        workNote: "Projects, concepts & experiments",
+        youtube: "YouTube", about: "About", contact: "Contact",
+        menu: "Menu", search: "Cari BagusIn", searchButton: "Cari",
+        openSearch: "Buka pencarian", closeSearch: "Tutup pencarian"
+      };
+
+      const desktopNav = header.querySelector(".site-nav__list");
+      if (desktopNav) {
+        desktopNav.innerHTML =
+          '<li class="site-nav__item"><a class="site-nav__link" href="' + p + "/" + lang + 'journal/">' + labels.blog + '</a></li>' +
+          '<li class="site-nav__item"><a class="site-nav__link" href="' + p + "/" + lang + 'destinations/">' + labels.places + '</a></li>' +
+          '<li class="site-nav__item">' +
+            '<button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-controls="work-dropdown">' + labels.work + ' <span aria-hidden="true">⌄</span></button>' +
+            '<div class="nav-dropdown" id="work-dropdown" hidden>' +
+              '<a class="nav-dropdown__link" href="' + p + "/" + lang + 'work/"><strong>' + labels.services + '</strong><small>' + labels.servicesNote + '</small></a>' +
+              '<a class="nav-dropdown__link" href="' + p + "/" + lang + 'portfolio/"><strong>' + labels.work + '</strong><small>' + labels.workNote + '</small></a>' +
+            '</div>' +
+          '</li>' +
+          '<li class="site-nav__item"><a class="site-nav__link" href="' + p + "/" + lang + 'youtube/">' + labels.youtube + '</a></li>' +
+          '<li class="site-nav__item"><a class="site-nav__link" href="' + p + "/" + lang + 'about/">' + labels.about + '</a></li>' +
+          '<li class="site-nav__item"><a class="site-nav__link" href="' + p + "/" + lang + 'contact/">' + labels.contact + '</a></li>';
+      }
+
+      const mobileList = header.parentElement?.querySelector(".mobile-nav__list");
+      if (mobileList) {
+        mobileList.innerHTML =
+          '<li><a class="mobile-nav__link" href="' + p + "/" + lang + 'journal/">' + labels.blog + '</a></li>' +
+          '<li><a class="mobile-nav__link" href="' + p + "/" + lang + 'destinations/">' + labels.places + '</a></li>' +
+          '<li class="mobile-nav__group"><span class="mobile-nav__label">' + labels.work + '</span>' +
+            '<a class="mobile-nav__link" href="' + p + "/" + lang + "work/">' + labels.services + '</a>' +
+            '<a class="mobile-nav__link" href="' + p + "/" + lang + "portfolio/">' + labels.work + '</a>' +
+          '</li>' +
+          '<li><a class="mobile-nav__link" href="' + p + "/" + lang + 'youtube/">' + labels.youtube + '</a></li>' +
+          '<li><a class="mobile-nav__link" href="' + p + "/" + lang + 'about/">' + labels.about + '</a></li>' +
+          '<li><a class="mobile-nav__link" href="' + p + "/" + lang + 'contact/">' + labels.contact + '</a></li>';
+      }
+
+      let quickSearch = header.querySelector(".header-quick-search");
+      if (!quickSearch) {
+        quickSearch = document.createElement("form");
+        quickSearch.className = "header-quick-search";
+        quickSearch.setAttribute("role", "search");
+        quickSearch.innerHTML =
+          '<label class="sr-only" for="header-quick-search-input">' + labels.search + '</label>' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.2 4.2"></path></svg>' +
+          '<input id="header-quick-search-input" name="q" type="search" placeholder="' + labels.search + '" autocomplete="off">';
+        const brand = header.querySelector(".site-brand");
+        brand?.insertAdjacentElement("afterend", quickSearch);
+      }
+      quickSearch.setAttribute("action", p + "/" + lang + "search/");
+      const languageMenu = header.querySelector("#language-menu");
+      if (languageMenu) {
+        const rawPath = (window.location.pathname || "/").replace(/^\\/bagusin(?=\\/|$)/, "") || "/";
+        const sectionPath = rawPath.startsWith("/en/") ? rawPath.slice(3) : rawPath;
+        const normalizedSection = sectionPath === "" ? "/" : (sectionPath.startsWith("/") ? sectionPath : "/" + sectionPath);
+        const idLink = languageMenu.querySelector('[lang="id"]');
+        const enLink = languageMenu.querySelector('[lang="en"]');
+        if (idLink) idLink.href = p + normalizedSection;
+        if (enLink) enLink.href = p + "/en" + (normalizedSection === "/" ? "/" : normalizedSection);
+      }
+
+      quickSearch.addEventListener("submit", function (event) {
+        const input = quickSearch.querySelector("input[name=\"q\"]");
+        const query = (input?.value || "").trim();
+        if (!query) {
+          event.preventDefault();
+          input?.focus();
+        }
+      });
+    }
+
+    normalizeHeaderMarkup();
     const mobileToggle = document.querySelector("[data-mobile-menu-toggle]");
     const mobileNav = document.getElementById("mobile-navigation");
     const mobileOverlay = document.querySelector("[data-mobile-overlay]");
