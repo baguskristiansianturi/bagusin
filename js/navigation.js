@@ -65,8 +65,8 @@
           '<li><a class="mobile-nav__link" href="' + p + "/" + lang + 'journal/">' + labels.blog + '</a></li>' +
           '<li><a class="mobile-nav__link" href="' + p + "/" + lang + 'destinations/">' + labels.places + '</a></li>' +
           '<li class="mobile-nav__group"><span class="mobile-nav__label">' + labels.work + '</span>' +
-            '<a class="mobile-nav__link" href="' + p + "/work/">' + labels.services + '</a>' +
-            '<a class="mobile-nav__link" href="' + p + "/portfolio/">' + labels.work + '</a>' +
+            '<a class="mobile-nav__link" href="' + p + "/" + lang + "work/">' + labels.services + '</a>' +
+            '<a class="mobile-nav__link" href="' + p + "/" + lang + "portfolio/">' + labels.work + '</a>' +
           '</li>' +
           '<li><a class="mobile-nav__link" href="' + p + "/" + lang + 'youtube/">' + labels.youtube + '</a></li>' +
           '<li><a class="mobile-nav__link" href="' + p + "/" + lang + 'about/">' + labels.about + '</a></li>' +
