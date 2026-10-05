@@ -526,3 +526,50 @@ body.menu-open{overflow:hidden}
   .site-header__inner { height: var(--header-height-mobile); min-height: var(--header-height-mobile); }
   .mobile-nav { top: var(--header-height-mobile); }
 }
+
+
+/* CP-19 — header/search share the exact same rail. */
+@media (min-width: 56rem) {
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    width: min(calc(100% - (var(--page-padding) * 2)), var(--content-width));
+    max-width: var(--content-width);
+  }
+
+  .site-brand {
+    flex: 0 0 auto;
+  }
+
+  .header-quick-search {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 8rem;
+    max-width: none;
+    margin-inline: .35rem;
+  }
+
+  .site-nav {
+    flex: 0 0 auto;
+    margin-left: 0;
+  }
+
+  .site-header__actions {
+    flex: 0 0 auto;
+  }
+}
+
+@media (min-width: 56rem) and (max-width: 71.999rem) {
+  .header-quick-search {
+    min-width: 6rem;
+  }
+
+  .site-nav__list {
+    gap: 0;
+  }
+
+  .site-nav__link,
+  .nav-dropdown-toggle {
+    padding-inline: .42rem;
+  }
+}

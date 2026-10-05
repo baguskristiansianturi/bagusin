@@ -457,8 +457,10 @@
 @media (min-width: 64rem) {
   .home-hero {
     min-height: var(--hero-min-height);
+    box-sizing: border-box;
     display: grid;
     align-items: center;
+    padding-block: clamp(2.75rem, 6vh, 5rem);
   }
 
   .home-hero__inner {

@@ -250,3 +250,14 @@
 .places-current p{margin-top:.5rem;color:var(--color-text-soft);font-size:.88rem;line-height:1.65}
 .places-current .text-link{display:inline-flex;margin-top:1rem}
 @media(max-width:47.999rem){.places-current__inner{grid-template-columns:1fr;gap:1.25rem}}
+
+
+/* CP-19 — Places hero inherits the global shell; no local height/rail override. */
+.places-hero {
+  box-sizing: border-box;
+  padding-block: 0;
+}
+.places-hero__title,
+.places-hero__dek {
+  max-width: 48rem;
+}
