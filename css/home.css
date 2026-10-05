@@ -157,3 +157,146 @@
 @media(prefers-reduced-motion:reduce){
   .home-hero__aside{backdrop-filter:none;-webkit-backdrop-filter:none}
 }
+
+
+/* =========================================================
+   CP-12 — HERO / SECTION RHYTHM
+   ========================================================= */
+
+.home-hero {
+  /* Compact enough to keep the opening message visible in the first
+     viewport while preserving the editorial visual treatment. */
+  padding-block: clamp(2.75rem, 6vh, 5rem);
+}
+
+.home-hero__inner {
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+}
+
+.home-hero__copy h1 {
+  margin-top: var(--space-2);
+  max-width: 46rem;
+  font-size: clamp(2.85rem, 6vw, 4.9rem);
+  line-height: 1.02;
+}
+
+.home-hero__lead {
+  max-width: 40rem;
+  margin-top: var(--space-5);
+  font-size: clamp(1rem, 1.55vw, 1.16rem);
+  line-height: 1.62;
+}
+
+.home-hero__actions {
+  margin-top: var(--space-6);
+}
+
+.home-birthday-note {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+}
+
+.home-hero__aside {
+  align-self: center;
+  max-width: 20rem;
+  padding: var(--space-5);
+}
+
+.home-hero__aside p {
+  font-size: .9rem;
+  line-height: 1.6;
+}
+
+/* Keep all homepage section rhythm deliberate rather than oversized. */
+.home-section {
+  padding-block: clamp(3rem, 5vw, 4.5rem);
+}
+
+.home-section__header {
+  margin-bottom: clamp(1.75rem, 3.5vw, 2.75rem);
+}
+
+.home-status {
+  padding-block: clamp(2.5rem, 4vw, 3.75rem);
+}
+
+.home-youtube {
+  padding-block: clamp(3.25rem, 5vw, 4.75rem);
+}
+
+@media (max-width: 63.999rem) {
+  .home-hero {
+    padding-block: 3rem;
+  }
+
+  .home-hero__inner {
+    gap: 2rem;
+  }
+
+  .home-hero__aside {
+    max-width: none;
+    padding-top: var(--space-4);
+  }
+}
+
+@media (max-width: 47.999rem) {
+  .home-hero {
+    padding-block: 2.75rem;
+  }
+
+  .home-hero__copy h1 {
+    font-size: clamp(2.65rem, 11vw, 4rem);
+  }
+
+  .home-hero__lead {
+    margin-top: var(--space-4);
+  }
+
+  .home-hero__actions {
+    margin-top: var(--space-5);
+  }
+
+  .home-birthday-note {
+    margin-top: var(--space-4);
+  }
+
+  .home-hero__aside {
+    padding-top: var(--space-4);
+  }
+
+  .home-section {
+    padding-block: 3.25rem;
+  }
+
+  .home-status {
+    padding-block: 2.75rem;
+  }
+}
+
+@media (max-width: 29.999rem) {
+  .home-hero {
+    padding-block: 2.35rem;
+  }
+
+  .home-hero__copy h1 {
+    font-size: clamp(2.45rem, 12.5vw, 3.35rem);
+  }
+
+  .home-hero__lead {
+    font-size: 1rem;
+    line-height: 1.58;
+  }
+
+  .home-hero__aside {
+    padding-top: var(--space-3);
+  }
+
+  .home-section {
+    padding-block: 2.75rem;
+  }
+
+  .home-status {
+    padding-block: 2.5rem;
+  }
+}
