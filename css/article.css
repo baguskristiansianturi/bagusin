@@ -322,3 +322,51 @@
   .article-recommendation:first-child{min-height:20rem}
   .article-recommendation__eyebrow{font-size:.58rem;max-width:100%;white-space:normal}
 }
+
+/* =========================================================
+   ARTICLE MOBILE POLISH — touch, lightweight effects
+   Safe follow-up to the mobile layout pass.
+   ========================================================= */
+@media (max-width:55.999rem){
+  .toc__link{
+    min-height:2.75rem;
+    display:flex;
+    align-items:center;
+    padding-block:.5rem;
+  }
+
+  .article-side-social a{
+    width:2.75rem;
+    height:2.75rem;
+    flex:0 0 2.75rem;
+  }
+
+  .article-side-youtube{
+    min-height:2.75rem;
+    display:inline-flex;
+    align-items:center;
+    padding-block:.5rem;
+  }
+
+  .article-recommendation__eyebrow{
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+  }
+}
+
+@media (max-width:55.999rem) and (hover:none){
+  .article-recommendation:hover{
+    transform:none;
+    box-shadow:none;
+  }
+
+  .article-recommendation:hover .article-recommendation__media{
+    transform:none;
+    filter:none;
+  }
+
+  .article-recommendation:hover .article-recommendation__media::after{
+    transform:rotate(-4deg);
+    opacity:.7;
+  }
+}
