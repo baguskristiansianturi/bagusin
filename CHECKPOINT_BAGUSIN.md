@@ -1,44 +1,33 @@
 # BagusIn — Redesign Checkpoint
 
-## CP-00 — Baseline
-- Protected baseline: `095c5e2fe8b6fad22f4735adb48a13f835d7f2f5`
-- Article/mobile work from PR #23 and #24 is preserved.
+## CP-00
+Protected baseline: `095c5e2fe8b6fad22f4735adb48a13f835d7f2f5`.
 
-## CP-01 — Information architecture & navigation
-Status: implemented on branch `redesign/cp-01-02-living-room`.
+## CP-01 / CP-02
+Merged to main in commit `a23f76af2ba346add444d0bf723a153f565c880e`.
+- Living-room homepage
+- calm desktop quick search
+- birthday/launch cue: 27 October 2026 / 33 today
+- dedicated latest YouTube section
+- thumbnail-first YouTube integration
+- scheduled latest-video refresh
 
-- Primary navigation now presents Blog, Places, Work, YouTube, About, Contact.
-- Work remains separated conceptually into Services and Work/evidence.
-- Desktop gets a quiet quick-search control near the brand.
-- Mobile retains the full navigation through the menu.
-- Search remains a calm utility rather than an ecommerce-style search bar.
+## CP-03 — Search
+Implemented on branch `redesign/cp-03-04`.
+- Search vocabulary now matches Blog / Places / Services / Work / YouTube / About / Contact.
+- Multi-word queries are tokenized so a query such as `web application` can match content containing both terms.
+- Search remains static/lightweight and GitHub Pages compatible.
+- Header search copy is quieter and broader than the previous article-only wording.
 
-## CP-02 — Living-room homepage
-Status: implemented on branch `redesign/cp-01-02-living-room`.
-
-The homepage now treats BagusIn as Bagus's internet house:
-- arrival/welcome instead of a conventional professional title;
-- current location/activity;
-- new things from the house;
-- Blog / Work / Places as rooms;
-- Services as a professional responsibility area;
-- YouTube as the window into current life;
-- About explains the breadth of the person without forcing one job title;
-- footer remains a calm exit.
-
-### Birthday / launch
-Launch day is **27 October 2026**. Bagus was born **27 October 1993**, so the launch-day experience can quietly show **33 today** and **A new chapter begins here.** It should feel like a birthday discovered by the guest, not a birthday-party website.
-
-### YouTube
-- Homepage has a dedicated latest-YouTube section.
-- Thumbnail is a first-class visual element.
-- Before the first video, the section intentionally says Coming soon.
-- `data/youtube-latest.json` is the content contract.
-- `js/youtube-latest.js` renders the latest record.
-- GitHub Actions refreshes the record every six hours from the public BagusIn YouTube channel, so the homepage is designed to keep showing the newest video after launch.
+## CP-04 — Services
+Implemented on branch `redesign/cp-03-04`.
+- Work With Me is repositioned as Services.
+- Services explicitly separates Bagus's free-form identity from the professional standard applied to accepted projects.
+- Process remains Problem → Requirement → Scope & Quotation → Development → Review & Delivery.
+- Work remains a separate evidence/portfolio area.
 
 ## Next
-- CP-03: make search genuinely useful across public BagusIn content.
-- CP-04: rebuild Services around brief → scope → quotation → production → review → delivery.
-- CP-05: evolve Work into evidence-driven case studies.
-- CP-06: connect Blog / Places / YouTube into one living archive.
+- CP-05: strengthen Work into evidence-driven case studies.
+- CP-06: connect Blog / Places / YouTube into a living archive and current-status system.
+- CP-07: Jastip / advertising / classified monetization without overpowering the house.
+- CP-08: responsive, accessibility, performance and link audit.
