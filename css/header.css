@@ -140,3 +140,58 @@ body.menu-open{overflow:hidden}
 .header-quick-search input::placeholder{color:var(--color-text-muted,#888)}
 @media(min-width:56rem){.header-quick-search{display:flex}.site-nav{margin-left:auto}}
 @media(max-width:55.999rem){.header-quick-search{display:none}}
+
+
+/* CP-10D — header width and mobile control hardening */
+.site-header,
+.site-header__inner,
+.site-nav,
+.site-header__actions,
+.header-search,
+.mobile-nav {
+  min-width: 0;
+}
+
+.site-header__inner {
+  max-width: var(--content-width, 68rem);
+}
+
+.header-search__inner,
+.mobile-nav__inner {
+  min-width: 0;
+}
+
+@media (max-width: 55.999rem) {
+  .site-header__inner {
+    width: calc(100% - (var(--page-padding, 1rem) * 2));
+  }
+
+  .site-brand__text {
+    overflow: hidden;
+  }
+
+  .header-action,
+  .mobile-menu-toggle {
+    flex-shrink: 0;
+  }
+
+  .mobile-nav {
+    padding-top: .75rem;
+    padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 29.999rem) {
+  .site-header__inner {
+    gap: .15rem;
+  }
+
+  .site-brand__tagline {
+    max-width: 12rem;
+  }
+
+  .header-search {
+    padding-top: .7rem;
+    padding-bottom: .85rem;
+  }
+}
