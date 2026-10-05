@@ -50,8 +50,8 @@
           '<li class="site-nav__item">' +
             '<button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-controls="work-dropdown">' + labels.work + ' <span aria-hidden="true">⌄</span></button>' +
             '<div class="nav-dropdown" id="work-dropdown" hidden>' +
-              '<a class="nav-dropdown__link" href="' + p + '/work/"><strong>' + labels.services + '</strong><small>' + labels.servicesNote + '</small></a>' +
-              '<a class="nav-dropdown__link" href="' + p + '/portfolio/"><strong>' + labels.work + '</strong><small>' + labels.workNote + '</small></a>' +
+              '<a class="nav-dropdown__link" href="' + p + "/" + lang + 'work/"><strong>' + labels.services + '</strong><small>' + labels.servicesNote + '</small></a>' +
+              '<a class="nav-dropdown__link" href="' + p + "/" + lang + 'portfolio/"><strong>' + labels.work + '</strong><small>' + labels.workNote + '</small></a>' +
             '</div>' +
           '</li>' +
           '<li class="site-nav__item"><a class="site-nav__link" href="' + p + "/" + lang + 'youtube/">' + labels.youtube + '</a></li>' +
