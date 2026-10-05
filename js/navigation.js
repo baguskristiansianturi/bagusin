@@ -272,8 +272,8 @@
     dropdownToggles.forEach(function (toggle) {
       const item = toggle.closest(".site-nav__item");
       if (!item) return;
-      const isWorkArea = currentPath.startsWith("/bagusin/work/") || currentPath.startsWith("/bagusin/portfolio/") ||
-        currentPath.startsWith("/bagusin/en/work/") || currentPath.startsWith("/bagusin/en/portfolio/");
+      const isWorkArea = currentPath.startsWith("/work/") || currentPath.startsWith("/portfolio/") ||
+        currentPath.startsWith("/en/work/") || currentPath.startsWith("/en/portfolio/");
       toggle.classList.toggle("is-active", isWorkArea);
       if (isWorkArea) toggle.setAttribute("aria-current", "page");
       else toggle.removeAttribute("aria-current");
