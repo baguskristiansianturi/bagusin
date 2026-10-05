@@ -1244,3 +1244,15 @@ a:focus-visible {
 .youtube-latest__media {
   background-color: #dfe9e5;
 }
+
+/* CP-23 — FINAL HERO CONTRACT: browser viewport is the reference. */
+@media (min-width:64rem){
+  .home-hero,.section.page-hero{min-height:calc(100svh - var(--header-height)) !important;height:auto !important;box-sizing:border-box !important;padding-block:clamp(3rem,5.5vh,5rem) !important;display:grid !important;align-items:center !important;align-content:center !important}
+  .home-hero>.container,.section.page-hero>.container,.section.page-hero>.container--narrow,.section.page-hero>.container--article{width:min(calc(100% - (var(--page-padding)*2)),var(--content-width)) !important;max-width:var(--content-width) !important;margin-inline:auto !important}
+}
+@media (max-width:63.999rem){.home-hero,.section.page-hero{min-height:0 !important;height:auto !important;padding-block:3rem !important;display:block !important}}
+@media (max-width:47.999rem){.home-hero,.section.page-hero{padding-block:2.75rem !important}}
+@media (max-width:29.999rem){.home-hero,.section.page-hero{padding-block:2.35rem !important}}
+.home-hero__copy,.page-hero__copy,.home-hero__inner>div:first-child{min-width:0}
+.home-hero h1,.section.page-hero h1{max-width:52rem !important}
+.home-hero p,.section.page-hero p{max-width:48rem}
