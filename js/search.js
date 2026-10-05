@@ -45,7 +45,7 @@
   form.addEventListener("submit",function(event){
     event.preventDefault();
     const query=input.value.trim();
-    const target=query?"/bagusin/search/?q="+encodeURIComponent(query):"/bagusin/search/";
+    const prefix=window.location.hostname.endsWith("github.io")?"/bagusin":"";\n    const target=query?prefix+"/search/?q="+encodeURIComponent(query):prefix+"/search/";
     window.location.href=target;
   });
   document.querySelectorAll("[data-page-suggestion]").forEach(function(button){
