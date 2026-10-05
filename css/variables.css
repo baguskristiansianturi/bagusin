@@ -132,6 +132,9 @@
   --header-height: 4.5rem;
   --header-height-mobile: 4rem;
 
+  /* Shared hero rhythm: short heroes keep this minimum; long content may grow naturally. */
+  --hero-min-height: 0px;
+
   /* -------------------------------------------------------
      BORDERS / RADIUS
      ------------------------------------------------------- */
@@ -233,6 +236,7 @@
 
   :root {
     --page-padding: 2.5rem;
+    --hero-min-height: calc(100svh - var(--header-height));
   }
 
 }
