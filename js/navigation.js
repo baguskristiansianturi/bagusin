@@ -254,7 +254,11 @@
       return value;
     }
 
-    const currentPath = normalizePath(window.location.pathname.replace(/^\\/bagusin(?=\\/|$)/, ""));
+    const currentPath = normalizePath(
+      window.location.pathname
+        .replace(/^\\/bagusin(?=\\/|$)/, "")
+        .replace(/^\\/en(?=\\/|$)/, "/en")
+    );
     document.querySelectorAll(".site-nav a, .mobile-nav a").forEach(function (link) {
       const href = link.getAttribute("href");
       if (!href || href.startsWith("#") || href.startsWith("http")) return;
