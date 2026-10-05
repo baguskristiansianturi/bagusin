@@ -61,3 +61,10 @@
 @media (prefers-reduced-motion:reduce){
   .site-footer__social-link{transition:none}
 }
+/* CP-10 footer finish */
+.site-footer{position:relative;overflow:hidden;border-top:1px solid rgba(255,255,255,.08);background:radial-gradient(circle at 86% 0%,rgba(82,151,135,.13),transparent 26%),linear-gradient(180deg,#111715 0%,#0d100f 100%)}
+.site-footer::before{content:"";position:absolute;width:24rem;height:24rem;right:-12rem;top:-15rem;border:1px solid rgba(255,255,255,.07);border-radius:50%;pointer-events:none}
+.site-footer__main,.site-footer__inner{position:relative}
+.site-footer__link,.site-footer__legal-link{overflow-wrap:anywhere}
+.site-footer__cta{min-height:7rem}
+@media(max-width:47.999rem){.site-footer__top{gap:1.5rem 1rem}.site-footer__cta-description{max-width:34rem}}

@@ -3,7 +3,41 @@
    Uses global design tokens; no page-specific framework.
 */
 
-.home-hero{padding-block:clamp(4.5rem,10vw,8rem);border-bottom:1px solid var(--color-border);background:linear-gradient(135deg,#fff 0%,#f7f9f8 68%,#e7f4f0 100%)}
+.home-hero{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  padding-block:clamp(4.5rem,10vw,8rem);
+  border-bottom:1px solid var(--color-border);
+  background:
+    radial-gradient(circle at 84% 18%,rgba(63,145,129,.25),transparent 22%),
+    radial-gradient(circle at 72% 88%,rgba(34,76,68,.12),transparent 28%),
+    linear-gradient(135deg,#ffffff 0%,#f5f9f7 54%,#e1eee9 100%);
+}
+.home-hero::before{
+  content:"";
+  position:absolute;
+  z-index:-2;
+  width:min(42rem,62vw);
+  aspect-ratio:1;
+  right:-11rem;
+  top:-15rem;
+  border:1px solid rgba(63,145,129,.22);
+  border-radius:50%;
+  box-shadow:0 0 0 3rem rgba(63,145,129,.035),0 0 0 8rem rgba(63,145,129,.018);
+}
+.home-hero::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:0;
+  opacity:.34;
+  background-image:linear-gradient(rgba(25,54,48,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(25,54,48,.045) 1px,transparent 1px);
+  background-size:3rem 3rem;
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.9),transparent 86%);
+  pointer-events:none;
+}
+.home-hero__inner{position:relative}
 .home-hero__inner{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(15rem,.65fr);gap:clamp(2.5rem,7vw,6rem);align-items:end}
 .home-hero__copy h1{max-width:52rem;margin-top:var(--space-3);font-size:clamp(3rem,9vw,6.5rem);letter-spacing:-.055em}
 .home-hero__lead{max-width:44rem;margin-top:var(--space-6);font-size:clamp(1.05rem,2vw,1.25rem);line-height:1.7}
@@ -100,3 +134,26 @@
 @media(max-width:55.999rem){.home-youtube__header{align-items:flex-start;flex-direction:column}.youtube-latest{grid-template-columns:1fr}.youtube-latest__content{max-width:42rem}}
 @media(max-width:29.999rem){.home-birthday-note{gap:.4rem}.youtube-latest__play{width:2.65rem;height:2.65rem;left:.75rem;bottom:.75rem}}
 @media(prefers-reduced-motion:reduce){.header-quick-search{transition:none}}
+
+/* CP-10 — hero information panel */
+.home-hero__aside{
+  position:relative;
+  overflow:hidden;
+  background:rgba(255,255,255,.50);
+  box-shadow:0 1.25rem 3rem rgba(20,44,39,.06);
+  backdrop-filter:blur(10px);
+}
+.home-hero__aside::after{
+  content:"";
+  position:absolute;
+  width:8rem;
+  height:8rem;
+  right:-3rem;
+  bottom:-3rem;
+  border:1px solid rgba(63,145,129,.18);
+  border-radius:50%;
+  pointer-events:none;
+}
+@media(prefers-reduced-motion:reduce){
+  .home-hero__aside{backdrop-filter:none;-webkit-backdrop-filter:none}
+}
