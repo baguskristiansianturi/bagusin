@@ -34,7 +34,15 @@ Implemented on branch `redesign/cp-05-work-evidence`.
 - Refined the Work visual treatment for desktop and mobile without replacing the established BagusIn visual language.
 - Protected project statuses: PROJECT / CONCEPT / EXPERIMENT; no invented results or testimonials.
 
+## CP-06 — Living Archive
+Implemented on branch `redesign/cp-06-living-archive`.
+- Blog, Places, and YouTube language now follows the same living-archive philosophy.
+- Existing deployed routes remain protected: `/journal/` and `/destinations/`; labels are Blog and Places.
+- YouTube homepage and YouTube page now share the same latest-video data contract.
+- Added shared `data/site-status.json` and `js/site-status.js` so current location/activity/availability can be changed in one place.
+- Places now connects its current state back to the living room/home.
+- No fabricated videos, destinations, ratings, or travel claims were added.
+
 ## Next
-- CP-06: connect Blog / Places / YouTube into a living archive and current-status system.
 - CP-07: Jastip / advertising / classified monetization without overpowering the house.
 - CP-08: responsive, accessibility, performance and link audit.
