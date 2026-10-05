@@ -300,3 +300,149 @@
     padding-block: 2.5rem;
   }
 }
+
+
+/* =========================================================
+   CP-13 — CURRENT STATUS / HERO RIGHT NOW
+   ========================================================= */
+
+/* Give the "Currently" block a calmer landing zone after the hero. */
+.home-status {
+  padding-top: clamp(3.5rem, 6vw, 5rem);
+}
+
+/* Desktop Right now: a compact panel that sits comfortably inside the hero. */
+@media (min-width: 64rem) {
+  .home-hero__aside {
+    width: 100%;
+    max-width: 22rem;
+    justify-self: end;
+    margin-bottom: .75rem;
+    padding: 1.25rem 1.35rem;
+    border: 1px solid rgba(63,145,129,.18);
+    border-radius: 1.15rem;
+    background: rgba(255,255,255,.66);
+    box-shadow: 0 1rem 2.5rem rgba(20,44,39,.07);
+  }
+
+  .home-hero__aside::after {
+    right: -2.5rem;
+    bottom: -2.5rem;
+  }
+}
+
+/* Mobile uses a compact horizontal card rather than the desktop editorial panel. */
+@media (max-width: 47.999rem) {
+  .home-hero__aside {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: .9rem 1rem;
+    align-items: center;
+    width: 100%;
+    max-width: none;
+    margin-top: .35rem;
+    padding: 1rem 1.05rem;
+    border: 1px solid rgba(63,145,129,.18);
+    border-radius: 1rem;
+    background: rgba(255,255,255,.78);
+    box-shadow: 0 .75rem 2rem rgba(20,44,39,.06);
+  }
+
+  .home-hero__aside-label {
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+
+  .home-hero__aside p {
+    margin: 0;
+    font-size: .86rem;
+    line-height: 1.55;
+  }
+
+  .home-hero__aside .text-link {
+    margin: 0;
+    align-self: end;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 29.999rem) {
+  .home-status {
+    padding-top: 3rem;
+  }
+
+  .home-hero__aside {
+    grid-template-columns: 1fr;
+    gap: .65rem;
+    padding: .9rem;
+  }
+
+  .home-hero__aside .text-link {
+    justify-self: start;
+  }
+}
+
+/* CP-13 — make obvious destinations look clickable without turning the site into a button grid. */
+.home-story h3 a,
+.home-pillar,
+.home-service-list a,
+.home-about .text-link,
+.home-more .home-pillar,
+.home-hero__aside .text-link {
+  color: var(--color-text);
+}
+
+.home-story h3 a:hover,
+.home-pillar:hover,
+.home-service-list a:hover,
+.home-about .text-link:hover,
+.home-more .home-pillar:hover,
+.home-hero__aside .text-link:hover {
+  color: var(--color-accent-dark);
+}
+
+.home-story .text-link,
+.home-pillar .text-link,
+.home-service-list a,
+.home-about .text-link,
+.home-more .text-link {
+  color: var(--color-accent-dark);
+  text-decoration: underline;
+  text-decoration-color: rgba(63,145,129,.45);
+  text-decoration-thickness: .1em;
+  text-underline-offset: .2em;
+}
+
+.home-story .text-link:hover,
+.home-pillar .text-link:hover,
+.home-service-list a:hover,
+.home-about .text-link:hover,
+.home-more .text-link:hover {
+  color: #2f7669;
+  text-decoration-color: currentColor;
+}
+
+.home-story .text-link__arrow,
+.home-pillar .text-link__arrow,
+.home-more .text-link__arrow {
+  color: inherit;
+  font-weight: 800;
+}
+
+.home-hero__actions .button,
+.home-work__copy .button,
+.home-newsletter__action .button {
+  box-shadow: 0 .45rem 1.1rem rgba(63,145,129,.12);
+}
+
+@media (max-width: 47.999rem) {
+  .home-story .text-link,
+  .home-pillar .text-link,
+  .home-about .text-link,
+  .home-more .text-link {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    min-height: 2.75rem;
+  }
+}
