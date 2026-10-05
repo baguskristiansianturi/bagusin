@@ -76,3 +76,27 @@
 .home-status__card strong{display:block;margin-top:.25rem;color:var(--color-text);font-size:var(--text-base)}
 .home-status__private{display:block;margin-top:.3rem;color:var(--color-text-muted);font-size:var(--text-xs);line-height:1.5}
 @media(max-width:767px){.home-status__inner{grid-template-columns:1fr;gap:1.5rem}.home-status{padding-top:var(--space-8)}}
+
+
+/* =========================================================
+   Living room + launch day + latest YouTube
+   ========================================================= */
+.home-birthday-note{display:flex;flex-wrap:wrap;align-items:baseline;gap:.75rem;margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--color-border-strong);color:var(--color-text-muted)}
+.home-birthday-note strong{color:var(--color-text);font-size:1rem;letter-spacing:-.02em}
+.home-birthday-note span{font-size:.78rem}
+.home-youtube__header{display:flex;align-items:end;justify-content:space-between;gap:2rem;margin-bottom:2rem}
+.home-youtube__header h2{max-width:46rem;color:#fff;font-size:clamp(2rem,5vw,3.5rem)}
+.home-youtube__header p{max-width:40rem;margin-top:var(--space-4);color:rgba(255,255,255,.72);line-height:1.75}
+.youtube-latest{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(18rem,.65fr);gap:clamp(1.5rem,5vw,4rem);align-items:center;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.14)}
+.youtube-latest__media{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:#151a18}
+.youtube-latest__thumbnail{display:block;width:100%;height:100%;object-fit:cover}
+.youtube-latest__placeholder{display:grid;place-items:center;width:100%;height:100%;background:linear-gradient(135deg,#1b211f,#34423e);color:rgba(255,255,255,.62);font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.youtube-latest__play{position:absolute;left:1rem;bottom:1rem;display:grid;place-items:center;width:3rem;height:3rem;border-radius:50%;background:#fff;color:#111;font-size:.75rem;box-shadow:0 8px 24px rgba(0,0,0,.24)}
+.youtube-latest__content{min-width:0}
+.youtube-latest__eyebrow{display:block;color:var(--color-accent);font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.youtube-latest__content h3{margin-top:.65rem;color:#fff;font-size:clamp(1.35rem,2.5vw,2rem);line-height:1.2}
+.youtube-latest__content p{margin-top:.8rem;color:rgba(255,255,255,.68);font-size:.9rem;line-height:1.7}
+.youtube-latest__content .text-link{margin-top:1.25rem}
+@media(max-width:55.999rem){.home-youtube__header{align-items:flex-start;flex-direction:column}.youtube-latest{grid-template-columns:1fr}.youtube-latest__content{max-width:42rem}}
+@media(max-width:29.999rem){.home-birthday-note{gap:.4rem}.youtube-latest__play{width:2.65rem;height:2.65rem;left:.75rem;bottom:.75rem}}
+@media(prefers-reduced-motion:reduce){.header-quick-search{transition:none}}
