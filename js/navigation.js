@@ -154,7 +154,8 @@
       }
       event.preventDefault();
       const projectPrefix = window.location.hostname.endsWith("github.io") ? "/bagusin" : "";
-      const searchBase = window.location.pathname.startsWith("/bagusin/en/") || window.location.pathname.startsWith("/en/") ? projectPrefix + "/en/search/" : projectPrefix + "/search/";
+      const isEnglish = window.location.pathname.replace(/^\\/bagusin/, "").startsWith("/en/");
+      const searchBase = isEnglish ? projectPrefix + "/en/search/" : projectPrefix + "/search/";
       window.location.href = searchBase + "?q=" + encodeURIComponent(query);
     });
 
@@ -254,7 +255,11 @@
       return value;
     }
 
-    const currentPath = normalizePath(window.location.pathname.replace(/^\\/bagusin(?=\\/|$)/, ""));
+    const currentPath = normalizePath(
+      window.location.pathname
+        .replace(/^\\/bagusin(?=\\/|$)/, "")
+        .replace(/^\\/en(?=\\/|$)/, "/en")
+    );
     document.querySelectorAll(".site-nav a, .mobile-nav a").forEach(function (link) {
       const href = link.getAttribute("href");
       if (!href || href.startsWith("#") || href.startsWith("http")) return;

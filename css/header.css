@@ -140,3 +140,46 @@ body.menu-open{overflow:hidden}
 .header-quick-search input::placeholder{color:var(--color-text-muted,#888)}
 @media(min-width:56rem){.header-quick-search{display:flex}.site-nav{margin-left:auto}}
 @media(max-width:55.999rem){.header-quick-search{display:none}}
+
+/* =========================================================
+   CP-10B — Navigation hierarchy
+   Calm desktop utility, clearer mobile grouping, stable touch targets.
+   ========================================================= */
+.mobile-nav{
+  padding-top:1.25rem;
+  background:rgba(250,252,251,.985);
+}
+.mobile-nav__group{
+  display:flex;
+  flex-direction:column;
+  gap:.15rem;
+  margin-top:.35rem;
+  padding:.8rem .5rem .55rem;
+  border:1px solid var(--color-border,#e7e7e7);
+  border-radius:.85rem;
+  background:rgba(255,255,255,.72);
+}
+.mobile-nav__group .mobile-nav__label{
+  padding:.1rem .35rem .35rem;
+}
+.mobile-nav__group .mobile-nav__link{
+  min-height:2.85rem;
+  padding-inline:.65rem;
+}
+.mobile-nav__footer{
+  margin-top:1.5rem;
+}
+@media(max-width:55.999rem){
+  .header-search__suggestions{
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    padding-bottom:.2rem;
+    scrollbar-width:none;
+    overscroll-behavior-x:contain;
+  }
+  .header-search__suggestions::-webkit-scrollbar{display:none}
+  .header-search__suggestion{flex:0 0 auto}
+}
+@media(prefers-reduced-motion:reduce){
+  .header-quick-search,.mobile-nav{transition:none}
+}
