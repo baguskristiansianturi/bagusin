@@ -255,6 +255,12 @@
     }
 
     const currentPath = normalizePath(window.location.pathname.replace(/^\\/bagusin(?=\\/|$)/, ""));
+
+    // Keep the language control truthful to the current section.
+    const languageCode = languageToggle?.querySelector("span:first-child");
+    const isEnglish = currentPath === "/en/" || currentPath.startsWith("/en/");
+    if (languageCode) languageCode.textContent = isEnglish ? "EN" : "ID";
+    languageToggle?.setAttribute("aria-label", isEnglish ? "Choose language · English" : "Pilih bahasa · Indonesia");
     document.querySelectorAll(".site-nav a, .mobile-nav a").forEach(function (link) {
       const href = link.getAttribute("href");
       if (!href || href.startsWith("#") || href.startsWith("http")) return;
@@ -272,8 +278,8 @@
     dropdownToggles.forEach(function (toggle) {
       const item = toggle.closest(".site-nav__item");
       if (!item) return;
-      const isWorkArea = currentPath.startsWith("/bagusin/work/") || currentPath.startsWith("/bagusin/portfolio/") ||
-        currentPath.startsWith("/bagusin/en/work/") || currentPath.startsWith("/bagusin/en/portfolio/");
+      const isWorkArea = currentPath.startsWith("/work/") || currentPath.startsWith("/portfolio/") ||
+        currentPath.startsWith("/en/work/") || currentPath.startsWith("/en/portfolio/");
       toggle.classList.toggle("is-active", isWorkArea);
       if (isWorkArea) toggle.setAttribute("aria-current", "page");
       else toggle.removeAttribute("aria-current");
