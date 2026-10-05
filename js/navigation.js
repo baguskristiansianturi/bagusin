@@ -98,19 +98,19 @@
         header.appendChild(searchPanel);
       }
 
+      // CP-24 — rebuild the quick search on every route so no page keeps stale markup.
       let quickSearch = header.querySelector(".header-quick-search");
-      if (!quickSearch) {
-        quickSearch = document.createElement("form");
-        quickSearch.className = "header-quick-search";
-        quickSearch.setAttribute("role", "search");
-        quickSearch.innerHTML =
-          '<label class="sr-only" for="header-quick-search-input">' + labels.search + '</label>' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.2 4.2"></path></svg>' +
-          '<input id="header-quick-search-input" name="q" type="search" placeholder="' + labels.search + '" autocomplete="off">';
-        const brand = header.querySelector(".site-brand");
-        brand?.insertAdjacentElement("afterend", quickSearch);
-      }
+      const brand = header.querySelector(".site-brand");
+      if (quickSearch) quickSearch.remove();
+      quickSearch = document.createElement("form");
+      quickSearch.className = "header-quick-search";
+      quickSearch.setAttribute("role", "search");
       quickSearch.setAttribute("action", p + "/" + lang + "search/");
+      quickSearch.innerHTML =
+        '<label class="sr-only" for="header-quick-search-input">' + labels.search + '</label>' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.2 4.2"></path></svg>' +
+        '<input id="header-quick-search-input" name="q" type="search" placeholder="' + labels.search + '" autocomplete="off">';
+      brand?.insertAdjacentElement("afterend", quickSearch);
       const languageMenu = header.querySelector("#language-menu");
       if (languageMenu) {
         const rawPath = (window.location.pathname || "/").replace(/^\\/bagusin(?=\\/|$)/, "") || "/";
