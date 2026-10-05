@@ -266,6 +266,18 @@
       } catch (_) {}
     });
 
+    // "Work" is a grouped navigation item, so expose its active state
+    // when the visitor is inside either Services or Work.
+    dropdownToggles.forEach(function (toggle) {
+      const item = toggle.closest(".site-nav__item");
+      if (!item) return;
+      const isWorkArea = currentPath.startsWith("/bagusin/work/") || currentPath.startsWith("/bagusin/portfolio/") ||
+        currentPath.startsWith("/bagusin/en/work/") || currentPath.startsWith("/bagusin/en/portfolio/");
+      toggle.classList.toggle("is-active", isWorkArea);
+      if (isWorkArea) toggle.setAttribute("aria-current", "page");
+      else toggle.removeAttribute("aria-current");
+    });
+
     setHidden(searchPanel, true);
     setHidden(languageMenu, true);
     setHidden(mobileOverlay, true);
