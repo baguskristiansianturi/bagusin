@@ -25,11 +25,11 @@
   function getQuery(){return new URLSearchParams(window.location.search).get("q")?.trim()||""}
   function render(query){
     const normalized=query.toLowerCase();
-    const terms=normalized.split(/\\s+/).filter(Boolean);
-    const found=terms.length?items.filter(function(item){
+    const terms=normalized.split(/\s+/).filter(Boolean);
+    const found=terms.length ? items.filter(function(item){
       const haystack=(item.title+" "+item.category+" "+item.type+" "+item.description+" "+item.keywords).toLowerCase();
       return terms.every(function(term){return haystack.includes(term);});
-    }):items;
+    }) : items;
     results.innerHTML="";
     found.forEach(function(item){
       const article=document.createElement("article");
