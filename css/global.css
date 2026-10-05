@@ -1027,3 +1027,61 @@ a:focus-visible {
     padding-block: 2.35rem !important;
   }
 }
+
+/* =========================================================
+   CP-20 — HOMEPAGE HERO IS THE AUTHORITATIVE HERO RHYTHM
+   Short heroes match the homepage. Long heroes grow naturally.
+   The content rail never expands to fill the hero.
+   ========================================================= */
+:root {
+  --hero-height-reference: var(--hero-min-height);
+}
+
+.home-hero,
+.section.page-hero {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--hero-height-reference) !important;
+}
+
+.home-hero > .container,
+.section.page-hero > .container,
+.section.page-hero > .container--narrow,
+.section.page-hero > .container--article {
+  box-sizing: border-box;
+  width: min(calc(100% - (var(--page-padding) * 2)), var(--content-width));
+  max-width: var(--content-width);
+  margin-inline: auto;
+}
+
+@media (min-width: 64rem) {
+  .home-hero,
+  .section.page-hero {
+    min-height: var(--hero-height-reference) !important;
+    padding-block: clamp(2.75rem, 6vh, 5rem) !important;
+    display: grid;
+    align-items: center;
+  }
+}
+
+@media (max-width: 63.999rem) {
+  .home-hero,
+  .section.page-hero {
+    min-height: 0 !important;
+    padding-block: 3rem !important;
+  }
+}
+
+@media (max-width: 47.999rem) {
+  .home-hero,
+  .section.page-hero {
+    padding-block: 2.75rem !important;
+  }
+}
+
+@media (max-width: 29.999rem) {
+  .home-hero,
+  .section.page-hero {
+    padding-block: 2.35rem !important;
+  }
+}
