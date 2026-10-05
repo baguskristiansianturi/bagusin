@@ -476,3 +476,43 @@ body.menu-open{overflow:hidden}
     width: 100%;
   }
 }
+
+
+/* =========================================================
+   CP-15 — GLOBAL HORIZONTAL ALIGNMENT
+   Header, page content and footer must share the same container edge.
+   ========================================================= */
+
+/* The desktop search owns only the space between the brand and Blog.
+   The navigation itself stays anchored to the same right edge as the
+   global content/footer container instead of being pushed left by search. */
+@media (min-width: 56rem) {
+  .site-header__inner {
+    width: min(calc(100% - (var(--page-padding) * 2)), var(--content-width));
+  }
+
+  .header-quick-search {
+    flex: 1 1 auto;
+    width: auto;
+    max-width: none;
+    min-width: 12rem;
+    margin-left: .2rem;
+    margin-right: .35rem;
+  }
+
+  .site-nav {
+    margin-left: 0;
+    flex: 0 0 auto;
+  }
+
+  .site-header__actions {
+    margin-left: 0;
+  }
+}
+
+@media (min-width: 72rem) {
+  .header-quick-search {
+    flex-basis: auto;
+    max-width: none;
+  }
+}
