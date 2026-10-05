@@ -487,3 +487,11 @@
 .home-story h3 a:hover {
   text-decoration: none;
 }
+
+
+/* CP-15 — keep the hero content on the exact global content rail. */
+.home-hero > .container {
+  width: min(calc(100% - (var(--page-padding) * 2)), var(--content-width));
+  max-width: var(--content-width);
+  margin-inline: auto;
+}
