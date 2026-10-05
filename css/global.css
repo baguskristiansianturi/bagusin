@@ -961,3 +961,69 @@ a:focus-visible {
     padding-block:2.35rem !important;
   }
 }
+
+
+/* =========================================================
+   CP-19 — FINAL GLOBAL HERO RAIL
+   Header, homepage hero and inner-page hero all use the same
+   horizontal rail and the same desktop viewport rhythm.
+   ========================================================= */
+:root {
+  --shell-width: var(--content-width);
+}
+
+.site-header__inner,
+.container,
+.section.page-hero > .container,
+.section.page-hero > .container--narrow,
+.section.page-hero > .container--article,
+.home-hero > .container {
+  width: min(calc(100% - (var(--page-padding) * 2)), var(--shell-width));
+  max-width: var(--shell-width);
+  margin-inline: auto;
+}
+
+.section.page-hero,
+.home-hero {
+  box-sizing: border-box;
+}
+
+.section.page-hero > .container,
+.home-hero > .container {
+  box-sizing: border-box;
+}
+
+.section.page-hero h1,
+.home-hero h1 {
+  max-width: 48rem;
+}
+
+@media (min-width: 64rem) {
+  .section.page-hero,
+  .home-hero {
+    min-height: var(--hero-min-height);
+    padding-block: clamp(2.75rem, 6vh, 5rem) !important;
+  }
+}
+
+@media (max-width: 63.999rem) {
+  .section.page-hero,
+  .home-hero {
+    min-height: 0;
+    padding-block: 3rem !important;
+  }
+}
+
+@media (max-width: 47.999rem) {
+  .section.page-hero,
+  .home-hero {
+    padding-block: 2.75rem !important;
+  }
+}
+
+@media (max-width: 29.999rem) {
+  .section.page-hero,
+  .home-hero {
+    padding-block: 2.35rem !important;
+  }
+}
