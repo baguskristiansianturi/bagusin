@@ -159,6 +159,8 @@
       });
     }
 
-    document.documentElement.dataset.siteHost = isProjectHost ? "github-pages-project" : "custom-domain";\n\n    document.dispatchEvent(new CustomEvent("bagusin:ready"));
+    document.documentElement.dataset.siteHost = isProjectHost ? "github-pages-project" : "custom-domain";
+
+    document.dispatchEvent(new CustomEvent("bagusin:ready"));
   });
 })();
