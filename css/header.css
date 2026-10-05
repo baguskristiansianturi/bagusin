@@ -338,3 +338,45 @@ body.menu-open{overflow:hidden}
 .nav-dropdown {
   max-width: min(16rem, calc(100vw - 2rem));
 }
+
+
+@media (min-width: 72rem) {
+  /* Quick search is the desktop search affordance; avoid two competing search controls. */
+  .site-header__actions > [data-search-toggle] {
+    display: none;
+  }
+}
+
+@media (max-width: 55.999rem) {
+  .mobile-nav {
+    overscroll-behavior-y: contain;
+  }
+
+  .mobile-nav__list {
+    padding-bottom: .5rem;
+  }
+
+  .mobile-nav__group {
+    margin-top: .35rem;
+    padding-top: .7rem;
+  }
+
+  .mobile-nav__group .mobile-nav__label {
+    padding-inline: .8rem;
+    margin-bottom: .2rem;
+  }
+
+  .mobile-nav__footer {
+    margin-top: 1rem;
+  }
+}
+
+/* Make anchor jumps predictable under the sticky header. */
+[id] {
+  scroll-margin-top: calc(var(--header-height) + 1rem);
+}
+@media (max-width: 55.999rem) {
+  [id] {
+    scroll-margin-top: calc(var(--header-height-mobile) + 1rem);
+  }
+}
