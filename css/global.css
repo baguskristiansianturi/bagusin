@@ -1121,3 +1121,126 @@ a:focus-visible {
     margin-left: 0 !important;
   }
 }
+
+/* =========================================================
+   CP-22 — RELEVANT IMAGE PLACEHOLDERS
+   Every visual slot that is designed to receive photography
+   starts with a real, relevant image. Replace the URL later
+   without changing the layout.
+   ========================================================= */
+
+/* Home / editorial stories */
+.home-story__visual {
+  background-image:
+    linear-gradient(180deg, rgba(10,25,22,.08), rgba(10,25,22,.42)),
+    url("https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1400&q=80") !important;
+  background-size: cover;
+  background-position: center;
+}
+.home-story__visual--soft {
+  background-image:
+    linear-gradient(180deg, rgba(10,25,22,.06), rgba(10,25,22,.38)),
+    url("https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1400&q=80") !important;
+}
+.home-story__visual--dark {
+  background-image:
+    linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.52)),
+    url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=80") !important;
+}
+
+/* Places */
+.destination-card__visual {
+  background-image:
+    linear-gradient(180deg, rgba(10,25,22,.04), rgba(10,25,22,.42)),
+    url("https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1400&q=80") !important;
+  background-size: cover;
+  background-position: center;
+}
+.destination-card__visual--soft {
+  background-image:
+    linear-gradient(180deg, rgba(10,25,22,.04), rgba(10,25,22,.40)),
+    url("https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=1400&q=80") !important;
+}
+.destination-card__visual--dark {
+  background-image:
+    linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.52)),
+    url("https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?auto=format&fit=crop&w=1400&q=80") !important;
+}
+
+/* Work / evidence */
+.work-page--evidence .work-project__visual,
+.portfolio-project__visual {
+  background-image:
+    linear-gradient(180deg, rgba(10,25,22,.05), rgba(10,25,22,.48)),
+    url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80") !important;
+  background-size: cover;
+  background-position: center;
+}
+.portfolio-project__visual--journal {
+  background-image:
+    linear-gradient(180deg, rgba(10,25,22,.05), rgba(10,25,22,.44)),
+    url("https://images.unsplash.com/photo-1456324504439-367cee3b3c32?auto=format&fit=crop&w=1400&q=80") !important;
+}
+.portfolio-project__visual--studio {
+  background-image:
+    linear-gradient(180deg, rgba(10,25,22,.05), rgba(10,25,22,.46)),
+    url("https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1400&q=80") !important;
+}
+.portfolio-project__visual--delivery {
+  background-image:
+    linear-gradient(180deg, rgba(10,25,22,.05), rgba(10,25,22,.46)),
+    url("https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1400&q=80") !important;
+}
+
+/* Article recommendation tiles */
+.article-recommendation__media {
+  background-size: cover;
+  background-position: center;
+}
+.article-recommendation__media--photo {
+  background-image:
+    linear-gradient(180deg, rgba(10,25,22,.05), rgba(10,25,22,.42)),
+    url("https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=80") !important;
+}
+.article-recommendation__media--work {
+  background-image:
+    linear-gradient(180deg, rgba(10,25,22,.05), rgba(10,25,22,.46)),
+    url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=80") !important;
+}
+.article-recommendation__media--portfolio {
+  background-image:
+    linear-gradient(180deg, rgba(10,25,22,.05), rgba(10,25,22,.46)),
+    url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1000&q=80") !important;
+}
+.article-recommendation__media--youtube {
+  background-image:
+    linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.48)),
+    url("https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?auto=format&fit=crop&w=1000&q=80") !important;
+}
+.article-recommendation__media--journal {
+  background-image:
+    linear-gradient(180deg, rgba(10,25,22,.05), rgba(10,25,22,.42)),
+    url("https://images.unsplash.com/photo-1456324504439-367cee3b3c32?auto=format&fit=crop&w=1000&q=80") !important;
+}
+
+/* YouTube latest: keep a visual present even before the first video exists. */
+.youtube-latest__media {
+  background-image:
+    linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.48)),
+    url("https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?auto=format&fit=crop&w=1600&q=80") !important;
+  background-size: cover;
+  background-position: center;
+}
+.youtube-latest__placeholder {
+  background: transparent !important;
+}
+
+/* Generic visual slots: keep the image as the base layer while
+   preserving existing overlays, labels and typography. */
+.work-project__visual,
+.destination-card__visual,
+.home-story__visual,
+.portfolio-project__visual,
+.youtube-latest__media {
+  background-color: #dfe9e5;
+}
