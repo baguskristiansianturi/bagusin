@@ -446,3 +446,44 @@
     min-height: 2.75rem;
   }
 }
+
+
+/* =========================================================
+   CP-14 — DESKTOP HERO PROPORTION + CLEAN LINK TREATMENT
+   ========================================================= */
+
+/* Desktop hero should feel like the opening room of the site: nearly
+   viewport-height, but still content-driven and never forced on mobile. */
+@media (min-width: 64rem) {
+  .home-hero {
+    min-height: calc(100svh - 4.5rem);
+    display: grid;
+    align-items: center;
+  }
+
+  .home-hero__inner {
+    width: 100%;
+  }
+}
+
+/* Keep navigation-style links visually clean. Clickability is communicated
+   through hierarchy, spacing, hover color and the arrow — not underlines. */
+.home-story .text-link,
+.home-pillar .text-link,
+.home-service-list a,
+.home-about .text-link,
+.home-more .text-link,
+.home-hero__aside .text-link,
+.home-story h3 a {
+  text-decoration: none;
+}
+
+.home-story .text-link:hover,
+.home-pillar .text-link:hover,
+.home-service-list a:hover,
+.home-about .text-link:hover,
+.home-more .text-link:hover,
+.home-hero__aside .text-link:hover,
+.home-story h3 a:hover {
+  text-decoration: none;
+}
