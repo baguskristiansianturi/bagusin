@@ -573,3 +573,19 @@ body.menu-open{overflow:hidden}
     padding-inline: .42rem;
   }
 }
+
+/* CP-23 — FINAL GLOBAL NAVBAR CONTRACT. */
+.site-header__inner{width:min(calc(100% - (var(--page-padding)*2)),var(--content-width)) !important;max-width:var(--content-width) !important;min-width:0 !important;box-sizing:border-box !important}
+.site-brand{flex:0 0 auto !important;min-width:0 !important}
+.site-header__actions{flex:0 0 auto !important;margin-left:0 !important;gap:.15rem !important}
+@media (min-width:56rem){
+ .site-header__inner{display:flex !important;align-items:center !important;gap:.7rem !important}
+ .header-quick-search{display:flex !important;flex:1 1 auto !important;width:auto !important;min-width:10rem !important;max-width:none !important;margin-inline:.35rem !important;height:2.55rem !important}
+ .site-nav{display:block !important;flex:0 0 auto !important;margin:0 !important;min-width:max-content !important}
+ .site-nav__list{display:flex !important;align-items:center !important;gap:.05rem !important;white-space:nowrap !important}
+ .site-nav__item{flex:0 0 auto !important}
+ .site-nav__link,.nav-dropdown-toggle{min-height:2.7rem !important;padding-inline:.62rem !important;border-radius:.55rem !important;font-size:.8rem !important}
+ .site-header__actions{margin-left:0 !important}
+}
+@media (min-width:72rem){.header-quick-search{min-width:14rem !important}.site-nav__link,.nav-dropdown-toggle{padding-inline:.68rem !important;font-size:.82rem !important}}
+@media (max-width:55.999rem){.site-header__inner{min-height:var(--header-height-mobile) !important;height:var(--header-height-mobile) !important;gap:.35rem !important}.header-quick-search{display:none !important}.site-brand{flex:1 1 auto !important}.site-header__actions{margin-left:auto !important}}
