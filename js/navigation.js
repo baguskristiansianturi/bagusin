@@ -73,6 +73,31 @@
           '<li><a class="mobile-nav__link" href="' + p + "/" + lang + 'contact/">' + labels.contact + '</a></li>';
       }
 
+      // CP-21 — every route gets the same desktop quick search and expandable search panel.
+      // Do not depend on individual HTML pages carrying the latest header markup.
+      let searchPanel = header.querySelector("#header-search");
+      if (!searchPanel) {
+        searchPanel = document.createElement("div");
+        searchPanel.className = "header-search";
+        searchPanel.id = "header-search";
+        searchPanel.hidden = true;
+        searchPanel.innerHTML =
+          '<div class="header-search__inner container">' +
+            '<form class="search-field" action="' + p + "/" + lang + 'search/" method="get" role="search">' +
+              '<label class="sr-only" for="global-search">'+ labels.search +'</label>' +
+              '<input id="global-search" name="q" type="search" placeholder="'+ labels.search +'..." autocomplete="off">' +
+              '<button class="button button--accent button--small" type="submit">'+ labels.searchButton +'</button>' +
+            '</form>' +
+            '<div class="header-search__suggestions" aria-label="Search suggestions">' +
+              '<button class="header-search__suggestion" type="button" data-search-suggestion="Bali">Bali</button>' +
+              '<button class="header-search__suggestion" type="button" data-search-suggestion="Remote Work">Remote Work</button>' +
+              '<button class="header-search__suggestion" type="button" data-search-suggestion="Freelancing">Freelancing</button>' +
+              '<button class="header-search__suggestion" type="button" data-search-suggestion="Travel">Travel</button>' +
+            '</div>' +
+          '</div>';
+        header.appendChild(searchPanel);
+      }
+
       let quickSearch = header.querySelector(".header-quick-search");
       if (!quickSearch) {
         quickSearch = document.createElement("form");
