@@ -516,3 +516,13 @@ body.menu-open{overflow:hidden}
     max-width: none;
   }
 }
+
+
+/* CP-17 — stable global header height */
+@media (min-width: 30rem) {
+  .site-header__inner { height: var(--header-height); min-height: var(--header-height); }
+}
+@media (max-width: 29.999rem) {
+  .site-header__inner { height: var(--header-height-mobile); min-height: var(--header-height-mobile); }
+  .mobile-nav { top: var(--header-height-mobile); }
+}
