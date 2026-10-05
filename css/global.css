@@ -926,3 +926,38 @@ a:focus-visible {
 @media(prefers-reduced-motion:reduce){
   .page-hero .hero-note{backdrop-filter:none;-webkit-backdrop-filter:none}
 }
+
+
+/* =========================================================
+   CP-18 — ONE HERO CONTRACT FOR EVERY PAGE
+   Page-specific hero classes may style typography/visuals, but
+   they cannot change the shared height or horizontal rail.
+   ========================================================= */
+.section.page-hero{
+  min-height:var(--hero-min-height);
+  box-sizing:border-box;
+  padding-block:clamp(2.75rem,6vh,5rem) !important;
+}
+.section.page-hero > .container,
+.section.page-hero > .container--narrow,
+.section.page-hero > .container--article{
+  width:min(calc(100% - (var(--page-padding) * 2)),var(--content-width));
+  max-width:var(--content-width);
+  margin-inline:auto;
+}
+@media (max-width:63.999rem){
+  .section.page-hero{
+    min-height:0;
+    padding-block:3rem !important;
+  }
+}
+@media (max-width:47.999rem){
+  .section.page-hero{
+    padding-block:2.75rem !important;
+  }
+}
+@media (max-width:29.999rem){
+  .section.page-hero{
+    padding-block:2.35rem !important;
+  }
+}
