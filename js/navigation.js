@@ -153,7 +153,8 @@
         return;
       }
       event.preventDefault();
-      const projectPrefix = window.location.hostname.endsWith("github.io") ? "/bagusin" : "";\n      const searchBase = window.location.pathname.startsWith("/bagusin/en/") || window.location.pathname.startsWith("/en/") ? projectPrefix + "/en/search/" : projectPrefix + "/search/";
+      const projectPrefix = window.location.hostname.endsWith("github.io") ? "/bagusin" : "";
+      const searchBase = window.location.pathname.startsWith("/bagusin/en/") || window.location.pathname.startsWith("/en/") ? projectPrefix + "/en/search/" : projectPrefix + "/search/";
       window.location.href = searchBase + "?q=" + encodeURIComponent(query);
     });
 
