@@ -53,5 +53,15 @@ Implemented on branch `redesign/cp-07-monetization`.
 - Homepage now introduces the three doors quietly and the sitemap includes their routes.
 - No fake listings, prices, sponsors, transactions, testimonials, or monetization results were invented.
 
+## CP-08 — Responsive / Accessibility / Performance Audit
+Implemented on branch `redesign/cp-08-audit`.
+- Hardened the shared responsive foundation across mobile, tablet, desktop, and large desktop widths.
+- Added safer mobile header/brand behavior, horizontal suggestion scrolling, and 16px-safe form controls.
+- Preserved 44px+ touch targets and existing keyboard/focus behavior.
+- Grouped Work navigation now exposes an active state for both Services and Work routes, including English routes.
+- Added reduced-motion hardening for visual effects and kept the site dependency-free.
+- Added `AUDIT_CP-08.md` with the browser verification matrix and explicit launch gate.
+- No protected route was renamed.
+
 ## Next
-- CP-08: responsive, accessibility, performance and link audit.
+- CP-09: launch readiness, final content/metadata review, domain/canonical verification, and final production checklist.

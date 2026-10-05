@@ -588,3 +588,76 @@ button,
   }
 
 }
+
+/* =========================================================
+   CROSS-DEVICE HARDENING
+   ========================================================= */
+
+html {
+  overscroll-behavior-x: none;
+}
+
+body {
+  overflow-wrap: anywhere;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+input,
+textarea,
+select {
+  font-size: max(1rem, 16px);
+}
+
+@media (max-width: 47.999rem) {
+  .site-header,
+  .site-header__inner,
+  .site-nav,
+  .site-header__actions {
+    min-width: 0;
+  }
+
+  .site-brand {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .site-brand__text,
+  .site-brand__name,
+  .site-brand__tagline {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mobile-nav {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  .header-search__suggestions {
+    max-width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: .15rem;
+    scrollbar-width: thin;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header,
+  .mobile-nav,
+  .mobile-nav-overlay,
+  .nav-dropdown,
+  .header-search {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
