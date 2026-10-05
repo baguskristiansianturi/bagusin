@@ -370,3 +370,83 @@
     opacity:.7;
   }
 }
+
+
+/* CP-10D — final article width and mobile stability */
+.article-page,
+.article-header,
+.article-layout,
+.article-recommendations {
+  min-width: 0;
+}
+
+.article-header__content,
+.article-header__dek,
+.article-content,
+.article-sidebar {
+  overflow-wrap: anywhere;
+}
+
+.article-content img,
+.article-content video,
+.article-content iframe,
+.article-content table {
+  max-width: 100%;
+}
+
+.article-content iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+}
+
+@media (max-width: 47.999rem) {
+  .article-header {
+    padding-inline: 0;
+  }
+
+  .article-header__meta {
+    justify-content: flex-start;
+  }
+
+  .article-layout {
+    width: 100%;
+  }
+
+  .article-content {
+    overflow: visible;
+  }
+
+  .article-content pre {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .article-reading-tools .share-bar {
+    width: 100%;
+  }
+
+  .article-reading-tools .share-button {
+    flex: 1 1 auto;
+  }
+
+  .article-recommendations {
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 29.999rem) {
+  .article-header__meta > * {
+    max-width: 100%;
+  }
+
+  .article-note,
+  .article-cta,
+  .journal-next {
+    padding: 1.1rem;
+  }
+
+  .article-reading-tools .share-button {
+    min-width: 2.75rem;
+  }
+}
