@@ -153,7 +153,7 @@
         return;
       }
       event.preventDefault();
-      const searchBase = window.location.pathname.startsWith("/bagusin/en/") ? "/bagusin/en/search/" : "/bagusin/search/";
+      const projectPrefix = window.location.hostname.endsWith("github.io") ? "/bagusin" : "";\n      const searchBase = window.location.pathname.startsWith("/bagusin/en/") || window.location.pathname.startsWith("/en/") ? projectPrefix + "/en/search/" : projectPrefix + "/search/";
       window.location.href = searchBase + "?q=" + encodeURIComponent(query);
     });
 
@@ -253,12 +253,12 @@
       return value;
     }
 
-    const currentPath = normalizePath(window.location.pathname);
+    const currentPath = normalizePath(window.location.pathname.replace(/^\\/bagusin(?=\\/|$)/, ""));
     document.querySelectorAll(".site-nav a, .mobile-nav a").forEach(function (link) {
       const href = link.getAttribute("href");
       if (!href || href.startsWith("#") || href.startsWith("http")) return;
       try {
-        const path = normalizePath(new URL(href, window.location.origin).pathname);
+        const path = normalizePath(new URL(href, window.location.origin).pathname.replace(/^\\/bagusin(?=\\/|$)/, ""));
         const active = path === "/" ? currentPath === "/" : currentPath === path || currentPath.startsWith(path);
         link.classList.toggle("is-active", active);
         if (active) link.setAttribute("aria-current", "page");

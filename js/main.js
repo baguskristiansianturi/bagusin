@@ -17,6 +17,22 @@
     document.documentElement.classList.add("js");
     document.documentElement.classList.remove("no-js");
 
+    /* GitHub Pages project-site compatibility.
+       BagusIn uses /bagusin/ when served from the repository URL,
+       but the canonical production domain is rooted at /. Keep both hosts usable. */
+    const isProjectHost = window.location.hostname.endsWith("github.io");
+    const projectPrefix = "/bagusin/";
+    if (!isProjectHost) {
+      document.querySelectorAll('a[href^="/bagusin/"]').forEach(function (link) {
+        const href = link.getAttribute("href");
+        if (href) link.setAttribute("href", href.replace(/^\\/bagusin\\//, "/"));
+      });
+      document.querySelectorAll('form[action^="/bagusin/"]').forEach(function (form) {
+        const action = form.getAttribute("action");
+        if (action) form.setAttribute("action", action.replace(/^\\/bagusin\\//, "/"));
+      });
+    }
+
     /* Current year */
     document.querySelectorAll("[data-current-year]").forEach(function (element) {
       element.textContent = String(new Date().getFullYear());
@@ -143,6 +159,6 @@
       });
     }
 
-    document.dispatchEvent(new CustomEvent("bagusin:ready"));
+    document.documentElement.dataset.siteHost = isProjectHost ? "github-pages-project" : "custom-domain";\n\n    document.dispatchEvent(new CustomEvent("bagusin:ready"));
   });
 })();
