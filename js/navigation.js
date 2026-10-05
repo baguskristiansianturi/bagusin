@@ -86,6 +86,17 @@
         brand?.insertAdjacentElement("afterend", quickSearch);
       }
       quickSearch.setAttribute("action", p + "/" + lang + "search/");
+      const languageMenu = header.querySelector("#language-menu");
+      if (languageMenu) {
+        const rawPath = (window.location.pathname || "/").replace(/^\\/bagusin(?=\\/|$)/, "") || "/";
+        const sectionPath = rawPath.startsWith("/en/") ? rawPath.slice(3) : rawPath;
+        const normalizedSection = sectionPath === "" ? "/" : (sectionPath.startsWith("/") ? sectionPath : "/" + sectionPath);
+        const idLink = languageMenu.querySelector('[lang="id"]');
+        const enLink = languageMenu.querySelector('[lang="en"]');
+        if (idLink) idLink.href = p + normalizedSection;
+        if (enLink) enLink.href = p + "/en" + (normalizedSection === "/" ? "/" : normalizedSection);
+      }
+
       quickSearch.addEventListener("submit", function (event) {
         const input = quickSearch.querySelector("input[name=\"q\"]");
         const query = (input?.value || "").trim();
