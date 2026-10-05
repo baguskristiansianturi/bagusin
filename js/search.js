@@ -2,18 +2,17 @@
 (function(){
   "use strict";
   const items=[
-    {title:"Bekerja dari mana saja bukan berarti bekerja tanpa arah",category:"Remote Work · Field Note",type:"Article",description:"Tentang arah kerja, ritme yang portable, project-based work, perjalanan, dan keputusan ketika tempat kerja bisa berpindah.",url:"/bagusin/journal/bekerja-dari-mana-saja/",keywords:"remote work field note kerja freelance project perjalanan travel bali indonesia software"},
-    {title:"Journal",category:"Journal",type:"Collection",description:"Catatan tentang kerja, perjalanan, freelancing, remote work, dan proses membangun sesuatu.",url:"/bagusin/journal/",keywords:"journal cerita stories field notes remote work travel freelancing"},
-    {title:"Remote Work",category:"Journal Topic",type:"Collection",description:"Kumpulan tulisan tentang remote work tanpa menganggap lokasi sebagai jawaban untuk semuanya.",url:"/bagusin/journal/remote-work/",keywords:"remote work kerja remote freelancer project-based ritme"},
-    {title:"Destinations",category:"Destinations",type:"Collection",description:"Catatan destinasi dilihat dari pengalaman berada di tempat, bukan katalog wisata.",url:"/bagusin/destinations/",keywords:"bali indonesia southeast asia travel destinations perjalanan"},
-    {title:"Work With Me",category:"Work",type:"Service",description:"Project-based remote work: copywriting, content, landing page, website, web application, software, dan improvement.",url:"/bagusin/work/",keywords:"work services copywriting content writing seo landing page ads website web application software engineering database ui ux maintenance"},
-    {title:"Portfolio",category:"Work",type:"Portfolio",description:"Project, concept, dan experiment yang dibangun, diuji, dan dieksplorasi.",url:"/bagusin/portfolio/",keywords:"portfolio project concept experiment software website bali bagus dev studio load delivery"},
-    {title:"YouTube",category:"YouTube",type:"Channel",description:"Video journal tentang travel, remote work, freelancing, software engineering, building, dan field notes.",url:"/bagusin/youtube/",keywords:"youtube video travel remote work freelancing software building field notes"},
-    {title:"About BagusIn",category:"About",type:"Page",description:"Mengenal BagusIn sebagai personal publication dan independent software studio.",url:"/bagusin/about/",keywords:"about bagusin personal publication independent software studio bagus kristian sianturi"},
-    {title:"Author — Bagus Kristian Sianturi",category:"Author",type:"Page",description:"Tentang penulis, freelancer, dan software engineer di balik BagusIn.",url:"/bagusin/author/",keywords:"author bagus kristian sianturi writer freelancer software engineer full stack"},
-    {title:"Contact",category:"Contact",type:"Page",description:"Mulai dari masalah. Ceritakan kebutuhan sebelum menentukan solusi, scope, timeline, dan biaya.",url:"/bagusin/contact/",keywords:"contact project problem requirement scope quotation remote"},
-    {title:"Bali Bagus Dev Studio",category:"Portfolio · Project",type:"Project",description:"Project software studio yang dibangun dan dikerjakan secara langsung.",url:"/bagusin/portfolio/",keywords:"bali bagus dev studio website software project"},
-    {title:"Bagus Load & Delivery",category:"Portfolio · Experiment",type:"Experiment",description:"Eksperimen product dan software untuk marketplace material konstruksi serta coordinated delivery.",url:"/bagusin/portfolio/",keywords:"bagus load delivery marketplace construction software experiment bali"}
+    {title:"Bekerja dari mana saja bukan berarti bekerja tanpa arah",category:"Blog · Remote Work",type:"Article",description:"Tentang arah kerja, ritme yang portable, project-based work, perjalanan, dan keputusan ketika tempat kerja bisa berpindah.",url:"/bagusin/journal/bekerja-dari-mana-saja/",keywords:"remote work field note kerja freelance project perjalanan travel bali indonesia software"},
+    {title:"Blog",category:"Blog",type:"Collection",description:"Catatan tentang kerja, perjalanan, freelancing, teknologi, opini, pengalaman, dan hal-hal yang layak disimpan.",url:"/bagusin/journal/",keywords:"blog cerita stories field notes remote work travel freelancing teknologi"},
+    {title:"Remote Work",category:"Blog Topic",type:"Collection",description:"Catatan tentang bekerja dari tempat yang berubah-ubah tanpa menganggap lokasi sebagai identitas.",url:"/bagusin/journal/remote-work/",keywords:"remote work kerja remote freelancer project-based ritme"},
+    {title:"Places",category:"Places",type:"Collection",description:"Jejak tempat dan pengalaman berada di suatu tempat, bukan katalog wisata.",url:"/bagusin/destinations/",keywords:"places bali indonesia southeast asia travel destinations perjalanan"},
+    {title:"Services",category:"Services",type:"Professional work",description:"Project-based work yang dapat dibicarakan secara profesional: brief, requirements, scope, quotation, production, review, delivery.",url:"/bagusin/work/",keywords:"services copywriting content writing seo landing page website web application software ui ux maintenance project quotation"},
+    {title:"Work",category:"Work",type:"Evidence",description:"Project, concept, dan experiment yang benar-benar dikerjakan, diuji, atau dikembangkan.",url:"/bagusin/portfolio/",keywords:"work portfolio project concept experiment software website"},
+    {title:"YouTube",category:"YouTube",type:"Channel",description:"Jendela ke kehidupan, pekerjaan, perjalanan, eksperimen, dan hal-hal yang sedang Bagus jalani.",url:"/bagusin/youtube/",keywords:"youtube video travel work life building field notes"},
+    {title:"About",category:"About",type:"Page",description:"Mengenal Bagus dan alasan BagusIn dibuat sebagai rumah di internet.",url:"/bagusin/about/",keywords:"about bagusin bagus kristian sianturi person life internet house"},
+    {title:"Contact",category:"Contact",type:"Page",description:"Hubungi Bagus untuk membicarakan kebutuhan, project, kolaborasi, atau hal lain yang relevan.",url:"/bagusin/contact/",keywords:"contact project requirement scope quotation collaboration"},
+    {title:"Bali Bagus Dev Studio",category:"Work · Project",type:"Project",description:"Project digital yang dibangun dan dikerjakan secara langsung.",url:"/bagusin/portfolio/",keywords:"bali bagus dev studio website software project"},
+    {title:"Bagus Load & Delivery",category:"Work · Experiment",type:"Experiment",description:"Eksperimen product dan software untuk marketplace material konstruksi serta coordinated delivery.",url:"/bagusin/portfolio/",keywords:"bagus load delivery marketplace construction software experiment bali"}
   ];
   const form=document.getElementById("search-page-form");
   const input=document.getElementById("page-search-input");
@@ -26,7 +25,11 @@
   function getQuery(){return new URLSearchParams(window.location.search).get("q")?.trim()||""}
   function render(query){
     const normalized=query.toLowerCase();
-    const found=normalized?items.filter(function(item){return (item.title+" "+item.category+" "+item.type+" "+item.description+" "+item.keywords).toLowerCase().includes(normalized)}):items;
+    const terms=normalized.split(/\\s+/).filter(Boolean);
+    const found=terms.length?items.filter(function(item){
+      const haystack=(item.title+" "+item.category+" "+item.type+" "+item.description+" "+item.keywords).toLowerCase();
+      return terms.every(function(term){return haystack.includes(term);});
+    }):items;
     results.innerHTML="";
     found.forEach(function(item){
       const article=document.createElement("article");
