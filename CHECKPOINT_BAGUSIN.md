@@ -26,8 +26,15 @@ Implemented on branch `redesign/cp-03-04`.
 - Process remains Problem → Requirement → Scope & Quotation → Development → Review & Delivery.
 - Work remains a separate evidence/portfolio area.
 
+## CP-05 — Work / Evidence
+Implemented on branch `redesign/cp-05-work-evidence`.
+- Work is now explicitly evidence-first: real projects are separated from experiments and claims are kept factual.
+- Portfolio copy emphasizes what was actually built, tested, changed, or left unfinished.
+- Corrected the Work/Services routing split so Work points to `/portfolio/` while Services remains `/work/`.
+- Refined the Work visual treatment for desktop and mobile without replacing the established BagusIn visual language.
+- Protected project statuses: PROJECT / CONCEPT / EXPERIMENT; no invented results or testimonials.
+
 ## Next
-- CP-05: strengthen Work into evidence-driven case studies.
 - CP-06: connect Blog / Places / YouTube into a living archive and current-status system.
 - CP-07: Jastip / advertising / classified monetization without overpowering the house.
 - CP-08: responsive, accessibility, performance and link audit.
