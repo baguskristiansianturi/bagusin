@@ -195,3 +195,146 @@ body.menu-open{overflow:hidden}
     padding-bottom: .85rem;
   }
 }
+
+
+/* =========================================================
+   CP-12 — NAVBAR UX REFINEMENT
+   Keep the header calm and usable across intermediate widths.
+   ========================================================= */
+
+/* The desktop quick-search is an enhancement, not a requirement.
+   Hide it where it competes with the main navigation. */
+@media (min-width: 56rem) and (max-width: 71.999rem) {
+  .header-quick-search {
+    display: none;
+  }
+
+  .site-header__inner {
+    gap: .45rem;
+  }
+
+  .site-nav__list {
+    gap: 0;
+  }
+
+  .site-nav__link,
+  .nav-dropdown-toggle {
+    padding-inline: .58rem;
+    font-size: .8rem;
+  }
+
+  .site-header__actions {
+    gap: 0;
+  }
+}
+
+/* Give the full navigation more breathing room on wide screens. */
+@media (min-width: 72rem) {
+  .site-header__inner {
+    gap: .85rem;
+  }
+
+  .site-nav {
+    margin-left: auto;
+  }
+
+  .site-nav__list {
+    gap: .12rem;
+  }
+}
+
+/* Search panel should feel like an extension of the header,
+   not a second page dropped below it. */
+.header-search {
+  padding-block: .7rem .8rem;
+}
+
+.header-search__inner {
+  max-width: var(--content-width);
+}
+
+.header-search .search-field {
+  min-height: 2.9rem;
+}
+
+.header-search .search-field input {
+  height: 2.9rem;
+}
+
+.header-search__suggestions {
+  margin-top: .5rem;
+}
+
+.header-search__suggestion {
+  min-height: 2.1rem;
+}
+
+/* Mobile header: logo stays readable while controls remain reachable. */
+@media (max-width: 55.999rem) {
+  .site-header__inner {
+    min-height: var(--header-height-mobile);
+  }
+
+  .site-brand {
+    flex: 1 1 auto;
+  }
+
+  .site-header__actions {
+    margin-left: .25rem;
+  }
+
+  .header-action,
+  .mobile-menu-toggle {
+    width: 2.75rem;
+    height: 2.75rem;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    flex-basis: 2.75rem;
+  }
+
+  .mobile-nav {
+    top: var(--header-height-mobile);
+  }
+}
+
+@media (max-width: 29.999rem) {
+  .site-header__inner {
+    min-height: 3.75rem;
+  }
+
+  .mobile-nav {
+    top: 3.75rem;
+  }
+
+  .site-brand__mark {
+    width: 2.05rem;
+    height: 2.05rem;
+    flex-basis: 2.05rem;
+  }
+
+  .site-brand__name {
+    font-size: .9rem;
+  }
+
+  .site-brand__tagline {
+    display: none;
+  }
+
+  .header-action,
+  .mobile-menu-toggle {
+    width: 2.6rem;
+    height: 2.6rem;
+    min-width: 2.6rem;
+    min-height: 2.6rem;
+    flex-basis: 2.6rem;
+  }
+}
+
+/* Dropdown remains anchored to the Work control and never pushes layout. */
+.site-nav__item:has(.nav-dropdown) {
+  z-index: 20;
+}
+
+.nav-dropdown {
+  max-width: min(16rem, calc(100vw - 2rem));
+}
