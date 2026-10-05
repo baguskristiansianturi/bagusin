@@ -65,3 +65,16 @@ Implemented on branch `redesign/cp-08-audit`.
 
 ## Next
 - CP-09: launch readiness, final content/metadata review, domain/canonical verification, and final production checklist.
+
+
+## CP-09 — Launch Readiness
+Implemented on branch `redesign/cp-09-launch-readiness`.
+
+- Added host-aware route normalization so the existing `/bagusin/` project-site paths continue to work on GitHub Pages while resolving correctly from the canonical custom-domain root.
+- Hardened global search routing and navigation active-state detection for both hosting modes.
+- Removed the homepage email field that implied a working newsletter subscription without a subscription backend; the CTA now goes directly to Contact.
+- Added a lightweight custom 404 page for missing routes.
+- Rechecked the protected information architecture: Blog `/journal/`, Places `/destinations/`, Services `/work/`, Work `/portfolio/`, YouTube `/youtube/`.
+- Canonical metadata remains on `https://bagusin.com/`; no unverified DNS/CNAME change was introduced.
+- Launch copy keeps the `27 October 2026` / `33 today` cue without turning the homepage into a birthday page.
+- Browser verification at 320/375/390/768/1024/1440px remains the final human launch gate.
