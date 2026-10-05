@@ -202,44 +202,58 @@ body.menu-open{overflow:hidden}
    Keep the header calm and usable across intermediate widths.
    ========================================================= */
 
-/* The desktop quick-search is an enhancement, not a requirement.
-   Hide it where it competes with the main navigation. */
-@media (min-width: 56rem) and (max-width: 71.999rem) {
-  .header-quick-search {
-    display: none;
+/* CP-13 — desktop search belongs between the brand and Blog.
+   It expands into the available header space instead of floating away. */
+@media (min-width: 56rem) {
+  .site-header__inner {
+    gap: .7rem;
   }
 
-  .site-header__inner {
-    gap: .45rem;
+  .header-quick-search {
+    display: flex;
+    flex: 1 1 clamp(15rem, 25vw, 25rem);
+    width: auto;
+    max-width: 25rem;
+    min-width: 12rem;
+    margin-left: .2rem;
+    margin-right: .35rem;
+  }
+
+  .site-nav {
+    margin-left: 0;
+    flex: 0 0 auto;
   }
 
   .site-nav__list {
-    gap: 0;
+    gap: .02rem;
+  }
+}
+
+@media (min-width: 72rem) {
+  .site-header__inner {
+    gap: .8rem;
+  }
+
+  .header-quick-search {
+    flex-basis: clamp(18rem, 26vw, 29rem);
+    max-width: 29rem;
   }
 
   .site-nav__link,
   .nav-dropdown-toggle {
-    padding-inline: .58rem;
-    font-size: .8rem;
+    padding-inline: .68rem;
+  }
+}
+
+@media (min-width: 56rem) and (max-width: 71.999rem) {
+  .site-nav__link,
+  .nav-dropdown-toggle {
+    padding-inline: .52rem;
+    font-size: .79rem;
   }
 
   .site-header__actions {
     gap: 0;
-  }
-}
-
-/* Give the full navigation more breathing room on wide screens. */
-@media (min-width: 72rem) {
-  .site-header__inner {
-    gap: .85rem;
-  }
-
-  .site-nav {
-    margin-left: auto;
-  }
-
-  .site-nav__list {
-    gap: .12rem;
   }
 }
 
@@ -378,5 +392,87 @@ body.menu-open{overflow:hidden}
 @media (max-width: 55.999rem) {
   [id] {
     scroll-margin-top: calc(var(--header-height-mobile) + 1rem);
+  }
+}
+
+
+/* =========================================================
+   CP-13 — SEARCH UX
+   ========================================================= */
+@media (max-width: 55.999rem) {
+  .header-search {
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: .75rem max(var(--page-padding, 1rem), env(safe-area-inset-left))
+      max(.9rem, env(safe-area-inset-bottom))
+      max(var(--page-padding, 1rem), env(safe-area-inset-right));
+  }
+
+  .header-search__inner {
+    width: 100%;
+  }
+
+  .header-search .search-field {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    min-height: 3rem;
+  }
+
+  .header-search .search-field input {
+    width: 100%;
+    min-width: 0;
+    font-size: max(1rem, 16px);
+  }
+
+  .header-search .search-field .button {
+    min-width: 4.25rem;
+    min-height: 3rem;
+  }
+
+  .header-search__suggestions {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    padding-bottom: .15rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .header-search__suggestions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .header-search__suggestion {
+    flex: 0 0 auto;
+    min-height: 2.5rem;
+    font-size: .78rem;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 29.999rem) {
+  .header-search {
+    padding-inline: .8rem;
+  }
+
+  .header-search .search-field {
+    grid-template-columns: minmax(0, 1fr);
+    gap: .5rem;
+    overflow: visible;
+    border: 0;
+    background: transparent;
+  }
+
+  .header-search .search-field input {
+    height: 3rem;
+    padding-inline: .9rem;
+    border: 1px solid var(--color-border, #e7e7e7);
+    border-radius: .75rem;
+    background: #fff;
+  }
+
+  .header-search .search-field .button {
+    width: 100%;
   }
 }
