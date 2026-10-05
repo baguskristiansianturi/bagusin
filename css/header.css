@@ -589,3 +589,83 @@ body.menu-open{overflow:hidden}
 }
 @media (min-width:72rem){.header-quick-search{min-width:14rem !important}.site-nav__link,.nav-dropdown-toggle{padding-inline:.68rem !important;font-size:.82rem !important}}
 @media (max-width:55.999rem){.site-header__inner{min-height:var(--header-height-mobile) !important;height:var(--header-height-mobile) !important;gap:.35rem !important}.header-quick-search{display:none !important}.site-brand{flex:1 1 auto !important}.site-header__actions{margin-left:auto !important}}
+
+
+/* =========================================================
+   CP-24 — ACTUAL GLOBAL HEADER LAYOUT
+   ========================================================= */
+.site-header{
+  position:sticky !important;
+  top:0 !important;
+  z-index:1000 !important;
+  width:100% !important;
+}
+.site-header__inner{
+  width:min(calc(100% - (var(--page-padding) * 2)),var(--content-width)) !important;
+  max-width:var(--content-width) !important;
+  margin-inline:auto !important;
+  box-sizing:border-box !important;
+}
+.site-brand{flex:0 0 auto !important; min-width:0 !important;}
+.header-quick-search{order:2 !important; min-width:0 !important;}
+.site-nav{order:3 !important;}
+.site-header__actions{order:4 !important;}
+
+@media (min-width:72rem){
+  .site-header__inner{
+    display:flex !important;
+    align-items:center !important;
+    gap:.75rem !important;
+    min-height:var(--header-height) !important;
+  }
+  .header-quick-search{
+    display:flex !important;
+    flex:1 1 16rem !important;
+    width:auto !important;
+    max-width:none !important;
+    min-width:11rem !important;
+    margin:0 !important;
+  }
+  .site-nav{
+    display:block !important;
+    flex:0 0 auto !important;
+    margin:0 !important;
+  }
+  .site-nav__list{
+    display:flex !important;
+    align-items:center !important;
+    gap:.1rem !important;
+    white-space:nowrap !important;
+  }
+  .site-nav__link,.nav-dropdown-toggle{
+    padding-inline:.55rem !important;
+    min-height:2.7rem !important;
+    font-size:.8rem !important;
+    text-decoration:none !important;
+  }
+  .site-header__actions{
+    flex:0 0 auto !important;
+    margin-left:0 !important;
+  }
+  .site-header__actions > [data-search-toggle]{display:none !important;}
+  .mobile-menu-toggle{display:none !important;}
+}
+@media (min-width:56rem) and (max-width:71.999rem){
+  .site-header__inner{display:flex !important;align-items:center !important;min-height:var(--header-height) !important;}
+  .header-quick-search{display:none !important;}
+  .site-nav{display:none !important;}
+  .site-header__actions{margin-left:auto !important;}
+  .mobile-menu-toggle{display:inline-flex !important;}
+  .site-header__actions > [data-search-toggle]{display:inline-flex !important;}
+}
+@media (max-width:55.999rem){
+  .site-header__inner{
+    display:flex !important;
+    align-items:center !important;
+    min-height:var(--header-height-mobile) !important;
+    height:var(--header-height-mobile) !important;
+  }
+  .header-quick-search,.site-nav{display:none !important;}
+  .site-brand{flex:1 1 auto !important;}
+  .site-header__actions{margin-left:auto !important;}
+}
