@@ -1085,3 +1085,39 @@ a:focus-visible {
     padding-block: 2.35rem !important;
   }
 }
+
+/* CP-21 — final shell reset: hero sections have no page-specific outer drift. */
+.section.page-hero,
+.home-hero {
+  margin-block-start: 0 !important;
+  margin-block-end: 0 !important;
+  width: 100% !important;
+}
+
+@media (min-width: 64rem) {
+  .section.page-hero,
+  .home-hero {
+    min-height: var(--hero-height-reference) !important;
+    align-content: center;
+  }
+}
+
+/* Every desktop header owns one continuous rail: brand → search → nav → actions. */
+@media (min-width: 56rem) {
+  .site-header__inner {
+    display: flex !important;
+    align-items: center !important;
+  }
+  .header-quick-search {
+    display: flex !important;
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+  .site-nav {
+    display: block !important;
+    flex: 0 0 auto !important;
+    margin-left: 0 !important;
+  }
+}
