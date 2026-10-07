@@ -69,3 +69,62 @@
  .article-pro-footer .button{width:100%}
 }
 @media(prefers-reduced-motion:reduce){.article-pro-cover__grid{transform:none}}
+
+/* Final visual pass — quiet hero + elegant editorial sidebar */
+.article-page--pro{background:#fff}
+.article-pro-hero{padding:clamp(1.75rem,4vw,3.5rem) 0 clamp(2.5rem,6vw,5rem);background:#fff;border-bottom:0}
+.article-pro-hero__inner{max-width:58rem;margin-inline:auto}
+.article-pro-back{font-size:.75rem;font-weight:650}
+.article-pro-meta{margin-top:clamp(2.25rem,5vw,4.5rem);gap:.45rem .9rem}
+.article-pro-hero h1{max-width:54rem;margin-top:1.1rem;font-size:clamp(2.55rem,6vw,5.4rem);line-height:1.01;letter-spacing:-.058em}
+.article-pro-dek{max-width:43rem;margin-top:1.35rem;font-size:clamp(1rem,1.8vw,1.2rem);line-height:1.7}
+.article-pro-author{margin-top:1.75rem}
+.article-pro-cover{min-height:clamp(13rem,30vw,25rem);max-width:58rem;margin-inline:auto;border:1px solid #e6ebe8;border-radius:1rem;background:linear-gradient(135deg,#f5f8f7 0%,#fff 55%,#eef3f1 100%)}
+.article-pro-cover__grid{inset:14%;opacity:.5}
+.article-pro-cover:before{width:24rem;height:24rem;right:-9rem;top:-12rem;opacity:.55}
+.article-pro-cover:after{width:15rem;height:15rem;left:-5rem;bottom:-8rem;opacity:.45}
+.article-pro-cover strong{font-size:clamp(2.2rem,7vw,6rem);font-weight:650;letter-spacing:-.07em}
+.article-pro-cover span{top:1rem;left:1rem}
+.article-pro-layout{max-width:68rem;grid-template-columns:15rem minmax(0,42rem);gap:clamp(2.5rem,6vw,5.5rem);padding-top:clamp(3rem,6vw,5rem);align-items:start}
+.article-pro-aside{top:calc(var(--header-height) + 1.25rem)}
+.article-pro-toc{position:relative;border:0;padding-left:1rem}
+.article-pro-toc:before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:#e4e9e6}
+.article-pro-toc>span{padding:0 0 .85rem;color:#8a928f;font-size:.6rem}
+.article-pro-toc a{position:relative;padding:.42rem .75rem;color:#747d79;border:0;font-size:.73rem}
+.article-pro-toc a:before{content:"";position:absolute;left:-1.05rem;top:50%;width:2px;height:0;transform:translateY(-50%);background:var(--color-accent);transition:height .2s ease}
+.article-pro-toc a:hover,.article-pro-toc a:focus-visible{color:#171a19}
+.article-pro-toc a:hover:before,.article-pro-toc a:focus-visible:before{height:1rem}
+.article-pro-side-link{margin-top:1.75rem;padding:1rem 0 0;border-top:1px solid #e8ecea;color:#4d5854;font-size:.7rem}
+.article-pro-content{font-size:1.04rem;line-height:1.9}
+.article-pro-content h2{font-size:clamp(1.65rem,2.7vw,2.25rem);line-height:1.12}
+.article-pro-lead{font-size:clamp(1.18rem,2.2vw,1.35rem);line-height:1.75}
+.article-pro-content blockquote{margin-block:3.25rem;padding:1.35rem 0 1.35rem 1.4rem}
+.article-pro-note{border-radius:.75rem}
+.article-pro-footer{border-top:1px solid #edf0ee;margin-top:3rem;padding-top:2.5rem}
+@media(max-width:55.999rem){
+ .article-pro-hero__inner{max-width:none}
+ .article-pro-cover{margin-inline:var(--page-padding,1rem)}
+ .article-pro-layout{grid-template-columns:minmax(0,1fr);max-width:48rem;padding-top:2.25rem}
+ .article-pro-aside{position:static}
+ .article-pro-toc{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 1.25rem;padding:0 0 1rem;border-bottom:1px solid #e7ebe9}
+ .article-pro-toc:before{display:none}
+ .article-pro-toc>span{padding-bottom:.65rem}
+ .article-pro-toc a{padding:.65rem 0;margin:0;border-bottom:1px solid #eef1ef}
+ .article-pro-toc a:before{display:none}
+ .article-pro-side-link{display:none}
+}
+@media(max-width:35.999rem){
+ .article-pro-hero{padding-bottom:2.25rem}
+ .article-pro-meta{margin-top:2rem}
+ .article-pro-hero h1{font-size:clamp(2.25rem,12.5vw,3.35rem);line-height:1.02}
+ .article-pro-dek{font-size:1rem;line-height:1.65}
+ .article-pro-cover{min-height:12.5rem;margin-inline:.75rem;border-radius:.8rem}
+ .article-pro-cover strong{font-size:3.4rem}
+ .article-pro-cover__grid{inset:10%}
+ .article-pro-layout{padding-top:1.75rem}
+ .article-pro-toc{grid-template-columns:1fr}
+ .article-pro-content{font-size:1rem;line-height:1.82}
+ .article-pro-content h2{margin-top:3.25rem}
+ .article-pro-content blockquote{font-size:1.25rem}
+ .article-pro-note{grid-template-columns:1.8rem 1fr;padding:1rem}
+}
