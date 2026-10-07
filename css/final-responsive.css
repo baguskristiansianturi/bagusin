@@ -389,8 +389,181 @@ input,select,textarea,button{
   }
 }
 
-/* MOBILE HERO — viewport-fit, centered content, no horizontal expansion */
-@media (max-width:47.999rem){
+
+
+/* =========================================================
+   MOBILE FOUNDATION — FINAL PASS
+   One predictable mobile geometry. Desktop is untouched.
+   ========================================================= */
+@media (max-width: 47.999rem) {
+  html,
+  body {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: hidden !important;
+  }
+
+  #app,
+  main {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  main > section,
+  main > .section,
+  main > article,
+  main > .page-shell {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  main .container,
+  main .container--narrow,
+  main .container--article,
+  main > section > .container,
+  main > .section > .container {
+    width: calc(100% - 2rem) !important;
+    max-width: var(--content-width, 68rem) !important;
+    min-width: 0 !important;
+    margin-inline: auto !important;
+    padding-inline: 0 !important;
+  }
+
+  /* Never allow a component to inherit desktop width logic. */
+  main [class*="grid"],
+  main [class*="layout"],
+  main [class*="inner"],
+  main [class*="content"],
+  main [class*="body"],
+  main [class*="card"],
+  main [class*="visual"],
+  main [class*="media"],
+  main [class*="panel"],
+  main [class*="aside"] {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Common two-column families must become one real column. */
+  .home-hero__inner,
+  .home-work,
+  .home-status__inner,
+  .home-about__inner,
+  .home-newsletter__inner,
+  .work-hero__inner,
+  .work-principle__inner,
+  .contact-hero__inner,
+  .contact-brief,
+  .contact-next__inner,
+  .contact-form-layout,
+  .blog-hero__inner,
+  .blog-featured,
+  .blog-more,
+  .article-layout,
+  .article-pro-layout,
+  .service-hero__grid,
+  .service-two-col,
+  .checkout-page .checkout-hero__grid,
+  .checkout-page .checkout-layout,
+  .portfolio-project--featured,
+  .collection-detail-hero__grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .home-story-grid,
+  .home-pillars,
+  .blog-topics,
+  .portfolio-grid,
+  .service-grid,
+  .service-process,
+  .portfolio-method__grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Children shrink instead of expanding their grid/flex parent. */
+  main .grid > *,
+  main [class*="grid"] > *,
+  main [class*="layout"] > *,
+  main .flex > * {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* Media always follows its containing block. */
+  main img,
+  main picture,
+  main video,
+  main iframe,
+  main object,
+  main embed,
+  main canvas {
+    display: block;
+    width: auto;
+    max-width: 100% !important;
+    height: auto;
+  }
+
+  main picture {
+    width: 100%;
+  }
+
+  /* Restore deliberate full-width media where it is actually a component. */
+  .media img,
+  .card__media img,
+  .article-cover img,
+  .article-pro-cover img,
+  .blog-featured__image,
+  .portfolio-project__image {
+    width: 100%;
+    max-width: 100% !important;
+    height: auto;
+  }
+
+  /* Long words, URLs and labels must wrap rather than create a second column. */
+  main h1,
+  main h2,
+  main h3,
+  main h4,
+  main h5,
+  main h6,
+  main p,
+  main li,
+  main a,
+  main span,
+  main strong,
+  main label,
+  main dt,
+  main dd,
+  main code {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  /* Buttons stay usable but never push a row wider than the screen. */
+  main .button,
+  main button,
+  main input,
+  main select,
+  main textarea {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Hero: width follows the viewport; height follows content.
+     This removes the previous 100svh conflict. */
   .home-hero,
   .work-hero,
   .service-hero,
@@ -408,15 +581,13 @@ input,select,textarea,button{
   .search-hero,
   .checkout-page .checkout-hero,
   .page-hero,
-  .article-header{
-    width:100%;
-    max-width:100%;
-    min-height:calc(100svh - var(--header-height-mobile,4rem)) !important;
-    height:auto;
-    display:flex;
-    align-items:center;
-    overflow:hidden;
-    padding-block:1.25rem 2rem !important;
+  .article-header {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    height: auto !important;
+    box-sizing: border-box !important;
+    overflow: hidden;
   }
 
   .home-hero > .container,
@@ -436,50 +607,95 @@ input,select,textarea,button{
   .search-hero > .container,
   .checkout-page .checkout-hero > .container,
   .page-hero > .container,
-  .article-header > .container{
-    width:100%;
-    min-width:0;
-    max-width:100%;
+  .article-header > .container {
+    width: calc(100% - 2rem) !important;
+    max-width: var(--content-width, 68rem) !important;
+    margin-inline: auto !important;
   }
 
-  .home-hero__inner,
-  .work-hero__inner,
-  .service-hero__grid,
-  .blog-hero__inner,
-  .portfolio-hero__inner,
-  .youtube-hero__inner,
-  .contact-hero__inner{
-    width:100%;
-    min-width:0;
-    max-width:100%;
+  /* Mobile action rows stack cleanly. */
+  .hero-actions,
+  .home-hero__actions,
+  .work-hero__actions,
+  .service-actions,
+  .youtube-hero__actions,
+  .contact-next__actions {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
   }
 
-  .home-hero__copy,
-  .home-hero__aside,
-  .service-hero__copy,
-  .service-hero__aside{
-    min-width:0;
-    max-width:100%;
+  .hero-actions .button,
+  .home-hero__actions .button,
+  .work-hero__actions .button,
+  .service-actions .button,
+  .youtube-hero__actions .button,
+  .contact-next__actions .button {
+    width: 100% !important;
+    max-width: 100% !important;
   }
 
-  .home-hero__copy h1,
-  .service-hero h1,
-  .blog-hero__title,
-  .portfolio-hero h1,
-  .youtube-hero h1,
-  .article-pro-hero h1,
-  .checkout-page .checkout-hero h1{
-    max-width:100%;
-    overflow-wrap:normal;
-    word-break:normal;
+  /* Footer columns must never force horizontal scrolling. */
+  .site-footer__main,
+  .site-footer__top,
+  .site-footer__columns,
+  .site-footer__column,
+  .site-footer__cta,
+  .site-footer__bottom,
+  .site-footer__bottom-inner {
+    min-width: 0 !important;
+    max-width: 100% !important;
   }
 
-  .home-hero__copy h1{
-    text-wrap:balance;
+  /* Article reading column is deliberately narrower than the viewport
+     only through its container; never through fixed widths. */
+  .article-content,
+  .article-pro-content,
+  .prose,
+  .legal-prose,
+  .article-header__content,
+  .article-pro-hero__inner {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin-inline: 0 !important;
+  }
+
+  .article-content p,
+  .article-pro-content p,
+  .prose p,
+  .legal-prose p {
+    max-width: 100% !important;
+  }
+
+  table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  pre {
+    max-width: 100%;
+    overflow-x: auto;
   }
 }
 
-@media (max-width:29.999rem){
+@media (max-width: 29.999rem) {
+  main .container,
+  main .container--narrow,
+  main .container--article,
+  main > section > .container,
+  main > .section > .container {
+    width: calc(100% - 2rem) !important;
+  }
+
+  .section {
+    padding-block: 2.5rem;
+  }
+
   .home-hero,
   .work-hero,
   .service-hero,
@@ -495,151 +711,8 @@ input,select,textarea,button{
   .article-pro-hero,
   .legal-hero,
   .search-hero,
-  .checkout-page .checkout-hero,
-  .page-hero,
-  .article-header{
-    min-height:calc(100svh - var(--header-height-mobile,4rem)) !important;
-    padding-block:1rem 1.75rem !important;
-  }
-}
-
-
-/* =========================================================
-   MOBILE — SINGLE WIDTH CONTRACT
-   Prevent page-specific components from escaping the viewport.
-   Desktop styles remain untouched.
-   ========================================================= */
-@media (max-width:47.999rem){
-  html,
-  body,
-  #app,
-  main{
-    width:100%;
-    max-width:100%;
-    min-width:0;
-    overflow-x:hidden;
-  }
-
-  /* Every layout child must be allowed to shrink. */
-  main *,
-  .site-header *,
-  .site-footer *{
-    min-width:0;
-    box-sizing:border-box;
-  }
-
-  /* Prevent legacy fixed/min-content widths from expanding the page. */
-  main .container,
-  main .container--narrow,
-  main .container--article,
-  main .section,
-  main section,
-  main article,
-  main aside,
-  main form,
-  main .grid,
-  main [class*="grid"],
-  main [class*="layout"],
-  main [class*="inner"]{
-    max-width:100%;
-  }
-
-  /* Flex/grid children must never force their parent wider. */
-  main [class*="grid"] > *,
-  main [class*="layout"] > *,
-  main .flex > *,
-  main .home-hero__inner > *,
-  main .work-hero__inner > *,
-  main .service-hero__grid > *,
-  main .article-layout > *,
-  main .article-pro-layout > *,
-  main .contact-form-layout > *,
-  main .checkout-main > *,
-  main .checkout-aside > *{
-    min-width:0;
-    max-width:100%;
-  }
-
-  /* Media and embeds stay inside the actual content column. */
-  main img,
-  main picture,
-  main video,
-  main iframe,
-  main embed,
-  main object,
-  main svg,
-  main canvas{
-    max-width:100%;
-  }
-
-  /* Long controls/text cannot create a second viewport. */
-  main input,
-  main select,
-  main textarea,
-  main button,
-  main .button,
-  main .text-link{
-    max-width:100%;
-    min-width:0;
-  }
-
-  main pre,
-  main code{
-    max-width:100%;
-  }
-
-  main pre{
-    overflow-x:auto;
-  }
-
-  main table{
-    display:block;
-    max-width:100%;
-    overflow-x:auto;
-  }
-
-  /* Labels/tags may wrap on narrow screens instead of pushing width. */
-  main .label,
-  main .badge,
-  main .tag,
-  main [class*="kicker"],
-  main [class*="label"]{
-    max-width:100%;
-    white-space:normal;
-    overflow-wrap:anywhere;
-  }
-
-  /* Keep the page gutters identical everywhere. */
-  main > section > .container,
-  main > .section > .container{
-    width:calc(100% - (var(--page-padding,1rem) * 2));
-    max-width:var(--content-width,68rem);
-    margin-inline:auto;
-  }
-
-  /* Remove accidental viewport-based widths on content blocks. */
-  main [style*="width:100vw"],
-  main [style*="width: 100vw"]{
-    width:100% !important;
-    max-width:100% !important;
-  }
-
-  /* Full-bleed elements are full-width, not wider-than-viewport. */
-  main .full-bleed{
-    width:100% !important;
-    max-width:100% !important;
-    margin-inline:0 !important;
-    transform:none !important;
-  }
-}
-
-@media (max-width:29.999rem){
-  :root{
-    --page-padding:1rem;
-  }
-
-  main > section > .container,
-  main > .section > .container{
-    width:calc(100% - 2rem);
+  .checkout-page .checkout-hero {
+    padding-block-start: 1.25rem !important;
+    padding-block-end: 2.5rem !important;
   }
 }
