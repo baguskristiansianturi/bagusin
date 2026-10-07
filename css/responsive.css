@@ -959,3 +959,62 @@ label {
   min-width: 0;
 }
 
+
+
+/* Final hero alignment additions */
+.article-pro-hero,
+.legal-hero,
+.search-hero,
+.destinations-hero {
+  padding-block-start: clamp(2.5rem, 5vw, 4.5rem);
+  padding-block-end: clamp(2.5rem, 5vw, 4rem);
+}
+
+@media (min-width: 56rem) {
+  .home-hero {
+    min-height: min(650px, calc(100svh - var(--header-height)));
+  }
+}
+
+@media (max-width: 55.999rem) {
+  .article-pro-hero,
+  .legal-hero,
+  .search-hero,
+  .destinations-hero {
+    padding-block-start: 2rem;
+    padding-block-end: 2.75rem;
+  }
+}
+
+@media (max-width: 47.999rem) {
+  .article-pro-hero,
+  .legal-hero,
+  .search-hero,
+  .destinations-hero {
+    padding-block-start: 1.5rem;
+    padding-block-end: 2.5rem;
+  }
+
+  .article-pro-cover {
+    margin-inline: 0;
+    max-width: 100%;
+  }
+
+  .article-pro-content,
+  .article-content,
+  .prose,
+  .legal-prose {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 29.999rem) {
+  .article-pro-hero,
+  .legal-hero,
+  .search-hero,
+  .destinations-hero {
+    padding-block-start: 1.25rem;
+    padding-block-end: 2.25rem;
+  }
+}
