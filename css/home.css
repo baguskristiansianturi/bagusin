@@ -138,3 +138,54 @@
 @media(max-width:47.999rem){.home-hero__copy h1{font-size:clamp(3rem,15vw,4.6rem);letter-spacing:-.065em}.home-hero__lead{font-size:1rem}.home-hero__actions .button{min-height:3rem}.home-story__visual,.home-story--featured .home-story__visual{min-height:15rem}.home-pillars{border-radius:var(--radius-lg)}.home-pillar{min-height:0;padding:1.5rem}.home-pillar h3{margin-top:3rem}.home-service-list a{grid-template-columns:2rem minmax(0,1fr) 1rem;gap:.65rem;min-height:4.5rem}.home-service-list a:hover{padding-inline:.5rem}.home-youtube{padding-block:4rem}.home-about{background:#fff}.home-newsletter__form{padding:.25rem}}
 @media(max-width:29.999rem){.home-hero{padding-block:3.25rem}.home-hero__copy h1{font-size:clamp(2.75rem,16vw,4rem)}.home-hero__actions{flex-direction:column;align-items:stretch}.home-hero__actions .button{width:100%}.home-story__visual,.home-story--featured .home-story__visual{min-height:13.5rem}.home-status__location,.home-status__project,.home-status__availability{padding:1.1rem}.home-service-list a{grid-template-columns:1.75rem minmax(0,1fr) .8rem}.home-service-list strong{font-size:.88rem}}
 @media(prefers-reduced-motion:reduce){.home-pillar,.home-hero__notes span{transition:none}}
+
+/* Final responsive guardrails */
+@media (max-width:47.999rem){
+  .home-hero__inner,
+  .home-status__inner,
+  .home-work,
+  .home-about__inner,
+  .home-newsletter__inner{
+    width:100%;
+  }
+
+  .home-hero__copy,
+  .home-hero__aside,
+  .home-story,
+  .home-pillar,
+  .home-work__copy,
+  .home-service-list,
+  .home-about__inner > *,
+  .home-newsletter__inner > *{
+    min-width:0;
+    max-width:100%;
+  }
+
+  .home-story__body,
+  .home-pillar p,
+  .home-service-list strong{
+    overflow-wrap:anywhere;
+  }
+
+  .home-youtube__inner{
+    width:100%;
+  }
+}
+
+@media (max-width:29.999rem){
+  .home-hero__notes{
+    gap:.4rem;
+  }
+
+  .home-hero__notes span{
+    max-width:100%;
+  }
+
+  .home-status__card{
+    border-radius:var(--radius-md);
+  }
+
+  .home-service-list a{
+    overflow:hidden;
+  }
+}
