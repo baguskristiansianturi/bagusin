@@ -388,3 +388,117 @@ input,select,textarea,button{
     margin-top:.25rem;
   }
 }
+
+/* MOBILE HERO — viewport-fit, centered content, no horizontal expansion */
+@media (max-width:47.999rem){
+  .home-hero,
+  .work-hero,
+  .service-hero,
+  .blog-hero,
+  .contact-hero,
+  .portfolio-hero,
+  .youtube-hero,
+  .about-hero,
+  .destinations-hero,
+  .collection-hero,
+  .collection-detail-hero,
+  .article-hero,
+  .article-pro-hero,
+  .legal-hero,
+  .search-hero,
+  .checkout-page .checkout-hero,
+  .page-hero,
+  .article-header{
+    width:100%;
+    max-width:100%;
+    min-height:calc(100svh - var(--header-height-mobile,4rem)) !important;
+    height:auto;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+    padding-block:1.25rem 2rem !important;
+  }
+
+  .home-hero > .container,
+  .work-hero > .container,
+  .service-hero > .container,
+  .blog-hero > .container,
+  .contact-hero > .container,
+  .portfolio-hero > .container,
+  .youtube-hero > .container,
+  .about-hero > .container,
+  .destinations-hero > .container,
+  .collection-hero > .container,
+  .collection-detail-hero > .container,
+  .article-hero > .container,
+  .article-pro-hero > .container,
+  .legal-hero > .container,
+  .search-hero > .container,
+  .checkout-page .checkout-hero > .container,
+  .page-hero > .container,
+  .article-header > .container{
+    width:100%;
+    min-width:0;
+    max-width:100%;
+  }
+
+  .home-hero__inner,
+  .work-hero__inner,
+  .service-hero__grid,
+  .blog-hero__inner,
+  .portfolio-hero__inner,
+  .youtube-hero__inner,
+  .contact-hero__inner{
+    width:100%;
+    min-width:0;
+    max-width:100%;
+  }
+
+  .home-hero__copy,
+  .home-hero__aside,
+  .service-hero__copy,
+  .service-hero__aside{
+    min-width:0;
+    max-width:100%;
+  }
+
+  .home-hero__copy h1,
+  .service-hero h1,
+  .blog-hero__title,
+  .portfolio-hero h1,
+  .youtube-hero h1,
+  .article-pro-hero h1,
+  .checkout-page .checkout-hero h1{
+    max-width:100%;
+    overflow-wrap:normal;
+    word-break:normal;
+  }
+
+  .home-hero__copy h1{
+    text-wrap:balance;
+  }
+}
+
+@media (max-width:29.999rem){
+  .home-hero,
+  .work-hero,
+  .service-hero,
+  .blog-hero,
+  .contact-hero,
+  .portfolio-hero,
+  .youtube-hero,
+  .about-hero,
+  .destinations-hero,
+  .collection-hero,
+  .collection-detail-hero,
+  .article-hero,
+  .article-pro-hero,
+  .legal-hero,
+  .search-hero,
+  .checkout-page .checkout-hero,
+  .page-hero,
+  .article-header{
+    min-height:calc(100svh - var(--header-height-mobile,4rem)) !important;
+    padding-block:1rem 1.75rem !important;
+  }
+}
