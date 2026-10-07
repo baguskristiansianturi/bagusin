@@ -78,3 +78,8 @@
 
 .checkout-guidance{padding:1rem 1.15rem;border:1px solid var(--color-border,#e7ece9);border-radius:var(--radius-md,.75rem);background:var(--color-surface-soft,#f7faf9)}
 .checkout-guidance strong{display:block;margin:.25rem 0}.checkout-guidance p{margin:.35rem 0 .6rem;color:var(--color-muted,#737b78)}.checkout-guidance ul{margin:0;padding-left:1.15rem}.checkout-guidance li{margin:.3rem 0}
+
+/* Form journey hardening */
+.checkout-page .checkout-field,.checkout-page .checkout-panel,.checkout-page .panel-actions{min-width:0;max-width:100%}
+.checkout-page .panel-actions .button{white-space:normal;overflow-wrap:anywhere}
+.checkout-page .checkout-guidance{max-width:100%;overflow-wrap:anywhere}
