@@ -14,3 +14,5 @@
  .service-ecosystem__details{margin-top:2rem}
  .service-ecosystem__start{padding:1.5rem}
 }
+.service-ecosystem__process{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1rem;margin:1rem 0 0;padding:0;list-style:none;counter-reset:step}.service-ecosystem__process li{counter-increment:step;position:relative;padding:1rem;border:1px solid var(--color-border,#e7ece9);border-radius:var(--radius-md,.75rem);background:var(--color-white,#fff)}.service-ecosystem__process li::before{content:counter(step,decimal-leading-zero);display:block;margin-bottom:.65rem;font-size:.75rem;letter-spacing:.08em;color:var(--color-muted,#737b78)}.service-ecosystem__faq{display:grid;gap:.6rem;margin-top:1rem}.service-ecosystem__faq details{border-bottom:1px solid var(--color-border,#e7ece9);padding:.2rem 0}.service-ecosystem__faq summary{cursor:pointer;padding:.8rem 0;font-weight:600}.service-ecosystem__faq p{margin:0 0 1rem;color:var(--color-muted,#737b78)}
+@media (max-width:64rem){.service-ecosystem__process{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:48rem){.service-ecosystem__process{grid-template-columns:1fr}}
