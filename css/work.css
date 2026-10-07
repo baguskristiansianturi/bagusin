@@ -169,6 +169,8 @@
   background: rgba(255,255,255,.05);
 }
 
+.work-start__actions{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:var(--space-5)}
+.work-start__actions .button{min-width:9.5rem}
 .work-start__note ul {
   margin: var(--space-4) 0 var(--space-6);
   padding-left: var(--space-5);
@@ -270,3 +272,5 @@
   .work-hero__inner{gap:2rem}
   .work-hero__lead{font-size:1rem}
 }
+
+@media (max-width:47.999rem){.work-start__actions{display:grid;grid-template-columns:1fr}.work-start__actions .button{width:100%}}
