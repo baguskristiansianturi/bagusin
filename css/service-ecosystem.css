@@ -1,0 +1,16 @@
+/* BagusIn service ecosystem additions — preserves existing visual language */
+.service-ecosystem{border-top:1px solid var(--color-border,#e7ece9)}
+.service-ecosystem__details{margin-top:3rem}
+.service-ecosystem__details ul{margin:0;padding-left:1.15rem}
+.service-ecosystem__details li{margin:.55rem 0}
+.service-ecosystem__links{margin-top:3rem}
+.service-ecosystem__link-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:1rem}
+.service-ecosystem__link-grid .card{display:flex;flex-direction:column;gap:.35rem;text-decoration:none}
+.service-ecosystem__link-grid .card span{color:var(--color-muted,#737b78);font-size:.9rem}
+.service-ecosystem__article-list{display:grid;gap:.65rem;margin-top:1rem}
+.service-ecosystem__start{margin-top:3rem;padding:2rem;border:1px solid var(--color-border,#e7ece9);border-radius:var(--radius-lg,1rem);background:var(--color-surface-soft,#f7faf9)}
+@media (max-width:48rem){
+ .service-ecosystem__link-grid{grid-template-columns:1fr}
+ .service-ecosystem__details{margin-top:2rem}
+ .service-ecosystem__start{padding:1.5rem}
+}
