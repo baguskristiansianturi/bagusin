@@ -258,3 +258,15 @@
 .work-principle__inner p+p{margin-top:1rem}
 .work-principle__note{font-size:var(--text-sm);color:var(--color-text-muted)}
 @media(max-width:767px){.work-principle__inner{grid-template-columns:1fr;gap:1.25rem}}
+
+/* Deep UX alignment — keep Work overview close to the clean YouTube hero rhythm */
+.work-hero{overflow:clip}
+.work-hero__inner,.work-hero__copy,.work-hero__aside{min-width:0;max-width:100%}
+.work-hero__lead{overflow-wrap:anywhere}
+.work-decision{overflow:clip}
+.work-service{min-width:0;max-width:100%}
+@media(max-width:47.999rem){
+  .work-hero{padding-bottom:3.5rem}
+  .work-hero__inner{gap:2rem}
+  .work-hero__lead{font-size:1rem}
+}
