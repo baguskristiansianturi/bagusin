@@ -131,7 +131,9 @@ input,select,textarea,button{
   .article-pro-hero,
   .legal-hero,
   .search-hero,
-  .checkout-page .checkout-hero{
+  .checkout-page .checkout-hero,
+  .page-hero,
+  .article-header{
     min-height:auto !important;
     padding-block-start:1.5rem !important;
     padding-block-end:2.75rem !important;
@@ -361,7 +363,9 @@ input,select,textarea,button{
   .article-pro-hero,
   .legal-hero,
   .search-hero,
-  .checkout-page .checkout-hero{
+  .checkout-page .checkout-hero,
+  .page-hero,
+  .article-header{
     padding-block-start:1.15rem !important;
     padding-block-end:2.35rem !important;
   }
