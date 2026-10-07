@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded",function(){
  const serviceLabel=id=>R.services.find(x=>x.id===id)?.name||id;
  const statusLabel={AVAILABLE:"Available",COMING_SOON:"Coming soon",PLANNED:"Planned",BY_REQUEST:"By request",NOT_AVAILABLE:"Not available"}[s.status]||s.status;
  const complexityText={SIMPLE:"Satu kebutuhan utama yang jelas.",STANDARD:"Beberapa kebutuhan yang saling terhubung.",ADVANCED:"Workflow, integrasi, atau proses yang lebih kompleks.",CUSTOM:"Kebutuhan khusus yang perlu discovery dan desain solusi."}[s.complexity]||"";
- const articleLinks=R.articles.filter(a=>(a.services||[]).includes(s.id)).slice(0,6);
+ const articleLinks=R.articles.filter(a=>a.status!=="PLANNED"&&(a.services||[]).includes(s.id)).slice(0,6);
  const related=R.services.filter(x=>(s.relatedServices||[]).includes(x.id));
  const portfolio=s.relatedPortfolio||[];
  const final=root.querySelector(".service-final");
