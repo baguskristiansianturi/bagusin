@@ -86,7 +86,7 @@
         '<a class="site-footer__social-link" href="https://www.linkedin.com/in/bagusin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>',
         '<a class="site-footer__social-link" data-icon="youtube" href="https://www.youtube.com/@BagusInOfficial" target="_blank" rel="noopener noreferrer" aria-label="YouTube">▶</a>'
       ].join("");
-      footer.innerHTML = \`
+      footer.innerHTML = `
         <div class="site-footer__main">
           <div class="site-footer__inner container">
             <div class="site-footer__top">
@@ -116,7 +116,7 @@
             </div>
             <div class="site-footer__bottom"><div class="site-footer__bottom-inner"><p class="site-footer__copyright">© <span data-current-year>2026</span> BagusIn.</p><div class="site-footer__legal"><a class="site-footer__legal-link" href="\${base}/legal/privacy/">\${t.privacy}</a><a class="site-footer__legal-link" href="\${base}/legal/terms/">\${t.terms}</a><a class="site-footer__legal-link" href="\${base}/contact/">\${t.contact}</a></div></div></div>
           </div>
-        </div>\`;
+        </div>`;
     }
 
     renderSiteFooter();
