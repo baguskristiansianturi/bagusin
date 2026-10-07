@@ -48,7 +48,7 @@
 <form id="checkout-form" class="checkout-card" novalidate>
 <section class="checkout-panel is-active" data-panel="1">
 <div class="panel-heading"><span class="section-kicker">01 · Project brief</span><h2>What are we working on?</h2><p>Informasi ini menjadi dasar untuk memahami kebutuhan. Belum menjadi persetujuan proyek.</p></div>
-<div class="checkout-form-grid">
+<div class="checkout-form-grid"><div class="checkout-context" id="collection-context" hidden><span class="section-kicker">Collection context</span><strong id="collection-context-title">—</strong><span id="collection-context-meta">—</span><a id="collection-context-link" href="#">Open collection detail →</a></div>
 <label class="checkout-field checkout-field--full">Layanan<select id="service" name="service" required><option value="">Pilih layanan</option><option value="copywriting">Copywriting</option><option value="seo-content">Content Writing &amp; SEO</option><option value="landing-pages">Landing Pages &amp; Ads</option><option value="websites">Websites &amp; Complex Web</option><option value="web-applications">Web Applications &amp; Database Systems</option><option value="maintenance-uiux">Maintenance, Improvement &amp; UI/UX</option></select></label>
 <label class="checkout-field">Nama<input id="name" name="name" required autocomplete="name"></label>
 <label class="checkout-field">Email<input id="email" name="email" type="email" required autocomplete="email"></label>
@@ -87,7 +87,7 @@
 </div>
 
 <aside class="checkout-aside">
-<div class="checkout-aside__card"><span class="section-kicker">Your order</span><div class="aside-service"><span class="aside-service__icon" aria-hidden="true">✦</span><div><small>Selected service</small><strong id="aside-service">Pilih layanan</strong></div></div><dl><div><dt>Work model</dt><dd>Project-based</dd></div><div><dt>Location</dt><dd>Remote</dd></div><div><dt>Pricing</dt><dd>By quotation</dd></div></dl><div class="aside-status"><span class="status-dot" aria-hidden="true"></span><span id="aside-status">Brief belum disimpan</span></div></div>
+<div class="checkout-aside__card"><span class="section-kicker">Your order</span><div class="aside-service"><span class="aside-service__icon" aria-hidden="true">✦</span><div><small>Selected service</small><strong id="aside-service">Pilih layanan</strong><small id="aside-collection" class="aside-collection">No collection selected</small></div></div><dl><div><dt>Work model</dt><dd>Project-based</dd></div><div><dt>Location</dt><dd>Remote</dd></div><div><dt>Level</dt><dd id="aside-tier">—</dd></div><div><dt>Pricing</dt><dd>By quotation</dd></div></dl><div class="aside-status"><span class="status-dot" aria-hidden="true"></span><span id="aside-status">Brief belum disimpan</span></div></div>
 <div class="checkout-aside__help"><strong>Not sure yet?</strong><p>Jangan menebak scope. Mulai dari konsultasi gratis jika kebutuhan masih perlu dibahas.</p><a href="/bagusin/contact/?mode=consultation">Start a consultation →</a></div>
 </aside>
 </div></section>
