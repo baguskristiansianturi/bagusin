@@ -11,9 +11,9 @@ const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&
 const normalize=s=>String(s||"").toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g,"");
 const tokens=q=>normalize(q).split(/\s+/).map(x=>x.trim()).filter(Boolean);
 const score=(item,q)=>{
- const hay=normalize([item.title,item.name,item.category,item.subcategory,item.topic,item.type,item.intent,item.description,item.problem,item.purpose,item.complexity,...(item.aliases||[]),...(item.tags||[]),...(item.subservices||[]),...(item.relatedServices||[]),...(item.services||[])].join(" "));
+ const hay=normalize([item.title,item.name,item.category,item.subcategory,item.topic,item.type,item.intent,item.description,item.problem,item.purpose,item.complexity,...(item.aliases||[]),...(item.tags||[]),...(item.subservices||[]),...(item.relatedServices||[]),...(item.services||[])].join(" "));\n const phrase=normalize(q).trim();\n const aliasBoost=(item.aliases||[]).some(a=>phrase.includes(normalize(a))||normalize(a).includes(phrase))?3:0;
  const ts=tokens(q); if(!ts.length)return 0;
- return ts.reduce((n,t)=>n+(hay.includes(t)?1:0),0);
+ return aliasBoost+ts.reduce((n,t)=>n+(hay.includes(t)?1:0),0);
 };
 function serviceItems(){return R.services.map(s=>({kind:"Services",title:s.name,category:s.category,type:"Service",description:s.purpose,problem:s.problem,purpose:s.purpose,complexity:s.complexity,status:s.status,aliases:s.aliases,subservices:s.subservices,url:s.url,id:s.id}));}
 function articleItems(){return R.articles.filter(a=>a.status!=="PLANNED").map(a=>({...a,kind:a.type==="Guide"?"Guides":"Articles",description:a.topic+" · "+a.intent,url:a.url}));}
