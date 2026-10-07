@@ -1,4 +1,4 @@
-(function(){if(!document.querySelector('link[data-final-responsive]')){const l=document.createElement("link");l.rel="stylesheet";l.href="/bagusin/css/final-responsive.css?v=20261008-2";l.dataset.finalResponsive="";document.head.appendChild(l)}})();
+(function(){if(!document.querySelector('link[data-final-responsive]')){const l=document.createElement("link");l.rel="stylesheet";l.href="/bagusin/css/final-responsive.css?v=20261008-3";l.dataset.finalResponsive="";document.head.appendChild(l)}})();
 /* =========================================================
    BAGUSIN — GLOBAL NAVIGATION
    Integrated mobile / search / dropdown / language
