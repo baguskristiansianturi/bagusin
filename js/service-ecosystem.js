@@ -3,7 +3,7 @@
 "use strict";
 document.addEventListener("DOMContentLoaded",function(){
  const root=document.querySelector(".service-page"); const R=window.BAGUSIN_SERVICE_REGISTRY; if(!root||!R)return;
- const slug=location.pathname.split("/").filter(Boolean).slice(-2,-1)[0]||"";
+ const parts=location.pathname.split("/").filter(Boolean); const slug=parts[parts.length-1]||"";
  const s=R.services.find(x=>x.id===slug); if(!s)return;
  const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
  const serviceLabel=id=>R.services.find(x=>x.id===id)?.name||id;
