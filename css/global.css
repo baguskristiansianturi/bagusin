@@ -887,3 +887,99 @@ a:focus-visible {
 }
 .home-pillar__number{display:none}
 .contact-option__number,.destination-card__index{display:none}
+
+/* =========================================================
+   LAYOUT SAFETY — RESPONSIVE FOUNDATION
+   ========================================================= */
+
+main,
+.page-shell,
+.page-content,
+.container,
+.container--narrow,
+.container--article {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+main {
+  width: 100%;
+  overflow: clip;
+}
+
+main > section,
+main > .section {
+  width: 100%;
+  min-width: 0;
+}
+
+.grid,
+[class*="grid"],
+[class*="__grid"],
+.layout-two-column,
+.layout-three-column,
+.content-sidebar {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.grid > *,
+[class*="grid"] > *,
+[class*="__grid"] > *,
+.layout-two-column > *,
+.layout-three-column > *,
+.content-sidebar > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+img,
+picture,
+video,
+iframe,
+embed,
+object,
+svg,
+canvas {
+  max-width: 100%;
+}
+
+input,
+textarea,
+select,
+button {
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: 0;
+}
+
+pre,
+code {
+  max-width: 100%;
+}
+
+pre {
+  overflow-x: auto;
+}
+
+table {
+  max-width: 100%;
+}
+
+@media (max-width: 47.999rem) {
+  .container,
+  .container--narrow,
+  .container--article {
+    width: min(
+      calc(100% - (var(--page-padding) * 2)),
+      100%
+    );
+  }
+
+  .full-bleed {
+    width: 100%;
+    margin-left: 0;
+    transform: none;
+  }
+}
