@@ -189,3 +189,44 @@
     overflow:hidden;
   }
 }
+
+
+/* =========================================================
+   HOMEPAGE — SERVICE OVERVIEW ENTRY
+   ========================================================= */
+
+.home-service-list__all{
+  margin-top:.35rem;
+  border-top:1px solid var(--color-border-strong) !important;
+  color:var(--color-accent-dark) !important;
+  font-weight:700;
+}
+
+.home-service-list__all strong{
+  font-weight:750;
+}
+
+@media (max-width:47.999rem){
+  .home-service-list{
+    width:100%;
+    min-width:0;
+  }
+
+  .home-service-list a{
+    width:100%;
+    min-width:0;
+    max-width:100%;
+  }
+
+  .home-service-list a strong{
+    min-width:0;
+    overflow-wrap:anywhere;
+  }
+}
+
+@media (max-width:29.999rem){
+  .home-service-list a{
+    grid-template-columns:1.65rem minmax(0,1fr) .8rem;
+    gap:.55rem;
+  }
+}
