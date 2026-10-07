@@ -985,3 +985,19 @@ table {
     transform: none;
   }
 }
+
+
+/* Responsive hardening — interactive controls */
+@media (max-width: 47.999rem) {
+  .button {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .button-group,
+  .actions,
+  .hero-actions {
+    min-width: 0;
+  }
+}
