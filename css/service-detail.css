@@ -90,3 +90,152 @@
     max-width:none;
   }
 }
+
+
+/* =========================================================
+   SERVICE DETAIL — FINAL RESPONSIVE HARDENING
+   ========================================================= */
+
+.service-page,
+.service-page > *,
+.service-page .container{
+  min-width:0;
+  max-width:100%;
+  box-sizing:border-box;
+}
+
+.service-hero{
+  overflow:clip;
+}
+
+.service-hero__inner,
+.service-hero__grid,
+.service-hero__grid > *,
+.service-two-col > *,
+.service-grid > *,
+.service-list > *,
+.service-process > *,
+.service-final__inner{
+  min-width:0;
+  max-width:100%;
+  box-sizing:border-box;
+}
+
+.service-hero__grid{
+  align-items:start;
+}
+
+.service-hero h1{
+  max-width:15ch;
+  text-wrap:balance;
+  overflow-wrap:anywhere;
+}
+
+.service-hero .service-actions + .service-actions{
+  margin-top:.75rem;
+}
+
+.service-hero__aside{
+  max-width:100%;
+  overflow-wrap:anywhere;
+}
+
+.service-copy,
+.service-copy p,
+.service-copy li,
+.service-grid p,
+.service-list span,
+.service-process p,
+.service-final p{
+  overflow-wrap:anywhere;
+}
+
+@media (max-width:56rem){
+  .service-hero{
+    padding-block:2.5rem 4rem;
+  }
+
+  .service-hero__grid{
+    gap:2.25rem;
+    margin-top:3rem;
+  }
+
+  .service-hero h1{
+    max-width:14ch;
+    font-size:clamp(2.75rem,8vw,5rem);
+  }
+
+  .service-two-col{
+    gap:2.5rem;
+  }
+}
+
+@media (max-width:47.999rem){
+  .service-hero{
+    padding-block:2rem 3.5rem;
+  }
+
+  .service-hero__grid{
+    gap:2rem;
+    margin-top:2rem;
+  }
+
+  .service-hero h1{
+    max-width:none;
+    font-size:clamp(2.5rem,11vw,4rem);
+    line-height:1;
+  }
+
+  .service-lead{
+    max-width:100%;
+    font-size:1rem;
+  }
+
+  .service-actions{
+    width:100%;
+  }
+
+  .service-actions .button{
+    min-width:0;
+    max-width:100%;
+  }
+
+  .service-hero__aside{
+    width:100%;
+    padding:1.15rem 0 0;
+  }
+
+  .service-grid{
+    grid-template-columns:1fr;
+  }
+
+  .service-list > div{
+    width:100%;
+  }
+
+  .service-process{
+    grid-template-columns:1fr;
+  }
+
+  .service-final{
+    overflow:clip;
+  }
+}
+
+@media (max-width:29.999rem){
+  .service-hero h1{
+    font-size:clamp(2.35rem,12vw,3.35rem);
+  }
+
+  .service-hero__aside{
+    padding-top:1rem;
+  }
+
+  .service-grid article{
+    padding:1.15rem;
+  }
+
+  .service-final{
+    padding-block:3.5rem;
+  }
+}
