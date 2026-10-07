@@ -309,3 +309,5 @@
     border-radius:var(--radius-md,.75rem);
   }
 }
+
+.service-ecosystem__empty{margin-top:.75rem;padding:1rem 1.1rem;border:1px solid var(--color-border,#e7ece9);border-radius:var(--radius-md,.75rem);background:var(--bg-soft,#f7f9f8);color:var(--color-text-muted,#737b78);font-size:.88rem;line-height:1.65}
