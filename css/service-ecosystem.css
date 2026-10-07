@@ -163,3 +163,149 @@
     padding:1.25rem;
   }
 }
+
+
+/* =========================================================
+   SERVICE ECOSYSTEM — RESPONSIVE FOUNDATION
+   ========================================================= */
+
+.service-ecosystem,
+.service-ecosystem *{
+  box-sizing:border-box;
+}
+
+.service-ecosystem .container,
+.service-ecosystem .section-header,
+.service-ecosystem__details,
+.service-ecosystem__links,
+.service-ecosystem__start{
+  min-width:0;
+  max-width:100%;
+}
+
+.service-ecosystem__details > *,
+.service-ecosystem__link-grid > *,
+.service-ecosystem__process > *,
+.service-ecosystem__faq > *{
+  min-width:0;
+  max-width:100%;
+}
+
+.service-ecosystem__related-card{
+  position:relative;
+  display:flex;
+  min-width:0;
+  min-height:10.5rem;
+  height:100%;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:.45rem;
+  padding:1.35rem;
+  border:1px solid var(--color-border,#e7ece9);
+  border-radius:var(--radius-lg,1rem);
+  background:var(--color-white,#fff);
+  color:var(--color-text,#171a19);
+  text-decoration:none;
+  overflow:hidden;
+  transition:transform var(--transition-base),border-color var(--transition-base),box-shadow var(--transition-base),background-color var(--transition-base);
+}
+
+.service-ecosystem__related-card:hover,
+.service-ecosystem__related-card:focus-visible{
+  transform:translateY(-2px);
+  border-color:var(--color-border-strong,#cfd8d4);
+  background:#fbfdfc;
+  box-shadow:var(--shadow-sm,0 8px 24px rgba(17,21,20,.06));
+}
+
+.service-ecosystem__related-card strong{
+  max-width:calc(100% - 1.5rem);
+  font-size:1.05rem;
+  line-height:1.3;
+  overflow-wrap:anywhere;
+}
+
+.service-ecosystem__related-meta{
+  color:var(--color-accent-dark,#3f9181);
+  font-size:.68rem;
+  font-weight:700;
+  letter-spacing:.07em;
+  line-height:1.35;
+  text-transform:uppercase;
+  overflow-wrap:anywhere;
+}
+
+.service-ecosystem__related-card > span:not(.service-ecosystem__related-meta):not(.service-ecosystem__related-arrow){
+  color:var(--color-text-muted,#737b78);
+  font-size:.78rem;
+  line-height:1.45;
+}
+
+.service-ecosystem__related-arrow{
+  position:absolute;
+  right:1.2rem;
+  bottom:1.15rem;
+  color:var(--color-accent-dark,#3f9181);
+  font-size:1rem;
+}
+
+@media (max-width:48rem){
+  .service-ecosystem{
+    overflow:clip;
+  }
+
+  .service-ecosystem__details{
+    grid-template-columns:1fr;
+    gap:1.5rem;
+  }
+
+  .service-ecosystem__link-grid{
+    grid-template-columns:1fr;
+    gap:.75rem;
+  }
+
+  .service-ecosystem__related-card{
+    min-height:0;
+    padding:1.2rem;
+  }
+
+  .service-ecosystem__process{
+    grid-template-columns:1fr;
+    gap:.65rem;
+  }
+
+  .service-ecosystem__start{
+    width:100%;
+    overflow:hidden;
+  }
+
+  .service-ecosystem__start .service-actions{
+    display:grid;
+    grid-template-columns:1fr;
+    width:100%;
+  }
+
+  .service-ecosystem__start .service-actions .button{
+    width:100%;
+    min-width:0;
+  }
+}
+
+@media (max-width:29.999rem){
+  .service-ecosystem .section-header{
+    margin-bottom:1.5rem;
+  }
+
+  .service-ecosystem__details{
+    margin-top:1.75rem;
+  }
+
+  .service-ecosystem__links{
+    margin-top:2.5rem;
+  }
+
+  .service-ecosystem__start{
+    padding:1rem;
+    border-radius:var(--radius-md,.75rem);
+  }
+}
