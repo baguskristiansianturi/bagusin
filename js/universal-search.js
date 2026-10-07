@@ -12,7 +12,8 @@ const normalize=s=>String(s||"").toLowerCase().normalize("NFKD").replace(/[\u030
 const tokens=q=>normalize(q).split(/\s+/).map(x=>x.trim()).filter(Boolean);
 const score=(item,q)=>{
  const hay=normalize([item.title,item.name,item.category,item.subcategory,item.topic,item.type,item.intent,item.description,item.problem,item.purpose,item.complexity,...(item.aliases||[]),...(item.tags||[]),...(item.subservices||[]),...(item.relatedServices||[]),...(item.services||[]),item.searchText].join(" "));
- const phrase=normalize(q).trim();\n const aliasBoost=(item.aliases||[]).some(a=>phrase.includes(normalize(a))||normalize(a).includes(phrase))?3:0;
+ const phrase=normalize(q).trim();
+ const aliasBoost=(item.aliases||[]).some(a=>phrase.includes(normalize(a))||normalize(a).includes(phrase))?3:0;
  const ts=tokens(q); if(!ts.length)return 0;
  return aliasBoost+ts.reduce((n,t)=>n+(hay.includes(t)?1:0),0);
 };
