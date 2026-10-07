@@ -502,3 +502,144 @@ input,select,textarea,button{
     padding-block:1rem 1.75rem !important;
   }
 }
+
+
+/* =========================================================
+   MOBILE — SINGLE WIDTH CONTRACT
+   Prevent page-specific components from escaping the viewport.
+   Desktop styles remain untouched.
+   ========================================================= */
+@media (max-width:47.999rem){
+  html,
+  body,
+  #app,
+  main{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    overflow-x:hidden;
+  }
+
+  /* Every layout child must be allowed to shrink. */
+  main *,
+  .site-header *,
+  .site-footer *{
+    min-width:0;
+    box-sizing:border-box;
+  }
+
+  /* Prevent legacy fixed/min-content widths from expanding the page. */
+  main .container,
+  main .container--narrow,
+  main .container--article,
+  main .section,
+  main section,
+  main article,
+  main aside,
+  main form,
+  main .grid,
+  main [class*="grid"],
+  main [class*="layout"],
+  main [class*="inner"]{
+    max-width:100%;
+  }
+
+  /* Flex/grid children must never force their parent wider. */
+  main [class*="grid"] > *,
+  main [class*="layout"] > *,
+  main .flex > *,
+  main .home-hero__inner > *,
+  main .work-hero__inner > *,
+  main .service-hero__grid > *,
+  main .article-layout > *,
+  main .article-pro-layout > *,
+  main .contact-form-layout > *,
+  main .checkout-main > *,
+  main .checkout-aside > *{
+    min-width:0;
+    max-width:100%;
+  }
+
+  /* Media and embeds stay inside the actual content column. */
+  main img,
+  main picture,
+  main video,
+  main iframe,
+  main embed,
+  main object,
+  main svg,
+  main canvas{
+    max-width:100%;
+  }
+
+  /* Long controls/text cannot create a second viewport. */
+  main input,
+  main select,
+  main textarea,
+  main button,
+  main .button,
+  main .text-link{
+    max-width:100%;
+    min-width:0;
+  }
+
+  main pre,
+  main code{
+    max-width:100%;
+  }
+
+  main pre{
+    overflow-x:auto;
+  }
+
+  main table{
+    display:block;
+    max-width:100%;
+    overflow-x:auto;
+  }
+
+  /* Labels/tags may wrap on narrow screens instead of pushing width. */
+  main .label,
+  main .badge,
+  main .tag,
+  main [class*="kicker"],
+  main [class*="label"]{
+    max-width:100%;
+    white-space:normal;
+    overflow-wrap:anywhere;
+  }
+
+  /* Keep the page gutters identical everywhere. */
+  main > section > .container,
+  main > .section > .container{
+    width:calc(100% - (var(--page-padding,1rem) * 2));
+    max-width:var(--content-width,68rem);
+    margin-inline:auto;
+  }
+
+  /* Remove accidental viewport-based widths on content blocks. */
+  main [style*="width:100vw"],
+  main [style*="width: 100vw"]{
+    width:100% !important;
+    max-width:100% !important;
+  }
+
+  /* Full-bleed elements are full-width, not wider-than-viewport. */
+  main .full-bleed{
+    width:100% !important;
+    max-width:100% !important;
+    margin-inline:0 !important;
+    transform:none !important;
+  }
+}
+
+@media (max-width:29.999rem){
+  :root{
+    --page-padding:1rem;
+  }
+
+  main > section > .container,
+  main > .section > .container{
+    width:calc(100% - 2rem);
+  }
+}
