@@ -283,3 +283,30 @@
 @media (prefers-reduced-motion:reduce){
   .article-lightbox{scroll-behavior:auto}
 }
+
+
+/* Responsive hardening — article */
+@media (max-width: 47.999rem) {
+  .article-header,
+  .article-content,
+  .article-footer,
+  .article-cover,
+  .article-recommendation {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .article-cover img,
+  .article-content img,
+  .article-content video,
+  .article-content iframe {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .article-content pre {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+}
