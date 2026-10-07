@@ -1,18 +1,165 @@
-/* BagusIn service ecosystem additions — preserves existing visual language */
-.service-ecosystem{border-top:1px solid var(--color-border,#e7ece9)}
-.service-ecosystem__details{margin-top:3rem}
-.service-ecosystem__details ul{margin:0;padding-left:1.15rem}
-.service-ecosystem__details li{margin:.55rem 0}
-.service-ecosystem__links{margin-top:3rem}
-.service-ecosystem__link-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:1rem}
-.service-ecosystem__link-grid .card{display:flex;flex-direction:column;gap:.35rem;text-decoration:none}
-.service-ecosystem__link-grid .card span{color:var(--color-muted,#737b78);font-size:.9rem}
-.service-ecosystem__article-list{display:grid;gap:.65rem;margin-top:1rem}
-.service-ecosystem__start{margin-top:3rem;padding:2rem;border:1px solid var(--color-border,#e7ece9);border-radius:var(--radius-lg,1rem);background:var(--color-surface-soft,#f7faf9)}
-@media (max-width:48rem){
- .service-ecosystem__link-grid{grid-template-columns:1fr}
- .service-ecosystem__details{margin-top:2rem}
- .service-ecosystem__start{padding:1.5rem}
+/* BagusIn — service ecosystem layer
+   Extends the existing service-detail language without changing the visual identity.
+*/
+
+.service-ecosystem{
+  border-top:1px solid var(--color-border,#e7ece9);
 }
-.service-ecosystem__process{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1rem;margin:1rem 0 0;padding:0;list-style:none;counter-reset:step}.service-ecosystem__process li{counter-increment:step;position:relative;padding:1rem;border:1px solid var(--color-border,#e7ece9);border-radius:var(--radius-md,.75rem);background:var(--color-white,#fff)}.service-ecosystem__process li::before{content:counter(step,decimal-leading-zero);display:block;margin-bottom:.65rem;font-size:.75rem;letter-spacing:.08em;color:var(--color-muted,#737b78)}.service-ecosystem__faq{display:grid;gap:.6rem;margin-top:1rem}.service-ecosystem__faq details{border-bottom:1px solid var(--color-border,#e7ece9);padding:.2rem 0}.service-ecosystem__faq summary{cursor:pointer;padding:.8rem 0;font-weight:600}.service-ecosystem__faq p{margin:0 0 1rem;color:var(--color-muted,#737b78)}
-@media (max-width:64rem){.service-ecosystem__process{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:48rem){.service-ecosystem__process{grid-template-columns:1fr}}
+
+.service-ecosystem .section-header{
+  margin-bottom:2rem;
+}
+
+.service-ecosystem__details{
+  margin-top:clamp(2.25rem,5vw,3.5rem);
+}
+
+.service-ecosystem__details ul{
+  margin:0;
+  padding-left:1.15rem;
+}
+
+.service-ecosystem__details li{
+  margin:.55rem 0;
+  overflow-wrap:anywhere;
+}
+
+.service-ecosystem__links{
+  margin-top:clamp(2.5rem,5vw,4rem);
+}
+
+.service-ecosystem__link-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:1rem;
+  margin-top:1rem;
+}
+
+.service-ecosystem__link-grid .card{
+  display:flex;
+  flex-direction:column;
+  gap:.4rem;
+  min-width:0;
+  height:100%;
+  text-decoration:none;
+}
+
+.service-ecosystem__link-grid .card span{
+  color:var(--color-muted,#737b78);
+  font-size:.9rem;
+  line-height:1.55;
+}
+
+.service-ecosystem__article-list{
+  display:grid;
+  gap:.15rem;
+  margin-top:.75rem;
+}
+
+.service-ecosystem__article-list .text-link{
+  width:fit-content;
+  max-width:100%;
+  overflow-wrap:anywhere;
+}
+
+.service-ecosystem__process{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:.75rem;
+  margin:1rem 0 0;
+  padding:0;
+  list-style:none;
+}
+
+.service-ecosystem__process li{
+  min-width:0;
+  padding:1rem;
+  border:1px solid var(--color-border,#e7ece9);
+  border-radius:var(--radius-md,.75rem);
+  background:var(--color-white,#fff);
+  line-height:1.55;
+  overflow-wrap:anywhere;
+}
+
+.service-ecosystem__process li::before{
+  content:counter(step,decimal-leading-zero);
+  display:block;
+  margin-bottom:.65rem;
+  font-size:.72rem;
+  letter-spacing:.08em;
+  color:var(--color-muted,#737b78);
+}
+
+.service-ecosystem__process{
+  counter-reset:step;
+}
+
+.service-ecosystem__process li{
+  counter-increment:step;
+}
+
+.service-ecosystem__faq{
+  display:grid;
+  gap:.6rem;
+  margin-top:1rem;
+}
+
+.service-ecosystem__faq details{
+  min-width:0;
+  border-bottom:1px solid var(--color-border,#e7ece9);
+  padding:.2rem 0;
+}
+
+.service-ecosystem__faq summary{
+  cursor:pointer;
+  padding:.8rem 0;
+  font-weight:600;
+  line-height:1.5;
+}
+
+.service-ecosystem__faq p{
+  margin:0 0 1rem;
+  color:var(--color-muted,#737b78);
+  line-height:1.7;
+}
+
+.service-ecosystem__start{
+  margin-top:clamp(2.5rem,5vw,4rem);
+  padding:clamp(1.35rem,4vw,2rem);
+  border:1px solid var(--color-border,#e7ece9);
+  border-radius:var(--radius-lg,1rem);
+  background:var(--color-surface-soft,#f7faf9);
+}
+
+.service-ecosystem__start p{
+  max-width:42rem;
+}
+
+.service-ecosystem__start .service-actions{
+  margin-top:1.25rem;
+}
+
+@media (max-width:64rem){
+  .service-ecosystem__process{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .service-ecosystem__link-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media (max-width:48rem){
+  .service-ecosystem__details{
+    margin-top:2rem;
+  }
+
+  .service-ecosystem__process,
+  .service-ecosystem__link-grid{
+    grid-template-columns:1fr;
+  }
+
+  .service-ecosystem__start{
+    padding:1.25rem;
+  }
+}
