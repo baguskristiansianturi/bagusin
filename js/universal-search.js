@@ -16,7 +16,7 @@ const score=(item,q)=>{
  return ts.reduce((n,t)=>n+(hay.includes(t)?1:0),0);
 };
 function serviceItems(){return R.services.map(s=>({kind:"Services",title:s.name,category:s.category,type:"Service",description:s.purpose,problem:s.problem,purpose:s.purpose,complexity:s.complexity,status:s.status,aliases:s.aliases,subservices:s.subservices,url:s.url,id:s.id}));}
-function articleItems(){return R.articles.map(a=>({...a,kind:a.type==="Guide"?"Guides":"Articles",description:a.topic+" · "+a.intent,url:a.url}));}
+function articleItems(){return R.articles.filter(a=>a.status!=="PLANNED").map(a=>({...a,kind:a.type==="Guide"?"Guides":"Articles",description:a.topic+" · "+a.intent,url:a.url}));}
 function staticItems(){
  return [
   {kind:"Portfolio",title:"Portfolio",category:"Work",type:"Portfolio",description:"Projects, concepts and experiments.",aliases:["portfolio","project","case study"],url:base+"portfolio/"},
