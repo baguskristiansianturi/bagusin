@@ -1,3 +1,4 @@
+(function(){const href=(function(){const p=location.pathname;return p.includes("/bagusin/")?"/bagusin/css/final-responsive.css":"/bagusin/css/final-responsive.css"})();if(!document.querySelector('link[data-final-responsive]')){const l=document.createElement("link");l.rel="stylesheet";l.href=href;l.dataset.finalResponsive="";document.head.appendChild(l)}})();
 /* =========================================================
    BAGUSIN — GLOBAL SITE SCRIPT
    Safe global utilities for every page.
