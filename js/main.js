@@ -1,4 +1,4 @@
-(function(){const href=(function(){const p=location.pathname;return p.includes("/bagusin/")?"/bagusin/css/final-responsive.css?v=20261008-2":"/bagusin/css/final-responsive.css?v=20261008-2"})();if(!document.querySelector('link[data-final-responsive]')){const l=document.createElement("link");l.rel="stylesheet";l.href=href;l.dataset.finalResponsive="";document.head.appendChild(l)}})();
+(function(){const href=(function(){const p=location.pathname;return p.includes("/bagusin/")?"/bagusin/css/final-responsive.css?v=20261008-3":"/bagusin/css/final-responsive.css?v=20261008-3"})();if(!document.querySelector('link[data-final-responsive]')){const l=document.createElement("link");l.rel="stylesheet";l.href=href;l.dataset.finalResponsive="";document.head.appendChild(l)}})();
 /* =========================================================
    BAGUSIN — GLOBAL SITE SCRIPT
    Safe global utilities for every page.
