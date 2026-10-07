@@ -61,6 +61,7 @@
       if (!footer) return;
       const en = /^\/bagusin\/en(?:\/|$)/.test(window.location.pathname);
       const base = en ? "/bagusin/en" : "/bagusin";
+      const checkoutBase = "/bagusin/checkout";
       const t = en ? {
         explore:"Explore", work:"Work", start:"Start", legal:"Legal",
         blog:"Blog", destinations:"Destinations", youtube:"YouTube", about:"About",
@@ -105,14 +106,14 @@
                 <li><a class="site-footer__link" href="${base}/work/">${t.workWithMe}</a></li><li><a class="site-footer__link" href="${base}/work/">${t.services}</a></li><li><a class="site-footer__link" href="${base}/portfolio/">${t.portfolio}</a></li>
               </ul></div>
               <div class="site-footer__column"><h2 class="site-footer__title">${t.start}</h2><ul class="site-footer__links">
-                <li><a class="site-footer__link" href="${base}/checkout/">${t.startProject}</a></li><li><a class="site-footer__link" href="${base}/contact/?mode=consultation">${t.help}</a></li><li><a class="site-footer__link" href="${base}/contact/">${t.contact}</a></li>
+                <li><a class="site-footer__link" href="${checkoutBase}/">${t.startProject}</a></li><li><a class="site-footer__link" href="${base}/contact/?mode=consultation">${t.help}</a></li><li><a class="site-footer__link" href="${base}/contact/">${t.contact}</a></li>
               </ul></div>
               <div class="site-footer__column"><h2 class="site-footer__title">${t.legal}</h2><ul class="site-footer__links">
                 <li><a class="site-footer__link" href="${base}/legal/privacy/">${t.privacy}</a></li><li><a class="site-footer__link" href="${base}/legal/terms/">${t.terms}</a></li><li><a class="site-footer__link" href="${base}/legal/disclaimer/">${t.disclaimer}</a></li><li><a class="site-footer__link" href="${base}/legal/editorial-policy/">${t.editorial}</a></li>
               </ul></div>
             </div>
             <div class="site-footer__cta"><div class="site-footer__cta-content"><h2 class="site-footer__cta-title">${t.ctaTitle}</h2><p class="site-footer__cta-description">${t.ctaText}</p></div>
-              <div class="site-footer__cta-action"><a class="button button--light" href="${base}/checkout/">${t.startProject}</a><a class="button button--footer-ghost" href="${base}/contact/?mode=consultation">${t.help}</a></div>
+              <div class="site-footer__cta-action"><a class="button button--light" href="${checkoutBase}/">${t.startProject}</a><a class="button button--footer-ghost" href="${base}/contact/?mode=consultation">${t.help}</a></div>
             </div>
             <div class="site-footer__bottom"><div class="site-footer__bottom-inner"><p class="site-footer__copyright">© <span data-current-year>2026</span> BagusIn.</p><div class="site-footer__legal"><a class="site-footer__legal-link" href="${base}/legal/privacy/">${t.privacy}</a><a class="site-footer__legal-link" href="${base}/legal/terms/">${t.terms}</a><a class="site-footer__legal-link" href="${base}/contact/">${t.contact}</a></div></div></div>
           </div>
