@@ -239,3 +239,13 @@
     padding-block:3.5rem;
   }
 }
+
+/* Deep UX alignment — service heroes follow the clean editorial reference */
+.service-hero__grid{margin-top:clamp(2.25rem,5vw,4rem)}
+.service-hero__copy{min-width:0}
+.service-hero .service-actions{margin-top:1.5rem}
+.service-hero .service-actions + .service-actions{margin-top:.65rem}
+@media(max-width:47.999rem){
+  .service-hero__grid{margin-top:1.75rem}
+  .service-hero .service-actions{margin-top:1.25rem}
+}
