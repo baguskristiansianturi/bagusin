@@ -61,3 +61,11 @@
 @media (prefers-reduced-motion:reduce){
   .site-footer__social-link{transition:none}
 }
+/* Deep UX polish — canonical footer rendered by navigation.js */
+.site-footer__cta-action{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:.65rem}
+.button--footer-ghost{display:inline-flex;align-items:center;justify-content:center;min-height:2.75rem;padding:.7rem 1rem;border:1px solid rgba(255,255,255,.28);border-radius:var(--radius-md,.7rem);background:transparent;color:#fff;text-decoration:none;font-size:.8rem;font-weight:700;transition:background-color .16s ease,border-color .16s ease,color .16s ease}
+.button--footer-ghost:hover,.button--footer-ghost:focus-visible{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.55);color:#fff}
+.site-footer__link{overflow-wrap:anywhere}
+@media(max-width:47.999rem){.site-footer__cta-action{width:100%;display:grid;grid-template-columns:1fr}.site-footer__cta-action .button{width:100%;justify-content:center}.site-footer__top{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:29.999rem){.site-footer__top{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.button--footer-ghost{transition:none}}
