@@ -1,0 +1,382 @@
+/* =========================================================
+   BAGUSIN — FINAL RESPONSIVE OVERRIDES
+   Loaded last so page-specific styles cannot re-introduce
+   horizontal overflow or oversized mobile hero spacing.
+   ========================================================= */
+
+*,
+*::before,
+*::after{box-sizing:border-box}
+
+html{max-width:100%;overflow-x:clip}
+body{max-width:100%;overflow-x:clip}
+
+img,svg,video,canvas,iframe{max-width:100%}
+
+.container,
+.container--narrow,
+.container--article,
+main,
+section,
+article,
+aside,
+footer,
+header,
+nav,
+form,
+fieldset,
+.grid,
+[class*="grid"],
+[class*="inner"],
+[class*="layout"]{
+  min-width:0;
+}
+
+.container,
+.container--narrow,
+.container--article{
+  width:min(calc(100% - (var(--page-padding,1.25rem) * 2)),var(--content-width,1200px));
+  max-width:100%;
+  margin-inline:auto;
+}
+
+p,h1,h2,h3,h4,h5,h6,a,strong,span,li,dd,dt{
+  max-width:100%;
+  overflow-wrap:anywhere;
+}
+
+pre{
+  max-width:100%;
+  overflow-x:auto;
+  white-space:pre;
+  -webkit-overflow-scrolling:touch;
+}
+
+table{max-width:100%;display:block;overflow-x:auto}
+figure{max-width:100%;margin-inline:0}
+
+input,select,textarea,button{
+  box-sizing:border-box;
+  max-width:100%;
+  min-width:0;
+}
+
+/* Hero rhythm — intentionally compact and consistent with YouTube */
+.home-hero,
+.work-hero,
+.service-hero,
+.blog-hero,
+.contact-hero,
+.portfolio-hero,
+.youtube-hero,
+.about-hero,
+.destinations-hero,
+.collection-hero,
+.collection-detail-hero,
+.article-hero,
+.article-pro-hero,
+.legal-hero,
+.search-hero,
+.checkout-page .checkout-hero{
+  max-width:100%;
+}
+
+@media (min-width:48rem){
+  .home-hero,
+  .work-hero,
+  .service-hero,
+  .blog-hero,
+  .contact-hero,
+  .portfolio-hero,
+  .youtube-hero,
+  .about-hero,
+  .destinations-hero,
+  .collection-hero,
+  .collection-detail-hero,
+  .article-hero,
+  .article-pro-hero,
+  .legal-hero,
+  .search-hero,
+  .checkout-page .checkout-hero{
+    padding-block-start:clamp(2.5rem,4.5vw,4.25rem) !important;
+    padding-block-end:clamp(2.75rem,5vw,4.5rem) !important;
+  }
+
+  .home-hero{
+    min-height:min(650px,calc(100svh - var(--header-height))) !important;
+  }
+}
+
+@media (max-width:47.999rem){
+  :root{--page-padding:1rem}
+
+  .section{padding-block:2.75rem}
+
+  .home-hero,
+  .work-hero,
+  .service-hero,
+  .blog-hero,
+  .contact-hero,
+  .portfolio-hero,
+  .youtube-hero,
+  .about-hero,
+  .destinations-hero,
+  .collection-hero,
+  .collection-detail-hero,
+  .article-hero,
+  .article-pro-hero,
+  .legal-hero,
+  .search-hero,
+  .checkout-page .checkout-hero{
+    min-height:auto !important;
+    padding-block-start:1.5rem !important;
+    padding-block-end:2.75rem !important;
+  }
+
+  .home-hero{
+    min-height:auto !important;
+  }
+
+  .home-hero__inner,
+  .work-hero__inner,
+  .blog-hero__inner,
+  .portfolio-hero__inner,
+  .youtube-hero__inner,
+  .contact-hero__inner,
+  .checkout-page .checkout-hero__grid{
+    grid-template-columns:minmax(0,1fr) !important;
+    gap:1.5rem !important;
+    width:100%;
+  }
+
+  .service-hero__grid,
+  .service-two-col,
+  .article-layout,
+  .article-pro-layout,
+  .portfolio-project--featured,
+  .home-work,
+  .home-about__inner,
+  .home-newsletter__inner,
+  .work-principle__inner,
+  .blog-featured,
+  .blog-more{
+    grid-template-columns:minmax(0,1fr) !important;
+    width:100%;
+  }
+
+  .home-story-grid,
+  .home-pillars,
+  .blog-topics,
+  .portfolio-grid,
+  .service-grid,
+  .service-process,
+  .portfolio-method__grid{
+    grid-template-columns:minmax(0,1fr) !important;
+    width:100%;
+  }
+
+  .home-hero__copy,
+  .home-hero__aside,
+  .service-hero__copy,
+  .service-hero__aside,
+  .article-content,
+  .article-pro-content,
+  .contact-form,
+  .contact-form-layout,
+  .checkout-page .checkout-main,
+  .checkout-page .checkout-aside{
+    width:100%;
+    min-width:0;
+    max-width:100%;
+  }
+
+  .home-hero__copy h1,
+  .service-hero h1,
+  .blog-hero__title,
+  .portfolio-hero h1,
+  .youtube-hero h1,
+  .article-pro-hero h1,
+  .checkout-page .checkout-hero h1{
+    max-width:100% !important;
+    overflow-wrap:normal;
+  }
+
+  .home-hero__copy h1{
+    font-size:clamp(2.55rem,13vw,4rem) !important;
+    line-height:1.03 !important;
+  }
+
+  .service-hero h1{
+    font-size:clamp(2.35rem,11.5vw,3.7rem) !important;
+    line-height:1.02 !important;
+  }
+
+  .blog-hero__title,
+  .portfolio-hero h1,
+  .youtube-hero h1,
+  .article-pro-hero h1{
+    font-size:clamp(2.3rem,11vw,3.7rem) !important;
+    line-height:1.03 !important;
+  }
+
+  .home-hero__actions,
+  .service-actions,
+  .work-hero__actions,
+  .youtube-hero__actions,
+  .contact-next__actions{
+    width:100%;
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .home-hero__actions .button,
+  .service-actions .button,
+  .work-hero__actions .button,
+  .youtube-hero__actions .button,
+  .contact-next__actions .button,
+  .contact-form > .button,
+  .checkout-page .panel-actions .button{
+    width:100%;
+    max-width:100%;
+    justify-content:center;
+  }
+
+  .home-story__visual,
+  .home-story--featured .home-story__visual,
+  .portfolio-project__visual{
+    min-height:13rem !important;
+    max-width:100%;
+  }
+
+  .home-service-list,
+  .home-service-list a,
+  .contact-option,
+  .portfolio-project,
+  .portfolio-project__body,
+  .review-box,
+  .checkout-page .checkout-card,
+  .article-recommendations{
+    width:100%;
+    min-width:0;
+    max-width:100%;
+  }
+
+  .home-service-list a{
+    grid-template-columns:1.75rem minmax(0,1fr) .9rem !important;
+  }
+
+  .contact-option{
+    grid-template-columns:2rem minmax(0,1fr) auto !important;
+  }
+
+  .contact-form-layout{
+    grid-template-columns:1fr !important;
+    gap:1.5rem !important;
+  }
+
+  .contact-form-layout > :first-child{
+    position:static !important;
+  }
+
+  .contact-form{
+    padding:1rem !important;
+  }
+
+  .form-grid,
+  .checkout-page .checkout-form-grid{
+    grid-template-columns:1fr !important;
+  }
+
+  .form-grid .form-full,
+  .checkout-page .checkout-field--full{
+    grid-column:auto !important;
+  }
+
+  .form-context{
+    grid-template-columns:1fr !important;
+  }
+
+  .form-context strong{
+    text-align:left !important;
+  }
+
+  .article-pro-cover,
+  .article-cover{
+    width:100%;
+    max-width:100%;
+    margin-inline:0 !important;
+  }
+
+  .article-pro-cover img{
+    max-width:100% !important;
+  }
+
+  .article-pro-toc{
+    grid-template-columns:1fr !important;
+  }
+
+  .checkout-page .checkout-progress{
+    max-width:100%;
+    overflow-x:auto;
+  }
+
+  .checkout-page .review-row{
+    grid-template-columns:1fr !important;
+  }
+
+  .checkout-page .payment-confirm{
+    grid-template-columns:1fr !important;
+  }
+
+  .site-footer,
+  .site-footer__main,
+  .site-footer__inner,
+  .site-footer__top,
+  .site-footer__cta,
+  .site-footer__bottom{
+    min-width:0;
+    max-width:100%;
+  }
+}
+
+@media (max-width:29.999rem){
+  .section{padding-block:2.5rem}
+
+  .home-hero,
+  .work-hero,
+  .service-hero,
+  .blog-hero,
+  .contact-hero,
+  .portfolio-hero,
+  .youtube-hero,
+  .about-hero,
+  .destinations-hero,
+  .collection-hero,
+  .collection-detail-hero,
+  .article-hero,
+  .article-pro-hero,
+  .legal-hero,
+  .search-hero,
+  .checkout-page .checkout-hero{
+    padding-block-start:1.15rem !important;
+    padding-block-end:2.35rem !important;
+  }
+
+  .home-hero__copy h1{
+    font-size:clamp(2.3rem,13.5vw,3.35rem) !important;
+  }
+
+  .contact-form{
+    border-radius:.8rem !important;
+  }
+
+  .contact-option{
+    grid-template-columns:1.8rem minmax(0,1fr) !important;
+  }
+
+  .contact-option__arrow{
+    grid-column:2;
+    justify-self:start;
+    margin-top:.25rem;
+  }
+}
