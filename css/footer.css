@@ -69,3 +69,10 @@
 @media(max-width:47.999rem){.site-footer__cta-action{width:100%;display:grid;grid-template-columns:1fr}.site-footer__cta-action .button{width:100%;justify-content:center}.site-footer__top{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:29.999rem){.site-footer__top{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.button--footer-ghost{transition:none}}
+/* Footer CTA contrast hardening — keep CTA copy readable on the dark surface. */
+.site-footer .site-footer__cta-title{
+  color:#fff !important;
+}
+.site-footer .site-footer__cta-description{
+  color:rgba(255,255,255,.72) !important;
+}
