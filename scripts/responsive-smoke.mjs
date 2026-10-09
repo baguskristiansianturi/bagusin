@@ -174,9 +174,11 @@ try {
   // Contact form must prepare a copyable brief without falsely claiming delivery.
   await interactionPage.goto(origin + "/bagusin/contact/", { waitUntil: "domcontentloaded" });
   const contactHeading = await interactionPage.locator(".contact-hero h1").textContent();
+  const contactTitle = await interactionPage.title();
   if (!contactHeading || !contactHeading.includes("Mulai dari masalahnya")) {
     errors.push("Contact page: Indonesian hero copy is not localized");
   }
+  if (!contactTitle.includes("Kontak")) errors.push("Contact page: title metadata is not localized");
   await interactionPage.locator("#project-form input[name=name]").fill("Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("test@example.com");
   await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the contact brief preparation flow.");
