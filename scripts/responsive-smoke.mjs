@@ -221,6 +221,16 @@ try {
   if (!aboutText.includes("blog personal") || !aboutText.includes("Berangkat dari masalah nyata.")) errors.push("About page: Indonesian positioning copy is missing");
   if (aboutText.includes("independent software studio") || aboutText.includes("Built around real problems.")) errors.push("About page: outdated English positioning copy remains");
   if (!aboutStructuredData || aboutStructuredData.includes("independent software studio")) errors.push("About page: structured data still contains outdated positioning");
+
+  // Portfolio copy must be localized and accurately distinguish real projects from experiments.
+  await interactionPage.goto(origin + "/bagusin/portfolio/", { waitUntil: "domcontentloaded" });
+  const portfolioTitle = await interactionPage.title();
+  const portfolioText = await interactionPage.locator("main").innerText();
+  const portfolioStructuredData = await interactionPage.locator('script[type="application/ld+json"]').textContent();
+  if (!portfolioTitle.includes("Portofolio")) errors.push("Portfolio page: title metadata is not localized");
+  if (!portfolioText.includes("Hal-hal yang saya bangun, uji, dan jelajahi.") || !portfolioText.includes("Portofolio seharusnya menunjukkan cara berpikir")) errors.push("Portfolio page: Indonesian headings are missing");
+  if (portfolioText.includes("Things I’ve built, tested, and explored.") || portfolioText.includes("independent software studio") || portfolioText.includes("Work With Me")) errors.push("Portfolio page: outdated English or studio positioning remains");
+  if (!portfolioStructuredData || portfolioStructuredData.includes("software engineering")) errors.push("Portfolio page: structured data still contains outdated English description");
 } catch (error) {
   errors.push("Homepage/article/contact interaction smoke test: " + error.message);
 } finally {
@@ -236,5 +246,5 @@ if (errors.length) {
   for (const error of errors) console.error("- " + error);
   process.exitCode = 1;
 } else {
-  console.log("PASS: tested route loading, structural overflow, local resources, JavaScript errors, mobile menu, global search, and contact brief preparation/copy feedback, Indonesian services-page copy, and About-page positioning.");
+  console.log("PASS: tested route loading, structural overflow, local resources, JavaScript errors, mobile menu, global search, and contact brief preparation/copy feedback, Indonesian services-page copy, About-page positioning, and localized portfolio copy.");
 }
