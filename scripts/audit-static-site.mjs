@@ -104,9 +104,16 @@ for (const file of htmlFiles) {
     if (!target) reportError(rel + ": broken internal URL " + href);
   }
 
-  for (const tag of [...extractTags(html, "script"), ...extractTags(html, "img"), ...extractTags(html, "source"), ...extractTags(html, "link").filter((item) => (attr(item, "rel") || "").toLowerCase().includes("stylesheet"))]) {
-    const src = attr(tag, "src");
-    if (!src || /^(?:https?:)?\/\//i.test(src) || /^(?:data:|blob:|javascript:)/i.test(src)) continue;
+  const assetRefs = [
+    ...extractTags(html, "script").map((tag) => attr(tag, "src")),
+    ...extractTags(html, "img").map((tag) => attr(tag, "src")),
+    ...extractTags(html, "source").map((tag) => attr(tag, "src")),
+    ...extractTags(html, "link")
+      .filter((tag) => (attr(tag, "rel") || "").toLowerCase().includes("stylesheet"))
+      .map((tag) => attr(tag, "href"))
+  ].filter(Boolean);
+  for (const src of assetRefs) {
+    if (/^(?:https?:)?\/\//i.test(src) || /^(?:data:|blob:|javascript:)/i.test(src)) continue;
     const local = cleanUrl(src);
     let target;
     if (local.startsWith("/bagusin/")) target = path.join(ROOT, local.replace(/^\/bagusin\//, ""));
