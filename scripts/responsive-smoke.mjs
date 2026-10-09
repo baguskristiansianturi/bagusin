@@ -120,8 +120,32 @@ try {
       errors.push("Homepage: global search input is missing");
     }
   }
+
+  // Regression case: legacy articles may have a search toggle but no search panel.
+  await interactionPage.goto(origin + "/bagusin/blog/bekerja-dari-mana-saja/", { waitUntil: "domcontentloaded" });
+  const articleSearchToggle = interactionPage.locator("[data-search-toggle]").first();
+  if (!(await articleSearchToggle.count())) {
+    errors.push("Article page: global search toggle is missing");
+  } else {
+    await articleSearchToggle.click();
+    const articleSearchPanel = interactionPage.locator("#header-search");
+    if (!(await articleSearchPanel.count())) {
+      errors.push("Article page: global search panel was not created");
+    } else {
+      const action = await articleSearchPanel.locator("form").getAttribute("action");
+      if (action !== "/bagusin/search/") errors.push("Article page: search form has unexpected route " + action);
+      const articleSearchInput = articleSearchPanel.locator("input[name=q]");
+      if (!(await articleSearchInput.count())) {
+        errors.push("Article page: global search input is missing");
+      } else {
+        await articleSearchInput.fill("remote work");
+        await articleSearchPanel.locator("form").evaluate((form) => form.requestSubmit());
+        await interactionPage.waitForURL(/\/bagusin\/search\/\?q=remote\+work/i, { timeout: 10000 });
+      }
+    }
+  }
 } catch (error) {
-  errors.push("Homepage interaction smoke test: " + error.message);
+  errors.push("Homepage/article interaction smoke test: " + error.message);
 } finally {
   await interactionPage.close();
   await browser.close();
