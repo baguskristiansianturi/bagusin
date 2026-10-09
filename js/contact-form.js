@@ -76,8 +76,8 @@ document.addEventListener("DOMContentLoaded", function () {
         try { copied = document.execCommand("copy"); } catch (_) {}
       }
       status.textContent = copied
-        ? (isEnglish ? "Summary copied. The brief has not been sent; paste it into your preferred contact channel." : "Ringkasan berhasil disalin. Brief belum terkirim; tempelkan ke kanal kontak yang kamu pilih.")
-        : (isEnglish ? "Automatic copy is unavailable. The text is selected so you can copy it manually." : "Penyalinan otomatis tidak tersedia. Teks sudah dipilih agar bisa kamu salin secara manual.");
+        ? (isEnglish ? "Summary copied. The brief has not been sent; paste it into your preferred contact channel." : "Ringkasan berhasil disalin. Brief belum terkirim; tempelkan ke kanal kontak yang Anda pilih.")
+        : (isEnglish ? "Automatic copy is unavailable. The text is selected so you can copy it manually." : "Penyalinan otomatis tidak tersedia. Teks sudah dipilih agar dapat Anda salin secara manual.");
     });
     return button;
   }
@@ -106,6 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
     getCopyButton();
     status.textContent = isEnglish
       ? "Your brief is prepared below. This form does not send data automatically; copy the summary and send it through your preferred contact channel."
-      : "Brief sudah disiapkan di bawah. Form ini belum mengirim data otomatis; salin ringkasannya lalu kirim melalui kanal kontak yang kamu pilih.";
+      : "Brief sudah disiapkan di bawah. Form ini belum mengirim data otomatis; salin ringkasannya lalu kirim melalui kanal kontak yang Anda pilih.";
   });
 });
