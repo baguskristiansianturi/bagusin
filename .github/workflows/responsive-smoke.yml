@@ -1,0 +1,57 @@
+name: Responsive browser smoke test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: responsive-smoke-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Playwright
+        run: npm install --no-save playwright
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Start static site server
+        shell: bash
+        run: |
+          cd "$GITHUB_WORKSPACE/.."
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/bagusin-static-server.log 2>&1 &
+          echo $! > /tmp/bagusin-static-server.pid
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:4173/bagusin/ > /dev/null; then
+              echo "Static site server is ready."
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/bagusin-static-server.log
+          exit 1
+
+      - name: Run responsive browser smoke test
+        run: node scripts/responsive-smoke.mjs
+
+      - name: Show server log on failure
+        if: failure()
+        run: cat /tmp/bagusin-static-server.log || true
