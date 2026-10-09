@@ -50,9 +50,11 @@ function extractTags(html, tagName) {
 }
 
 function attr(tag, name) {
-  const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const match = tag.match(new RegExp("\\b" + escaped + "\\s*=\\s*([\\"'])(.*?)\\1", "i"));
-  return match ? match[2] : null;
+  const pattern = /([^\s=]+)\s*=\s*(?:"([^"]*)"|'([^']*)')/g;
+  for (const match of tag.matchAll(pattern)) {
+    if (match[1].toLowerCase() === name.toLowerCase()) return match[2] ?? match[3] ?? null;
+  }
+  return null;
 }
 
 function metaContent(html, name) {
