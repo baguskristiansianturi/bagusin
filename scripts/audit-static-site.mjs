@@ -102,7 +102,7 @@ for (const file of htmlFiles) {
     if (!target) reportError(rel + ": broken internal URL " + href);
   }
 
-  for (const tag of [...extractTags(html, "script"), ...extractTags(html, "img"), ...extractTags(html, "source")]) {
+  for (const tag of [...extractTags(html, "script"), ...extractTags(html, "img"), ...extractTags(html, "source"), ...extractTags(html, "link").filter((item) => (attr(item, "rel") || "").toLowerCase().includes("stylesheet"))]) {
     const src = attr(tag, "src");
     if (!src || /^(?:https?:)?\/\//i.test(src) || /^(?:data:|blob:|javascript:)/i.test(src)) continue;
     const local = cleanUrl(src);
