@@ -50,19 +50,11 @@ function extractTags(html, tagName) {
 }
 
 function attr(tag, name) {
-  const lower = tag.toLowerCase();
-  const key = name.toLowerCase();
-  const index = lower.indexOf(key);
-  if (index < 0) return null;
-  let cursor = index + key.length;
-  while (/\s/.test(tag[cursor] || "")) cursor += 1;
-  if (tag[cursor] !== "=") return null;
-  cursor += 1;
-  while (/\s/.test(tag[cursor] || "")) cursor += 1;
-  const quote = tag[cursor];
-  if (quote !== '"' && quote !== "'") return null;
-  const finish = tag.indexOf(quote, cursor + 1);
-  return finish < 0 ? null : tag.slice(cursor + 1, finish);
+  const pattern = /([^\s=]+)\s*=\s*(?:"([^"]*)"|'([^']*)')/g;
+  for (const match of tag.matchAll(pattern)) {
+    if (match[1].toLowerCase() === name.toLowerCase()) return match[2] ?? match[3] ?? null;
+  }
+  return null;
 }
 
 function metaContent(html, name) {
