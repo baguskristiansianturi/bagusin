@@ -211,6 +211,14 @@ try {
   await interactionPage.goto(origin + "/bagusin/contact/?service=landing-pages", { waitUntil: "domcontentloaded" });
   const selectedService = await interactionPage.locator("#selected-service").textContent();
   if (!selectedService || !selectedService.includes("Landing Page & Iklan")) errors.push("Contact form: selected service label is not localized");
+
+  // The About page should describe Bagusin as a personal blog/documentation space, not a software studio.
+  await interactionPage.goto(origin + "/bagusin/about/", { waitUntil: "domcontentloaded" });
+  const aboutTitle = await interactionPage.title();
+  const aboutText = await interactionPage.locator("main").innerText();
+  if (!aboutTitle.includes("Tentang")) errors.push("About page: title metadata is not localized");
+  if (!aboutText.includes("blog personal") || !aboutText.includes("Berangkat dari masalah nyata.")) errors.push("About page: Indonesian positioning copy is missing");
+  if (aboutText.includes("independent software studio") || aboutText.includes("Built around real problems.")) errors.push("About page: outdated English positioning copy remains");
 } catch (error) {
   errors.push("Homepage/article/contact interaction smoke test: " + error.message);
 } finally {
@@ -226,5 +234,5 @@ if (errors.length) {
   for (const error of errors) console.error("- " + error);
   process.exitCode = 1;
 } else {
-  console.log("PASS: tested route loading, structural overflow, local resources, JavaScript errors, mobile menu, global search, and contact brief preparation/copy feedback, and Indonesian services-page copy.");
+  console.log("PASS: tested route loading, structural overflow, local resources, JavaScript errors, mobile menu, global search, and contact brief preparation/copy feedback, Indonesian services-page copy, and About-page positioning.");
 }
