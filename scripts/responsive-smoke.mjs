@@ -191,6 +191,10 @@ try {
   const formStatus = await interactionPage.locator("#form-status").textContent();
   if (!formStatus || !formStatus.includes("belum mengirim data otomatis")) errors.push("Contact form: status does not clearly explain that the brief is not sent automatically");
   await interactionPage.locator("#project-form [data-copy-brief]").click();
+  await interactionPage.waitForFunction(() => {
+    const message = document.querySelector("#form-status")?.textContent || "";
+    return message.includes("disalin") || message.includes("Penyalinan otomatis tidak tersedia");
+  }, null, { timeout: 5000 });
   const copyStatus = await interactionPage.locator("#form-status").textContent();
   if (!copyStatus || !(copyStatus.includes("disalin") || copyStatus.includes("Penyalinan otomatis tidak tersedia"))) errors.push("Contact form: copy action did not provide useful feedback");
 } catch (error) {
