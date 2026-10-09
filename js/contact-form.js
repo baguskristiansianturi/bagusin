@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const service = params.get("service") || "";
   const mode = params.get("mode") || "consultation";
   const isEnglish = document.documentElement.lang === "en";
-  const labels = {
+  const labels = isEnglish ? {
     copywriting: "Copywriting",
     "seo-content": "Content Writing & SEO",
     "landing-pages": "Landing Pages & Ads",
@@ -12,6 +12,15 @@ document.addEventListener("DOMContentLoaded", function () {
     "maintenance-uiux": "Maintenance, Improvement & UI/UX",
     "google-ads": "Google Ads",
     "mobile-apps": "Mobile App Development"
+  } : {
+    copywriting: "Copywriting",
+    "seo-content": "Penulisan Konten & SEO",
+    "landing-pages": "Landing Page & Iklan",
+    websites: "Website & Web Kompleks",
+    "web-applications": "Aplikasi Web & Sistem Basis Data",
+    "maintenance-uiux": "Pemeliharaan, Peningkatan & UI/UX",
+    "google-ads": "Google Ads",
+    "mobile-apps": "Pengembangan Aplikasi Mobile"
   };
   const serviceHeading = document.getElementById("selected-service");
   const serviceInput = document.getElementById("service-value");

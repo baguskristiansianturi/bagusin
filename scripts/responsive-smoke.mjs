@@ -197,6 +197,20 @@ try {
   }, null, { timeout: 5000 });
   const copyStatus = await interactionPage.locator("#form-status").textContent();
   if (!copyStatus || !(copyStatus.includes("disalin") || copyStatus.includes("Penyalinan otomatis tidak tersedia"))) errors.push("Contact form: copy action did not provide useful feedback");
+
+  // The Indonesian services page should use Indonesian metadata and headings.
+  await interactionPage.goto(origin + "/bagusin/work/", { waitUntil: "domcontentloaded" });
+  const workTitle = await interactionPage.title();
+  const workHeading = await interactionPage.locator("main h1").textContent();
+  if (!workTitle.includes("Layanan dan Proyek")) errors.push("Work page: title metadata is not localized");
+  if (!workHeading || !workHeading.includes("Ada yang perlu dibangun")) errors.push("Work page: main heading is not localized");
+  const workText = await interactionPage.locator("main").innerText();
+  if (workText.includes("What are you trying to achieve?") || workText.includes("View service")) errors.push("Work page: English interface copy remains in Indonesian content");
+
+  // Service preselection should use localized labels on the Indonesian contact page.
+  await interactionPage.goto(origin + "/bagusin/contact/?service=landing-pages", { waitUntil: "domcontentloaded" });
+  const selectedService = await interactionPage.locator("#selected-service").textContent();
+  if (!selectedService || !selectedService.includes("Landing Page & Iklan")) errors.push("Contact form: selected service label is not localized");
 } catch (error) {
   errors.push("Homepage/article/contact interaction smoke test: " + error.message);
 } finally {
@@ -212,5 +226,5 @@ if (errors.length) {
   for (const error of errors) console.error("- " + error);
   process.exitCode = 1;
 } else {
-  console.log("PASS: tested route loading, structural overflow, local resources, JavaScript errors, mobile menu, global search, and contact brief preparation/copy feedback.");
+  console.log("PASS: tested route loading, structural overflow, local resources, JavaScript errors, mobile menu, global search, and contact brief preparation/copy feedback, and Indonesian services-page copy.");
 }
