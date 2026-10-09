@@ -170,8 +170,26 @@ try {
       }
     }
   }
+
+  // Contact form must prepare a copyable brief without falsely claiming delivery.
+  await interactionPage.goto(origin + "/bagusin/contact/", { waitUntil: "domcontentloaded" });
+  const contactHeading = await interactionPage.locator(".contact-hero h1").textContent();
+  if (!contactHeading || !contactHeading.includes("Mulai dari masalahnya")) {
+    errors.push("Contact page: Indonesian hero copy is not localized");
+  }
+  await interactionPage.locator("#project-form input[name=name]").fill("Test User");
+  await interactionPage.locator("#project-form input[name=email]").fill("test@example.com");
+  await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the contact brief preparation flow.");
+  await interactionPage.locator("#project-form input[name=terms]").check();
+  await interactionPage.locator("#project-form button[type=submit]").click();
+  const preparedBrief = interactionPage.locator("#project-form [data-brief-output]");
+  if (!(await preparedBrief.count())) errors.push("Contact form: prepared brief output was not created");
+  else if (!(await preparedBrief.inputValue()).includes("Testing the contact brief preparation flow.")) errors.push("Contact form: prepared brief is missing the entered details");
+  if (!(await interactionPage.locator("#project-form [data-copy-brief]").count())) errors.push("Contact form: copy summary button was not created");
+  const formStatus = await interactionPage.locator("#form-status").textContent();
+  if (!formStatus || !formStatus.includes("belum mengirim data otomatis")) errors.push("Contact form: status does not clearly explain that the brief is not sent automatically");
 } catch (error) {
-  errors.push("Homepage/article interaction smoke test: " + error.message);
+  errors.push("Homepage/article/contact interaction smoke test: " + error.message);
 } finally {
   await interactionPage.close();
   await browser.close();
