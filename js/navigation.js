@@ -13,7 +13,8 @@
     // panel once so the global search works consistently across all routes.
     let searchPanel = document.getElementById("header-search");
     if (!searchPanel && header) {
-      const siteBase = window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin" ? "/bagusin" : "";\n      const isEnglishPage = /^\/(?:bagusin\/)?en(?:\/|$)/.test(window.location.pathname);
+      const siteBase = window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin" ? "/bagusin" : "";
+      const isEnglishPage = /^\/(?:bagusin\/)?en(?:\/|$)/.test(window.location.pathname);
       searchPanel = document.createElement("div");
       searchPanel.className = "header-search";
       searchPanel.id = "header-search";
