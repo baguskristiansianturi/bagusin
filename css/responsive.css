@@ -1018,3 +1018,42 @@ label {
     padding-block-end: 2.25rem;
   }
 }
+
+
+/* =========================================================
+   ACCESSIBILITY & RESPONSIVE GUARDRAILS
+   ========================================================= */
+
+:where(button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 2px solid var(--color-accent-dark);
+  outline-offset: 3px;
+}
+
+:where(input, select, textarea) {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+:where(textarea) {
+  max-width: 100%;
+  resize: vertical;
+}
+
+:where(iframe, video, embed, object) {
+  max-width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
