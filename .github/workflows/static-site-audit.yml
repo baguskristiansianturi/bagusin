@@ -33,18 +33,21 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Initialize temporary package metadata
+        run: npm init -y
       - name: Install Playwright
         run: npm install --no-save playwright@1.56.1
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
-      - name: Serve the static site under its GitHub Pages base path
+      - name: Serve the site and run responsive browser smoke tests
         run: |
           mkdir -p /tmp/bagusin-site/bagusin
           rsync -a --exclude='.git' --exclude='node_modules' ./ /tmp/bagusin-site/bagusin/
           python3 -m http.server 4173 --directory /tmp/bagusin-site >/tmp/bagusin-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID' EXIT
           for attempt in $(seq 1 30); do
             if curl -fsS http://127.0.0.1:4173/bagusin/ >/dev/null; then break; fi
             sleep 1
           done
-      - name: Run responsive browser smoke tests
-        run: node scripts/responsive-smoke.mjs
+          node scripts/responsive-smoke.mjs
