@@ -44,7 +44,7 @@ const routes = [
   "/bagusin/copywriting/collections/",
   "/bagusin/landing-pages/collections/",
   "/bagusin/websites/collections/"
-];;
+];
 const viewports = [
   { width: 320, height: 800 },
   { width: 375, height: 812 },
