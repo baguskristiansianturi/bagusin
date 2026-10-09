@@ -231,6 +231,15 @@ try {
   if (!portfolioText.includes("Hal-hal yang saya bangun, uji, dan jelajahi.") || !portfolioText.includes("Portofolio seharusnya menunjukkan cara berpikir")) errors.push("Portfolio page: Indonesian headings are missing");
   if (portfolioText.includes("Things I’ve built, tested, and explored.") || portfolioText.includes("independent software studio") || portfolioText.includes("Work With Me")) errors.push("Portfolio page: outdated English or studio positioning remains");
   if (!portfolioStructuredData || portfolioStructuredData.includes("software engineering")) errors.push("Portfolio page: structured data still contains outdated English description");
+
+  // The YouTube page remains honest about video availability while using Indonesian copy.
+  await interactionPage.goto(origin + "/bagusin/youtube/", { waitUntil: "domcontentloaded" });
+  const youtubeText = await interactionPage.locator("main").innerText();
+  const youtubeStructuredData = await interactionPage.locator('script[type="application/ld+json"]').textContent();
+  if (!youtubeText.includes("Cerita yang tidak berhenti di halaman.")) errors.push("YouTube page: Indonesian hero copy is missing");
+  if (youtubeText.includes("Stories that move beyond the page.") || youtubeText.includes("The channel will grow with the journey.") || youtubeText.includes("Field Notes")) errors.push("YouTube page: English interface copy remains on the Indonesian page");
+  if (!youtubeText.includes("thumbnail atau judul fiktif")) errors.push("YouTube page: transparency note about unavailable videos is missing");
+  if (!youtubeStructuredData || youtubeStructuredData.includes("software engineering")) errors.push("YouTube page: structured data still contains English description");
 } catch (error) {
   errors.push("Homepage/article/contact interaction smoke test: " + error.message);
 } finally {
@@ -246,5 +255,5 @@ if (errors.length) {
   for (const error of errors) console.error("- " + error);
   process.exitCode = 1;
 } else {
-  console.log("PASS: tested route loading, structural overflow, local resources, JavaScript errors, mobile menu, global search, and contact brief preparation/copy feedback, Indonesian services-page copy, About-page positioning, and localized portfolio copy.");
+  console.log("PASS: tested route loading, structural overflow, local resources, JavaScript errors, mobile menu, global search, and contact brief preparation/copy feedback, Indonesian services-page copy, About-page positioning, localized portfolio copy, and Indonesian YouTube-page copy.");
 }
