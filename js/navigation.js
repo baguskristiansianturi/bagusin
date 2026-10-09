@@ -73,14 +73,14 @@
         ctaTitle:"Have a project in mind?",
         ctaText:"Start with the problem. If you know what you need, start a project. If not, ask for help choosing the right path."
       } : {
-        explore:"Explore", work:"Work", start:"Mulai", legal:"Legal",
-        blog:"Blog", destinations:"Destinations", youtube:"YouTube", about:"About",
-        workWithMe:"Work With Me", services:"Services", portfolio:"Portfolio",
-        startProject:"Mulai Project", help:"Bantu Pilihkan", contact:"Contact",
-        privacy:"Privacy Policy", terms:"Terms", disclaimer:"Disclaimer", editorial:"Editorial Policy",
-        description:"Personal publication tentang perjalanan, kerja remote, freelancing, dan hal-hal yang dibangun sepanjang perjalanan.",
-        ctaTitle:"Punya project atau masalah yang perlu diselesaikan?",
-        ctaText:"Mulai dari masalahnya. Jika sudah tahu kebutuhannya, mulai project. Jika belum yakin, minta bantuan untuk menentukan jalur yang paling tepat."
+        explore:"Jelajahi", work:"Layanan", start:"Mulai", legal:"Informasi",
+        blog:"Blog", destinations:"Destinasi", youtube:"YouTube", about:"Tentang",
+        workWithMe:"Lihat Layanan", services:"Layanan", portfolio:"Portofolio",
+        startProject:"Mulai Proyek", help:"Bantu Pilihkan", contact:"Kontak",
+        privacy:"Kebijakan Privasi", terms:"Ketentuan", disclaimer:"Penafian", editorial:"Kebijakan Editorial",
+        description:"Blog personal tentang perjalanan, pekerjaan, proyek, dan hal-hal yang dibangun dari berbagai tempat.",
+        ctaTitle:"Punya proyek atau masalah yang perlu diselesaikan?",
+        ctaText:"Mulai dari masalahnya. Jika sudah tahu kebutuhannya, mulai proyek. Jika belum yakin, saya bantu menentukan jalur yang paling tepat."
       };
       const social = [
         '<a class="site-footer__social-link" href="https://instagram.com/bagusin" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.4" cy="6.7" r="1"></circle></svg></a>',
