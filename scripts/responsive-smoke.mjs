@@ -170,8 +170,35 @@ try {
       }
     }
   }
+
+  // Contact form must prepare a copyable brief without falsely claiming delivery.
+  await interactionPage.goto(origin + "/bagusin/contact/", { waitUntil: "domcontentloaded" });
+  const contactHeading = await interactionPage.locator(".contact-hero h1").textContent();
+  const contactTitle = await interactionPage.title();
+  if (!contactHeading || !contactHeading.includes("Mulai dari masalahnya")) {
+    errors.push("Contact page: Indonesian hero copy is not localized");
+  }
+  if (!contactTitle.includes("Kontak")) errors.push("Contact page: title metadata is not localized");
+  await interactionPage.locator("#project-form input[name=name]").fill("Test User");
+  await interactionPage.locator("#project-form input[name=email]").fill("test@example.com");
+  await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the contact brief preparation flow.");
+  await interactionPage.locator("#project-form input[name=terms]").check();
+  await interactionPage.locator("#project-form button[type=submit]").click();
+  const preparedBrief = interactionPage.locator("#project-form [data-brief-output]");
+  if (!(await preparedBrief.count())) errors.push("Contact form: prepared brief output was not created");
+  else if (!(await preparedBrief.inputValue()).includes("Testing the contact brief preparation flow.")) errors.push("Contact form: prepared brief is missing the entered details");
+  if (!(await interactionPage.locator("#project-form [data-copy-brief]").count())) errors.push("Contact form: copy summary button was not created");
+  const formStatus = await interactionPage.locator("#form-status").textContent();
+  if (!formStatus || !formStatus.includes("belum mengirim data otomatis")) errors.push("Contact form: status does not clearly explain that the brief is not sent automatically");
+  await interactionPage.locator("#project-form [data-copy-brief]").click();
+  await interactionPage.waitForFunction(() => {
+    const message = document.querySelector("#form-status")?.textContent || "";
+    return message.includes("disalin") || message.includes("Penyalinan otomatis tidak tersedia");
+  }, null, { timeout: 5000 });
+  const copyStatus = await interactionPage.locator("#form-status").textContent();
+  if (!copyStatus || !(copyStatus.includes("disalin") || copyStatus.includes("Penyalinan otomatis tidak tersedia"))) errors.push("Contact form: copy action did not provide useful feedback");
 } catch (error) {
-  errors.push("Homepage/article interaction smoke test: " + error.message);
+  errors.push("Homepage/article/contact interaction smoke test: " + error.message);
 } finally {
   await interactionPage.close();
   await browser.close();
@@ -185,5 +212,5 @@ if (errors.length) {
   for (const error of errors) console.error("- " + error);
   process.exitCode = 1;
 } else {
-  console.log("PASS: tested route loading, structural overflow, local resource responses, JavaScript errors, mobile menu, and global search.");
+  console.log("PASS: tested route loading, structural overflow, local resources, JavaScript errors, mobile menu, global search, and contact brief preparation/copy feedback.");
 }
