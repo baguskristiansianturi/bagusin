@@ -152,6 +152,9 @@ try {
 
   // Regression case: legacy articles may have a search toggle but no search panel.
   await interactionPage.goto(origin + "/bagusin/blog/bekerja-dari-mana-saja/", { waitUntil: "domcontentloaded" });
+  const articleText = await interactionPage.locator("main").innerText();
+  if (!articleText.includes("Ada yang perlu dibangun?")) errors.push("Article page: Indonesian contact CTA is missing");
+  if (articleText.includes("Need something built?")) errors.push("Article page: English contact CTA remains");
   const articleSearchToggle = interactionPage.locator("[data-search-toggle]").first();
   if (!(await articleSearchToggle.count())) {
     errors.push("Article page: global search toggle is missing");
@@ -182,6 +185,9 @@ try {
     errors.push("Contact page: Indonesian hero copy is not localized");
   }
   if (!contactTitle.includes("Kontak")) errors.push("Contact page: title metadata is not localized");
+  const contactOptionsText = await interactionPage.locator("main").innerText();
+  if (!contactOptionsText.includes("pengembangan perangkat lunak") || !contactOptionsText.includes("konten SEO")) errors.push("Contact page: Indonesian service description is missing");
+  if (contactOptionsText.includes("software engineering") || contactOptionsText.includes("SEO content")) errors.push("Contact page: English service terms remain in Indonesian copy");
   await interactionPage.locator("#project-form input[name=name]").fill("Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("test@example.com");
   await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the contact brief preparation flow.");
