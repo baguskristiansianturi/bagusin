@@ -140,7 +140,7 @@ try {
       } else {
         await articleSearchInput.fill("remote work");
         await articleSearchPanel.locator("form").evaluate((form) => form.requestSubmit());
-        await interactionPage.waitForURL(/\/bagusin\/search\/\?q=remote\+work/i, { timeout: 10000 });
+        await interactionPage.waitForURL(/\/bagusin\/search\/\?q=remote(?:%20|\+)work/i, { timeout: 10000 });
       }
     }
   }
