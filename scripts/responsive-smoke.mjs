@@ -6,25 +6,51 @@ const routes = [
   "/bagusin/blog/",
   "/bagusin/blog/bekerja-dari-mana-saja/",
   "/bagusin/blog/pantai-kuta-bali/",
-  "/bagusin/contact/",
+  "/bagusin/blog/remote-work/",
+  "/bagusin/destinations/",
   "/bagusin/work/",
+  "/bagusin/work/copywriting/",
+  "/bagusin/work/seo-content/",
   "/bagusin/work/landing-pages/",
-  "/bagusin/checkout/",
-  "/bagusin/legal/terms/",
-  "/bagusin/author/",
+  "/bagusin/work/websites/",
+  "/bagusin/work/web-applications/",
+  "/bagusin/work/maintenance-uiux/",
+  "/bagusin/portfolio/",
   "/bagusin/youtube/",
+  "/bagusin/about/",
+  "/bagusin/author/",
+  "/bagusin/contact/",
+  "/bagusin/legal/privacy/",
+  "/bagusin/legal/terms/",
+  "/bagusin/legal/disclaimer/",
+  "/bagusin/legal/editorial-policy/",
+  "/bagusin/en/",
+  "/bagusin/en/blog/",
+  "/bagusin/en/blog/bekerja-dari-mana-saja/",
+  "/bagusin/en/destinations/",
+  "/bagusin/en/work/",
+  "/bagusin/en/portfolio/",
+  "/bagusin/en/youtube/",
+  "/bagusin/en/about/",
+  "/bagusin/en/author/",
+  "/bagusin/en/contact/",
+  "/bagusin/en/legal/privacy/",
+  "/bagusin/en/legal/terms/",
+  "/bagusin/en/legal/disclaimer/",
+  "/bagusin/en/legal/editorial-policy/",
+  "/bagusin/checkout/",
   "/bagusin/search/",
+  "/bagusin/en/search/",
   "/bagusin/copywriting/collections/",
   "/bagusin/landing-pages/collections/",
-  "/bagusin/websites/collections/",
-  "/bagusin/en/",
-  "/bagusin/en/search/",
-  "/bagusin/en/legal/terms/"
-];
+  "/bagusin/websites/collections/"
+];;
 const viewports = [
   { width: 320, height: 800 },
+  { width: 375, height: 812 },
   { width: 390, height: 844 },
   { width: 768, height: 900 },
+  { width: 1024, height: 900 },
   { width: 1440, height: 900 }
 ];
 const errors = [];
@@ -120,8 +146,32 @@ try {
       errors.push("Homepage: global search input is missing");
     }
   }
+
+  // Regression case: legacy articles may have a search toggle but no search panel.
+  await interactionPage.goto(origin + "/bagusin/blog/bekerja-dari-mana-saja/", { waitUntil: "domcontentloaded" });
+  const articleSearchToggle = interactionPage.locator("[data-search-toggle]").first();
+  if (!(await articleSearchToggle.count())) {
+    errors.push("Article page: global search toggle is missing");
+  } else {
+    await articleSearchToggle.click();
+    const articleSearchPanel = interactionPage.locator("#header-search");
+    if (!(await articleSearchPanel.count())) {
+      errors.push("Article page: global search panel was not created");
+    } else {
+      const action = await articleSearchPanel.locator("form").getAttribute("action");
+      if (action !== "/bagusin/search/") errors.push("Article page: search form has unexpected route " + action);
+      const articleSearchInput = articleSearchPanel.locator("input[name=q]");
+      if (!(await articleSearchInput.count())) {
+        errors.push("Article page: global search input is missing");
+      } else {
+        await articleSearchInput.fill("remote work");
+        await articleSearchPanel.locator("form").evaluate((form) => form.requestSubmit());
+        await interactionPage.waitForURL(/\/bagusin\/search\/\?q=remote(?:%20|\+)work/i, { timeout: 10000 });
+      }
+    }
+  }
 } catch (error) {
-  errors.push("Homepage interaction smoke test: " + error.message);
+  errors.push("Homepage/article interaction smoke test: " + error.message);
 } finally {
   await interactionPage.close();
   await browser.close();
