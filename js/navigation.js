@@ -1,4 +1,4 @@
-(function(){if(!document.querySelector('link[data-final-responsive]')){const l=document.createElement("link");l.rel="stylesheet";l.href="/bagusin/css/final-responsive.css?v=20261008-3";l.dataset.finalResponsive="";document.head.appendChild(l)}})();
+(function(){if(!document.querySelector('link[data-final-responsive]')){const base=window.location.pathname.startsWith("/bagusin/")||window.location.pathname==="/bagusin"?"/bagusin":"";const l=document.createElement("link");l.rel="stylesheet";l.href=base+"/css/final-responsive.css?v=20261008-4";l.dataset.finalResponsive="";document.head.appendChild(l)}})();
 /* =========================================================
    BAGUSIN — GLOBAL NAVIGATION
    Integrated mobile / search / dropdown / language
@@ -13,7 +13,7 @@
     // panel once so the global search works consistently across all routes.
     let searchPanel = document.getElementById("header-search");
     if (!searchPanel && header) {
-      const isEnglishPage = /^\/bagusin\/en(?:\/|$)/.test(window.location.pathname);
+      const siteBase = window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin" ? "/bagusin" : "";\n      const isEnglishPage = /^\/(?:bagusin\/)?en(?:\/|$)/.test(window.location.pathname);
       searchPanel = document.createElement("div");
       searchPanel.className = "header-search";
       searchPanel.id = "header-search";
@@ -23,7 +23,7 @@
       const form = document.createElement("form");
       form.className = "search-field";
       form.method = "get";
-      form.action = isEnglishPage ? "/bagusin/en/search/" : "/bagusin/search/";
+      form.action = siteBase + (isEnglishPage ? "/en/search/" : "/search/");
       form.setAttribute("role", "search");
       const label = document.createElement("label");
       label.className = "sr-only";
