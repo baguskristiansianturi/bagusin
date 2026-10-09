@@ -250,6 +250,16 @@ try {
   if (!blogText.includes("Cerita dari perjalanan, pekerjaan, dan hal-hal yang saya bangun.") || !blogText.includes("Arsip ini bertambah seiring pengalaman nyata.")) errors.push("Blog page: Indonesian headings are missing");
   if (blogText.includes("Stories from the road") || blogText.includes("Read the story") || blogText.includes("The archive grows with real experience.")) errors.push("Blog page: English interface copy remains");
   if (!blogStructuredData || blogStructuredData.includes("software engineering")) errors.push("Blog page: structured data still contains outdated English description");
+
+  // Destinations should remain experience-based, without fabricated ratings or itineraries.
+  await interactionPage.goto(origin + "/bagusin/destinations/", { waitUntil: "domcontentloaded" });
+  const destinationsTitle = await interactionPage.title();
+  const destinationsText = await interactionPage.locator("main").innerText();
+  const destinationsStructuredData = await interactionPage.locator('script[type="application/ld+json"]').textContent();
+  if (!destinationsTitle.includes("Destinasi")) errors.push("Destinations page: title metadata is not localized");
+  if (!destinationsText.includes("Tempat, dilihat dari pengalaman saat berada di sana.") || !destinationsText.includes("Tidak ada rencana perjalanan yang sempurna.")) errors.push("Destinations page: Indonesian headings are missing");
+  if (destinationsText.includes("Places, seen through the experience of being there.") || destinationsText.includes("A growing map of stories.")) errors.push("Destinations page: English interface copy remains");
+  if (!destinationsStructuredData || destinationsStructuredData.includes("Destinations BagusIn")) errors.push("Destinations page: structured data still contains outdated English description");
 } catch (error) {
   errors.push("Homepage/article/contact interaction smoke test: " + error.message);
 } finally {
@@ -265,5 +275,5 @@ if (errors.length) {
   for (const error of errors) console.error("- " + error);
   process.exitCode = 1;
 } else {
-  console.log("PASS: tested route loading, structural overflow, local resources, JavaScript errors, mobile menu, global search, and contact brief preparation/copy feedback, Indonesian services-page copy, About-page positioning, localized portfolio copy, Indonesian YouTube-page copy, and localized Blog-index copy.");
+  console.log("PASS: tested route loading, structural overflow, local resources, JavaScript errors, mobile menu, global search, and contact brief preparation/copy feedback, Indonesian services-page copy, About-page positioning, localized portfolio copy, Indonesian YouTube-page copy, localized Blog-index copy, and Indonesian Destinations-page copy.");
 }
