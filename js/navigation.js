@@ -8,12 +8,60 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     const header = document.querySelector("[data-site-header], .site-header");
+
+    // Older content pages may have the search button without its panel. Add the shared
+    // panel once so the global search works consistently across all routes.
+    let searchPanel = document.getElementById("header-search");
+    if (!searchPanel && header) {
+      const isEnglishPage = /^\/bagusin\/en(?:\/|$)/.test(window.location.pathname);
+      searchPanel = document.createElement("div");
+      searchPanel.className = "header-search";
+      searchPanel.id = "header-search";
+      searchPanel.hidden = true;
+      const searchInner = document.createElement("div");
+      searchInner.className = "header-search__inner container";
+      const form = document.createElement("form");
+      form.className = "search-field";
+      form.method = "get";
+      form.action = isEnglishPage ? "/bagusin/en/search/" : "/bagusin/search/";
+      form.setAttribute("role", "search");
+      const label = document.createElement("label");
+      label.className = "sr-only";
+      label.htmlFor = "global-search";
+      label.textContent = isEnglishPage ? "Search the site" : "Cari di situs";
+      const input = document.createElement("input");
+      input.id = "global-search";
+      input.name = "q";
+      input.type = "search";
+      input.autocomplete = "off";
+      input.placeholder = isEnglishPage ? "Search stories, places, work..." : "Cari cerita, tempat, pekerjaan...";
+      const submit = document.createElement("button");
+      submit.className = "button button--accent button--small";
+      submit.type = "submit";
+      submit.textContent = isEnglishPage ? "Search" : "Cari";
+      form.append(label, input, submit);
+      const suggestions = document.createElement("div");
+      suggestions.className = "header-search__suggestions";
+      suggestions.setAttribute("aria-label", isEnglishPage ? "Search suggestions" : "Saran pencarian");
+      const suggestionLabels = isEnglishPage ? ["Bali", "Remote work", "Projects", "Travel"] : ["Bali", "Kerja fleksibel", "Proyek", "Perjalanan"];
+      suggestionLabels.forEach(function (value) {
+        const button = document.createElement("button");
+        button.className = "header-search__suggestion";
+        button.type = "button";
+        button.setAttribute("data-search-suggestion", value);
+        button.textContent = value;
+        suggestions.appendChild(button);
+      });
+      searchInner.append(form, suggestions);
+      searchPanel.appendChild(searchInner);
+      header.insertAdjacentElement("afterend", searchPanel);
+    }
+
     const mobileToggle = document.querySelector("[data-mobile-menu-toggle]");
     const mobileNav = document.getElementById("mobile-navigation");
     const mobileOverlay = document.querySelector("[data-mobile-overlay]");
     const mobileClose = document.querySelector("[data-mobile-menu-close]");
     const searchToggle = document.querySelector("[data-search-toggle]");
-    const searchPanel = document.getElementById("header-search");
     const searchInput = document.getElementById("global-search");
     const searchForm = searchPanel ? searchPanel.querySelector("form") : null;
     const languageToggle = document.querySelector("[data-language-toggle]");
