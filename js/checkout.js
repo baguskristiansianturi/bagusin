@@ -170,10 +170,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const goForward = (target) => {
     const current = Number($(".checkout-panel.is-active")?.dataset.panel || 1);
     if (target > current + 1) return; // No skipping required steps.
-    if (target === 2 && !validateBrief()) return;
-    if (target === 3) {
+    if (target === 2) {
       if (!validateBrief()) return;
       renderReview();
+      saveDraft();
+    }
+    if (target === 3) {
+      if (!validateBrief()) return;
       saveDraft();
     }
     if (target === 4) {
