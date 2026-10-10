@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const incomingService = params.get("service") || "";
   const incomingCollection = params.get("collection") || "";
   const incomingIndustry = params.get("industry") || "";
+  const incomingCategory = params.get("category") || "";
   const incomingTier = params.get("tier") || "";
   const storageKey = "bagusin-checkout";
   const readDraft = () => {
@@ -30,6 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const saved = readDraft();
   const pretty = (value) => String(value || "").replace(/[-_]+/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
   const label = () => serviceNames[service.value] || "Pilih layanan";
+  const categoryNames = { website: "Website", landing: "Landing Page", social: "Social Media", product: "Produk", ecommerce: "E-commerce", ads: "Iklan & Campaign", email: "Email", seo: "Konten SEO", brand: "Brand", travel: "Travel & Hospitality", sales: "Sales & Proposal", ux: "UX / Microcopy", script: "Video / Creator Script", other: "Custom Copywriting" };
+  const categoryLabel = () => categoryNames[category] || pretty(category);
 
   // Restore draft first; explicit collection/service links take precedence over an old draft.
   if (saved && typeof saved === "object") {
@@ -41,10 +44,11 @@ document.addEventListener("DOMContentLoaded", () => {
   if (incomingService && serviceNames[incomingService]) service.value = incomingService;
   const collection = incomingCollection || saved?.collection || "";
   const industry = incomingIndustry || saved?.industry || "";
+  const category = incomingCategory || saved?.category || "";
   const tier = incomingTier || saved?.tier || "";
 
   const saveDraft = () => {
-    const draft = { collection, industry, tier };
+    const draft = { collection, industry, category, tier };
     form.querySelectorAll("input, select, textarea").forEach((field) => {
       if (field.id && field.type !== "checkbox") draft[field.id] = field.value;
     });
@@ -85,6 +89,10 @@ document.addEventListener("DOMContentLoaded", () => {
     $("#terms-service").textContent = label();
     $("#aside-collection").textContent = collection ? pretty(collection) : "Belum memilih collection";
     $("#aside-tier").textContent = tier ? pretty(tier) : "Belum ditentukan";
+    const categoryRow = $("#aside-category-row");
+    if (categoryRow) categoryRow.hidden = !category;
+    const categoryNode = $("#aside-category");
+    if (categoryNode) categoryNode.textContent = category ? categoryLabel() : "—";
     const termsLink = $("#service-terms-link");
     if (termsLink) termsLink.href = service.value ? "/bagusin/terms/?topic=" + encodeURIComponent(service.value) : "/bagusin/terms/";
     const context = $("#collection-context");
@@ -92,12 +100,12 @@ document.addEventListener("DOMContentLoaded", () => {
       context.hidden = !collection;
       if (collection) {
         $("#collection-context-title").textContent = pretty(collection);
-        $("#collection-context-meta").textContent = [industry && pretty(industry), tier && pretty(tier), "Konteks collection"].filter(Boolean).join(" · ");
+        $("#collection-context-meta").textContent = [industry && ("Industri: " + pretty(industry)), category && ("Kategori: " + categoryLabel()), tier && ("Level: " + pretty(tier)), "Konteks collection"].filter(Boolean).join(" · ");
         const base = service.value === "landing-pages" ? "/bagusin/landing-pages/collections/detail/" :
           service.value === "websites" ? "/bagusin/websites/collections/detail/" :
           "/bagusin/copywriting/collections/detail/";
         $("#collection-context-link").href = base + "?collection=" + encodeURIComponent(collection) +
-          "&industry=" + encodeURIComponent(industry) + (tier ? "&tier=" + encodeURIComponent(tier) : "");
+          "&industry=" + encodeURIComponent(industry) + (category ? "&category=" + encodeURIComponent(category) : "") + (tier ? "&tier=" + encodeURIComponent(tier) : "");
       }
     }
   };
@@ -155,6 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ["Layanan", label()],
       ["Collection", collection ? pretty(collection) : "—"],
       ["Industri", industry ? pretty(industry) : "—"],
+      ["Kategori", category ? categoryLabel() : "—"],
       ["Level", tier ? pretty(tier) : "Belum ditentukan"],
       ["Nama", $("#name").value],
       ["Email", $("#email").value],
@@ -227,6 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
       service_id: service.value,
       collection: collection ? pretty(collection) : "Tidak dipilih",
       industry: industry ? pretty(industry) : "Tidak diisi",
+      category: category ? categoryLabel() : "Tidak dipilih",
       tier: tier ? pretty(tier) : "Belum ditentukan",
       client_name: $("#name").value.trim(),
       client_email: $("#email").value.trim(),
