@@ -46,6 +46,7 @@
 <nav class="checkout-progress" aria-label="Tahapan order"><button type="button" class="checkout-step is-active" data-step-nav="1"><span>01</span><strong>Brief</strong></button><span aria-hidden="true">—</span><button type="button" class="checkout-step" data-step-nav="2"><span>02</span><strong>Review</strong></button><span aria-hidden="true">—</span><button type="button" class="checkout-step" data-step-nav="3"><span>03</span><strong>Terms</strong></button><span aria-hidden="true">—</span><button type="button" class="checkout-step" data-step-nav="4"><span>04</span><strong>Next steps</strong></button></nav>
 
 <form id="checkout-form" class="checkout-card" novalidate>
+<div class="checkout-honeypot" aria-hidden="true"><label>Leave this field empty<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
 <section class="checkout-panel is-active" data-panel="1">
 <div class="panel-heading"><span class="section-kicker">01 · Project brief</span><h2>What are we working on?</h2><p>Informasi ini menjadi dasar untuk memahami kebutuhan. Belum menjadi persetujuan proyek.</p></div>
 <div class="checkout-form-grid"><div class="checkout-context" id="collection-context" hidden><span class="section-kicker">Collection context</span><strong id="collection-context-title">—</strong><span id="collection-context-meta">—</span><a id="collection-context-link" href="#">Open collection detail →</a></div>
@@ -78,10 +79,12 @@
 </section>
 
 <section class="checkout-panel" data-panel="4" hidden>
-<div class="panel-heading"><span class="section-kicker">04 · Langkah berikutnya</span><h2>Brief Anda siap dibahas, belum terkirim.</h2><p>BagusIn saat ini belum memiliki sistem backend untuk mengirim atau menyimpan order. Hubungi saya untuk mengirim kebutuhan ini secara manual dan meminta quotation.</p></div>
+<div class="panel-heading"><span class="section-kicker">04 · Langkah berikutnya</span><h2>Kirim brief, lalu kita lanjutkan secara personal.</h2><p>Brief Anda akan dikirim ke tim BagusIn melalui layanan form email. Setelah kami meninjau kebutuhan, follow-up dilakukan secara personal melalui WhatsApp untuk membahas scope, quotation, jadwal, dan pembayaran.</p></div>
 <div class="payment-warning"><strong>Belum ada pembayaran</strong><p>Jangan melakukan transfer dari halaman ini. Tunggu konfirmasi ruang lingkup, quotation, jadwal, dan instruksi pembayaran yang disepakati secara langsung.</p></div>
-<div class="payment-confirm"><div><span class="section-kicker">Status saat ini</span><h3>Draft lokal · Menunggu komunikasi</h3><p>Data brief tersimpan sementara di sesi browser ini untuk membantu Anda meninjau kembali. Data belum dikirim ke BagusIn dan dapat hilang saat sesi browser berakhir.</p></div><a class="button button--secondary" href="/bagusin/contact/">Buka halaman kontak</a></div>
-<div class="panel-actions"><button class="button button--secondary" type="button" data-back="3">← Kembali ke Terms</button><a class="button button--accent" href="/bagusin/contact/">Lanjut ke kontak →</a></div>
+<div class="payment-confirm"><div><span class="section-kicker">Setelah brief dikirim</span><h3>Review manual · Follow-up WhatsApp</h3><p>Kami akan membaca layanan dan kebutuhan yang Anda kirim. Pembahasan personal, kesepakatan harga, jadwal, dan instruksi pembayaran dilakukan setelahnya melalui WhatsApp.</p></div></div>
+<div class="checkout-email-status" id="checkout-email-status" role="status" aria-live="polite"></div>
+<div class="panel-actions"><button class="button button--secondary" type="button" data-back="3">← Kembali ke Terms</button><button class="button button--accent" type="submit" id="send-order-brief">Kirim brief ke BagusIn →</button></div>
+<p class="checkout-email-note">Email tujuan: baguskristian@gmail.com. Jangan kirim kata sandi, data pembayaran sensitif, atau informasi pribadi yang tidak diperlukan.</p>
 </section>
 </form>
 </div>
