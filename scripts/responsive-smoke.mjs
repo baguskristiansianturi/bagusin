@@ -260,6 +260,33 @@ try {
   if (blogText.includes("Stories from the road") || blogText.includes("Read the story") || blogText.includes("The archive grows with real experience.")) errors.push("Blog page: English interface copy remains");
   if (!blogStructuredData || blogStructuredData.includes("software engineering")) errors.push("Blog page: structured data still contains outdated English description");
 
+  // Checkout must be an honest draft flow: validate, review, accept terms, and never expose payment details.
+  await interactionPage.goto(origin + "/bagusin/checkout/?service=landing-pages", { waitUntil: "domcontentloaded" });
+  if (await interactionPage.locator("#service").inputValue() !== "landing-pages") errors.push("Checkout: incoming service was not preselected");
+  await interactionPage.locator("#name").fill("Test Client");
+  await interactionPage.locator("#email").fill("client@example.com");
+  await interactionPage.locator("#brief").fill("Need a responsive campaign page <script>not executable</script>.");
+  await interactionPage.locator('[data-next="2"]').click();
+  if (await interactionPage.locator('[data-panel="2"]').isHidden()) errors.push("Checkout: valid brief did not advance to review");
+  if (!(await interactionPage.locator("#review-box").innerText()).includes("Test Client")) errors.push("Checkout: review summary did not include entered details");
+  if (await interactionPage.locator("#review-box script").count()) errors.push("Checkout: user brief was interpreted as HTML instead of escaped text");
+  await interactionPage.locator('[data-next="3"]').click();
+  if (await interactionPage.locator('[data-panel="3"]').isHidden()) errors.push("Checkout: review did not advance to terms");
+  await interactionPage.locator('[data-next="4"]').click();
+  if (await interactionPage.locator('[data-panel="4"]').isVisible()) errors.push("Checkout: terms step allowed continuation without consent");
+  await interactionPage.locator("#terms-agree").check();
+  await interactionPage.locator('[data-next="4"]').click();
+  if (await interactionPage.locator('[data-panel="4"]').isHidden()) errors.push("Checkout: terms consent did not advance to next steps");
+  const checkoutText = await interactionPage.locator("#main-content").innerText();
+  if (!checkoutText.includes("belum terkirim") || !checkoutText.includes("belum mengirim order")) errors.push("Checkout: draft-only status is not clearly communicated");
+  if (checkoutText.includes("1460137710")) errors.push("Checkout: bank account details are shown before an agreed quotation");
+  await interactionPage.goto(origin + "/bagusin/checkout/?service=google-ads", { waitUntil: "domcontentloaded" });
+  await interactionPage.locator("#name").fill("Test Client");
+  await interactionPage.locator("#email").fill("client@example.com");
+  await interactionPage.locator("#brief").fill("Test unavailable service guard.");
+  await interactionPage.locator('[data-next="2"]').click();
+  if (await interactionPage.locator('[data-panel="2"]').isVisible()) errors.push("Checkout: coming-soon service incorrectly allowed direct order");
+
   // Destinations should remain experience-based, without fabricated ratings or itineraries.
   await interactionPage.goto(origin + "/bagusin/destinations/", { waitUntil: "domcontentloaded" });
   const destinationsTitle = await interactionPage.title();
