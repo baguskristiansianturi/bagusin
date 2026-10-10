@@ -33,6 +33,14 @@ document.addEventListener("DOMContentLoaded", function () {
   if (serviceInput) serviceInput.value = service;
   if (modeInput) modeInput.value = mode;
 
+  const template = params.get("template") || "";
+  const briefField = form.elements.namedItem("brief");
+  if (template === "sewa-mobil-bali" && briefField && !briefField.value.trim()) {
+    briefField.value = isEnglish
+      ? "Template selected: Sewa Mobil Bali\n\nBusiness / brand name:\nFleet and vehicle categories:\nRental prices and packages:\nService areas and pickup options:\nWhatsApp / contact details:\nPreferred colors and visual changes:\nExtra features needed (if any):\n\nPlease confirm the scope, final quote, timeline, and what is included before work begins."
+      : "Template dipilih: Sewa Mobil Bali\n\nNama bisnis / brand:\nArmada dan kategori kendaraan:\nHarga sewa dan paket:\nArea layanan dan opsi penjemputan:\nWhatsApp / kontak:\nWarna dan perubahan tampilan yang diinginkan:\nFitur tambahan (jika ada):\n\nMohon konfirmasi ruang lingkup, harga final, waktu pengerjaan, dan hal yang termasuk sebelum pengerjaan dimulai.";
+  }
+
   function valueOf(name) {
     const field = form.elements.namedItem(name);
     return field && typeof field.value === "string" ? field.value.trim() : "";
