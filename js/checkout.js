@@ -206,6 +206,94 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("input", saveDraft);
   $("#terms-agree").addEventListener("change", () => { $("#terms-error").textContent = ""; });
 
+
+  const emailStatus = $("#checkout-email-status");
+  const sendButton = $("#send-order-brief");
+  const buildEmailPayload = () => {
+    const data = {
+      _subject: "[BagusIn Order Brief] " + label() + " — " + $("#name").value.trim(),
+      _template: "table",
+      _captcha: "false",
+      _honey: "",
+      inquiry_type: "Project inquiry — manual WhatsApp follow-up",
+      service: label(),
+      service_id: service.value,
+      collection: collection ? pretty(collection) : "Tidak dipilih",
+      industry: industry ? pretty(industry) : "Tidak diisi",
+      tier: tier ? pretty(tier) : "Belum ditentukan",
+      client_name: $("#name").value.trim(),
+      client_email: $("#email").value.trim(),
+      company: $("#company").value.trim() || "Tidak diisi",
+      timeline: $("#timeline").value.trim() || "Tidak ditentukan",
+      project_brief: $("#brief").value.trim(),
+      terms_acknowledged: $("#terms-agree").checked ? "Ya" : "Tidak",
+      follow_up: "Hubungi calon klien secara personal melalui WhatsApp setelah meninjau brief. Scope, quotation, jadwal, dan pembayaran disepakati manual.",
+      source_page: location.href,
+      submitted_at_utc: new Date().toISOString()
+    };
+    return data;
+  };
+
+  const showMailtoFallback = (payload) => {
+    if (!emailStatus) return;
+    const body = Object.entries(payload)
+      .filter(([key]) => !key.startsWith("_"))
+      .map(([key, value]) => key.replace(/_/g, " ").toUpperCase() + ":\n" + value)
+      .join("\n\n");
+    const link = document.createElement("a");
+    link.href = "mailto:baguskristian@gmail.com?subject=" + encodeURIComponent(payload._subject) + "&body=" + encodeURIComponent(body);
+    link.className = "button button--secondary";
+    link.textContent = "Buka aplikasi email sebagai alternatif";
+    emailStatus.replaceChildren();
+    const message = document.createElement("p");
+    message.textContent = "Pengiriman otomatis belum berhasil. Brief masih tersimpan di sesi browser; gunakan tombol ini untuk membuka aplikasi email dan kirim brief secara manual.";
+    emailStatus.append(message, link);
+  };
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const current = Number($(".checkout-panel.is-active")?.dataset.panel || 1);
+    if (current !== 4) return;
+    if (!validateBrief()) { showStep(1); return; }
+    if (!$("#terms-agree").checked) {
+      $("#terms-error").textContent = "Persetujuan ketentuan diperlukan sebelum mengirim brief.";
+      showStep(3);
+      $("#terms-agree").focus();
+      return;
+    }
+    const honeypot = form.querySelector('input[name="_honey"]');
+    if (honeypot?.value.trim()) return;
+    const payload = buildEmailPayload();
+    if (!sendButton || !emailStatus) return;
+    sendButton.disabled = true;
+    sendButton.textContent = "Mengirim brief…";
+    emailStatus.textContent = "Mengirim brief ke layanan email. Mohon tunggu dan jangan tutup halaman.";
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/baguskristian@gmail.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      let result = {};
+      try { result = await response.json(); } catch (_) {}
+      if (!response.ok || result.success === "false" || result.success === false) {
+        throw new Error(result.message || "Email service rejected the request.");
+      }
+      form.dataset.submitted = "true";
+      sendButton.textContent = "Brief berhasil dikirim";
+      sendButton.disabled = true;
+      emailStatus.textContent = "Permintaan pengiriman berhasil diterima layanan email. Jika ini pengiriman pertama, pemilik email perlu menyelesaikan aktivasi FormSubmit dari inbox sebelum brief dapat diteruskan. Setelah layanan aktif, brief akan masuk ke baguskristian@gmail.com; follow-up WhatsApp, quotation, dan pembayaran dilakukan manual.";
+      const status = $("#aside-status");
+      if (status) status.textContent = "Brief dikirim · follow-up manual";
+      try { sessionStorage.removeItem(storageKey); } catch (_) {}
+    } catch (error) {
+      sendButton.disabled = false;
+      sendButton.textContent = "Coba kirim lagi";
+      emailStatus.textContent = "Pengiriman otomatis belum berhasil. Data belum dipastikan masuk ke email.";
+      showMailtoFallback(payload);
+    }
+  });
+
   updateSummary();
   updateGuidance();
   saveDraft();
