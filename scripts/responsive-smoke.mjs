@@ -278,8 +278,20 @@ try {
   await interactionPage.locator('[data-next="4"]').click();
   if (await interactionPage.locator('[data-panel="4"]').isHidden()) errors.push("Checkout: terms consent did not advance to next steps");
   const checkoutText = await interactionPage.locator("#main-content").innerText();
-  if (!checkoutText.includes("belum terkirim") || !checkoutText.includes("belum mengirim order")) errors.push("Checkout: draft-only status is not clearly communicated");
+  if (!checkoutText.includes("follow-up dilakukan secara personal melalui WhatsApp")) errors.push("Checkout: manual WhatsApp follow-up process is not explained");
+  if (!checkoutText.includes("baguskristian@gmail.com")) errors.push("Checkout: destination email is not disclosed");
   if (checkoutText.includes("1460137710")) errors.push("Checkout: bank account details are shown before an agreed quotation");
+  let submittedEmailPayload = null;
+  await interactionPage.route("https://formsubmit.co/ajax/baguskristian@gmail.com", async (route) => {
+    submittedEmailPayload = route.request().postDataJSON();
+    await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ success: "true", message: "Test submission accepted" }) });
+  });
+  await interactionPage.locator("#send-order-brief").click();
+  await interactionPage.waitForFunction(() => document.querySelector("#checkout-email-status")?.textContent.includes("pengiriman berhasil diterima"), null, { timeout: 5000 });
+  if (!submittedEmailPayload || submittedEmailPayload.client_email !== "client@example.com") errors.push("Checkout: email submission payload is missing the client's reply address");
+  if (!submittedEmailPayload || submittedEmailPayload.service_id !== "landing-pages") errors.push("Checkout: email submission payload is missing the selected service");
+  if (!submittedEmailPayload || !submittedEmailPayload.project_brief.includes("responsive campaign page")) errors.push("Checkout: email submission payload is missing the project brief");
+  if (!submittedEmailPayload || !submittedEmailPayload._subject.includes("Landing Pages")) errors.push("Checkout: email subject does not identify the service");
   await interactionPage.goto(origin + "/bagusin/checkout/?service=google-ads", { waitUntil: "domcontentloaded" });
   await interactionPage.locator("#name").fill("Test Client");
   await interactionPage.locator("#email").fill("client@example.com");
