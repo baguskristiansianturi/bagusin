@@ -38,12 +38,12 @@
 <main id="main-content" class="checkout-page">
 <section class="checkout-hero"><div class="container">
   <a class="checkout-back" href="/bagusin/work/">← Work With Me</a>
-  <div class="checkout-hero__grid"><div><span class="section-kicker">Project order</span><h1>Let’s make the scope clear before we build.</h1><p>Order dimulai dari kebutuhan yang cukup jelas. Pilih layanan, isi brief singkat, review kembali, lalu lanjut ke Terms &amp; Conditions dan instruksi pembayaran.</p></div><div class="checkout-trust"><span class="checkout-trust__icon" aria-hidden="true">✓</span><div><strong>Project-based · Remote</strong><span>Quotation mengikuti scope yang disepakati.</span></div></div></div>
+  <div class="checkout-hero__grid"><div><span class="section-kicker">Project inquiry</span><h1>Perjelas kebutuhan sebelum proyek dimulai.</h1><p>Pilih layanan, isi brief, tinjau kembali, lalu baca ketentuan. Form ini menyiapkan draft di browser—belum mengirim order, menerbitkan quotation, atau memproses pembayaran.</p></div><div class="checkout-trust"><span class="checkout-trust__icon" aria-hidden="true">✓</span><div><strong>Project-based · Remote</strong><span>Quotation mengikuti scope yang disepakati.</span></div></div></div>
 </div></section>
 
 <section class="checkout-section"><div class="container checkout-layout">
 <div class="checkout-main">
-<nav class="checkout-progress" aria-label="Tahapan order"><button type="button" class="checkout-step is-active" data-step-nav="1"><span>01</span><strong>Brief</strong></button><span aria-hidden="true">—</span><button type="button" class="checkout-step" data-step-nav="2"><span>02</span><strong>Review</strong></button><span aria-hidden="true">—</span><button type="button" class="checkout-step" data-step-nav="3"><span>03</span><strong>Terms</strong></button><span aria-hidden="true">—</span><button type="button" class="checkout-step" data-step-nav="4"><span>04</span><strong>Payment</strong></button></nav>
+<nav class="checkout-progress" aria-label="Tahapan order"><button type="button" class="checkout-step is-active" data-step-nav="1"><span>01</span><strong>Brief</strong></button><span aria-hidden="true">—</span><button type="button" class="checkout-step" data-step-nav="2"><span>02</span><strong>Review</strong></button><span aria-hidden="true">—</span><button type="button" class="checkout-step" data-step-nav="3"><span>03</span><strong>Terms</strong></button><span aria-hidden="true">—</span><button type="button" class="checkout-step" data-step-nav="4"><span>04</span><strong>Next steps</strong></button></nav>
 
 <form id="checkout-form" class="checkout-card" novalidate>
 <section class="checkout-panel is-active" data-panel="1">
@@ -78,17 +78,16 @@
 </section>
 
 <section class="checkout-panel" data-panel="4" hidden>
-<div class="panel-heading"><span class="section-kicker">04 · Payment</span><h2>Payment comes after the scope is agreed.</h2><p>Instruksi di bawah digunakan ketika quotation dan scope sudah disepakati. Jangan melakukan transfer hanya berdasarkan halaman ini.</p></div>
-<div class="payment-card"><span class="payment-card__label">BCA · Transfer</span><strong>1460137710</strong><span>a.n. Bagus Kristian Sianturi</span></div>
-<div class="payment-warning"><strong>Penting</strong><p>Jangan transfer sebelum menerima dan menyetujui quotation yang sesuai dengan project Anda.</p></div>
-<div class="payment-confirm"><div><span class="section-kicker">Next status</span><h3>Awaiting quotation / payment</h3><p>Setelah pembayaran dilakukan sesuai instruksi, konfirmasi pembayaran perlu dikirim secara manual. Sistem otomatis/invoice backend belum terhubung pada tahap ini.</p></div><a class="button button--secondary" href="/bagusin/contact/">Contact for payment confirmation</a></div>
-<div class="panel-actions"><button class="button button--secondary" type="button" data-back="3">← Terms</button><a class="button button--accent" href="/bagusin/contact/">Finish &amp; contact</a></div>
+<div class="panel-heading"><span class="section-kicker">04 · Langkah berikutnya</span><h2>Brief Anda siap dibahas, belum terkirim.</h2><p>BagusIn saat ini belum memiliki sistem backend untuk mengirim atau menyimpan order. Hubungi saya untuk mengirim kebutuhan ini secara manual dan meminta quotation.</p></div>
+<div class="payment-warning"><strong>Belum ada pembayaran</strong><p>Jangan melakukan transfer dari halaman ini. Tunggu konfirmasi ruang lingkup, quotation, jadwal, dan instruksi pembayaran yang disepakati secara langsung.</p></div>
+<div class="payment-confirm"><div><span class="section-kicker">Status saat ini</span><h3>Draft lokal · Menunggu komunikasi</h3><p>Data brief tersimpan sementara di sesi browser ini untuk membantu Anda meninjau kembali. Data belum dikirim ke BagusIn dan dapat hilang saat sesi browser berakhir.</p></div><a class="button button--secondary" href="/bagusin/contact/">Buka halaman kontak</a></div>
+<div class="panel-actions"><button class="button button--secondary" type="button" data-back="3">← Kembali ke Terms</button><a class="button button--accent" href="/bagusin/contact/">Lanjut ke kontak →</a></div>
 </section>
 </form>
 </div>
 
 <aside class="checkout-aside">
-<div class="checkout-aside__card"><span class="section-kicker">Your order</span><div class="aside-service"><span class="aside-service__icon" aria-hidden="true">✦</span><div><small>Selected service</small><strong id="aside-service">Pilih layanan</strong><small id="aside-collection" class="aside-collection">No collection selected</small></div></div><dl><div><dt>Work model</dt><dd>Project-based</dd></div><div><dt>Location</dt><dd>Remote</dd></div><div><dt>Level</dt><dd id="aside-tier">—</dd></div><div><dt>Pricing</dt><dd>By quotation</dd></div></dl><div class="aside-status"><span class="status-dot" aria-hidden="true"></span><span id="aside-status">Brief belum disimpan</span></div></div>
+<div class="checkout-aside__card"><span class="section-kicker">Ringkasan kebutuhan</span><div class="aside-service"><span class="aside-service__icon" aria-hidden="true">✦</span><div><small>Selected service</small><strong id="aside-service">Pilih layanan</strong><small id="aside-collection" class="aside-collection">No collection selected</small></div></div><dl><div><dt>Work model</dt><dd>Project-based</dd></div><div><dt>Location</dt><dd>Remote</dd></div><div><dt>Level</dt><dd id="aside-tier">—</dd></div><div><dt>Harga</dt><dd>Melalui quotation</dd></div></dl><div class="aside-status"><span class="status-dot" aria-hidden="true"></span><span id="aside-status">Draft tersimpan di sesi browser</span></div></div>
 <div class="checkout-aside__help"><strong>Not sure yet?</strong><p>Jangan menebak scope. Mulai dari Help Me Choose jika kebutuhan masih perlu dibahas.</p><a href="/bagusin/contact/?mode=consultation">Start a consultation →</a></div>
 </aside>
 </div></section>
