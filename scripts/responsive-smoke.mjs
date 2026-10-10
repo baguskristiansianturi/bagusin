@@ -260,6 +260,93 @@ try {
   if (blogText.includes("Stories from the road") || blogText.includes("Read the story") || blogText.includes("The archive grows with real experience.")) errors.push("Blog page: English interface copy remains");
   if (!blogStructuredData || blogStructuredData.includes("software engineering")) errors.push("Blog page: structured data still contains outdated English description");
 
+  // Checkout must be an honest draft flow: validate, review, accept terms, and never expose payment details.
+  await interactionPage.goto(origin + "/bagusin/checkout/?service=landing-pages", { waitUntil: "domcontentloaded" });
+  if (await interactionPage.locator("#service").inputValue() !== "landing-pages") errors.push("Checkout: incoming service was not preselected");
+  await interactionPage.locator("#name").fill("Test Client");
+  await interactionPage.locator("#email").fill("client@example.com");
+  await interactionPage.locator("#brief").fill("Need a responsive campaign page <script>not executable</script>.");
+  await interactionPage.locator('[data-next="2"]').click();
+  if (await interactionPage.locator('[data-panel="2"]').isHidden()) errors.push("Checkout: valid brief did not advance to review");
+  if (!(await interactionPage.locator("#review-box").innerText()).includes("Test Client")) errors.push("Checkout: review summary did not include entered details");
+  if (await interactionPage.locator("#review-box script").count()) errors.push("Checkout: user brief was interpreted as HTML instead of escaped text");
+  await interactionPage.locator('[data-next="3"]').click();
+  if (await interactionPage.locator('[data-panel="3"]').isHidden()) errors.push("Checkout: review did not advance to terms");
+  await interactionPage.locator('[data-next="4"]').click();
+  if (await interactionPage.locator('[data-panel="4"]').isVisible()) errors.push("Checkout: terms step allowed continuation without consent");
+  await interactionPage.locator("#terms-agree").check();
+  await interactionPage.locator('[data-next="4"]').click();
+  if (await interactionPage.locator('[data-panel="4"]').isHidden()) errors.push("Checkout: terms consent did not advance to next steps");
+  const checkoutText = await interactionPage.locator("#main-content").innerText();
+  if (!checkoutText.includes("follow-up dilakukan secara personal melalui WhatsApp")) errors.push("Checkout: manual WhatsApp follow-up process is not explained");
+  if (!checkoutText.includes("baguskristian@gmail.com")) errors.push("Checkout: destination email is not disclosed");
+  if (checkoutText.includes("1460137710")) errors.push("Checkout: bank account details are shown before an agreed quotation");
+  let submittedEmailPayload = null;
+  await interactionPage.route("https://formsubmit.co/ajax/baguskristian@gmail.com", async (route) => {
+    submittedEmailPayload = route.request().postDataJSON();
+    await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ success: "true", message: "Test submission accepted" }) });
+  });
+  await interactionPage.locator("#send-order-brief").click();
+  await interactionPage.waitForFunction(() => document.querySelector("#checkout-email-status")?.textContent.includes("pengiriman berhasil diterima"), null, { timeout: 5000 });
+  if (!submittedEmailPayload || submittedEmailPayload.client_email !== "client@example.com") errors.push("Checkout: email submission payload is missing the client's reply address");
+  if (!submittedEmailPayload || submittedEmailPayload.service_id !== "landing-pages") errors.push("Checkout: email submission payload is missing the selected service");
+  if (!submittedEmailPayload || !submittedEmailPayload.project_brief.includes("responsive campaign page")) errors.push("Checkout: email submission payload is missing the project brief");
+  if (!submittedEmailPayload || !submittedEmailPayload._subject.includes("Landing Pages")) errors.push("Checkout: email subject does not identify the service");
+  await interactionPage.goto(origin + "/bagusin/checkout/?service=google-ads", { waitUntil: "domcontentloaded" });
+  await interactionPage.locator("#name").fill("Test Client");
+  await interactionPage.locator("#email").fill("client@example.com");
+  await interactionPage.locator("#brief").fill("Test unavailable service guard.");
+  await interactionPage.locator('[data-next="2"]').click();
+  if (await interactionPage.locator('[data-panel="2"]').isVisible()) errors.push("Checkout: coming-soon service incorrectly allowed direct order");
+
+  // An explicit service link must not inherit a stale collection/category from a previous session draft.
+  await interactionPage.evaluate(() => sessionStorage.setItem("bagusin-checkout", JSON.stringify({
+    collection: "stale-collection", industry: "stale-industry", category: "landing", tier: "business", name: "Saved Name"
+  })));
+  await interactionPage.goto(origin + "/bagusin/checkout/?service=websites&mode=order", { waitUntil: "domcontentloaded" });
+  if (await interactionPage.locator("#service").inputValue() !== "websites") errors.push("Checkout: explicit service did not override the saved draft");
+  if (!(await interactionPage.locator("#collection-context").isHidden())) errors.push("Checkout: stale collection context leaked into a direct service order");
+  if (!(await interactionPage.locator("#aside-category-row").isHidden())) errors.push("Checkout: stale category leaked into a direct service order");
+  if ((await interactionPage.locator("#aside-tier").textContent()).trim() !== "Belum ditentukan") errors.push("Checkout: stale tier leaked into a direct service order");
+
+  // Collection detail CTAs must preserve the right context into checkout.
+  const collectionCases = [
+    { route: "/bagusin/landing-pages/collections/detail/?collection=travel-showroom", service: "landing-pages", collection: "travel-showroom", contextKey: "industry", contextValue: "travel" },
+    { route: "/bagusin/websites/collections/detail/?collection=travel-business-website", service: "websites", collection: "travel-business-website", contextKey: "industry", contextValue: "travel", tier: "starter" },
+    { route: "/bagusin/copywriting/collections/detail/?collection=landing-page-copy", service: "copywriting", collection: "landing-page-copy", contextKey: "category", contextValue: "landing" }
+  ];
+  for (const item of collectionCases) {
+    await interactionPage.goto(origin + item.route, { waitUntil: "domcontentloaded" });
+    const orderLink = interactionPage.locator("[data-order]");
+    if (!(await orderLink.count())) { errors.push("Collection detail: order CTA is missing for " + item.service); continue; }
+    const orderHref = await orderLink.getAttribute("href");
+    const orderUrl = new URL(orderHref, origin);
+    if (orderUrl.searchParams.get("service") !== item.service) errors.push("Collection detail: service context was lost for " + item.service);
+    if (orderUrl.searchParams.get("collection") !== item.collection) errors.push("Collection detail: collection context was lost for " + item.service);
+    if (orderUrl.searchParams.get(item.contextKey) !== item.contextValue) errors.push("Collection detail: " + item.contextKey + " context is incorrect for " + item.service);
+    if (item.service === "copywriting" && orderUrl.searchParams.has("industry")) errors.push("Collection detail: copywriting category was incorrectly passed as an industry");
+    if (item.tier && orderUrl.searchParams.get("tier") !== item.tier) errors.push("Collection detail: website tier was lost");
+    await interactionPage.goto(orderUrl.href, { waitUntil: "domcontentloaded" });
+    if (await interactionPage.locator("#service").inputValue() !== item.service) errors.push("Checkout: collection CTA did not preselect " + item.service);
+    await interactionPage.locator("#name").fill("Collection Test");
+    await interactionPage.locator("#email").fill("collection@example.com");
+    await interactionPage.locator("#brief").fill("Please review the selected collection and discuss scope.");
+    await interactionPage.locator('[data-next="2"]').click();
+    if (await interactionPage.locator('[data-panel="2"]').isHidden()) errors.push("Checkout: collection brief did not advance to review for " + item.service);
+    const review = await interactionPage.locator("#review-box").innerText();
+    if (!review.includes(item.collection.split("-").map(w => w[0].toUpperCase() + w.slice(1)).join(" "))) errors.push("Checkout: review summary lost collection name for " + item.service);
+    if (item.service === "copywriting" && (!review.includes("Landing Page") || !review.includes("Kategori"))) errors.push("Checkout: copywriting category was not shown as a category");
+    if (item.tier && !review.toLowerCase().includes("starter")) errors.push("Checkout: website tier was not shown in review");
+  }
+
+  // Copywriting category must survive the entire review-to-email journey.
+  await interactionPage.locator('[data-next="3"]').click();
+  await interactionPage.locator("#terms-agree").check();
+  await interactionPage.locator('[data-next="4"]').click();
+  await interactionPage.locator("#send-order-brief").click();
+  await interactionPage.waitForFunction(() => document.querySelector("#checkout-email-status")?.textContent.includes("pengiriman berhasil diterima"), null, { timeout: 5000 });
+  if (!submittedEmailPayload || submittedEmailPayload.category !== "Landing Page") errors.push("Checkout: copywriting category was not included in the email payload");
+
   // Destinations should remain experience-based, without fabricated ratings or itineraries.
   await interactionPage.goto(origin + "/bagusin/destinations/", { waitUntil: "domcontentloaded" });
   const destinationsTitle = await interactionPage.title();
