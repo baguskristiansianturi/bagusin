@@ -67,3 +67,27 @@
  .portfolio-project__visual strong{font-size:1.65rem}
  .portfolio-project__details div{grid-template-columns:4.3rem minmax(0,1fr)}
 }
+/* Sewa Mobil Bali — demo collection and transparent order flow */
+.portfolio-project--rental{padding-top:var(--space-8);border-top:1px solid var(--color-border)}
+.portfolio-project__visual--rental{background:linear-gradient(135deg,#102a27,#244d43 58%,#d6b77a);color:#fff}
+.portfolio-project__visual--rental::before{border-color:rgba(255,255,255,.16);background:linear-gradient(90deg,transparent 49.5%,rgba(255,255,255,.12) 50%,transparent 50.5%),linear-gradient(transparent 49.5%,rgba(255,255,255,.12) 50%,transparent 50.5%);background-size:25% 25%}
+.portfolio-project__visual--rental::after{border-color:rgba(214,183,122,.4)}
+.portfolio-project__visual--rental span{color:rgba(255,255,255,.72)}
+.portfolio-project__visual--rental strong{color:#fff}
+.portfolio-label--concept{background:#f7f0df;border-color:#e6d4a8;color:#735b2b}
+.portfolio-project__offer{display:grid;gap:.35rem;margin-top:var(--space-6);padding:1.1rem 1.2rem;border:1px solid var(--color-border);border-radius:var(--radius-lg);background:linear-gradient(135deg,#fbfcfb,#f1f7f4)}
+.portfolio-project__offer-label{color:var(--color-text-muted);font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
+.portfolio-project__offer strong{color:var(--color-accent-dark);font-size:1.35rem;letter-spacing:-.025em}
+.portfolio-project__offer p{color:var(--color-text-soft);font-size:.83rem;line-height:1.6}
+.portfolio-project__actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:var(--space-5)}
+.portfolio-project__actions .button{text-align:center}
+.portfolio-order__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;border:1px solid var(--color-border);background:var(--color-border)}
+.portfolio-order__grid article{min-width:0;padding:clamp(1rem,2vw,1.5rem);background:var(--color-white)}
+.portfolio-order__grid article>span{color:var(--color-accent-dark);font:600 .72rem/1 var(--font-mono)}
+.portfolio-order__grid h3{margin-top:1.2rem;font-size:1.08rem}
+.portfolio-order__grid p{margin-top:.5rem;color:var(--color-text-soft);font-size:.86rem;line-height:1.65}
+.portfolio-order__note{margin-top:1.25rem;padding:1.25rem 1.4rem;border-left:3px solid var(--color-accent);background:var(--bg-soft)}
+.portfolio-order__note strong{display:block}
+.portfolio-order__note p{margin-top:.4rem;color:var(--color-text-soft);font-size:.9rem;line-height:1.7}
+@media(max-width:55.999rem){.portfolio-order__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:47.999rem){.portfolio-project__actions{flex-direction:column}.portfolio-project__actions .button{width:100%}.portfolio-order__grid{grid-template-columns:1fr}}
