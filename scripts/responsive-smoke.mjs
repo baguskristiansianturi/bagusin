@@ -188,17 +188,26 @@ try {
   const contactOptionsText = await interactionPage.locator("main").innerText();
   if (!contactOptionsText.includes("pengembangan perangkat lunak") || !contactOptionsText.includes("konten SEO")) errors.push("Contact page: Indonesian service description is missing");
   if (contactOptionsText.includes("software engineering") || contactOptionsText.includes("SEO content")) errors.push("Contact page: English service terms remain in Indonesian copy");
+  let contactEmailPayload = null;
+  await interactionPage.route("https://formsubmit.co/ajax/baguskristian@gmail.com", async (route) => {
+    contactEmailPayload = route.request().postDataJSON();
+    await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ success: "true", message: "Test submission accepted" }) });
+  });
   await interactionPage.locator("#project-form input[name=name]").fill("Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("test@example.com");
-  await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the contact brief preparation flow.");
+  await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the contact email submission flow.");
   await interactionPage.locator("#project-form input[name=terms]").check();
   await interactionPage.locator("#project-form button[type=submit]").click();
+  await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("Permintaan pengiriman diterima"), null, { timeout: 5000 });
   const preparedBrief = interactionPage.locator("#project-form [data-brief-output]");
   if (!(await preparedBrief.count())) errors.push("Contact form: prepared brief output was not created");
-  else if (!(await preparedBrief.inputValue()).includes("Testing the contact brief preparation flow.")) errors.push("Contact form: prepared brief is missing the entered details");
+  else if (!(await preparedBrief.inputValue()).includes("Testing the contact email submission flow.")) errors.push("Contact form: prepared brief is missing the entered details");
   if (!(await interactionPage.locator("#project-form [data-copy-brief]").count())) errors.push("Contact form: copy summary button was not created");
+  if (!contactEmailPayload || contactEmailPayload.email !== "test@example.com") errors.push("Contact form: email payload is missing the client's reply address");
+  if (!contactEmailPayload || contactEmailPayload.service_id !== "landing-pages") errors.push("Contact form: email payload is missing the selected service");
+  if (!contactEmailPayload || !contactEmailPayload.project_brief.includes("Testing the contact email submission flow.")) errors.push("Contact form: email payload is missing the project brief");
   const formStatus = await interactionPage.locator("#form-status").textContent();
-  if (!formStatus || !formStatus.includes("belum mengirim data otomatis")) errors.push("Contact form: status does not clearly explain that the brief is not sent automatically");
+  if (!formStatus || !formStatus.includes("Permintaan pengiriman diterima")) errors.push("Contact form: status does not confirm email-service acceptance");
   await interactionPage.locator("#project-form [data-copy-brief]").click();
   await interactionPage.waitForFunction(() => {
     const message = document.querySelector("#form-status")?.textContent || "";
