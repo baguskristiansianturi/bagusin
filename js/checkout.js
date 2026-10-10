@@ -209,5 +209,8 @@ document.addEventListener("DOMContentLoaded", () => {
   updateSummary();
   updateGuidance();
   saveDraft();
-  showStep(1);
+  steps.forEach((button) => {
+    if (Number(button.dataset.stepNav) === 1) button.setAttribute("aria-current", "step");
+    else button.removeAttribute("aria-current");
+  });
 });
