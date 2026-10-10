@@ -212,6 +212,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const buildEmailPayload = () => {
     const data = {
       _subject: "[BagusIn Order Brief] " + label() + " — " + $("#name").value.trim(),
+      _replyto: $("#email").value.trim(),
+      name: $("#name").value.trim(),
+      email: $("#email").value.trim(),
+      message: $("#brief").value.trim(),
       _template: "table",
       _captcha: "false",
       _honey: "",
