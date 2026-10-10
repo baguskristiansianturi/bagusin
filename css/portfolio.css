@@ -91,3 +91,11 @@
 .portfolio-order__note p{margin-top:.4rem;color:var(--color-text-soft);font-size:.9rem;line-height:1.7}
 @media(max-width:55.999rem){.portfolio-order__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:47.999rem){.portfolio-project__actions{flex-direction:column}.portfolio-project__actions .button{width:100%}.portfolio-order__grid{grid-template-columns:1fr}}
+
+/* Latest collection is surfaced before the broader portfolio. */
+.portfolio-latest{padding-top:var(--space-8);background:linear-gradient(180deg,rgba(63,145,129,.055),transparent 72%)}
+.portfolio-project--latest{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:center;padding:clamp(1rem,2.5vw,2rem);border:1px solid rgba(63,145,129,.24);border-radius:var(--radius-2xl);background:var(--color-white);box-shadow:0 1rem 2.8rem rgba(20,45,39,.055)}
+.portfolio-project--latest .portfolio-project__visual{min-height:24rem}
+.portfolio-project--latest .portfolio-project__top{justify-content:flex-start;flex-wrap:wrap}
+@media(max-width:55.999rem){.portfolio-project--latest{grid-template-columns:1fr}.portfolio-project--latest .portfolio-project__visual{min-height:19rem}}
+@media(max-width:47.999rem){.portfolio-latest{padding-top:var(--space-6)}.portfolio-project--latest{padding:1rem;border-radius:var(--radius-xl)}.portfolio-project--latest .portfolio-project__visual{min-height:15rem}}
