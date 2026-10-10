@@ -299,6 +299,16 @@ try {
   await interactionPage.locator('[data-next="2"]').click();
   if (await interactionPage.locator('[data-panel="2"]').isVisible()) errors.push("Checkout: coming-soon service incorrectly allowed direct order");
 
+  // An explicit service link must not inherit a stale collection/category from a previous session draft.
+  await interactionPage.evaluate(() => sessionStorage.setItem("bagusin-checkout", JSON.stringify({
+    collection: "stale-collection", industry: "stale-industry", category: "landing", tier: "business", name: "Saved Name"
+  })));
+  await interactionPage.goto(origin + "/bagusin/checkout/?service=websites&mode=order", { waitUntil: "domcontentloaded" });
+  if (await interactionPage.locator("#service").inputValue() !== "websites") errors.push("Checkout: explicit service did not override the saved draft");
+  if (!(await interactionPage.locator("#collection-context").isHidden())) errors.push("Checkout: stale collection context leaked into a direct service order");
+  if (!(await interactionPage.locator("#aside-category-row").isHidden())) errors.push("Checkout: stale category leaked into a direct service order");
+  if ((await interactionPage.locator("#aside-tier").textContent()).trim() !== "Belum ditentukan") errors.push("Checkout: stale tier leaked into a direct service order");
+
   // Collection detail CTAs must preserve the right context into checkout.
   const collectionCases = [
     { route: "/bagusin/landing-pages/collections/detail/?collection=travel-showroom", service: "landing-pages", collection: "travel-showroom", contextKey: "industry", contextValue: "travel" },
