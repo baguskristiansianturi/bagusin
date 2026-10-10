@@ -299,6 +299,36 @@ try {
   await interactionPage.locator('[data-next="2"]').click();
   if (await interactionPage.locator('[data-panel="2"]').isVisible()) errors.push("Checkout: coming-soon service incorrectly allowed direct order");
 
+  // Collection detail CTAs must preserve the right context into checkout.
+  const collectionCases = [
+    { route: "/bagusin/landing-pages/collections/detail/?collection=travel-showroom", service: "landing-pages", collection: "travel-showroom", contextKey: "industry", contextValue: "travel" },
+    { route: "/bagusin/websites/collections/detail/?collection=travel-business-website", service: "websites", collection: "travel-business-website", contextKey: "industry", contextValue: "travel", tier: "starter" },
+    { route: "/bagusin/copywriting/collections/detail/?collection=landing-page-copy", service: "copywriting", collection: "landing-page-copy", contextKey: "category", contextValue: "landing" }
+  ];
+  for (const item of collectionCases) {
+    await interactionPage.goto(origin + item.route, { waitUntil: "domcontentloaded" });
+    const orderLink = interactionPage.locator("[data-order]");
+    if (!(await orderLink.count())) { errors.push("Collection detail: order CTA is missing for " + item.service); continue; }
+    const orderHref = await orderLink.getAttribute("href");
+    const orderUrl = new URL(orderHref, origin);
+    if (orderUrl.searchParams.get("service") !== item.service) errors.push("Collection detail: service context was lost for " + item.service);
+    if (orderUrl.searchParams.get("collection") !== item.collection) errors.push("Collection detail: collection context was lost for " + item.service);
+    if (orderUrl.searchParams.get(item.contextKey) !== item.contextValue) errors.push("Collection detail: " + item.contextKey + " context is incorrect for " + item.service);
+    if (item.service === "copywriting" && orderUrl.searchParams.has("industry")) errors.push("Collection detail: copywriting category was incorrectly passed as an industry");
+    if (item.tier && orderUrl.searchParams.get("tier") !== item.tier) errors.push("Collection detail: website tier was lost");
+    await interactionPage.goto(orderUrl.href, { waitUntil: "domcontentloaded" });
+    if (await interactionPage.locator("#service").inputValue() !== item.service) errors.push("Checkout: collection CTA did not preselect " + item.service);
+    await interactionPage.locator("#name").fill("Collection Test");
+    await interactionPage.locator("#email").fill("collection@example.com");
+    await interactionPage.locator("#brief").fill("Please review the selected collection and discuss scope.");
+    await interactionPage.locator('[data-next="2"]').click();
+    if (await interactionPage.locator('[data-panel="2"]').isHidden()) errors.push("Checkout: collection brief did not advance to review for " + item.service);
+    const review = await interactionPage.locator("#review-box").innerText();
+    if (!review.includes(item.collection.split("-").map(w => w[0].toUpperCase() + w.slice(1)).join(" "))) errors.push("Checkout: review summary lost collection name for " + item.service);
+    if (item.service === "copywriting" && (!review.includes("Landing Page") || !review.includes("Kategori"))) errors.push("Checkout: copywriting category was not shown as a category");
+    if (item.tier && !review.toLowerCase().includes("starter")) errors.push("Checkout: website tier was not shown in review");
+  }
+
   // Destinations should remain experience-based, without fabricated ratings or itineraries.
   await interactionPage.goto(origin + "/bagusin/destinations/", { waitUntil: "domcontentloaded" });
   const destinationsTitle = await interactionPage.title();
