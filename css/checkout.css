@@ -83,3 +83,75 @@
 .checkout-page .checkout-field,.checkout-page .checkout-panel,.checkout-page .panel-actions{min-width:0;max-width:100%}
 .checkout-page .panel-actions .button{white-space:normal;overflow-wrap:anywhere}
 .checkout-page .checkout-guidance{max-width:100%;overflow-wrap:anywhere}
+
+
+/* Order journey refinement: clearer hierarchy, comfortable controls and mobile-first actions. */
+.checkout-page .checkout-hero__grid{align-items:center}
+.checkout-page .checkout-back{align-items:center;gap:.4rem;min-height:2.5rem}
+.checkout-page .checkout-trust{padding:1.1rem 1.2rem;border:1px solid var(--color-border);border-radius:var(--radius-lg);background:rgba(255,255,255,.72)}
+.checkout-page .checkout-progress{gap:.6rem;padding:.25rem .15rem .75rem}
+.checkout-page .checkout-progress>span{color:var(--color-border-strong)}
+.checkout-page .checkout-step{min-height:2.65rem;padding:.35rem .2rem;border-radius:var(--radius-md);transition:color .18s ease}
+.checkout-page .checkout-step:focus-visible{outline:2px solid var(--color-accent-dark);outline-offset:3px}
+.checkout-page .checkout-step.is-active strong{font-weight:750}
+.checkout-page .checkout-step.is-complete span{position:relative}
+.checkout-page .checkout-step.is-complete span::after{content:"✓";font-size:.72rem;font-weight:800}
+.checkout-page .checkout-step.is-complete span{font-size:0}
+.checkout-page .checkout-field input,
+.checkout-page .checkout-field select,
+.checkout-page .checkout-field textarea{min-height:3rem;border-color:#d8dfdb;border-radius:.7rem;transition:border-color .18s ease,box-shadow .18s ease,background-color .18s ease}
+.checkout-page .checkout-field textarea{min-height:10rem}
+.checkout-page .checkout-field input:hover,
+.checkout-page .checkout-field select:hover,
+.checkout-page .checkout-field textarea:hover{border-color:#aebbb4}
+.checkout-page .checkout-field input:focus,
+.checkout-page .checkout-field select:focus,
+.checkout-page .checkout-field textarea:focus{outline:0;border-color:var(--color-accent-dark);box-shadow:0 0 0 3px rgba(49,111,83,.12)}
+.checkout-page .checkout-field input:focus:invalid,
+.checkout-page .checkout-field textarea:focus:invalid{border-color:var(--color-danger)}
+.checkout-page .checkout-field input::placeholder,
+.checkout-page .checkout-field textarea::placeholder{color:#929b96;font-weight:400}
+.checkout-page .checkout-guidance{margin-top:.1rem;padding:1.1rem 1.2rem}
+.checkout-page .checkout-guidance ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.15rem 1.2rem;margin-top:.75rem}
+.checkout-page .checkout-guidance li{padding-left:.1rem;color:var(--color-text-soft);font-size:.82rem;line-height:1.5}
+.checkout-page .checkout-context{gap:.45rem}
+.checkout-page .panel-actions{align-items:center}
+.checkout-page .panel-actions .button{min-height:3rem;border-radius:.7rem}
+.checkout-page .panel-actions .button:focus-visible,
+.checkout-page .checkout-aside__help a:focus-visible,
+.checkout-page .terms-summary a:focus-visible{outline:2px solid var(--color-accent-dark);outline-offset:3px}
+.checkout-page .review-row:nth-child(odd){background:#fcfdfc}
+.checkout-page .review-row dt{font-weight:600}
+.checkout-page .review-note{align-items:flex-start}
+.checkout-page .terms-check{cursor:pointer;transition:border-color .18s ease,background-color .18s ease}
+.checkout-page .terms-check:has(input:checked){border-color:var(--color-accent);background:var(--color-accent-soft)}
+.checkout-page .terms-check input{width:1.15rem;height:1.15rem;min-height:1.15rem}
+.checkout-page .payment-warning{align-items:flex-start}
+.checkout-page .payment-warning strong{flex:0 0 auto;color:#7a4a0b;font-size:.84rem}
+.checkout-page .payment-confirm{border-radius:var(--radius-lg);padding:1.25rem;background:#fff}
+.checkout-page .checkout-aside__card{box-shadow:var(--shadow-sm)}
+.checkout-page .aside-status{line-height:1.5}
+.checkout-page .checkout-panel[hidden],
+.checkout-page .checkout-context[hidden],
+.checkout-page .checkout-guidance[hidden]{display:none!important}
+@media(max-width:48rem){
+  .checkout-page .checkout-progress{justify-content:space-between;gap:.3rem}
+  .checkout-page .checkout-step{gap:.4rem}
+  .checkout-page .checkout-step strong{display:inline;font-size:.72rem}
+  .checkout-page .checkout-step span{width:1.65rem;height:1.65rem;flex:0 0 1.65rem}
+  .checkout-page .checkout-guidance ul{grid-template-columns:1fr}
+  .checkout-page .panel-actions{gap:.65rem}
+  .checkout-page .checkout-aside{margin-top:.25rem}
+}
+@media(max-width:23rem){
+  .checkout-page .checkout-progress{overflow-x:auto;justify-content:flex-start;gap:.65rem}
+  .checkout-page .checkout-step strong{display:none}
+  .checkout-page .checkout-panel{padding:1rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .checkout-page .checkout-step,
+  .checkout-page .checkout-field input,
+  .checkout-page .checkout-field select,
+  .checkout-page .checkout-field textarea,
+  .checkout-page .terms-check{transition:none}
+}
