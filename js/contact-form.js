@@ -91,15 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return button;
   }
 
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      status.textContent = isEnglish ? "Please complete the required fields before preparing the brief." : "Lengkapi kolom wajib sebelum menyiapkan brief.";
-      return;
-    }
-
-    const summary = buildBrief();
+  function createBriefOutput(summary) {
     let output = form.querySelector("[data-brief-output]");
     if (!output) {
       output = document.createElement("textarea");
@@ -113,8 +105,111 @@ document.addEventListener("DOMContentLoaded", function () {
     output.value = summary;
     output.hidden = false;
     getCopyButton();
+  }
+
+  function buildEmailPayload() {
+    const modeLabel = mode === "consultation"
+      ? (isEnglish ? "Consultation" : "Konsultasi")
+      : (isEnglish ? "Project inquiry" : "Pertanyaan proyek");
+    const serviceLabel = serviceHeading?.textContent.trim() || (isEnglish ? "General inquiry" : "Pertanyaan umum");
+    const name = valueOf("name");
+    const email = valueOf("email");
+    const brief = valueOf("brief");
+    const summary = buildBrief();
+    return {
+      _subject: "[BagusIn " + modeLabel + "] " + serviceLabel + " — " + name,
+      _replyto: email,
+      name,
+      email,
+      message: brief,
+      _template: "table",
+      _captcha: "false",
+      _honey: "",
+      inquiry_type: modeLabel,
+      service: serviceLabel,
+      service_id: service,
+      mode,
+      company: valueOf("company") || (isEnglish ? "Not provided" : "Tidak diisi"),
+      project_brief: brief,
+      brief_summary: summary,
+      terms_acknowledged: form.elements.namedItem("terms")?.checked ? (isEnglish ? "Yes" : "Ya") : (isEnglish ? "No" : "Tidak"),
+      follow_up: isEnglish
+        ? "Review the brief, then follow up personally through WhatsApp. Scope, quotation, schedule, and payment are agreed manually."
+        : "Tinjau brief, lalu lakukan tindak lanjut secara personal melalui WhatsApp. Scope, quotation, jadwal, dan pembayaran disepakati manual.",
+      source_page: window.location.href,
+      submitted_at_utc: new Date().toISOString()
+    };
+  }
+
+  function showMailtoFallback(payload) {
+    form.querySelector("[data-mailto-fallback]")?.remove();
+    const link = document.createElement("a");
+    const body = Object.entries(payload)
+      .filter(([key]) => !key.startsWith("_"))
+      .map(([key, value]) => key.replace(/_/g, " ").toUpperCase() + ":\\n" + value)
+      .join("\\n\\n");
+    link.href = "mailto:baguskristian@gmail.com?subject=" + encodeURIComponent(payload._subject) + "&body=" + encodeURIComponent(body);
+    link.className = "button button--secondary form-mailto-fallback";
+    link.dataset.mailtoFallback = "";
+    link.textContent = isEnglish ? "Open email app to send manually" : "Buka aplikasi email untuk mengirim manual";
+    status.insertAdjacentElement("afterend", link);
+  }
+
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    if (form.dataset.submitted === "true") return;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      status.textContent = isEnglish
+        ? "Please complete the required fields before sending your brief."
+        : "Lengkapi kolom wajib sebelum mengirim brief.";
+      return;
+    }
+
+    const honeypot = form.querySelector('input[name="_honey"]');
+    if (honeypot?.value.trim()) return;
+
+    const summary = buildBrief();
+    createBriefOutput(summary);
+    const payload = buildEmailPayload();
+    const submitButton = form.querySelector('button[type="submit"]');
+    form.querySelector("[data-mailto-fallback]")?.remove();
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = isEnglish ? "Sending brief…" : "Mengirim brief…";
+    }
     status.textContent = isEnglish
-      ? "Your brief is prepared below. This form does not send data automatically; copy the summary and send it through your preferred contact channel."
-      : "Brief sudah disiapkan di bawah. Form ini belum mengirim data otomatis; salin ringkasannya lalu kirim melalui kanal kontak yang Anda pilih.";
+      ? "Sending your brief to the email service. Please wait and keep this page open."
+      : "Mengirim brief ke layanan email. Mohon tunggu dan jangan tutup halaman.";
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/baguskristian@gmail.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      let result = {};
+      try { result = await response.json(); } catch (_) {}
+      if (!response.ok || result.success === "false" || result.success === false) {
+        throw new Error(result.message || "Email service rejected the request.");
+      }
+      form.dataset.submitted = "true";
+      if (submitButton) {
+        submitButton.textContent = isEnglish ? "Brief sent" : "Brief terkirim";
+        submitButton.disabled = true;
+      }
+      status.textContent = isEnglish
+        ? "The email service accepted the request. If this is the first submission, the inbox owner must activate FormSubmit from its verification email before messages can be delivered. After activation, the brief will be reviewed and follow-up will happen personally through WhatsApp; scope, quotation, schedule, and payment are agreed manually."
+        : "Permintaan pengiriman diterima layanan email. Jika ini pengiriman pertama, pemilik inbox perlu mengaktifkan FormSubmit dari email verifikasi sebelum pesan dapat diteruskan. Setelah aktif, brief akan ditinjau dan follow-up dilakukan secara personal melalui WhatsApp; scope, quotation, jadwal, dan pembayaran disepakati manual.";
+    } catch (error) {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = isEnglish ? "Try sending again" : "Coba kirim lagi";
+      }
+      status.textContent = isEnglish
+        ? "Automatic sending did not succeed. Delivery is not confirmed; use the email fallback below or copy the prepared summary."
+        : "Pengiriman otomatis belum berhasil. Pengiriman belum terkonfirmasi; gunakan tautan email manual di bawah atau salin ringkasan.";
+      showMailtoFallback(payload);
+    }
   });
 });
