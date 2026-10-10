@@ -329,6 +329,14 @@ try {
     if (item.tier && !review.toLowerCase().includes("starter")) errors.push("Checkout: website tier was not shown in review");
   }
 
+  // Copywriting category must survive the entire review-to-email journey.
+  await interactionPage.locator('[data-next="3"]').click();
+  await interactionPage.locator("#terms-agree").check();
+  await interactionPage.locator('[data-next="4"]').click();
+  await interactionPage.locator("#send-order-brief").click();
+  await interactionPage.waitForFunction(() => document.querySelector("#checkout-email-status")?.textContent.includes("pengiriman berhasil diterima"), null, { timeout: 5000 });
+  if (!submittedEmailPayload || submittedEmailPayload.category !== "Landing Page") errors.push("Checkout: copywriting category was not included in the email payload");
+
   // Destinations should remain experience-based, without fabricated ratings or itineraries.
   await interactionPage.goto(origin + "/bagusin/destinations/", { waitUntil: "domcontentloaded" });
   const destinationsTitle = await interactionPage.title();
