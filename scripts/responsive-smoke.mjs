@@ -178,7 +178,7 @@ try {
   }
 
   // Contact form must prepare a copyable brief without falsely claiming delivery.
-  await interactionPage.goto(origin + "/bagusin/contact/", { waitUntil: "domcontentloaded" });
+  await interactionPage.goto(origin + "/bagusin/contact/?service=landing-pages", { waitUntil: "domcontentloaded" });
   const contactHeading = await interactionPage.locator(".contact-hero h1").textContent();
   const contactTitle = await interactionPage.title();
   if (!contactHeading || !contactHeading.includes("Mulai dari masalahnya")) {
@@ -188,17 +188,26 @@ try {
   const contactOptionsText = await interactionPage.locator("main").innerText();
   if (!contactOptionsText.includes("pengembangan perangkat lunak") || !contactOptionsText.includes("konten SEO")) errors.push("Contact page: Indonesian service description is missing");
   if (contactOptionsText.includes("software engineering") || contactOptionsText.includes("SEO content")) errors.push("Contact page: English service terms remain in Indonesian copy");
+  let contactEmailPayload = null;
+  await interactionPage.route("https://formsubmit.co/ajax/baguskristian@gmail.com", async (route) => {
+    contactEmailPayload = route.request().postDataJSON();
+    await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ success: "true", message: "Test submission accepted" }) });
+  });
   await interactionPage.locator("#project-form input[name=name]").fill("Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("test@example.com");
-  await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the contact brief preparation flow.");
+  await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the contact email submission flow.");
   await interactionPage.locator("#project-form input[name=terms]").check();
   await interactionPage.locator("#project-form button[type=submit]").click();
+  await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("Permintaan pengiriman diterima"), null, { timeout: 5000 });
   const preparedBrief = interactionPage.locator("#project-form [data-brief-output]");
   if (!(await preparedBrief.count())) errors.push("Contact form: prepared brief output was not created");
-  else if (!(await preparedBrief.inputValue()).includes("Testing the contact brief preparation flow.")) errors.push("Contact form: prepared brief is missing the entered details");
+  else if (!(await preparedBrief.inputValue()).includes("Testing the contact email submission flow.")) errors.push("Contact form: prepared brief is missing the entered details");
   if (!(await interactionPage.locator("#project-form [data-copy-brief]").count())) errors.push("Contact form: copy summary button was not created");
+  if (!contactEmailPayload || contactEmailPayload.email !== "test@example.com") errors.push("Contact form: email payload is missing the client's reply address");
+  if (!contactEmailPayload || contactEmailPayload.service_id !== "landing-pages") errors.push("Contact form: email payload is missing the selected service");
+  if (!contactEmailPayload || !contactEmailPayload.project_brief.includes("Testing the contact email submission flow.")) errors.push("Contact form: email payload is missing the project brief");
   const formStatus = await interactionPage.locator("#form-status").textContent();
-  if (!formStatus || !formStatus.includes("belum mengirim data otomatis")) errors.push("Contact form: status does not clearly explain that the brief is not sent automatically");
+  if (!formStatus || !formStatus.includes("Permintaan pengiriman diterima")) errors.push("Contact form: status does not confirm email-service acceptance");
   await interactionPage.locator("#project-form [data-copy-brief]").click();
   await interactionPage.waitForFunction(() => {
     const message = document.querySelector("#form-status")?.textContent || "";
@@ -206,6 +215,34 @@ try {
   }, null, { timeout: 5000 });
   const copyStatus = await interactionPage.locator("#form-status").textContent();
   if (!copyStatus || !(copyStatus.includes("disalin") || copyStatus.includes("Penyalinan otomatis tidak tersedia"))) errors.push("Contact form: copy action did not provide useful feedback");
+
+  // English contact form uses the same email workflow with localized status.
+  await interactionPage.goto(origin + "/bagusin/en/contact/?service=copywriting&mode=consultation", { waitUntil: "domcontentloaded" });
+  await interactionPage.locator("#project-form input[name=name]").fill("English Test User");
+  await interactionPage.locator("#project-form input[name=email]").fill("english@example.com");
+  await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the English contact email flow.");
+  await interactionPage.locator("#project-form input[name=terms]").check();
+  await interactionPage.locator("#project-form button[type=submit]").click();
+  await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("The email service accepted the request"), null, { timeout: 5000 });
+  if (!contactEmailPayload || contactEmailPayload.service_id !== "copywriting") errors.push("English contact form: email payload is missing the selected service");
+  if (!contactEmailPayload || contactEmailPayload.mode !== "consultation") errors.push("English contact form: email payload is missing the inquiry mode");
+
+  // If the email service fails, the contact form must provide an honest manual email fallback.
+  await interactionPage.unroute("https://formsubmit.co/ajax/baguskristian@gmail.com");
+  await interactionPage.route("https://formsubmit.co/ajax/baguskristian@gmail.com", async (route) => {
+    await route.fulfill({ status: 500, contentType: "application/json", body: JSON.stringify({ success: "false", message: "Simulated email service failure" }) });
+  });
+  await interactionPage.goto(origin + "/bagusin/contact/", { waitUntil: "domcontentloaded" });
+  await interactionPage.locator("#project-form input[name=name]").fill("Fallback Test User");
+  await interactionPage.locator("#project-form input[name=email]").fill("fallback@example.com");
+  await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the manual email fallback.");
+  await interactionPage.locator("#project-form input[name=terms]").check();
+  await interactionPage.locator("#project-form button[type=submit]").click();
+  await interactionPage.waitForFunction(() => document.querySelector("#project-form [data-mailto-fallback]") !== null, null, { timeout: 5000 });
+  const fallbackLink = interactionPage.locator("#project-form [data-mailto-fallback]");
+  if (!(await fallbackLink.getAttribute("href")).startsWith("mailto:baguskristian@gmail.com")) errors.push("Contact form: failure fallback does not open the configured recipient");
+  if (!(await interactionPage.locator("#form-status").innerText()).includes("belum terkonfirmasi")) errors.push("Contact form: failed delivery is not communicated honestly");
+  await interactionPage.unroute("https://formsubmit.co/ajax/baguskristian@gmail.com");
 
   // The Indonesian services page should use Indonesian metadata and headings.
   await interactionPage.goto(origin + "/bagusin/work/", { waitUntil: "domcontentloaded" });

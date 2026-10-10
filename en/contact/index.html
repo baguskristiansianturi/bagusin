@@ -28,7 +28,7 @@
     <form class="contact-form" id="project-form" novalidate>
       <div class="form-context" id="service-context"><span>Selected service</span><strong id="selected-service">—</strong></div>
       <input type="hidden" name="service" id="service-value">
-      <input type="hidden" name="mode" id="mode-value">
+      <input type="hidden" name="mode" id="mode-value"><div class="contact-form-honeypot" aria-hidden="true"><label>Leave this field empty<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
       <div class="form-grid">
         <label>Name<input name="name" required autocomplete="name"></label>
         <label>Email<input name="email" type="email" required autocomplete="email"></label>
@@ -38,7 +38,8 @@
       <div class="form-consent">
         <label><input type="checkbox" name="terms" required><span>I understand that sending a brief does not automatically mean the project is accepted. <a href="/bagusin/en/legal/terms/">Read the Terms</a>.</span></label>
       </div>
-      <button class="button button--accent" type="submit">Prepare brief</button>
+      <button class="button button--accent" type="submit">Send brief</button>
+      <p class="form-disclosure">Your brief is processed by a third-party email service (FormSubmit). Do not include passwords, payment credentials, or sensitive information.</p>
       <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
     </form>
   </div>

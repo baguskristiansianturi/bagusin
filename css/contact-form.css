@@ -295,3 +295,31 @@
     justify-content:center;
   }
 }
+
+
+/* Email delivery states and anti-spam field */
+.contact-form-honeypot{
+  position:absolute!important;
+  left:-10000px!important;
+  width:1px!important;
+  height:1px!important;
+  overflow:hidden!important;
+}
+.form-disclosure{
+  margin-top:.8rem;
+  color:var(--color-text-muted);
+  font-size:.72rem;
+  line-height:1.55;
+}
+.contact-form > .button:disabled{
+  opacity:.72;
+  cursor:wait;
+  box-shadow:none;
+}
+.form-mailto-fallback{
+  display:inline-flex;
+  width:auto;
+  max-width:100%;
+  margin-top:.75rem;
+  white-space:normal;
+}
