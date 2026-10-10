@@ -104,8 +104,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const base = service.value === "landing-pages" ? "/bagusin/landing-pages/collections/detail/" :
           service.value === "websites" ? "/bagusin/websites/collections/detail/" :
           "/bagusin/copywriting/collections/detail/";
-        $("#collection-context-link").href = base + "?collection=" + encodeURIComponent(collection) +
-          "&industry=" + encodeURIComponent(industry) + (category ? "&category=" + encodeURIComponent(category) : "") + (tier ? "&tier=" + encodeURIComponent(tier) : "");
+        const contextParams = new URLSearchParams();
+        contextParams.set("collection", collection);
+        if (industry) contextParams.set("industry", industry);
+        if (category) contextParams.set("category", category);
+        if (tier) contextParams.set("tier", tier);
+        $("#collection-context-link").href = base + "?" + contextParams.toString();
       }
     }
   };
