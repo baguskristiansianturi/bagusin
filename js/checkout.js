@@ -42,10 +42,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   if (incomingService && serviceNames[incomingService]) service.value = incomingService;
-  const collection = incomingCollection || saved?.collection || "";
-  const industry = incomingIndustry || saved?.industry || "";
-  const category = incomingCategory || saved?.category || "";
-  const tier = incomingTier || saved?.tier || "";
+  const explicitService = Boolean(incomingService && serviceNames[incomingService]);
+  const collection = incomingCollection || (explicitService ? "" : saved?.collection || "");
+  const industry = incomingIndustry || (explicitService ? "" : saved?.industry || "");
+  const category = incomingCategory || (explicitService ? "" : saved?.category || "");
+  const tier = incomingTier || (explicitService ? "" : saved?.tier || "");
 
   const saveDraft = () => {
     const draft = { collection, industry, category, tier };
