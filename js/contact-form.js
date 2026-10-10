@@ -146,8 +146,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const link = document.createElement("a");
     const body = Object.entries(payload)
       .filter(([key]) => !key.startsWith("_"))
-      .map(([key, value]) => key.replace(/_/g, " ").toUpperCase() + ":\\n" + value)
-      .join("\\n\\n");
+      .map(([key, value]) => key.replace(/_/g, " ").toUpperCase() + ":\n" + value)
+      .join("\n\n");
     link.href = "mailto:baguskristian@gmail.com?subject=" + encodeURIComponent(payload._subject) + "&body=" + encodeURIComponent(body);
     link.className = "button button--secondary form-mailto-fallback";
     link.dataset.mailtoFallback = "";
