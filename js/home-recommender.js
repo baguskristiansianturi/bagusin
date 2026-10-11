@@ -70,7 +70,7 @@
     followup.hidden = false;
     result.hidden = true;
     const heading = root.querySelector("[data-followup-title]");
-    heading.textContent = stage === "starter" ? "Apa yang paling Anda butuhkan saat ini?" : stage === "business" ? "Apa yang paling ingin ditingkatkan?" : "Apa perubahan yang ingin Anda capai?";
+    heading.textContent = isEnglish ? (stage === "starter" ? "What do you need most right now?" : stage === "business" ? "What would you most like to improve?" : "What change are you looking to make?") : (stage === "starter" ? "Apa yang paling Anda butuhkan saat ini?" : stage === "business" ? "Apa yang paling ingin ditingkatkan?" : "Apa perubahan yang ingin Anda capai?");
     heading.setAttribute("tabindex", "-1");
     progress.textContent = isEnglish ? "Step 2 of 2" : "50% selesai";
     followup.scrollIntoView({behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start"});
