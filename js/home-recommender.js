@@ -51,6 +51,7 @@
     result.hidden = true;
     const heading = root.querySelector("[data-followup-title]");
     heading.textContent = stage === "starter" ? "Apa yang paling Anda butuhkan saat ini?" : stage === "business" ? "Apa yang paling ingin ditingkatkan?" : "Apa perubahan yang ingin Anda capai?";
+    heading.setAttribute("tabindex", "-1");
     progress.textContent = "50% selesai";
     followup.scrollIntoView({behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start"});
     heading.focus({preventScroll:true});
@@ -60,6 +61,7 @@
     const plan = plans[stage + ":" + goal];
     if (!plan) return;
     title.textContent = plan.title;
+    title.setAttribute("tabindex", "-1");
     summary.textContent = plan.summary;
     steps.replaceChildren();
     plan.steps.forEach(text => { const li = document.createElement("li"); li.textContent = text; steps.appendChild(li); });
@@ -77,6 +79,7 @@
     followup.hidden = true;
     result.hidden = true;
     progress.textContent = "0% selesai";
-    root.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start"});
+    root.scrollIntoView({behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start"});
+    stageButtons[0]?.focus({preventScroll:true});
   });
 })();
