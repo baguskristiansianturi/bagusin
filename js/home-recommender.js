@@ -118,6 +118,17 @@
     section.appendChild(heading);
     const grid = document.createElement("div");
     grid.className = "home-recommended-solutions__grid";
+    /* Enforce one-column cards on phones even if an older CSS rule is cached. */
+    const mobileCards = window.matchMedia("(max-width: 41.999rem)");
+    const applyCardLayout = () => {
+      grid.style.setProperty("display", "grid", "important");
+      grid.style.setProperty("grid-template-columns", mobileCards.matches ? "minmax(0, 1fr)" : "repeat(2, minmax(0, 1fr))", "important");
+      grid.style.setProperty("grid-auto-flow", "row", "important");
+      grid.style.setProperty("width", "100%", "important");
+      grid.style.setProperty("min-width", "0", "important");
+    };
+    applyCardLayout();
+    mobileCards.addEventListener("change", applyCardLayout);
     items.forEach(item => {
       const card = document.createElement("a");
       card.className = "home-recommended-solutions__card";
