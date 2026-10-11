@@ -198,3 +198,14 @@ body:has(.checkout-page) .skip-link{display:none!important}
 .checkout-page .terms-summary>div{min-width:0;flex:1}
 .checkout-page .terms-summary a{flex:0 0 auto;max-width:100%;white-space:normal}
 @media(max-width:48rem){.checkout-page .terms-summary a{align-self:flex-start}}
+
+/* Required transaction consent checklist */
+.checkout-page .transaction-terms-checklist{display:grid;gap:.8rem;margin-block:1.25rem;padding:clamp(1rem,3vw,1.4rem);border:1px solid var(--color-border);border-radius:var(--radius-lg);background:#f8faf9}
+.checkout-page .transaction-terms-checklist h3{margin:0;font-size:1.05rem;line-height:1.4}
+.checkout-page .transaction-terms-checklist>p{margin:0;color:var(--color-text-soft);font-size:.9rem;line-height:1.65}
+.checkout-page .transaction-terms-checklist #service-specific-consents{display:grid;gap:.65rem}
+.checkout-page .terms-check--specific{background:#fff}
+.checkout-page .terms-check input{flex:0 0 auto;inline-size:1.1rem;block-size:1.1rem;margin-top:.2rem;accent-color:var(--color-accent)}
+.checkout-page .terms-check:has(input:focus-visible){outline:2px solid var(--color-accent);outline-offset:3px}
+.checkout-page .terms-check span{line-height:1.65}
+.checkout-page .terms-check span strong{display:block;margin-bottom:.2rem}

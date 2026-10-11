@@ -48,6 +48,40 @@ document.addEventListener("DOMContentLoaded", () => {
     "google-ads": "Layanan ini konsultasi/persiapan dan belum tersedia untuk order langsung. Anggaran iklan terpisah; approval, biaya, konversi, dan hasil tidak dijamin.",
     "mobile-apps": "Layanan ini masih direncanakan dan belum tersedia untuk order langsung. Platform, akun developer, biaya toko aplikasi, backend, pengujian, dan maintenance perlu ditetapkan saat discovery."
   };
+  const serviceConsentItems = {
+    copywriting: [
+      ["content-accuracy", "Saya bertanggung jawab memeriksa fakta, nama, angka, klaim, hak penggunaan materi, dan persetujuan publikasi sebelum konten digunakan."],
+      ["copywriting-scope", "Jumlah naskah/aset, kanal, bahasa, tone of voice, format, dan batas revisi mengikuti brief serta quotation tertulis."]
+    ],
+    "seo-content": [
+      ["seo-no-guarantee", "Saya memahami bahwa posisi pencarian, trafik, leads, dan penjualan tidak dapat dijamin karena bergantung pada faktor di luar kendali penyedia."],
+      ["seo-scope", "Audit teknis, backlink, publikasi, implementasi website, dan tool berbayar hanya termasuk jika tercantum pada quotation."]
+    ],
+    "landing-pages": [
+      ["landing-assets", "Saya memastikan hak penggunaan logo, gambar, teks, testimoni, dan klaim yang saya berikan; aset berlisensi atau berbayar ditanggung sesuai kesepakatan."],
+      ["landing-ads", "Anggaran iklan, akun iklan, biaya platform, tracking tambahan, dan pengelolaan kampanye tidak termasuk kecuali tertulis."]
+    ],
+    websites: [
+      ["website-scope", "Jumlah halaman, fitur, integrasi, bahasa, migrasi, dan hasil serah terima dibatasi oleh scope tertulis; fitur di luar scope memerlukan persetujuan biaya dan jadwal baru."],
+      ["website-access", "Saya akan menyediakan materi, akses, keputusan, serta persetujuan yang diperlukan secara tepat waktu dan hanya membagikan akses yang relevan."],
+      ["website-third-party", "Domain, hosting, lisensi, plugin, layanan pihak ketiga, serta biaya perpanjangan menjadi tanggungan sesuai rincian quotation."]
+    ],
+    "web-applications": [
+      ["app-requirements", "Alur kerja, role pengguna, kebutuhan data, integrasi, dan kriteria penerimaan harus tertulis sebelum pengembangan dimulai."],
+      ["app-data", "Saya bertanggung jawab atas dasar hak dan izin untuk data yang diberikan; migrasi, pengamanan khusus, audit, dan kepatuhan khusus hanya termasuk bila tertulis."],
+      ["app-operations", "Hosting, layanan pihak ketiga, dukungan pascarilis, SLA, dan pemeliharaan berkelanjutan tidak otomatis termasuk."]
+    ],
+    "maintenance-uiux": [
+      ["maintenance-access", "Saya menyediakan akses yang diperlukan dan menyetujui backup serta langkah pengamanan yang disepakati sebelum perubahan berisiko dilakukan."],
+      ["maintenance-scope", "Pekerjaan dibatasi pada daftar perbaikan/prioritas yang disetujui; rebuild, fitur baru, dan gangguan pihak ketiga dapat memerlukan penawaran terpisah."]
+    ],
+    "google-ads": [
+      ["ads-not-available", "Saya memahami layanan Google Ads belum tersedia untuk order langsung dan konfirmasi ini tidak membuka pemesanan atau pembayaran."]
+    ],
+    "mobile-apps": [
+      ["mobile-not-available", "Saya memahami layanan aplikasi mobile masih direncanakan dan konfirmasi ini tidak membuka pemesanan atau pembayaran."]
+    ]
+  };
   const topicForService = {
     copywriting: "copywriting", "seo-content": "seo-content", "landing-pages": "landing-pages",
     websites: "websites", "web-applications": "web-applications", "maintenance-uiux": "maintenance-uiux",
@@ -142,6 +176,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  const renderServiceConsents = () => {
+    const host = $("#service-specific-consents");
+    if (!host) return;
+    const items = serviceConsentItems[service.value] || [
+      ["scope-confirmation", "Saya memahami bahwa pekerjaan hanya dimulai setelah ketersediaan, ruang lingkup, biaya, jadwal, dan ketentuan khusus disepakati secara tertulis."]
+    ];
+    host.innerHTML = items.map(([id, text]) =>
+      '<label class="terms-check terms-check--specific"><input type="checkbox" name="service_terms[]" value="' + id + '" required data-service-consent><span>' + text + '</span></label>'
+    ).join("");
+    host.querySelectorAll("[data-service-consent]").forEach((input) => {
+      input.addEventListener("change", () => { $("#terms-error").textContent = ""; });
+    });
+  };
+  const allTermsAccepted = () => {
+    const required = [...form.querySelectorAll('[data-panel="3"] input[type="checkbox"][required]')];
+    return required.length > 0 && required.every((input) => input.checked);
+  };
   const showStep = (number) => {
     panels.forEach((panel) => {
       const active = Number(panel.dataset.panel) === number;
@@ -226,7 +277,7 @@ document.addEventListener("DOMContentLoaded", () => {
       saveDraft();
     }
     if (target === 4) {
-      if (!$("#terms-agree").checked) {
+      if (!allTermsAccepted()) {
         $("#terms-error").textContent = "Baca ketentuan yang relevan lalu centang persetujuan sebelum melanjutkan.";
         $("#terms-agree").focus();
         return;
@@ -251,9 +302,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if (target === current + 1) goForward(target);
     });
   });
-  service.addEventListener("change", () => { updateSummary(); updateGuidance(); saveDraft(); });
+  service.addEventListener("change", () => { updateSummary(); updateGuidance(); renderServiceConsents(); saveDraft(); });
   form.addEventListener("input", saveDraft);
-  $("#terms-agree").addEventListener("change", () => { $("#terms-error").textContent = ""; });
+  form.querySelectorAll('[data-panel="3"] input[type="checkbox"]').forEach((input) => input.addEventListener("change", () => { $("#terms-error").textContent = ""; }));
 
 
   const emailStatus = $("#checkout-email-status");
@@ -285,8 +336,10 @@ document.addEventListener("DOMContentLoaded", () => {
       project_brief: $("#brief").value.trim(),
       terms_topic: topicForService[service.value] || "general",
       terms_version: "2026-10-11",
-      terms_agreed_at_utc: $("#terms-agree").checked ? new Date().toISOString() : "",
-      order_confirmation_consent: $("#terms-agree").checked ? "Ya — menyetujui ketentuan umum, ketentuan khusus layanan, serta ringkasan ruang lingkup, harga, jadwal, revisi, pembatalan, dan pembayaran" : "Tidak",
+      terms_agreed_at_utc: allTermsAccepted() ? new Date().toISOString() : "",
+      required_terms_accepted: [...form.querySelectorAll('[data-panel="3"] input[type="checkbox"][required]')].filter((input) => input.checked).map((input) => input.value || input.id),
+      service_specific_terms_accepted: [...form.querySelectorAll("[data-service-consent]:checked")].map((input) => input.value),
+      order_confirmation_consent: allTermsAccepted() ? "Ya — menyetujui semua checklist wajib untuk transaksi ini" : "Tidak",
       follow_up: "Konfirmasi pesanan diterima untuk dicatat. Kirim invoice dan instruksi pembayaran sesuai ketentuan yang telah disepakati secara personal.",
       source_page: location.href,
       submitted_at_utc: new Date().toISOString()
@@ -315,7 +368,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const current = Number($(".checkout-panel.is-active")?.dataset.panel || 1);
     if (current !== 4) return;
     if (!validateBrief()) { showStep(1); return; }
-    if (!$("#terms-agree").checked) {
+    if (!allTermsAccepted()) {
       $("#terms-error").textContent = "Persetujuan ketentuan diperlukan sebelum mengirim brief.";
       showStep(3);
       $("#terms-agree").focus();
@@ -355,6 +408,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   updateSummary();
+  renderServiceConsents();
   updateGuidance();
   saveDraft();
   steps.forEach((button) => {
