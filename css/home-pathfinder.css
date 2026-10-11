@@ -224,3 +224,52 @@
   .home-recommended-solutions__card { transition: none; }
   .home-recommended-solutions__card:hover { transform: none; }
 }
+
+
+/* Icon sizing contract: icons stay compact on every viewport. */
+.home-pathfinder__choice-icon,
+.home-pathfinder__result .home-recommended-solutions__icon {
+  display: inline-grid !important;
+  place-items: center !important;
+  flex: 0 0 2.25rem !important;
+  width: 2.25rem !important;
+  min-width: 2.25rem !important;
+  max-width: 2.25rem !important;
+  height: 2.25rem !important;
+  min-height: 2.25rem !important;
+  max-height: 2.25rem !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  overflow: hidden;
+}
+.home-pathfinder__choice-icon svg,
+.home-pathfinder__result .home-recommended-solutions__icon svg {
+  display: block !important;
+  width: 1.2rem !important;
+  min-width: 1.2rem !important;
+  max-width: 1.2rem !important;
+  height: 1.2rem !important;
+  min-height: 1.2rem !important;
+  max-height: 1.2rem !important;
+}
+@media (max-width: 30rem) {
+  .home-pathfinder__choice-icon,
+  .home-pathfinder__result .home-recommended-solutions__icon {
+    flex-basis: 2rem !important;
+    width: 2rem !important;
+    min-width: 2rem !important;
+    max-width: 2rem !important;
+    height: 2rem !important;
+    min-height: 2rem !important;
+    max-height: 2rem !important;
+  }
+  .home-pathfinder__choice-icon svg,
+  .home-pathfinder__result .home-recommended-solutions__icon svg {
+    width: 1.1rem !important;
+    min-width: 1.1rem !important;
+    max-width: 1.1rem !important;
+    height: 1.1rem !important;
+    min-height: 1.1rem !important;
+    max-height: 1.1rem !important;
+  }
+}
