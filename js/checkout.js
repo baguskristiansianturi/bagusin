@@ -9,13 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const serviceNames = {
     copywriting: "Copywriting",
-    "seo-content": "Content Writing & SEO",
-    "landing-pages": "Landing Pages & Ads",
-    websites: "Websites & Complex Web",
-    "web-applications": "Web Applications & Database Systems",
-    "maintenance-uiux": "Maintenance, Improvement & UI/UX",
+    "seo-content": "Penulisan Konten & SEO",
+    "landing-pages": "Landing Page & Iklan",
+    websites: "Website & Web Kompleks",
+    "web-applications": "Aplikasi Web & Sistem Basis Data",
+    "maintenance-uiux": "Pemeliharaan, Peningkatan & UI/UX",
     "google-ads": "Google Ads",
-    "mobile-apps": "Mobile App Development"
+    "mobile-apps": "Pengembangan Aplikasi Mobile"
   };
   const params = new URLSearchParams(location.search);
   const incomingService = params.get("service") || "";
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const saved = readDraft();
   const pretty = (value) => String(value || "").replace(/[-_]+/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
   const label = () => serviceNames[service.value] || "Pilih layanan";
-  const categoryNames = { website: "Website", landing: "Landing Page", social: "Social Media", product: "Produk", ecommerce: "E-commerce", ads: "Iklan & Campaign", email: "Email", seo: "Konten SEO", brand: "Brand", travel: "Travel & Hospitality", sales: "Sales & Proposal", ux: "UX / Microcopy", script: "Video / Creator Script", other: "Custom Copywriting" };
+  const categoryNames = { website: "Website", landing: "Landing Page", social: "Media sosial", product: "Produk", ecommerce: "E-commerce", ads: "Iklan & kampanye", email: "Email", seo: "Konten SEO", brand: "Brand", travel: "Travel & hospitality", sales: "Penjualan & proposal", ux: "UX / Microcopy", script: "Naskah video / kreator", other: "Copywriting khusus" };
   const categoryLabel = () => categoryNames[category] || pretty(category);
 
   // Restore draft first; explicit collection/service links take precedence over an old draft.
@@ -68,14 +68,14 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const guidedPrompts = {
-    copywriting: ["Jenis aset yang dibutuhkan", "Audiens dan brand voice", "Produk atau penawaran", "Contoh/referensi yang disukai", "Tujuan utama copy"],
-    "seo-content": ["Topik dan konteks bisnis", "Target pembaca", "Search intent atau pertanyaan utama", "Topik/kata kunci target", "Website atau konten yang sudah ada"],
-    "landing-pages": ["Produk atau penawaran", "Target audiens", "Tujuan konversi utama", "Materi teks dan visual", "Konteks campaign atau traffic"],
+    copywriting: ["Jenis materi yang dibutuhkan", "Audiens dan gaya bahasa brand", "Produk atau penawaran", "Contoh/referensi yang disukai", "Tujuan utama tulisan"],
+    "seo-content": ["Topik dan konteks bisnis", "Target pembaca", "Tujuan pencarian atau pertanyaan utama", "Topik/kata kunci target", "Website atau konten yang sudah ada"],
+    "landing-pages": ["Produk atau penawaran", "Target audiens", "Tujuan konversi utama", "Materi teks dan visual", "Konteks kampanye atau pengunjung"],
     websites: ["Jenis bisnis dan tujuan website", "Halaman/konten yang dibutuhkan", "Fitur penting", "Integrasi yang diperlukan", "Website lama jika ada"],
-    "web-applications": ["Pengguna dan peran", "Alur kerja saat ini", "Data yang dikelola", "Fitur inti", "Integrasi/sistem yang sudah ada"],
-    "maintenance-uiux": ["URL website atau repository", "Masalah yang ditemukan", "Prioritas perbaikan", "Hasil yang diharapkan", "Akses yang tersedia"],
-    "google-ads": ["Bisnis dan lokasi target", "Tujuan campaign", "Kisaran anggaran iklan", "Website/landing page", "Tracking konversi"],
-    "mobile-apps": ["Platform Android/iOS", "Pengguna dan fitur inti", "Login atau pembayaran", "Backend/data", "Notifikasi dan integrasi"]
+    "web-applications": ["Pengguna dan perannya", "Alur kerja saat ini", "Data yang dikelola", "Fitur utama", "Integrasi atau sistem yang sudah ada"],
+    "maintenance-uiux": ["URL website atau repositori", "Masalah yang ditemukan", "Prioritas perbaikan", "Hasil yang diharapkan", "Akses yang tersedia"],
+    "google-ads": ["Bisnis dan lokasi target", "Tujuan kampanye", "Kisaran anggaran iklan", "Website atau landing page", "Pelacakan konversi"],
+    "mobile-apps": ["Platform Android/iOS", "Pengguna dan fitur utama", "Login atau pembayaran", "Backend dan data", "Notifikasi dan integrasi"]
   };
 
   const updateGuidance = () => {
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
       context.hidden = !collection;
       if (collection) {
         $("#collection-context-title").textContent = pretty(collection);
-        $("#collection-context-meta").textContent = [industry && ("Industri: " + pretty(industry)), category && ("Kategori: " + categoryLabel()), tier && ("Level: " + pretty(tier)), "Konteks collection"].filter(Boolean).join(" · ");
+        $("#collection-context-meta").textContent = [industry && ("Industri: " + pretty(industry)), category && ("Kategori: " + categoryLabel()), tier && ("Level: " + pretty(tier)), "Konteks demo"].filter(Boolean).join(" · ");
         const base = service.value === "landing-pages" ? "/bagusin/landing-pages/collections/detail/" :
           service.value === "websites" ? "/bagusin/websites/collections/detail/" :
           "/bagusin/copywriting/collections/detail/";
@@ -178,10 +178,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const renderReview = () => {
     const rows = [
       ["Layanan", label()],
-      ["Collection", collection ? pretty(collection) : "—"],
+      ["Demo", collection ? pretty(collection) : "—"],
       ["Industri", industry ? pretty(industry) : "—"],
       ["Kategori", category ? categoryLabel() : "—"],
-      ["Level", tier ? pretty(tier) : "Belum ditentukan"],
+      ["Tingkat", tier ? pretty(tier) : "Belum ditentukan"],
       ["Nama", $("#name").value],
       ["Email", $("#email").value],
       ["Brand / perusahaan", $("#company").value || "—"],
