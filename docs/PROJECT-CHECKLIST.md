@@ -27,21 +27,22 @@
 ## Current state — update first on every session
 **Last updated:** 2026-10-11
 
-**Active phase:** Phase 0 / Phase 1 — baseline and homepage-first repair. Do not jump to later phases until homepage issues and relevant tests are resolved.
+**Active phase:** Phase 1 validation + Phase 2 catalog UX improvements in PR #108. Phase 2 changes are being developed on the same focused branch while the remaining homepage/checkout browser test is corrected; do not call either phase accepted until current-head CI passes.
 
-**Latest known smoke-test evidence:** run #244, #38125042910, and #38125376280 for PR #108 concluded **failure**. The latest completed run found three issues: homepage service-label assertion, checkout manual WhatsApp follow-up explanation, and a generic `waitForFunction` timeout. Follow-up changes in commit `efb14f70cad104c9c98e0f736781d8b787a17b6a` adjust the visible-card assertion, align checkout email-status expectations with the actual message, and add the follow-up explanation. A further copy correction is in commit `97001e94f63b7dff8065c896a7cffdf8f5aeda9a`; its CI is pending.
-- Homepage roadmap CSS path is corrected on PR #108 branch; the English article stylesheet path is also corrected there. The previous smoke-test server logs showed the corrected assets returning HTTP 200.
+**Latest known smoke-test evidence:** static route/SEO audit passed on commit `65044601d3fc41a4d46a5927c2e8452d8bc3ccde`. Browser smoke then failed because the test tried to fill `#timeline` after the checkout flow had moved away from panel 1. The test sequence has been corrected to fill required agreement fields while panel 1 is visible; current head is `6df456f2bfd4b096025d2fb4c311e2cd8a3d7801` and CI is running. Earlier failures for homepage labels, WhatsApp follow-up copy, and email-status assertions were addressed, but must be reverified on the latest head.
+- Homepage roadmap CSS path is corrected on PR #108 branch; the English article stylesheet path is also corrected there. Prior smoke-test server logs showed corrected assets returning HTTP 200.
+- Phase 2 catalog work on the same PR branch: demo cards are filtered by the selected industry, sorted by latest update (newest first), industry/filter labels are more consistent in Indonesian, category/level filter state is exposed with `aria-pressed`, and empty-state copy is clearer. Added smoke assertions for the latest demo and category relevance; these assertions are not yet accepted until CI is green.
 - Homepage service card labels and section structure were corrected on PR #108 branch. Follow-up fixes now also remove a broken Google Business Profile demo link, clarify contact brief guidance, localize the work-page H1, and make the checkout smoke test provide all fields required by the real validation rules. The homepage smoke test now checks the visible service-card grid directly. Latest commits are on `fix/homepage-and-english-article-asset-paths-20261011` / PR #108; validation remains pending.
 - Other known failures remain unresolved pending their phase: contact hero/service brief copy; work-page heading expectation; checkout progression and review-summary; interaction smoke timeout on `[data-next="3"]` because the control was not visible.
 - Reproduce each failure and compare test expectations with intended UX. Fix the site or update an outdated assertion only when evidence supports that choice; do not weaken tests just to get green.
 - `README.md` on `main` was empty at last inspection. Root `AGENTS.md` and this file preserve working context and AI instructions.
 
 **Immediate next actions:**
-1. Inspect latest PR #108 CI after commit `97001e94f63b7dff8065c896a7cffdf8f5aeda9a`; do not merge while checks fail or are unverified.
-2. Confirm visible homepage service-card labels and CSS assets pass, then review all 276 responsive viewport checks and pathfinder interaction.
-3. Confirm the static audit no longer reports the nonexistent Google Business Profile collections URL.
-4. Verify contact copy, work-page heading, checkout validation/review/terms path, status messaging, and that user-provided text is escaped.
-5. Record exact pass/fail counts. Only move to Phase 2 after Phase 1 homepage acceptance criteria pass.
+1. Inspect current-head CI for PR #108 at `6df456f2bfd4b096025d2fb4c311e2cd8a3d7801`; current run links are [browser smoke](https://github.com/baguskristiansianturi/bagusin/actions/runs/38126426380) and [static audit](https://github.com/baguskristiansianturi/bagusin/actions/runs/38126426378). Do not merge while checks fail or are unverified.
+2. Confirm homepage service-card labels, stylesheet paths, responsive viewports, and pathfinder interactions pass.
+3. Confirm static audit does not report the broken Google Business Profile collections URL.
+4. Verify checkout validation/review/terms flow, email status, and safe escaping; latest failure was the test attempting to fill a field hidden on panel 2, so ensure the corrected test passes.
+5. Verify catalog latest-demo ordering and industry filter relevance. Record exact pass/fail counts, then merge only when both current-head checks pass and verify the deployed GitHub Pages URLs.
 
 ## Homepage acceptance checklist
 - [ ] Clear, original H1 and concise explanation of what Bagusin can help with.
