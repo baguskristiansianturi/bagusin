@@ -114,7 +114,7 @@
     section.className = "home-recommended-solutions";
     section.dataset.recommendedSolutions = "";
     const heading = document.createElement("h4");
-    heading.textContent = isEnglish ? "Solutions to explore next" : "Solusi yang bisa Anda pelajari";
+    heading.textContent = isEnglish ? "Relevant solutions for you" : "Solusi yang relevan untuk Anda";
     section.appendChild(heading);
     const grid = document.createElement("div");
     grid.className = "home-recommended-solutions__grid";
