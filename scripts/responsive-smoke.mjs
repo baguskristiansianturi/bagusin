@@ -16,6 +16,8 @@ const routes = [
   "/bagusin/work/web-applications/",
   "/bagusin/work/maintenance-uiux/",
   "/bagusin/collections/",
+  "/bagusin/templates/detail/?template=BG-TRV-STR-001",
+  "/bagusin/demos/starter/travel-rental/bagus-sewa-mobil-bali-01/",
   "/bagusin/portfolio/",
   "/bagusin/youtube/",
   "/bagusin/about/",
@@ -388,17 +390,38 @@ try {
 
   // Collections and Portfolio have distinct roles and destinations.
   await interactionPage.goto(origin + "/bagusin/collections/", { waitUntil: "domcontentloaded" });
+  await interactionPage.locator("[data-template-grid] .template-product").first().waitFor({ timeout: 10000 });
   const collectionTitle = await interactionPage.title();
   const collectionText = await interactionPage.locator("main").innerText();
-  if (!collectionTitle.includes("Koleksi")) errors.push("Collections page: title metadata is not localized");
-  if (!collectionText.includes("Koleksi terbaru") || !collectionText.includes("Sewa Mobil Bali")) errors.push("Collections page: latest demo is missing");
-  if (!collectionText.includes("Rp750.000") || !collectionText.includes("Domain dan hosting tidak termasuk")) errors.push("Collections page: package price or exclusions are unclear");
-  if (!collectionText.includes("instalasi website gratis")) errors.push("Collections page: free installation scope is unclear");
-  const demoLink = interactionPage.locator('a[href="https://baguskristiansianturi.github.io/Sewa-Mobil-Bali/"]').first();
-  if (!(await demoLink.count())) errors.push("Collections page: live demo link is missing");
-  const briefLink = interactionPage.locator('a[href*="template=sewa-mobil-bali"]').first();
-  if (!(await briefLink.count())) errors.push("Collections page: template brief CTA is missing");
+  if (!collectionTitle.includes("Template")) errors.push("Collections page: title metadata is not localized");
+  if (!collectionText.includes("Koleksi terbaru") || !collectionText.includes("Bagus Sewa Mobil Bali 01")) errors.push("Collections page: latest demo is missing");
+  if (!collectionText.includes("750.000") || !collectionText.includes("domain/hosting terpisah")) errors.push("Collections page: package price or exclusions are unclear");
+  const templateCard = interactionPage.locator("[data-template-grid] .template-product").first();
+  if (!(await templateCard.locator(".template-chip").allTextContents()).some(text => text.includes("Satu halaman"))) errors.push("Collections page: one-page format label is incorrect");
+  const demoLink = templateCard.locator('a[href="/bagusin/demos/starter/travel-rental/bagus-sewa-mobil-bali-01/"]').first();
+  if (!(await demoLink.count())) errors.push("Collections page: canonical demo link is missing");
+  const detailLink = templateCard.locator('a[href*="/templates/detail/?template=BG-TRV-STR-001"]').first();
+  if (!(await detailLink.count())) errors.push("Collections page: package detail CTA is missing");
   if (!(await interactionPage.locator('.site-nav a[href="/bagusin/collections/"]').count())) errors.push("Collections page: collection navigation link is missing");
+
+  // Verify the complete template journey: catalog → demo → package details → correct contact intent.
+  await interactionPage.goto(origin + "/bagusin/templates/detail/?template=BG-TRV-STR-001", { waitUntil: "domcontentloaded" });
+  await interactionPage.locator("[data-detail-name]").filter({ hasText: "Bagus Sewa Mobil Bali 01" }).waitFor({ timeout: 10000 });
+  if (!(await interactionPage.locator("[data-detail-base-price]").innerText()).includes("750.000")) errors.push("Template detail: base package price is missing or incorrect");
+  if (await interactionPage.locator("[data-detail-included] li").count() < 3) errors.push("Template detail: included scope did not load from the catalog");
+  if (await interactionPage.locator("[data-detail-excluded] li").count() < 2) errors.push("Template detail: exclusions did not load from the catalog");
+  const orderHref = await interactionPage.locator("[data-detail-order]").getAttribute("href");
+  if (!orderHref?.includes("service=websites") || !orderHref.includes("mode=project")) errors.push("Template detail: order CTA does not preselect a website project");
+  const discussHref = await interactionPage.locator("[data-detail-discuss]").getAttribute("href");
+  if (!discussHref?.includes("service=websites") || !discussHref.includes("mode=consultation")) errors.push("Template detail: discussion CTA does not preselect website consultation");
+  const meetingHref = await interactionPage.locator("[data-detail-meeting]").first().getAttribute("href");
+  if (!meetingHref?.includes("service=consultation") || !meetingHref.includes("meeting=in-person")) errors.push("Template detail: in-person meeting CTA does not preselect paid consultation");
+
+  await interactionPage.goto(origin + "/bagusin/demos/starter/travel-rental/bagus-sewa-mobil-bali-01/", { waitUntil: "domcontentloaded" });
+  if (!(await interactionPage.locator('meta[name="robots"]').getAttribute("content"))?.includes("noindex")) errors.push("Template demo: demo is not marked noindex");
+  if (!(await interactionPage.locator('a[href="/bagusin/templates/detail/?template=BG-TRV-STR-001"]').count())) errors.push("Template demo: detail and pricing CTA is missing");
+  await interactionPage.locator("[data-demo-whatsapp]").first().click();
+  if (await interactionPage.locator("#demo-notice").evaluate(el => getComputedStyle(el).display === "none")) errors.push("Template demo: unconfigured WhatsApp CTA does not explain the placeholder");
 
   await interactionPage.goto(origin + "/bagusin/portfolio/", { waitUntil: "domcontentloaded" });
   const portfolioSeparationText = await interactionPage.locator("main").innerText();
