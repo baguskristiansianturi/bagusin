@@ -160,11 +160,12 @@ try {
   if (await interactionPage.locator("[data-followup]").getAttribute("hidden") === "") errors.push("Homepage recommender: follow-up did not open");
   const followupFocus = await interactionPage.locator("[data-followup-title]").evaluate((element) => element === document.activeElement);
   if (!followupFocus) errors.push("Homepage recommender: keyboard focus did not move to the follow-up question");
+  await interactionPage.locator('[data-goal="customers"]').click();
+  if (!(await interactionPage.locator("[data-result-title]").innerText()).includes("Mulai dari jalur mendapatkan pelanggan")) errors.push("Homepage recommender: Indonesian recommendation did not render");
   await interactionPage.locator("[data-reset-pathfinder]").click();
   if (await interactionPage.locator('[data-stage="starter"]').getAttribute("aria-pressed") !== "false") errors.push("Homepage recommender: reset did not clear the selected stage");
   await interactionPage.locator('[data-stage="starter"]').click();
   await interactionPage.locator('[data-goal="customers"]').click();
-  if (!(await interactionPage.locator("[data-result-title]").innerText()).includes("Mulai dari jalur mendapatkan pelanggan")) errors.push("Homepage recommender: Indonesian recommendation did not render");
   const idConsultHref = await interactionPage.locator("[data-consult-link]").getAttribute("href");
   if (!idConsultHref?.startsWith("/bagusin/contact/?") || !idConsultHref.includes("path=starter") || !idConsultHref.includes("goal=customers")) errors.push("Homepage recommender: Indonesian consultation link is missing recommendation context");
   await interactionPage.locator("[data-consult-link]").click();
