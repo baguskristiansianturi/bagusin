@@ -14,7 +14,7 @@ Terakhir diperbarui: 11 Oktober 2026
 
 ## Tahap 1 — Homepage
 
-**Status: Implementasi awal sudah masuk ke `main`; verifikasi visual dan deployment masih perlu dilakukan.**
+**Status: Perbaikan responsif lintas halaman dan hub jalur belajar sudah masuk ke `main`; verifikasi visual di browser dan deployment live masih belum dapat dikonfirmasi.**
 
 ### Sasaran
 Homepage menjelaskan bantuan Bagus dengan cepat, mengutamakan layanan, menyediakan jalur ke demo dan artikel, memperlihatkan cerita personal, menjelaskan pendekatan Bagusin, dan memperkenalkan course menjelang akhir halaman.
@@ -40,6 +40,11 @@ Homepage menjelaskan bantuan Bagus dengan cepat, mengutamakan layanan, menyediak
 - Link kartu layanan diperiksa agar mengarah ke halaman katalog/detail yang tersedia.
 - CTA course diarahkan ke formulir kontak dengan mode pertanyaan course/jalur belajar; formulir menampilkan ringkasan tujuan belajar, kemampuan awal, metode, dan kebutuhan peserta.
 - Metadata judul dan deskripsi homepage diperbarui.
+- Lapisan perbaikan responsif lintas halaman ditambahkan ke `css/final-responsive.css`, yang dimuat setelah CSS halaman; mencakup grid, kartu, hero, konten artikel, formulir, dan footer pada desktop/tablet/ponsel.
+- Cache-buster stylesheet final diperbarui agar browser meminta versi terbaru.
+- Halaman jalur belajar ID/EN dibuat dan ditautkan dari CTA homepage, navigasi global, footer, serta sitemap. Halaman menjelaskan jalur mandiri dan meminta konfirmasi format/ketersediaan sebelum pendaftaran; tidak mengklaim course berbayar yang belum tersedia.
+- Katalog layanan, artikel, halaman legal, pencarian, koleksi, dan halaman course/learning terkait diperiksa secara statis untuk memastikan template memakai navigasi dan stylesheet responsif global. Ini bukan pengganti uji visual browser.
+
 
 ### Pemeriksaan kode yang sudah dilakukan
 - Jumlah tag `<section>` dan `</section>` seimbang pada homepage Indonesia dan Inggris.
