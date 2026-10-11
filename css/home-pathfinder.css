@@ -42,71 +42,7 @@
 @media(max-width:480px){.home-hero--pathfinder{padding-block:2.25rem}.home-pathfinder__intro h1{font-size:clamp(2.15rem,9.6vw,2.55rem)}.home-pathfinder__panel{padding:1rem;border-radius:.9rem}.home-pathfinder__choice{grid-template-columns:2.35rem minmax(0,1fr) .75rem;gap:.65rem;padding:.8rem}.home-pathfinder__choice-icon{width:2.3rem;height:2.3rem}.home-pathfinder__choice strong{font-size:.88rem}.home-pathfinder__choice small{font-size:.73rem}.home-pathfinder__result{padding:.9rem}.home-pathfinder__result-actions{display:grid;grid-template-columns:1fr}.home-pathfinder__result-actions .button{width:100%;white-space:normal}.home-pathfinder__footer-note{align-items:flex-start;padding:.85rem}.home-pathfinder__reassurance{display:grid;gap:.35rem}}
 @media(prefers-reduced-motion:reduce){.home-pathfinder__choice{transition:none}}
 
-
-/* Recommended solutions: controlled by the component stylesheet, never by the generic card grid. */
-
-/* Final responsive guard for dynamically rendered solution cards. */
-.home-pathfinder__result [data-recommended-solutions] {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  box-sizing: border-box;
-}
-.home-pathfinder__result [data-recommended-solutions] > .home-recommended-solutions__grid {
-  display: grid !important;
-  grid-template-columns: minmax(0, 1fr) !important;
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  box-sizing: border-box;
-  gap: .75rem;
-}
-.home-pathfinder__result .home-recommended-solutions__card {
-  display: grid;
-  grid-template-columns: 2.25rem minmax(0, 1fr);
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  box-sizing: border-box;
-  overflow-wrap: anywhere;
-}
-.home-pathfinder__result .home-recommended-solutions__card > span:last-child {
-  display: block;
-  min-width: 0;
-  max-width: 100%;
-}
-.home-pathfinder__result .home-recommended-solutions__card strong,
-.home-pathfinder__result .home-recommended-solutions__card small,
-.home-pathfinder__result .home-recommended-solutions__link {
-  max-width: 100%;
-  overflow-wrap: anywhere;
-  white-space: normal;
-}
-@media (min-width: 42rem) {
-  .home-pathfinder__result [data-recommended-solutions] > .home-recommended-solutions__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  }
-}
-@media (max-width: 30rem) {
-  .home-pathfinder__result {
-    padding: .8rem;
-  }
-  .home-pathfinder__result [data-recommended-solutions] > .home-recommended-solutions__grid {
-    grid-template-columns: minmax(0, 1fr) !important;
-    gap: .65rem;
-  }
-  .home-pathfinder__result .home-recommended-solutions__card {
-    grid-template-columns: 2rem minmax(0, 1fr);
-    gap: .65rem;
-    padding: .8rem;
-  }
-  .home-pathfinder__result .home-recommended-solutions__icon {
-    width: 2rem;
-    height: 2rem;
-  }
-}
-
+/* Recommended solutions: one component owns card layout and icon proportions. */
 .home-recommended-solutions {
   min-width: 0;
   margin-top: 1.5rem;
@@ -223,53 +159,4 @@
 @media (prefers-reduced-motion: reduce) {
   .home-recommended-solutions__card { transition: none; }
   .home-recommended-solutions__card:hover { transform: none; }
-}
-
-
-/* Icon sizing contract: icons stay compact on every viewport. */
-.home-pathfinder__choice-icon,
-.home-pathfinder__result .home-recommended-solutions__icon {
-  display: inline-grid !important;
-  place-items: center !important;
-  flex: 0 0 2.25rem !important;
-  width: 2.25rem !important;
-  min-width: 2.25rem !important;
-  max-width: 2.25rem !important;
-  height: 2.25rem !important;
-  min-height: 2.25rem !important;
-  max-height: 2.25rem !important;
-  padding: 0 !important;
-  box-sizing: border-box !important;
-  overflow: hidden;
-}
-.home-pathfinder__choice-icon svg,
-.home-pathfinder__result .home-recommended-solutions__icon svg {
-  display: block !important;
-  width: 1.2rem !important;
-  min-width: 1.2rem !important;
-  max-width: 1.2rem !important;
-  height: 1.2rem !important;
-  min-height: 1.2rem !important;
-  max-height: 1.2rem !important;
-}
-@media (max-width: 30rem) {
-  .home-pathfinder__choice-icon,
-  .home-pathfinder__result .home-recommended-solutions__icon {
-    flex-basis: 2rem !important;
-    width: 2rem !important;
-    min-width: 2rem !important;
-    max-width: 2rem !important;
-    height: 2rem !important;
-    min-height: 2rem !important;
-    max-height: 2rem !important;
-  }
-  .home-pathfinder__choice-icon svg,
-  .home-pathfinder__result .home-recommended-solutions__icon svg {
-    width: 1.1rem !important;
-    min-width: 1.1rem !important;
-    max-width: 1.1rem !important;
-    height: 1.1rem !important;
-    min-height: 1.1rem !important;
-    max-height: 1.1rem !important;
-  }
 }
