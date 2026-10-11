@@ -77,4 +77,13 @@
     render();
   }).catch(() => { status.textContent = "Katalog belum dapat dimuat. Silakan hubungi Bagus untuk melihat pilihan yang tersedia."; grid.innerHTML = '<div class="template-empty"><p>Maaf, katalog sedang tidak tersedia.</p><a class="button button--accent" href="/bagusin/contact/?service=websites&mode=consultation">Tanya pilihan template</a></div>'; });
   [search, category, level].forEach(control => control.addEventListener(control === search ? "input" : "change", render));
+  category.addEventListener("change", () => {
+    if (!shortcuts) return;
+    shortcuts.querySelectorAll("[data-template-shortcut]").forEach(control => {
+      const active = control.dataset.templateShortcut === category.value;
+      control.classList.toggle("is-active", active);
+      control.setAttribute("aria-pressed", String(active));
+    });
+  });
+
 })();
