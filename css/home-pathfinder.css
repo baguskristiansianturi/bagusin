@@ -88,3 +88,39 @@
  .home-pathfinder__panel{margin-top:.2rem}
 }
 @media(prefers-reduced-motion:reduce){.home-pathfinder__reassurance-item,.home-pathfinder__panel{transition:none}.home-pathfinder__reassurance-item:hover{transform:none}}
+
+/* Responsive recommendation cards: size follows available panel width, not viewport alone. */
+.home-pathfinder__result{min-width:0;width:100%;padding:clamp(1rem,2.4vw,1.4rem)}
+.home-pathfinder__result-head{min-width:0;align-items:flex-start}
+.home-pathfinder__result-head>div{min-width:0}
+.home-pathfinder__result h3{font-size:clamp(1.25rem,2vw,1.55rem);line-height:1.28}
+.home-pathfinder__result>p{font-size:clamp(.95rem,1.15vw,1.02rem);line-height:1.7}
+.home-pathfinder__steps{font-size:clamp(.94rem,1.05vw,1rem);line-height:1.7;padding-left:1.3rem}
+.home-pathfinder__steps li{padding-left:.25rem;margin-block:.18rem}
+.home-recommended-solutions{min-width:0}
+.home-recommended-solutions>h4{font-size:clamp(1.05rem,1.4vw,1.18rem);line-height:1.45}
+.home-recommended-solutions__grid{grid-template-columns:minmax(0,1fr);gap:.75rem}
+.home-recommended-solutions__card{grid-template-columns:2.75rem minmax(0,1fr);gap:.9rem;padding:1rem;min-width:0}
+.home-recommended-solutions__icon{width:2.65rem;height:2.65rem;font-size:1.25rem}
+.home-recommended-solutions__card strong{font-size:1rem;line-height:1.5}
+.home-recommended-solutions__card small{font-size:.92rem;line-height:1.65}
+.home-recommended-solutions__link{font-size:.88rem;margin-top:.55rem}
+.home-pathfinder__result-actions{gap:.75rem}
+.home-pathfinder__result-actions .button{min-height:3rem;padding:.75rem 1rem;font-size:.95rem;white-space:normal;text-align:center}
+@media(min-width:76rem){
+ .home-pathfinder__result{container-type:inline-size}
+ .home-recommended-solutions__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:48rem){
+ .home-pathfinder__result{margin-top:1rem;padding:1rem}
+ .home-pathfinder__result h3{font-size:1.22rem}
+ .home-pathfinder__result>p,.home-pathfinder__steps{font-size:.96rem}
+ .home-recommended-solutions__card{padding:.95rem}
+ .home-recommended-solutions__card small{font-size:.92rem}
+ .home-pathfinder__result-actions{display:grid;grid-template-columns:minmax(0,1fr)}
+ .home-pathfinder__result-actions .button{width:100%;max-width:none}
+}
+@media(max-width:22rem){
+ .home-recommended-solutions__card{grid-template-columns:2.25rem minmax(0,1fr);gap:.7rem}
+ .home-recommended-solutions__icon{width:2.2rem;height:2.2rem}
+}
