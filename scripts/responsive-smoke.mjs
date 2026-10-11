@@ -15,6 +15,7 @@ const routes = [
   "/bagusin/work/websites/",
   "/bagusin/work/web-applications/",
   "/bagusin/work/maintenance-uiux/",
+  "/bagusin/collections/",
   "/bagusin/portfolio/",
   "/bagusin/youtube/",
   "/bagusin/about/",
@@ -29,6 +30,7 @@ const routes = [
   "/bagusin/en/blog/bekerja-dari-mana-saja/",
   "/bagusin/en/destinations/",
   "/bagusin/en/work/",
+  "/bagusin/en/collections/",
   "/bagusin/en/portfolio/",
   "/bagusin/en/youtube/",
   "/bagusin/en/about/",
@@ -274,7 +276,7 @@ try {
   const portfolioText = await interactionPage.locator("main").innerText();
   const portfolioStructuredData = await interactionPage.locator('script[type="application/ld+json"]').textContent();
   if (!portfolioTitle.includes("Portofolio")) errors.push("Portfolio page: title metadata is not localized");
-  if (!portfolioText.includes("Hal-hal yang saya bangun, uji, dan jelajahi.") || !portfolioText.includes("Portofolio seharusnya menunjukkan cara berpikir")) errors.push("Portfolio page: Indonesian headings are missing");
+  if (!portfolioText.includes("Pekerjaan nyata, proses yang jujur, dan konteks yang jelas.") || !portfolioText.includes("Portofolio seharusnya menunjukkan cara berpikir")) errors.push("Portfolio page: Indonesian headings are missing");
   if (portfolioText.includes("Things I’ve built, tested, and explored.") || portfolioText.includes("independent software studio") || portfolioText.includes("Work With Me")) errors.push("Portfolio page: outdated English or studio positioning remains");
   if (!portfolioStructuredData || portfolioStructuredData.includes("software engineering")) errors.push("Portfolio page: structured data still contains outdated English description");
 
@@ -383,6 +385,26 @@ try {
   await interactionPage.locator("#send-order-brief").click();
   await interactionPage.waitForFunction(() => document.querySelector("#checkout-email-status")?.textContent.includes("pengiriman berhasil diterima"), null, { timeout: 5000 });
   if (!submittedEmailPayload || submittedEmailPayload.category !== "Landing Page") errors.push("Checkout: copywriting category was not included in the email payload");
+
+  // Collections and Portfolio have distinct roles and destinations.
+  await interactionPage.goto(origin + "/bagusin/collections/", { waitUntil: "domcontentloaded" });
+  const collectionTitle = await interactionPage.title();
+  const collectionText = await interactionPage.locator("main").innerText();
+  if (!collectionTitle.includes("Koleksi")) errors.push("Collections page: title metadata is not localized");
+  if (!collectionText.includes("Koleksi terbaru") || !collectionText.includes("Sewa Mobil Bali")) errors.push("Collections page: latest demo is missing");
+  if (!collectionText.includes("Rp750.000") || !collectionText.includes("Domain dan hosting tidak termasuk")) errors.push("Collections page: package price or exclusions are unclear");
+  if (!collectionText.includes("instalasi website gratis")) errors.push("Collections page: free installation scope is unclear");
+  const demoLink = interactionPage.locator('a[href="https://baguskristiansianturi.github.io/Sewa-Mobil-Bali/"]').first();
+  if (!(await demoLink.count())) errors.push("Collections page: live demo link is missing");
+  const briefLink = interactionPage.locator('a[href*="template=sewa-mobil-bali"]').first();
+  if (!(await briefLink.count())) errors.push("Collections page: template brief CTA is missing");
+  if (!(await interactionPage.locator('.site-nav a[href="/bagusin/collections/"]').count())) errors.push("Collections page: collection navigation link is missing");
+
+  await interactionPage.goto(origin + "/bagusin/portfolio/", { waitUntil: "domcontentloaded" });
+  const portfolioSeparationText = await interactionPage.locator("main").innerText();
+  if (!portfolioSeparationText.includes("Proyek milik sendiri & eksperimen")) errors.push("Portfolio page: personal projects and experiments are not clearly labeled");
+  if (!portfolioSeparationText.includes("hanya akan ditampilkan jika ada izin")) errors.push("Portfolio page: client permission boundary is missing");
+  if (portfolioSeparationText.includes("Koleksi terbaru") || portfolioSeparationText.includes("Pilih template")) errors.push("Portfolio page: collection/order content has not been separated");
 
   // Destinations should remain experience-based, without fabricated ratings or itineraries.
   await interactionPage.goto(origin + "/bagusin/destinations/", { waitUntil: "domcontentloaded" });
