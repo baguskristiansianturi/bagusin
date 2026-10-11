@@ -402,7 +402,7 @@ try {
 
   await interactionPage.goto(origin + "/bagusin/portfolio/", { waitUntil: "domcontentloaded" });
   const portfolioSeparationText = await interactionPage.locator("main").innerText();
-  if (!portfolioSeparationText.includes("Proyek milik sendiri & eksperimen")) errors.push("Portfolio page: personal projects and experiments are not clearly labeled");
+  if (!portfolioSeparationText.toLowerCase().includes("proyek internal atau eksperimen")) errors.push("Portfolio page: personal projects and experiments are not clearly labeled");
   if (!portfolioSeparationText.includes("hanya akan ditampilkan jika ada izin")) errors.push("Portfolio page: client permission boundary is missing");
   if (portfolioSeparationText.includes("Koleksi terbaru") || portfolioSeparationText.includes("Pilih template")) errors.push("Portfolio page: collection/order content has not been separated");
 
