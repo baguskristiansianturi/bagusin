@@ -29,18 +29,19 @@
 
 **Active phase:** Phase 0 / Phase 1 — baseline and homepage-first repair. Do not jump to later phases until homepage issues and relevant tests are resolved.
 
-**Latest known smoke-test evidence:** run #244 for PR #108 concluded **failure**. Never describe it as passing.
-- The two broken CSS URLs no longer appear in the latest run's failure summary; server logs show homepage stylesheets loading with HTTP 200. Treat the path corrections as validated by asset checks, but confirm PR status/merge state before relying on them.
-- Six failures remain: homepage service-label assertion; contact copy assertion; work-page heading assertion; checkout progression and review-summary assertions; interaction test timed out clicking `[data-next="3"]` because the control was not visible.
+**Latest known smoke-test evidence:** run #244 for PR #108 concluded **failure** (6 assertions failed). A new commit was pushed to the same PR branch after that run; the new CI result must be checked before claiming improvement.
+- Homepage roadmap CSS path is corrected on PR #108 branch; the English article stylesheet path is also corrected there. The previous smoke-test server logs showed the corrected assets returning HTTP 200.
+- Homepage service card labels now explicitly include `Penulisan Konten & SEO` and `Aplikasi Web & Sistem` in commit `096da1f21a71eebc8e17dfd0afa4a633af43dfb7` on branch `fix/homepage-and-english-article-asset-paths-20261011` / PR #108. This is a targeted copy fix, not yet accepted until a new browser smoke run confirms it.
+- Other known failures remain unresolved pending their phase: contact hero/service brief copy; work-page heading expectation; checkout progression and review-summary; interaction smoke timeout on `[data-next="3"]` because the control was not visible.
 - Reproduce each failure and compare test expectations with intended UX. Fix the site or update an outdated assertion only when evidence supports that choice; do not weaken tests just to get green.
 - `README.md` on `main` was empty at last inspection. Root `AGENTS.md` and this file preserve working context and AI instructions.
 
 **Immediate next actions:**
-1. Check current PR #108 state, changed files, CI, and latest `main` SHA. Do not merge while checks fail or are unverified.
-2. Verify both CSS fixes on the actual branch; rerun smoke tests. Investigate stale assertions without weakening tests merely to get green.
-3. Reproduce and fix the homepage issue first; verify the actual user journey and mobile layout, not only text assertions.
-4. Update this file with exact branch/PR/commit links, pass/fail counts, known issues, and next action.
-5. Only move to Phase 2 after homepage acceptance criteria pass.
+1. Check PR #108 and the new workflow run triggered by commit `096da1f21a71eebc8e17dfd0afa4a633af43dfb7`; do not merge while checks fail or are unverified.
+2. Confirm the homepage service-label assertions and CSS asset requests pass on the updated branch.
+3. If homepage assertions pass, inspect the responsive screenshots/checks and test the recommendation flow on mobile; fix any functional issues before moving phases.
+4. Then handle the contact and work-page copy assertions, followed by checkout flow bugs in a separate focused change.
+5. Update this file with exact CI results and remaining issues. Only move to Phase 2 after homepage acceptance criteria pass.
 
 ## Homepage acceptance checklist
 - [ ] Clear, original H1 and concise explanation of what Bagusin can help with.
