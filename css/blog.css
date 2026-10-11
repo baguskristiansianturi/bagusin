@@ -135,7 +135,7 @@
 .blog-taxonomy-card__tags a{font-size:.75rem;color:#426b59;text-decoration:none}
 .blog-taxonomy-card__action{margin-top:auto;padding-top:1rem;font-weight:700;font-size:.88rem;color:var(--color-accent-dark,#315b49);text-decoration:none}
 .blog-taxonomy__empty{grid-column:1/-1;padding:1.2rem;border:1px dashed var(--color-border,#d8e2dc);border-radius:.8rem;color:var(--color-text-muted,#65716b)}
-.blog-page.is-taxonomy-filtered .blog-featured,.blog-page.is-taxonomy-filtered .blog-topics,.blog-page.is-taxonomy-filtered .blog-guide-collection,.blog-page.is-taxonomy-filtered .blog-more{display:none!important}
+.blog-page.is-taxonomy-filtered .blog-showcase__head,.blog-page.is-taxonomy-filtered .blog-featured,.blog-page.is-taxonomy-filtered .blog-topics,.blog-page.is-taxonomy-filtered .blog-guide-collection,.blog-page.is-taxonomy-filtered .blog-more{display:none!important}
 .blog-page.is-taxonomy-filtered .blog-taxonomy{margin-top:0}
 .article-taxonomy{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-top:1rem}
 .article-taxonomy__label{width:100%;font-size:.76rem;color:var(--color-text-muted,#65716b);font-weight:650}
