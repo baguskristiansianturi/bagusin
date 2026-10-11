@@ -194,7 +194,7 @@ try {
   await interactionPage.goto(origin + "/bagusin/contact/?service=landing-pages", { waitUntil: "domcontentloaded" });
   const contactHeading = await interactionPage.locator(".contact-hero h1").textContent();
   const contactTitle = await interactionPage.title();
-  if (!contactHeading || !contactHeading.includes("Mari mulai dari kebutuhanmu")) {
+  if (!contactHeading || !contactHeading.includes("Mari mulai dari kebutuhan Anda")) {
     errors.push("Contact page: concise Indonesian hero copy is missing");
   }
   if (!contactTitle.includes("Kontak")) errors.push("Contact page: title metadata is not localized");
@@ -277,7 +277,7 @@ try {
   const aboutText = await interactionPage.locator("main").innerText();
   const aboutStructuredData = await interactionPage.locator('script[type="application/ld+json"]').textContent();
   if (!aboutTitle.includes("Tentang")) errors.push("About page: title metadata is not localized");
-  if (!aboutText.includes("Bagusin mendokumentasikan perjalanan") || !aboutText.includes("Berangkat dari masalah nyata.")) errors.push("About page: Indonesian positioning copy is missing");
+  if (!aboutText.includes("Bagusin adalah ruang untuk mendokumentasikan perjalanan") || !aboutText.includes("Berangkat dari masalah nyata.")) errors.push("About page: Indonesian positioning copy is missing");
   if (aboutText.includes("independent software studio") || aboutText.includes("Built around real problems.")) errors.push("About page: outdated English positioning copy remains");
   if (!aboutStructuredData || aboutStructuredData.includes("independent software studio")) errors.push("About page: structured data still contains outdated positioning");
 
@@ -331,7 +331,7 @@ try {
   await interactionPage.locator('[data-next="4"]').click();
   if (await interactionPage.locator('[data-panel="4"]').isHidden()) errors.push("Checkout: terms consent did not advance to next steps");
   const checkoutText = await interactionPage.locator("#main-content").innerText();
-  if (!checkoutText.includes("follow-up dilakukan secara personal melalui WhatsApp")) errors.push("Checkout: manual WhatsApp follow-up process is not explained");
+  if (!checkoutText.includes("Invoice dan instruksi pembayaran tetap dikirim terpisah")) errors.push("Checkout: manual WhatsApp follow-up process is not explained");
   if (!checkoutText.includes("baguskristian@gmail.com")) errors.push("Checkout: destination email is not disclosed");
   if (checkoutText.includes("1460137710")) errors.push("Checkout: bank account details are shown before an agreed quotation");
   let submittedEmailPayload = null;
@@ -340,7 +340,7 @@ try {
     await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ success: "true", message: "Test submission accepted" }) });
   });
   await interactionPage.locator("#send-order-brief").click();
-  await interactionPage.waitForFunction(() => document.querySelector("#checkout-email-status")?.textContent.includes("pengiriman berhasil diterima"), null, { timeout: 5000 });
+  await interactionPage.waitForFunction(() => document.querySelector("#checkout-email-status")?.textContent.includes("diterima layanan email"), null, { timeout: 5000 });
   if (!submittedEmailPayload || submittedEmailPayload.client_email !== "client@example.com") errors.push("Checkout: email submission payload is missing the client's reply address");
   if (!submittedEmailPayload || submittedEmailPayload.service_id !== "landing-pages") errors.push("Checkout: email submission payload is missing the selected service");
   if (!submittedEmailPayload || !submittedEmailPayload.project_brief.includes("responsive campaign page")) errors.push("Checkout: email submission payload is missing the project brief");
