@@ -401,10 +401,10 @@ try {
   if (!(await interactionPage.locator('.site-nav a[href="/bagusin/collections/"]').count())) errors.push("Collections page: collection navigation link is missing");
 
   await interactionPage.goto(origin + "/bagusin/portfolio/", { waitUntil: "domcontentloaded" });
-  const portfolioText = await interactionPage.locator("main").innerText();
-  if (!portfolioText.includes("Proyek milik sendiri & eksperimen")) errors.push("Portfolio page: personal projects and experiments are not clearly labeled");
-  if (!portfolioText.includes("hanya akan ditampilkan jika ada izin")) errors.push("Portfolio page: client permission boundary is missing");
-  if (portfolioText.includes("Koleksi terbaru") || portfolioText.includes("Pilih template")) errors.push("Portfolio page: collection/order content has not been separated");
+  const portfolioSeparationText = await interactionPage.locator("main").innerText();
+  if (!portfolioSeparationText.includes("Proyek milik sendiri & eksperimen")) errors.push("Portfolio page: personal projects and experiments are not clearly labeled");
+  if (!portfolioSeparationText.includes("hanya akan ditampilkan jika ada izin")) errors.push("Portfolio page: client permission boundary is missing");
+  if (portfolioSeparationText.includes("Koleksi terbaru") || portfolioSeparationText.includes("Pilih template")) errors.push("Portfolio page: collection/order content has not been separated");
 
   // Destinations should remain experience-based, without fabricated ratings or itineraries.
   await interactionPage.goto(origin + "/bagusin/destinations/", { waitUntil: "domcontentloaded" });
