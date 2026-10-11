@@ -393,6 +393,7 @@ try {
   if (!collectionTitle.includes("Koleksi")) errors.push("Collections page: title metadata is not localized");
   if (!collectionText.includes("Koleksi terbaru") || !collectionText.includes("Sewa Mobil Bali")) errors.push("Collections page: latest demo is missing");
   if (!collectionText.includes("Rp750.000") || !collectionText.includes("Domain dan hosting tidak termasuk")) errors.push("Collections page: package price or exclusions are unclear");
+  if (!collectionText.includes("instalasi website gratis")) errors.push("Collections page: free installation scope is unclear");
   const demoLink = interactionPage.locator('a[href="https://baguskristiansianturi.github.io/Sewa-Mobil-Bali/"]').first();
   if (!(await demoLink.count())) errors.push("Collections page: live demo link is missing");
   const briefLink = interactionPage.locator('a[href*="template=sewa-mobil-bali"]').first();
