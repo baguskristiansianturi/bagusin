@@ -242,7 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const sendButton = $("#send-order-brief");
   const buildEmailPayload = () => {
     const data = {
-      _subject: "[BagusIn Order Brief] " + label() + " — " + $("#name").value.trim(),
+      _subject: "[Bagusin Konfirmasi Pesanan] " + label() + " — " + $("#name").value.trim(),
       _replyto: $("#email").value.trim(),
       name: $("#name").value.trim(),
       email: $("#email").value.trim(),
@@ -305,7 +305,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const payload = buildEmailPayload();
     if (!sendButton || !emailStatus) return;
     sendButton.disabled = true;
-    sendButton.textContent = "Mengirim brief…";
+    sendButton.textContent = "Mengirim konfirmasi…";
     emailStatus.textContent = "Mengirim brief ke layanan email. Mohon tunggu dan jangan tutup halaman.";
     try {
       const response = await fetch("https://formsubmit.co/ajax/baguskristian@gmail.com", {
@@ -319,11 +319,11 @@ document.addEventListener("DOMContentLoaded", () => {
         throw new Error(result.message || "Email service rejected the request.");
       }
       form.dataset.submitted = "true";
-      sendButton.textContent = "Brief berhasil dikirim";
+      sendButton.textContent = "Konfirmasi pesanan terkirim";
       sendButton.disabled = true;
       emailStatus.textContent = "Konfirmasi pesanan " + payload.order_reference + " diterima layanan email. Jika ini pengiriman pertama, pemilik email perlu menyelesaikan aktivasi FormSubmit dari inbox sebelum pesan dapat diteruskan. Invoice dan instruksi pembayaran tetap dikirim terpisah sesuai kesepakatan. Ini bukan bukti pembayaran.";
       const status = $("#aside-status");
-      if (status) status.textContent = "Brief dikirim · follow-up manual";
+      if (status) status.textContent = "Pesanan dikonfirmasi · invoice menyusul";
       try { sessionStorage.removeItem(storageKey); } catch (_) {}
     } catch (error) {
       sendButton.disabled = false;
