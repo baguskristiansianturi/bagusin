@@ -71,3 +71,25 @@ Do not invent instructors, schedules, pricing, testimonials, certifications, acc
 - Existing eight detail pages are initial drafts, not the complete catalogue. Expand their curriculum only when content is ready and verified.
 - Course/path inquiry CTAs must pass the selected pathway into the contact brief.
 - Before declaring completion, validate links, language alternates, metadata/schema, responsive layout, keyboard operation, and the live GitHub Pages deployment.
+
+## Expanded legacy topic inventory
+
+The original reference programme separates package-based courses from individual software/topic courses and groups them around administration, design, animation, websites, marketing, data analysis and computer technology. Bagusin preserves that breadth while rewriting descriptions and avoiding unverified legacy prices, durations, certification promises, or current availability.
+
+Reference page: https://www.computer-course-center.com/program-kursus-komputer.html  
+Additional reference index: https://www.computer-course-center.com/sitemap.html
+
+The catalogue currently maps these **37 individual topic families** into searchable groups:
+
+- **Productivity & administration:** Office/computer administration; Excel fundamentals, intermediate and advanced/dashboard work; Google Sheets fundamentals, intermediate and advanced; PowerPoint and advanced presentations; Excel-based accounting.
+- **Design, animation & visualisation:** graphic design; animation/video editing; 3D design with SketchUp/visualisation; AutoCAD/drafting; image editing/Photoshop; graphic design for children; Photoshop for children.
+- **Websites & programming:** web design/SEO; PHP/dynamic web programming; advanced web programming; WordPress/CMS; Laravel/booking systems; web coding for children.
+- **Digital marketing:** SEO; social media marketing; internet marketing; Google Ads; WhatsApp marketing.
+- **Data & automation:** data analysis/Looker Studio; Google Apps Script automation; Excel Macro/VBA.
+- **Computers, networking & learners:** computer technician/networking; computer basics for children; Office/design basics for students; Word for children; Excel for children; computer-based test literacy.
+
+The searchable reference catalogue is a topic map, not a claim that all topics have a dedicated detail page or that all classes are open. Every item has an inquiry action; the selected item is passed into the contact brief. The five cross-domain learning pathways use the separate `learning_path` parameter so they do not conflict with the homepage's existing recommendation `path` parameter.
+
+## Practice and assessment pattern
+
+All 16 course-detail pages (eight Indonesian and eight English) now include the same transparent practice loop: understand an example → guided practice → independent challenge → review and improve. Assessment is framed around completed exercises, reasoning, revision and a final project. Mentoring, schedule, fees, duration and certification remain unconfirmed until explicitly established.
