@@ -2,6 +2,15 @@
 
 Terakhir diperbarui: 11 Oktober 2026
 
+## Catatan perubahan — UX homepage, course, dan footer
+
+- Dibuat branch kerja `ux/homepage-course-footer-polish` dari `main` agar perubahan dapat ditinjau tanpa langsung mengubah branch produksi.
+- Hero homepage dipersingkat dan copy diperjelas agar lebih langsung menyatakan bantuan yang diberikan Bagus.
+- Section layanan utama dipindahkan tepat setelah hero; course dipindahkan menjelang CTA penutup agar prioritas layanan lebih kuat.
+- Ditambahkan stylesheet `css/ux-polish.css` yang dimuat melalui navigasi bersama untuk memperbaiki keterbacaan, hierarki heading, target sentuh, state fokus, kartu, modul course, dan footer.
+- Cache-buster stylesheet responsif diperbarui agar browser meminta versi terbaru.
+- Status: perubahan kode sudah dicatat pada branch kerja. Pemeriksaan browser lintas ukuran layar dan verifikasi GitHub Pages masih harus dilakukan sebelum merge.
+
 ## Prinsip kerja
 
 - Bagusin diposisikan sebagai ekosistem personal yang dijalankan secara independen oleh Bagus, bukan perusahaan yang mengklaim memiliki tim besar.
