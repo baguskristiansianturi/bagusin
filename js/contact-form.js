@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const mode = params.get("mode") || "consultation";
   const isEnglish = document.documentElement.lang === "en";
   const labels = isEnglish ? {
+    consultation: "Strategy consultation",
     copywriting: "Copywriting",
     "seo-content": "Content Writing & SEO",
     "landing-pages": "Landing Pages & Ads",
@@ -13,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "google-ads": "Google Ads",
     "mobile-apps": "Mobile App Development"
   } : {
+    consultation: "Konsultasi strategis",
     copywriting: "Copywriting",
     "seo-content": "Penulisan Konten & SEO",
     "landing-pages": "Landing Page & Iklan",
