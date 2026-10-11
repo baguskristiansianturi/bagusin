@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const esc = v => String(v ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
   const slug = v => String(v).toLowerCase().trim().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   let category = "all", tier = "all", availableTemplates = [];
-  nav.innerHTML = '<button class="is-active" data-category="all" data-label="Semua kategori">Semua kategori <span>' + items.length + '</span></button>' + cats.map(c => '<button data-category="' + esc(c[0]) + '" data-label="' + esc(c[1]) + '">' + esc(c[1]) + ' <span>›</span></button>').join("");
+  nav.innerHTML = '<button class="is-active" data-category="all" data-label="Semua kategori" aria-pressed="true">Semua kategori <span>' + items.length + '</span></button>' + cats.map(c => '<button data-category="' + esc(c[0]) + '" data-label="' + esc(c[1]) + '" aria-pressed="false">' + esc(c[1]) + ' <span>›</span></button>').join("");
   const filterBar = type === "website" ? root.querySelector("[data-tier-filter]") : null;
   if (filterBar) filterBar.innerHTML = [["all","Semua tingkat"],["starter","Starter"],["business","Bisnis"],["growth","Pengembangan"],["commerce","Katalog &amp; toko"],["complex","Kustom"]].map(x => '<button class="collection-filter' + (x[0] === "all" ? " is-active" : "") + '" data-tier="' + x[0] + '" aria-pressed="' + (x[0] === "all" ? "true" : "false") + '">' + x[1] + "</button>").join("");
   const detailBase = type === "landing" ? "/bagusin/landing-pages/collections/detail/" : type === "website" ? "/bagusin/websites/collections/detail/" : "/bagusin/copywriting/collections/detail/";
