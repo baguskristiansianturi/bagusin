@@ -137,3 +137,19 @@
 @media(max-width:55.999rem){.collection-hero__inner{grid-template-columns:1fr}.collection-hero__aside{max-width:42rem}.collection-product{grid-template-columns:1fr}.collection-product__visual{min-height:22rem}.collection-distinction{align-items:flex-start;flex-direction:column}.collection-distinction__actions{flex-direction:row;flex-wrap:wrap}}
 @media(max-width:39.999rem){.collection-hero h1{font-size:clamp(2.4rem,11vw,3.5rem)}.collection-hero__actions{flex-direction:column}.collection-hero__actions .button{width:100%}.collection-product{padding:1rem;border-radius:var(--radius-xl)}.collection-product__visual{min-height:16rem}.collection-product__price{align-items:flex-start;flex-direction:column}.collection-product__price>div{margin-right:0}.collection-distinction__actions{width:100%;flex-direction:column;align-items:stretch}.collection-distinction__actions .button{width:100%;justify-content:center}}
 @media(prefers-reduced-motion:reduce){.collection-page *{scroll-behavior:auto}}
+
+
+/* Portfolio discovery: show work first, keep the category controls compact. */
+.portfolio-hero--compact{padding-block:clamp(2rem,4vw,3.5rem)}
+.portfolio-hero--compact .portfolio-hero__inner{grid-template-columns:minmax(0,1fr)}
+.portfolio-hero--compact h1{max-width:18ch;font-size:clamp(2.3rem,5.5vw,4.2rem)}
+.portfolio-hero--compact .portfolio-hero__lead{margin-top:.75rem;font-size:1rem;line-height:1.55}
+.portfolio-categories{display:flex;flex-wrap:wrap;gap:.65rem;margin:0 0 1.5rem}
+.portfolio-category{display:inline-flex;align-items:center;gap:.65rem;min-height:2.8rem;padding:.55rem .85rem;border:1px solid var(--color-border);border-radius:999px;background:#fff;color:var(--color-text);font:inherit;cursor:pointer;transition:background .18s ease,border-color .18s ease,color .18s ease}
+.portfolio-category strong{display:grid;min-width:1.55rem;height:1.55rem;place-items:center;border-radius:999px;background:var(--bg-soft);font-size:.75rem;font-variant-numeric:tabular-nums}
+.portfolio-category:hover,.portfolio-category:focus-visible{border-color:var(--color-accent);outline-offset:3px}
+.portfolio-category.is-active{border-color:var(--color-accent-dark);background:var(--color-accent-dark);color:#fff}
+.portfolio-category.is-active strong{background:rgba(255,255,255,.16);color:#fff}
+.portfolio-project[hidden]{display:none!important}
+@media(max-width:39.999rem){.portfolio-categories{gap:.45rem}.portfolio-category{min-height:2.55rem;padding:.45rem .65rem;font-size:.88rem}.portfolio-hero--compact{padding-block:2rem}.portfolio-hero--compact h1{font-size:clamp(2.2rem,10vw,3.25rem)}}
+@media(prefers-reduced-motion:reduce){.portfolio-category{transition:none}}
