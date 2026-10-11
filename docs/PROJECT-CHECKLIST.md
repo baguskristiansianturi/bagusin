@@ -29,19 +29,19 @@
 
 **Active phase:** Phase 0 / Phase 1 — baseline and homepage-first repair. Do not jump to later phases until homepage issues and relevant tests are resolved.
 
-**Latest known smoke-test evidence:** run #244 for PR #108 concluded **failure** (6 assertions failed). A new commit was pushed to the same PR branch after that run; the new CI result must be checked before claiming improvement.
+**Latest known smoke-test evidence:** run #244 and the later run #38125042910 for PR #108 concluded **failure**. New targeted fixes were pushed after those runs; check the latest workflow run before claiming improvement.
 - Homepage roadmap CSS path is corrected on PR #108 branch; the English article stylesheet path is also corrected there. The previous smoke-test server logs showed the corrected assets returning HTTP 200.
-- Homepage service card labels now explicitly include `Penulisan Konten & SEO` and `Aplikasi Web & Sistem` (commit `096da1f21a71eebc8e17dfd0afa4a633af43dfb7`). A further structural fix in commit `de8e322dd0152e1b6855f77e6af640e22b576728` moves the services section out of the recommendation panel and places it after the hero. Both commits are on `fix/homepage-and-english-article-asset-paths-20261011` / PR #108. These changes are not accepted until the latest browser smoke run completes and the homepage journey is checked.
+- Homepage service card labels and section structure were corrected on PR #108 branch. Follow-up fixes now also remove a broken Google Business Profile demo link, clarify contact brief guidance, localize the work-page H1, and make the checkout smoke test provide all fields required by the real validation rules. The homepage smoke test now checks the visible service-card grid directly. Latest commits are on `fix/homepage-and-english-article-asset-paths-20261011` / PR #108; validation remains pending.
 - Other known failures remain unresolved pending their phase: contact hero/service brief copy; work-page heading expectation; checkout progression and review-summary; interaction smoke timeout on `[data-next="3"]` because the control was not visible.
 - Reproduce each failure and compare test expectations with intended UX. Fix the site or update an outdated assertion only when evidence supports that choice; do not weaken tests just to get green.
 - `README.md` on `main` was empty at last inspection. Root `AGENTS.md` and this file preserve working context and AI instructions.
 
 **Immediate next actions:**
-1. Check PR #108 and the new workflow run triggered by commit `096da1f21a71eebc8e17dfd0afa4a633af43dfb7`; do not merge while checks fail or are unverified.
-2. Confirm the homepage service-label assertions and CSS asset requests pass on the updated branch, including the latest structural move of the services section.
-3. If homepage assertions pass, inspect the responsive checks and test the recommendation flow on mobile; fix any functional issues before moving phases.
-4. Then handle the contact and work-page copy assertions, followed by checkout flow bugs in a separate focused change.
-5. Update this file with exact CI results and remaining issues. Only move to Phase 2 after homepage acceptance criteria pass.
+1. Inspect latest PR #108 CI after commit `ca538a2e1ff1f77a6c195d83aeae8bf535ec7d58`; do not merge while checks fail or are unverified.
+2. Confirm visible homepage service-card labels and CSS assets pass, then review all 276 responsive viewport checks and pathfinder interaction.
+3. Confirm the static audit no longer reports the nonexistent Google Business Profile collections URL.
+4. Verify contact copy, work-page heading, checkout validation/review/terms path, and that no user-provided text is interpreted as HTML.
+5. Record exact pass/fail counts. Only move to Phase 2 after Phase 1 homepage acceptance criteria pass.
 
 ## Homepage acceptance checklist
 - [ ] Clear, original H1 and concise explanation of what Bagusin can help with.
