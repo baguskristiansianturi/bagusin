@@ -399,7 +399,15 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    const honeypot = form.querySelector('input[name="_honey"]');
+    const scopeSummary = params.get("scope") || "";
+  if (scopeSummary && briefField) {
+    const scopeLabel = isEnglish ? "Initial project scope from estimator:" : "Ruang lingkup awal dari estimator:";
+    const scopeText = scopeLabel + "\n" + scopeSummary.replace(/\s*\|\s*/g, "\n") + "\n\n";
+    if (!briefField.value.includes(scopeSummary)) briefField.value = scopeText + briefField.value;
+    if (serviceHeading && service) serviceHeading.textContent = (labels[service] || service) + (isEnglish ? " — quote request" : " — permintaan penawaran");
+  }
+
+  const honeypot = form.querySelector('input[name="_honey"]');
     if (honeypot?.value.trim()) return;
 
     const summary = buildBrief();
