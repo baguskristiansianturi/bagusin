@@ -544,3 +544,37 @@ a.home-consult-step:hover{transform:translateY(-3px);border-color:var(--color-ac
 .home-course-preview__bottom{display:flex;justify-content:flex-start;margin-top:1rem}
 @media(max-width:56rem){.home-course-preview__grid{grid-template-columns:repeat(2,minmax(0,1fr))}.home-course-card:last-child{grid-column:1/-1}}
 @media(max-width:40rem){.home-course-preview__heading{align-items:flex-start;flex-direction:column;gap:.75rem}.home-course-preview__grid{grid-template-columns:1fr}.home-course-card:last-child{grid-column:auto}.home-course-card{padding:1.05rem}}
+
+/* Homepage finishing pass: visual rhythm, readable cards, and clear final choices. */
+.home-course-preview,.home-new-in-bagusin,.home-final-cta,.home-featured-guides{scroll-margin-top:6rem}
+.home-course-preview,.home-new-in-bagusin,.home-featured-guides,.home-final-cta{padding-block:clamp(2.8rem,5.2vw,4.8rem)}
+.home-course-preview__heading,.home-discovery-refresh__heading{gap:1.25rem}
+.home-course-preview__heading p,.home-section__description{line-height:1.7}
+.home-course-card,.home-feature-card,.home-editorial-card,.home-path-card{height:100%;min-width:0;overflow-wrap:anywhere}
+.home-course-card{transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.home-course-card:hover{transform:translateY(-3px);border-color:rgba(46,105,85,.38);box-shadow:0 14px 34px rgba(17,21,20,.075)}
+.home-course-card__status{white-space:normal;text-align:center}
+.home-feature-card__body,.home-editorial-card__body{height:100%;min-width:0}
+.home-feature-card__image,.home-editorial-card__image{display:block;width:100%;object-fit:cover}
+.home-final-cta{background:linear-gradient(145deg,#f5f8f6 0%,#fff 58%,#eef4f1 100%);border-top:1px solid var(--color-border)}
+.home-final-cta__heading{max-width:52rem;margin:0 auto 1.7rem;text-align:center}
+.home-final-cta__heading h2{margin:.5rem auto .8rem;max-width:22ch;font-size:clamp(1.8rem,3.8vw,2.8rem);line-height:1.12;letter-spacing:-.04em}
+.home-final-cta__heading p{max-width:43rem;margin-inline:auto;color:var(--color-muted);line-height:1.7}
+.home-final-cta__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;max-width:64rem;margin-inline:auto}
+.home-final-cta__card{display:flex;flex-direction:column;align-items:flex-start;min-width:0;padding:clamp(1.25rem,3vw,2rem);border:1px solid var(--color-border);border-radius:var(--radius-lg);background:#fff;box-shadow:0 8px 28px rgba(17,21,20,.045)}
+.home-final-cta__card--video{background:#19352d;color:#fff;border-color:#19352d}
+.home-final-cta__card--video .section-kicker,.home-final-cta__card--video p{color:rgba(255,255,255,.78)}
+.home-final-cta__icon{display:grid;place-items:center;width:2.8rem;height:2.8rem;margin-bottom:1.1rem;border-radius:.9rem;background:rgba(46,105,85,.1);color:var(--color-accent-dark);font-size:1.15rem;font-weight:800}
+.home-final-cta__card--video .home-final-cta__icon{background:rgba(255,255,255,.13);color:#fff}
+.home-final-cta__card h3{margin:.45rem 0 .6rem;font-size:clamp(1.2rem,2.1vw,1.55rem);line-height:1.25}
+.home-final-cta__card p{margin:0 0 1.1rem;line-height:1.7;color:var(--color-muted)}
+.home-final-cta__card .button{margin-top:auto}
+.home-final-cta__price{display:flex;align-items:baseline;flex-wrap:wrap;gap:.55rem;margin:0 0 .45rem}
+.home-final-cta__price strong{font-size:clamp(1.6rem,3.4vw,2.1rem);letter-spacing:-.04em;color:var(--color-accent-dark)}
+.home-final-cta__price span{font-size:.9rem;color:var(--color-muted)}
+.home-final-cta__fineprint{font-size:.8rem!important;margin-bottom:1.1rem!important}
+.home-final-cta__card--video .button--light{background:#fff;color:#19352d;border-color:#fff}
+.home-final-cta a:focus-visible,.home-course-preview a:focus-visible,.home-new-in-bagusin a:focus-visible{outline:3px solid var(--color-accent);outline-offset:4px}
+@media(max-width:48rem){.home-final-cta__grid{grid-template-columns:1fr}.home-final-cta__card{padding:1.25rem}.home-course-preview__heading{align-items:flex-start;flex-direction:column}.home-course-preview__all{margin:0}.home-course-preview__grid{grid-template-columns:repeat(2,minmax(0,1fr))}.home-course-card:last-child{grid-column:1/-1}}
+@media(max-width:36rem){.home-course-preview__grid{grid-template-columns:1fr}.home-course-card:last-child{grid-column:auto}.home-course-card__top{align-items:flex-start}.home-final-cta__heading{text-align:left}.home-final-cta__heading h2,.home-final-cta__heading p{margin-left:0}.home-final-cta__card .button{width:100%;justify-content:center}}
+@media(prefers-reduced-motion:reduce){.home-course-card{transition:none}.home-course-card:hover{transform:none}}
