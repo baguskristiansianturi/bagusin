@@ -106,6 +106,39 @@ document.addEventListener("DOMContentLoaded", function () {
       : "Template dipilih: Sewa Mobil Bali\n\nNama bisnis / brand:\nArmada dan kategori kendaraan:\nHarga sewa dan paket:\nArea layanan dan opsi penjemputan:\nWhatsApp / kontak:\nWarna dan perubahan tampilan yang diinginkan:\nFitur tambahan (jika ada):\n\nMohon konfirmasi ruang lingkup, harga final, waktu pengerjaan, dan hal yang termasuk sebelum pengerjaan dimulai.";
   }
 
+  const recommendationPath = params.get("path") || "";
+  const recommendationGoal = params.get("goal") || "";
+  const recommendationLabels = {
+    starter: isEnglish ? "New business" : "Bisnis baru",
+    business: isEnglish ? "Established business" : "Bisnis berjalan",
+    existing: isEnglish ? "Existing brand / website" : "Brand / website yang sudah ada"
+  };
+  const goalLabels = {
+    customers: isEnglish ? "Acquire customers soon" : "Mendapatkan pelanggan dalam waktu dekat",
+    organic: isEnglish ? "Build long-term organic visibility" : "Membangun visibilitas organik jangka panjang",
+    allin: isEnglish ? "Comprehensive support / All-in" : "Dukungan menyeluruh / All-in",
+    conversion: isEnglish ? "Improve website conversion" : "Memperbaiki konversi website",
+    website: isEnglish ? "Improve existing website" : "Memperbaiki website yang ada",
+    system: isEnglish ? "Add features or operational system" : "Menambah fitur atau sistem operasional",
+    marketing: isEnglish ? "Assess SEO or advertising" : "Menilai SEO atau iklan"
+  };
+  if (recommendationPath && recommendationGoal && briefField && !briefField.value.trim()) {
+    briefField.value = (isEnglish ? "Homepage recommendation: " : "Rekomendasi dari beranda: ") +
+      (recommendationLabels[recommendationPath] || recommendationPath) + "\n" +
+      (isEnglish ? "Goal: " : "Tujuan: ") + (goalLabels[recommendationGoal] || recommendationGoal) +
+      "\n\n" + (isEnglish
+        ? "Please review the business model, customer target, budget, competition, feasibility, and recommended priority order during consultation. I understand this is an initial recommendation and not a guaranteed result."
+        : "Mohon tinjau model bisnis, target pelanggan, anggaran, persaingan, kelayakan, dan urutan prioritas saat konsultasi. Saya memahami bahwa ini rekomendasi awal, bukan jaminan hasil.");
+    const context = document.getElementById("service-context");
+    if (context && !context.querySelector("[data-recommendation-context]")) {
+      const tag = document.createElement("p");
+      tag.className = "form-template-context";
+      tag.dataset.recommendationContext = "";
+      tag.textContent = "Jalur rekomendasi: " + (recommendationLabels[recommendationPath] || recommendationPath) + " · " + (goalLabels[recommendationGoal] || recommendationGoal);
+      context.appendChild(tag);
+    }
+  }
+
   function valueOf(name) {
     const field = form.elements.namedItem(name);
     return field && typeof field.value === "string" ? field.value.trim() : "";
