@@ -153,3 +153,5 @@
 .portfolio-project[hidden]{display:none!important}
 @media(max-width:39.999rem){.portfolio-categories{gap:.45rem}.portfolio-category{min-height:2.55rem;padding:.45rem .65rem;font-size:.88rem}.portfolio-hero--compact{padding-block:2rem}.portfolio-hero--compact h1{font-size:clamp(2.2rem,10vw,3.25rem)}}
 @media(prefers-reduced-motion:reduce){.portfolio-category{transition:none}}
+
+.portfolio-category[hidden]{display:none!important}
