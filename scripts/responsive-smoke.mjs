@@ -124,8 +124,13 @@ const interactionPage = await browser.newPage({ viewport: { width: 390, height: 
 try {
   await interactionPage.goto(origin + "/bagusin/", { waitUntil: "domcontentloaded" });
   const homepageText = await interactionPage.locator("main").innerText();
-  if (!homepageText.includes("Penulisan Konten & SEO") || !homepageText.includes("Aplikasi Web & Sistem")) errors.push("Homepage: Indonesian service labels are missing");
-  if (homepageText.includes("Content Writing & SEO") || homepageText.includes("Web Applications & Systems")) errors.push("Homepage: outdated English service labels remain");
+  if (!homepageText.includes("Apa yang ingin Anda capai?")) errors.push("Homepage: primary needs-first pathfinder is missing");
+  // Service names belong to the service catalogue, not all inside the homepage hero.
+  await interactionPage.goto(origin + "/bagusin/work/", { waitUntil: "domcontentloaded" });
+  const serviceCatalogueText = await interactionPage.locator("main").innerText();
+  if (!serviceCatalogueText.includes("Penulisan Konten & SEO") || !serviceCatalogueText.includes("Aplikasi Web & Sistem Basis Data")) errors.push("Service catalogue: Indonesian service labels are missing");
+  if (serviceCatalogueText.includes("Content Writing & SEO") || serviceCatalogueText.includes("Web Applications & Systems")) errors.push("Service catalogue: outdated English service labels remain");
+  await interactionPage.goto(origin + "/bagusin/", { waitUntil: "domcontentloaded" });
   const menuToggle = interactionPage.locator("[data-mobile-menu-toggle]").first();
   if (!(await menuToggle.count())) errors.push("Homepage: mobile menu toggle is missing");
   else {
@@ -326,9 +331,12 @@ try {
   if (await interactionPage.locator('[data-panel="3"]').isHidden()) errors.push("Checkout: review did not advance to terms");
   await interactionPage.locator('[data-next="4"]').click();
   if (await interactionPage.locator('[data-panel="4"]').isVisible()) errors.push("Checkout: terms step allowed continuation without consent");
-  await interactionPage.locator("#terms-agree").check();
+  // The order is intentionally blocked until every required general and service-specific consent is checked.
+  const requiredConsents = await interactionPage.locator('[data-panel="3"] input[type="checkbox"][required]').all();
+  if (!requiredConsents.length) errors.push("Checkout: required consent checklist is missing");
+  for (const consent of requiredConsents) await consent.check({ force: true });
   await interactionPage.locator('[data-next="4"]').click();
-  if (await interactionPage.locator('[data-panel="4"]').isHidden()) errors.push("Checkout: terms consent did not advance to next steps");
+  if (await interactionPage.locator('[data-panel="4"]').isHidden()) errors.push("Checkout: complete consent checklist did not advance to next steps");
   const checkoutText = await interactionPage.locator("#main-content").innerText();
   if (!checkoutText.includes("follow-up dilakukan secara personal melalui WhatsApp")) errors.push("Checkout: manual WhatsApp follow-up process is not explained");
   if (!checkoutText.includes("baguskristian@gmail.com")) errors.push("Checkout: destination email is not disclosed");
