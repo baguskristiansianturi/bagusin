@@ -15,11 +15,28 @@
     const q = search.value.trim().toLocaleLowerCase("id");
     const selectedCategory = category.value;
     const selectedLevel = level.value;
-    const items = catalog.templates.filter(item => {
-      const haystack = [item.name, item.designName, item.description, ...(item.businessTypes || [])].join(" ").toLocaleLowerCase("id");
-      return (!q || haystack.includes(q)) && (!selectedCategory || item.category === selectedCategory) && (!selectedLevel || item.level === selectedLevel);
-    }).sort((a,b) => Number(Boolean(b.isNew)) - Number(Boolean(a.isNew)) || String(b.updated || "").localeCompare(String(a.updated || "")));
-    status.textContent = items.length ? `${items.length} pilihan tersedia` : "Belum ada desain yang cocok dengan pilihan ini.";
+
+    // Categories guide discovery, but must never hide a demo that is already available.
+    // Matching designs appear first; the rest of the available catalogue remains visible.
+    const items = catalog.templates
+      .filter(item => item.status === "available")
+      .filter(item => {
+        const haystack = [item.name, item.designName, item.description, ...(item.businessTypes || [])].join(" ").toLocaleLowerCase("id");
+        return (!q || haystack.includes(q)) && (!selectedLevel || item.level === selectedLevel);
+      })
+      .sort((a, b) =>
+        Number(Boolean(b.category === selectedCategory)) - Number(Boolean(a.category === selectedCategory)) ||
+        Number(Boolean(b.isNew)) - Number(Boolean(a.isNew)) ||
+        String(b.updated || "").localeCompare(String(a.updated || "")) ||
+        String(a.name || "").localeCompare(String(b.name || ""), "id")
+      );
+
+    const categoryName = catalog.categories.find(item => item.id === selectedCategory)?.name;
+    status.textContent = items.length
+      ? (selectedCategory
+          ? `${items.length} demo tersedia · desain kategori ${categoryName || selectedCategory} ditampilkan lebih dahulu`
+          : `${items.length} demo tersedia · koleksi terbaru ditampilkan lebih dahulu`)
+      : "Belum ada desain tersedia yang cocok dengan pencarian atau level ini.";
     grid.innerHTML = items.length ? items.map(item => {
       const cat = catalog.categories.find(c => c.id === item.category);
       const tier = catalog.levels.find(l => l.id === item.level);
@@ -34,7 +51,7 @@
           <div class="template-product__actions"><a class="button button--secondary" href="/bagusin/templates/preview/?template=${encodeURIComponent(item.id)}">Lihat preview <span aria-hidden="true">↗</span></a><a class="button button--accent" href="/bagusin/templates/preview/?template=${encodeURIComponent(item.id)}#spec-title">Paket &amp; harga <span aria-hidden="true">→</span></a><a class="text-link" href="/bagusin/contact/?service=websites&amp;mode=consultation&amp;template=${encodeURIComponent(item.id)}">Tanya sebelum memesan</a></div>
         </div>
       </article>`;
-    }).join("") : '<div class="template-empty"><h3>Desain belum tersedia</h3><p>Pilihan ini belum ada di katalog. Kamu tetap bisa meminta desain khusus atau menyampaikan kategori yang ingin ditambahkan.</p><p><a class="button button--accent" href="/bagusin/contact/?service=websites&mode=consultation">Diskusikan kebutuhanmu</a></p></div>';
+    }).join("") : '<div class="template-empty"><h3>Belum ada desain yang cocok</h3><p>Belum ada demo tersedia untuk kombinasi pencarian dan level ini. Hapus pencarian atau pilih level lain untuk melihat demo yang sudah tersedia. Kamu juga bisa meminta desain khusus.</p><p><a class="button button--accent" href="/bagusin/contact/?service=websites&mode=consultation">Diskusikan kebutuhanmu</a></p></div>';
   }
   fetch(base).then(response => { if (!response.ok) throw new Error("Catalog unavailable"); return response.json(); }).then(data => {
     catalog = data;
