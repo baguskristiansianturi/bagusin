@@ -134,63 +134,43 @@
 </aside>
 
 <main id="main-content" tabindex="-1">
-  <section class="home-hero section" aria-labelledby="home-title">
-    <div class="container home-hero__inner home-homepage-simple">
-      <div class="home-hero__copy">
-        <span class="section-kicker">Work. Travel. Build.</span>
-        <h1 id="home-title">Ide bagus, langkah digital yang lebih jelas.</h1>
-        <p class="home-hero__lead">Saya Bagus. Saya membantu bisnis membangun dan memperbaiki website, konten, serta solusi digital—dengan ruang lingkup dan biaya yang dibicarakan sejak awal.</p>
-        <div class="home-hero__actions">
-          <a class="button button--accent" href="/bagusin/work/">Jelajahi layanan <span aria-hidden="true">→</span></a>
-          <a class="button button--secondary" href="/bagusin/contact/">Ceritakan kebutuhan Anda</a>
-        </div>
-        <div class="home-hero__notes" aria-label="Prinsip layanan">
-          <span>Berbicara langsung dengan Bagus</span>
-          <span>Ruang lingkup jelas sebelum mulai</span>
-        </div>
+  <section class="home-hero home-hero--pathfinder section" aria-labelledby="home-title">
+    <div class="container home-pathfinder">
+      <div class="home-pathfinder__intro">
+        <span class="section-kicker">Bagusin · Layanan dan solusi digital</span>
+        <h1 id="home-title">Ada yang ingin diperbaiki atau dibangun?</h1>
+        <p class="home-hero__lead">Saya Bagus. Saya membantu merapikan website, alur digital, dan kebutuhan bisnis—mulai dari penyesuaian hingga solusi baru. Ceritakan kebutuhanmu; kita sepakati ruang lingkup sebelum pekerjaan dimulai.</p>
+        <p class="home-pathfinder__reassurance"><span aria-hidden="true">✓</span> Mulai dari kebutuhan, bukan dari daftar layanan. <span aria-hidden="true">✓</span> Tidak wajib langsung memesan.</p>
       </div>
-    </div>
-  </section>
-
-  <section class="section home-discovery-refresh" aria-labelledby="services-title">
+      <div class="home-pathfinder__panel" data-pathfinder>
+        <div class="home-pathfinder__topline"><span>LANGKAH 1 DARI 2</span><span data-pathfinder-progress>0% selesai</span></div>
+        <h2>Mana yang paling menggambarkan kondisi bisnis Anda?</h2>
+        <p class="home-pathfinder__hint">Pilih satu untuk melihat jalur yang disarankan.</p>
+        <div class="home-pathfinder__choices" role="group" aria-label="Pilih kondisi bisnis">
+          <button class="home-pathfinder__choice" type="button" data-stage="starter" aria-pressed="false"><span class="home-pathfinder__choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg></span><span><strong>Saya baru memulai</strong><small>Butuh arah, pelanggan pertama, dan fondasi digital.</small></span><span class="home-pathfinder__chevron" aria-hidden="true">→</span></button>
+          <button class="home-pathfinder__choice" type="button" data-stage="business" aria-pressed="false"><span class="home-pathfinder__choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V4h8v3M3 12h18M10 12v2h4v-2"/></svg></span><span><strong>Bisnis saya sudah berjalan</strong><small>Ingin menjangkau lebih banyak pelanggan dan berkembang.</small></span><span class="home-pathfinder__chevron" aria-hidden="true">→</span></button>
+          <button class="home-pathfinder__choice" type="button" data-stage="existing" aria-pressed="false"><span class="home-pathfinder__choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5M7 14h4M7 17h8"/></svg></span><span><strong>Saya sudah punya brand atau website</strong><small>Ingin memperbaiki, menambah fitur, atau menata ulang strategi.</small></span><span class="home-pathfinder__chevron" aria-hidden="true">→</span></button>
+        </div>
+        <div class="home-pathfinder__followup" data-followup hidden><div class="home-pathfinder__divider"></div><div class="home-pathfinder__topline"><span>LANGKAH 2 DARI 2</span><span>Pilih tujuan</span></div><h3 data-followup-title>Apa yang paling penting bagi Anda sekarang?</h3><div class="home-pathfinder__goal-list" data-goals role="group" aria-label="Pilih tujuan bisnis"></div></div>
+        <section class="home-pathfinder__result" data-result aria-live="polite" hidden><div class="home-pathfinder__result-head"><span class="home-pathfinder__result-icon" aria-hidden="true">✓</span><div><span class="section-kicker">Jalur awal yang disarankan</span><h3 data-result-title></h3></div></div><p data-result-summary></p><ol class="home-pathfinder__steps" data-result-steps></ol><p class="home-pathfinder__caveat" data-result-caveat></p><div class="home-pathfinder__result-actions"><a class="button button--secondary" data-consult-link href="/bagusin/contact/?service=consultation&amp;mode=consultation">Masih perlu arahan? Konsultasi opsional <span aria-hidden="true">→</span></a><button class="button button--secondary" type="button" data-reset-pathfinder>Ubah jawaban</button></div><p class="home-pathfinder__no-pressure">Konsultasi membantu memeriksa strategi dan kelayakannya. Anda bebas berhenti setelah mendapat arahan, mengerjakan bertahap, atau meminta Bagusin menangani lebih banyak.</p></section>
+<section class="section home-discovery-refresh" aria-labelledby="services-title">
     <div class="container">
       <div class="home-discovery-refresh__heading">
-        <div><span class="section-kicker">Layanan</span><h2 id="services-title" class="section-title">Apa yang ingin Anda kerjakan?</h2><p class="home-section__description">Pilih kebutuhan yang paling dekat. Detail, ruang lingkup, dan langkah berikutnya tersedia di setiap layanan.</p></div>
+        <div><span class="section-kicker">Yang bisa dibantu</span><h2 id="services-title" class="section-title">Apa yang ingin diperbaiki atau dibangun?</h2><p class="home-section__description">Dari perubahan kecil pada website hingga solusi digital baru untuk mendukung bisnis. Pilihan layanan mencakup Penulisan Konten &amp; SEO serta Aplikasi Web &amp; Sistem Basis Data.</p></div>
         <a class="text-link" href="/bagusin/work/">Semua layanan <span aria-hidden="true">→</span></a>
       </div>
       <div class="home-feature-grid home-feature-grid--services">
         <a class="home-feature-card" href="/bagusin/work/maintenance-uiux/">
           <img class="home-feature-card__image" src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Contoh desain website bisnis" width="900" height="650" fetchpriority="high">
-          <span class="home-feature-card__body"><span class="home-feature-card__eyebrow">Website</span><h3>Perbaiki website yang ada</h3><p>Rapikan tampilan, konten, halaman, dan alur pengunjung.</p><span class="home-feature-card__link">Lihat layanan <span aria-hidden="true">→</span></span></span>
+          <span class="home-feature-card__body"><span class="home-feature-card__eyebrow">Website</span><h3>Perbaiki website yang ada</h3><p>Ubah copy, tambah halaman, rapikan alur, dan perjelas tindakan pengunjung.</p><span class="home-feature-card__link">Lihat layanan <span aria-hidden="true">→</span></span></span>
         </a>
         <a class="home-feature-card" href="/bagusin/work/seo-content/">
           <img class="home-feature-card__image" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Perencanaan konten untuk bisnis" width="900" height="650" loading="lazy">
-          <span class="home-feature-card__body"><span class="home-feature-card__eyebrow">Konten &amp; SEO</span><h3>Buat bisnis lebih mudah dipahami</h3><p>Perjelas pesan, susun konten, dan perbaiki fondasi pencarian.</p><span class="home-feature-card__link">Lihat layanan <span aria-hidden="true">→</span></span></span>
+          <span class="home-feature-card__body"><span class="home-feature-card__eyebrow">Penulisan Konten &amp; SEO</span><h3>Perjelas konten dan visibilitas</h3><p>Perbaiki copy, struktur konten, dan SEO agar pengunjung lebih mudah memahami penawaran.</p><span class="home-feature-card__link">Lihat layanan <span aria-hidden="true">→</span></span></span>
         </a>
         <a class="home-feature-card" href="/bagusin/work/web-applications/">
-          <img class="home-feature-card__image" src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Pengembangan solusi digital" width="900" height="650" loading="lazy">
-          <span class="home-feature-card__body"><span class="home-feature-card__eyebrow">Aplikasi &amp; sistem</span><h3>Bangun solusi baru</h3><p>Mulai dari kebutuhan sederhana hingga alur kerja yang lebih teratur.</p><span class="home-feature-card__link">Lihat layanan <span aria-hidden="true">→</span></span></span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-
-
-  <section class="section home-discovery-refresh home-new-in-bagusin" aria-labelledby="new-title">
-    <div class="container">
-      <div class="home-discovery-refresh__heading">
-        <div><span class="section-kicker">Baru tersedia</span><h2 id="new-title" class="section-title">Lihat contoh sebelum memutuskan</h2><p class="home-section__description">Demo membantu membayangkan hasil. Pilih konsep yang ada atau diskusikan kebutuhan khusus.</p></div>
-        <a class="text-link" href="/bagusin/collections/">Lihat semua <span aria-hidden="true">→</span></a>
-      </div>
-      <div class="home-feature-grid home-feature-grid--new">
-        <a class="home-feature-card home-feature-card--featured" href="https://baguskristiansianturi.github.io/Sewa-Mobil-Bali/">
-          <img class="home-feature-card__image" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Mobil sebagai contoh demo website rental" width="1200" height="900" loading="lazy">
-          <span class="home-feature-card__body"><span class="home-feature-card__eyebrow">Demo website</span><h3>Website rental mobil</h3><p>Jelajahi contoh website untuk usaha penyewaan kendaraan.</p><span class="home-feature-card__link">Buka demo <span aria-hidden="true">↗</span></span></span>
-        </a>
-        <a class="home-feature-card" href="/bagusin/collections/">
-          <img class="home-feature-card__image" src="https://images.unsplash.com/photo-1460925895917-afdab8277c52?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Desain antarmuka produk digital" width="900" height="650" loading="lazy">
-          <span class="home-feature-card__body"><span class="home-feature-card__eyebrow">Koleksi</span><h3>Template dan produk digital</h3><p>Temukan titik awal yang bisa disesuaikan untuk kebutuhanmu.</p><span class="home-feature-card__link">Jelajahi koleksi <span aria-hidden="true">→</span></span></span>
+          <img class="home-feature-card__image" src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Tim mengembangkan sistem digital" width="900" height="650" loading="lazy">
+          <span class="home-feature-card__body"><span class="home-feature-card__eyebrow" >Aplikasi Web &amp; Sistem Basis Data</span><h3>Bangun dari awal</h3><p>Mulai dari demo yang tersedia, sesuaikan desainnya, atau rancang solusi khusus.</p><span class="home-feature-card__link">Lihat layanan <span aria-hidden="true">→</span></span></span>
         </a>
       </div>
     </div>
@@ -198,31 +178,81 @@
 
 <section class="section home-discovery-refresh home-learning-private" aria-labelledby="learning-title">
   <div class="container">
-    <div class="home-learning-cta">
-      <div>
+    <div class="home-learning-cta home-learning-cta--featured">
+      <div class="home-learning-cta__main">
         <span class="section-kicker">Pembelajaran privat</span>
-        <h2 id="learning-title">Belajar digital secara personal.</h2>
-        <p>Pembelajaran dilakukan di rumah atau lokasi peserta yang disepakati di Bali, bukan di tempat kursus Bagusin. Lihat jalur, materi, prasyarat, dan biaya sebelum mendaftar.</p>
+        <h2 id="learning-title">Belajar digital dengan bimbingan yang mengikuti kebutuhan Anda.</h2>
+        <p>Belajar satu peserta dengan pendampingan personal, dimulai dari kemampuan dan tujuan Anda. Sesi dilakukan di rumah atau lokasi peserta yang disepakati di Bali—Bagusin tidak memiliki tempat belajar fisik.</p>
+        <div class="home-learning-highlights" aria-label="Keunggulan pembelajaran">
+          <div class="home-learning-highlight"><span aria-hidden="true">✓</span><div><strong>Personal dan terarah</strong><p>Materi mengikuti kemampuan awal serta tujuan belajar.</p></div></div>
+          <div class="home-learning-highlight"><span aria-hidden="true">⌖</span><div><strong>Di lokasi peserta</strong><p>Waktu dan area pertemuan disepakati sebelum sesi dimulai.</p></div></div>
+          <div class="home-learning-highlight"><span aria-hidden="true">◇</span><div><strong>Persiapan transparan</strong><p>Perangkat, prasyarat, materi, durasi, dan biaya dijelaskan terlebih dahulu.</p></div></div>
+        </div>
       </div>
-      <div class="home-learning-cta__aside">
-        <strong>Mulai dari kemampuan Anda</strong>
-        <p>Setiap jalur menjelaskan perangkat dan persiapan yang dibutuhkan.</p>
-        <a class="button button--accent" href="/bagusin/learning/">Lihat jalur pembelajaran <span aria-hidden="true">→</span></a>
-      </div>
+      <aside class="home-learning-cta__aside" aria-label="Langkah memulai pembelajaran">
+        <span class="home-learning-cta__eyebrow">Mulai dari sini</span>
+        <strong>Temukan jalur belajar yang sesuai</strong>
+        <p>Periksa materi dan kesiapan sebelum memilih program.</p>
+        <ul class="home-learning-checklist">
+          <li>Lihat level dan jalur pembelajaran</li>
+          <li>Periksa perangkat serta prasyarat</li>
+          <li>Tinjau materi, durasi, dan biaya</li>
+        </ul>
+        <a class="button button--accent" href="/bagusin/learning/">Jelajahi semua course <span aria-hidden="true">→</span></a>
+        <p class="home-learning-cta__note">Contoh: pembelajaran membuat website memerlukan komputer atau laptop yang bisa digunakan saat sesi.</p>
+      </aside>
     </div>
   </div>
 </section>
 
-  <section class="section home-discovery-refresh" aria-labelledby="latest-stories-title"><div class="container"><div class="home-discovery-refresh__heading"><div><span class="section-kicker">Baru di Blog</span><h2 id="latest-stories-title" class="section-title">Catatan dan hal yang sedang dijelajahi</h2><p class="home-section__description">Tiga pilihan dari Blog Bagusin. Untuk topik lain, jelajahi artikel berdasarkan kategori.</p></div><a class="text-link" href="/bagusin/blog/">Jelajahi Blog <span aria-hidden="true">→</span></a></div><div class="home-editorial-grid">
+<section class="section home-discovery-refresh" aria-labelledby="latest-stories-title"><div class="container"><div class="home-discovery-refresh__heading"><div><span class="section-kicker">Baru di Blog</span><h2 id="latest-stories-title" class="section-title">Catatan dan hal yang sedang dijelajahi</h2><p class="home-section__description">Tiga pilihan dari Blog Bagusin. Untuk topik lain, jelajahi artikel berdasarkan kategori.</p></div><a class="text-link" href="/bagusin/blog/">Jelajahi Blog <span aria-hidden="true">→</span></a></div><div class="home-editorial-grid">
 <a class="home-editorial-card" href="/bagusin/blog/memulai-kembali-bagusin/"><img class="home-editorial-card__image" src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Ruang kerja untuk merancang ulang arah dan pekerjaan" width="900" height="560" loading="lazy"><span class="home-editorial-card__body"><span class="home-editorial-card__eyebrow">Catatan terbaru</span><h3>Memulai kembali Bagusin</h3><p>Menata ulang arah, isi, dan cara Bagusin tumbuh menjadi dokumentasi sekaligus ruang untuk berkarya.</p><span class="home-editorial-card__link">Baca cerita →</span></span></a>
 <a class="home-editorial-card" href="/bagusin/blog/bekerja-dari-mana-saja/"><img class="home-editorial-card__image" src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Orang bekerja bersama di ruang kerja" width="900" height="560" loading="lazy"><span class="home-editorial-card__body"><span class="home-editorial-card__eyebrow">Kerja dan kehidupan</span><h3>Bekerja dari mana saja</h3><p>Mengenal peluang, tantangan, dan hal yang perlu disiapkan untuk bekerja dengan lebih fleksibel.</p><span class="home-editorial-card__link">Baca cerita →</span></span></a>
 <a class="home-editorial-card" href="/bagusin/blog/pantai-kuta-bali/"><img class="home-editorial-card__image" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Pantai tropis sebagai bagian dari cerita perjalanan" width="900" height="560" loading="lazy"><span class="home-editorial-card__body"><span class="home-editorial-card__eyebrow">Perjalanan</span><h3>Catatan dari Bali</h3><p>Tempat, pengalaman, dan hal menarik yang menjadi bagian dari perjalanan.</p><span class="home-editorial-card__link">Jelajahi cerita →</span></span></a>
 </div></div></section>
 
+<section class="section home-discovery-refresh" aria-labelledby="services-title">
+    <div class="container">
+      <div class="home-discovery-refresh__heading">
+        <div><span class="section-kicker">Yang bisa dibantu</span><h2 id="services-title" class="section-title">Apa yang ingin diperbaiki atau dibangun?</h2><p class="home-section__description">Dari perubahan kecil pada website hingga solusi digital baru untuk mendukung bisnis. Pilihan layanan mencakup Penulisan Konten &amp; SEO serta Aplikasi Web &amp; Sistem Basis Data.</p></div>
+        <a class="text-link" href="/bagusin/work/">Semua layanan <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="home-feature-grid home-feature-grid--services">
+        <a class="home-feature-card" href="/bagusin/work/maintenance-uiux/">
+          <img class="home-feature-card__image" src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Contoh desain website bisnis" width="900" height="650" fetchpriority="high">
+          <span class="home-feature-card__body"><span class="home-feature-card__eyebrow">Website</span><h3>Perbaiki website yang ada</h3><p>Ubah copy, tambah halaman, rapikan alur, dan perjelas tindakan pengunjung.</p><span class="home-feature-card__link">Lihat layanan <span aria-hidden="true">→</span></span></span>
+        </a>
+        <a class="home-feature-card" href="/bagusin/work/seo-content/">
+          <img class="home-feature-card__image" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Perencanaan konten untuk bisnis" width="900" height="650" loading="lazy">
+          <span class="home-feature-card__body"><span class="home-feature-card__eyebrow">Penulisan Konten &amp; SEO</span><h3>Perjelas konten dan visibilitas</h3><p>Perbaiki copy, struktur konten, dan SEO agar pengunjung lebih mudah memahami penawaran.</p><span class="home-feature-card__link">Lihat layanan <span aria-hidden="true">→</span></span></span>
+        </a>
+        <a class="home-feature-card" href="/bagusin/work/web-applications/">
+          <img class="home-feature-card__image" src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Tim mengembangkan sistem digital" width="900" height="650" loading="lazy">
+          <span class="home-feature-card__body"><span class="home-feature-card__eyebrow" >Aplikasi Web &amp; Sistem Basis Data</span><h3>Bangun dari awal</h3><p>Mulai dari demo yang tersedia, sesuaikan desainnya, atau rancang solusi khusus.</p><span class="home-feature-card__link">Lihat layanan <span aria-hidden="true">→</span></span></span>
+        </a>
+      </div>
+    </div>
+  </section>/bagusin/collections/">Jelajahi koleksi <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="home-path-grid">
+        <a class="home-path-card" style="--path-bg:#f1f7f4" href="/bagusin/collections/"><span class="home-path-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="15" rx="2"/><path d="M8 21h8M12 19v2M7 8h10M7 12h6"/></svg></span><h3>Website perusahaan</h3><p>Bangun kepercayaan dan jelaskan apa yang bisnis tawarkan.</p><span class="home-path-card__arrow">Lihat contoh →</span></a>
+        <a class="home-path-card" style="--path-bg:#f7f4ef" href="/bagusin/collections/"><span class="home-path-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5h16v14H4zM8 9h8M8 13h5"/></svg></span><h3>Landing page</h3><p>Fokus pada satu produk, layanan, kampanye, atau penawaran.</p><span class="home-path-card__arrow">Lihat contoh →</span></a>
+        <a class="home-path-card" style="--path-bg:#f1f4f9" href="/bagusin/collections/"><span class="home-path-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg></span><h3>Katalog &amp; pemesanan</h3><p>Tampilkan pilihan produk dan bantu pelanggan mengambil langkah berikutnya.</p><span class="home-path-card__arrow">Lihat contoh →</span></a>
+        <a class="home-path-card" style="--path-bg:#f8f1f2" href="/bagusin/work/web-applications/"><span class="home-path-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.8 1.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5v.2h-2.6v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1-1.8-1.8.1-.1A1.7 1.7 0 0 0 8 15a1.7 1.7 0 0 0-1.5-1H6.3v-2.6h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1 1.8-1.8.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.5v-.2H15v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1 1.8 1.8-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5 1h.2v2.6h-.2a1.7 1.7 0 0 0-1.5 1z"/></svg></span><h3>Sistem operasional</h3><p>Kurangi proses manual dengan alur kerja yang lebih teratur.</p><span class="home-path-card__arrow">Pilih layanan →</span></a>
+      </div>
+    </div>
+  </section>
+
+  
+
 
   
 
   
+<section class="section home-discovery-refresh" aria-labelledby="bagusin-principles-title"><div class="container"><div class="home-discovery-refresh__heading"><div><span class="section-kicker">Cara Bagusin bekerja</span><h2 id="bagusin-principles-title" class="section-title">Jelas kebutuhannya. Masuk akal langkahnya.</h2><p class="home-section__description">Bagusin tumbuh dari pekerjaan, pengalaman, dan pembelajaran nyata. Pendekatannya tetap personal, terbuka, dan berangkat dari kebutuhan yang sebenarnya.</p></div></div><div class="home-principles">
+<article class="home-principle"><span class="home-principle__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.2 4.2M8 11h5"/></svg></span><h3>Kenapa bekerja dengan Bagus?</h3><p>Anda dapat membahas kebutuhan langsung dengan Bagus. Kita memahami masalah dan tujuan terlebih dahulu, lalu menyepakati ruang lingkup, biaya, dan waktu sebelum pekerjaan dimulai.</p><a class="text-link" href="/bagusin/work/">Lihat layanan <span aria-hidden="true">→</span></a></article>
+<article class="home-principle"><span class="home-principle__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 4.5v17M8 7h8M8 11h8M8 15h5"/></svg></span><h3>Kenapa membaca Blog Bagusin?</h3><p>Artikel dibuat untuk menjelaskan pertanyaan secara mendalam, dengan bahasa sendiri, contoh yang relevan, dan sumber yang dapat diperiksa bila diperlukan—bukan salinan artikel dari tempat lain.</p><a class="text-link" href="/bagusin/blog/">Jelajahi artikel <span aria-hidden="true">→</span></a></article>
+</div></div></section>
 <section class="section home-discovery-refresh">
     <div class="container">
       <div class="home-video-strip">
