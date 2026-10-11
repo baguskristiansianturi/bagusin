@@ -19,6 +19,26 @@
     business: [["customers","Menambah calon pelanggan dan penjualan"],["organic","Membangun visibilitas organik jangka panjang"],["conversion","Memperbaiki hasil dari website yang sudah ada"],["allin","Menyusun strategi menyeluruh sesuai kondisi bisnis"]],
     existing: [["conversion","Website belum menghasilkan kontak atau penjualan"],["website","Memperbaiki tampilan, copy, struktur, atau menambah halaman"],["system","Menambah fitur, integrasi, atau sistem operasional"],["marketing","Menilai apakah SEO atau iklan layak dijalankan"],["allin","Menganalisis dan mengelola perbaikan secara menyeluruh"]]
   };
+  const isEnglish = window.location.pathname.split("/").includes("en");
+  const optionsEn = {
+    starter: [["customers","Get your first customers soon"],["organic","Build long-term online visibility"],["allin","Get help planning and managing the whole process"]],
+    business: [["customers","Attract more leads and sales"],["organic","Grow long-term organic visibility"],["conversion","Improve results from my current website"],["allin","Plan a broader strategy for my business"]],
+    existing: [["conversion","My website is not generating leads or sales"],["website","Improve design, copy, structure, or add pages"],["system","Add features, integrations, or an operational system"],["marketing","Assess whether SEO or ads make sense"],["allin","Review and manage improvements end to end"]]
+  };
+  const plansEn = {
+    "starter:customers": {title:"Start with a practical customer-acquisition path",summary:"Clarify the offer and make it easy to contact you before spending heavily on promotion.",steps:["Define your main customers, core offer, service area, and why people should choose you.","Set up a Google Business Profile if your local business is eligible.","Create a focused landing page with one clear offer and action.","Test customer response and measure results before increasing ad spend."],caveat:"Check margins, competition, operational readiness, and follow-up capacity before advertising."},
+    "starter:organic": {title:"Build your organic foundation step by step",summary:"Create digital assets that explain your business clearly and can improve over time.",steps:["Clarify your business model, target customers, and service structure.","Build a trustworthy, useful company website.","Set up SEO foundations and pages that answer customer needs.","Publish useful content and review visibility and incoming enquiries."],caveat:"SEO takes time; results cannot be guaranteed or promised by a specific date."},
+    "starter:allin": {title:"Create a tailored end-to-end plan",summary:"Bagusin first needs to understand your business model, goals, budget, and operational capacity.",steps:["Review the business model, offer, target customers, and competition.","Prioritize work by impact, cost, and capacity.","Map stages from digital foundations to customer acquisition.","Agree on scope, cost, timeline, and success measures."],caveat:"End-to-end support covers the agreed scope; it does not mean unlimited work."},
+    "business:customers": {title:"Strengthen conversion before scaling promotion",summary:"Find the bottleneck limiting growth before increasing marketing spend.",steps:["Review customer sources, the offer, and how prospects contact you.","Improve the relevant page or landing page for the campaign goal.","Make sure enquiries, follow-up, and sales outcomes are tracked.","Test paid ads only when costs and margins make sense."],caveat:"Set promotion budgets around business economics, not traffic targets alone."},
+    "business:organic": {title:"Strengthen long-term digital assets",summary:"Build trust and visibility so the business is not entirely dependent on paid ads.",steps:["Audit the website, business profile, and customer search needs.","Prioritize genuinely useful service pages.","Improve technical SEO and create content around customer questions.","Review progress and update pages based on evidence."],caveat:"Not every business needs to publish large volumes of content."},
+    "business:conversion": {title:"Find the sales bottleneck before buying more traffic",summary:"More visitors do not automatically mean more sales if the message or conversion process is unclear.",steps:["Review the offer, traffic sources, landing pages, and visitor actions.","Improve copy, calls to action, forms, speed, or contact flow based on evidence.","Measure the change before increasing promotion spend."],caveat:"Do not assume design is the only cause of poor performance."},
+    "business:allin": {title:"Plan a coordinated business improvement",summary:"Start with analysis so website, marketing, and operations support the same goals.",steps:["Review your model, customers, offer, competition, and budget.","Identify the main bottlenecks and prioritize them.","Create a phased roadmap and defined scope.","Agree on what Bagusin will handle and what your team will own."],caveat:"Recommendations may change after reviewing the actual situation."},
+    "existing:conversion": {title:"Audit conversion before rebuilding the website",summary:"Keep what already works and focus on the barriers that actually reduce results.",steps:["Review messaging, calls to action, forms, mobile usability, speed, and traffic sources.","Examine available data or conduct a structured review.","Prioritize high-impact improvements and measure the outcome."],caveat:"A rebuild is not automatically the answer; targeted fixes may cost less."},
+    "existing:website": {title:"Improve existing assets with a clear brief",summary:"Changes should fit your brand, user needs, technical constraints, and business goals.",steps:["Describe the problem and identify the pages that need attention.","Define the brief, priorities, technical constraints, and budget.","Decide whether to change copy, UI/UX, structure, add pages, or rebuild.","Confirm scope and timing before work begins."],caveat:"Bagusin will explain if a request conflicts with the goal, feasibility, or budget."},
+    "existing:system": {title:"Map the process before adding a system",summary:"Start with the work that needs to improve, not with a technology choice.",steps:["Map the current process, users, and pain points.","Define needs, integrations, data, access, and risks.","Compare improving the existing setup with building something new.","Plan a phased implementation that can be tested."],caveat:"Not every process needs a custom application."},
+    "existing:marketing": {title:"Assess marketing viability before spending",summary:"SEO and ads should be chosen based on customers, margins, competition, and sales readiness.",steps:["Define the target, transaction value, margin, and realistic acquisition cost.","Audit the landing page, conversion tracking, and follow-up process.","Compare organic growth, advertising, and offer improvements.","Run a measured test only when the assumptions are viable."],caveat:"If the risk is too high, Bagusin will explain why and suggest alternatives."},
+    "existing:allin": {title:"Get an end-to-end improvement plan",summary:"Review the brand, website, marketing, and operations to identify the work that truly matters.",steps:["Review the current business and digital systems.","Set priorities based on impact, risk, and budget.","Decide what to keep, improve, add, or rebuild.","Agree on phases and evaluation criteria before work begins."],caveat:"You are not required to continue after the consultation."}
+  };
   const plans = {
     "starter:customers": {title:"Mulai dari jalur mendapatkan pelanggan",summary:"Prioritaskan penawaran yang jelas dan jalur kontak yang mudah sebelum mengeluarkan biaya promosi besar.",steps:["Tentukan pelanggan utama, layanan unggulan, area layanan, dan alasan memilih bisnis Anda.","Siapkan Google Business Profile jika bisnis lokal Anda memenuhi syarat.","Buat landing page yang fokus pada satu penawaran dan satu tindakan utama.","Uji respons calon pelanggan dan ukur hasil sebelum menaikkan anggaran iklan."],caveat:"Periksa margin, persaingan, kesiapan operasional, dan kemampuan menindaklanjuti pelanggan sebelum beriklan."},
     "starter:organic": {title:"Bangun fondasi organik secara bertahap",summary:"Bangun aset digital yang menjelaskan bisnis dengan baik dan dapat dikembangkan dari waktu ke waktu.",steps:["Perjelas model bisnis, target pelanggan, dan struktur layanan.","Bangun website profil perusahaan yang informatif dan tepercaya.","Siapkan fondasi SEO dan halaman yang menjawab kebutuhan pelanggan.","Kembangkan konten dan evaluasi visibilitas serta pertanyaan yang masuk."],caveat:"SEO memerlukan waktu; hasil tidak dapat dijamin atau dipastikan pada tanggal tertentu."},
@@ -37,7 +57,7 @@
     stage = next;
     stageButtons.forEach(button => button.setAttribute("aria-pressed", String(button.dataset.stage === stage)));
     goals.replaceChildren();
-    options[stage].forEach(([value, label]) => {
+    (isEnglish ? optionsEn : options)[stage].forEach(([value, label]) => {
       const button = document.createElement("button");
       button.type = "button";
       button.className = "home-pathfinder__goal";
@@ -50,15 +70,15 @@
     followup.hidden = false;
     result.hidden = true;
     const heading = root.querySelector("[data-followup-title]");
-    heading.textContent = stage === "starter" ? "Apa yang paling Anda butuhkan saat ini?" : stage === "business" ? "Apa yang paling ingin ditingkatkan?" : "Apa perubahan yang ingin Anda capai?";
+    heading.textContent = isEnglish ? (stage === "starter" ? "What do you need most right now?" : stage === "business" ? "What would you most like to improve?" : "What change are you looking to make?") : (stage === "starter" ? "Apa yang paling Anda butuhkan saat ini?" : stage === "business" ? "Apa yang paling ingin ditingkatkan?" : "Apa perubahan yang ingin Anda capai?");
     heading.setAttribute("tabindex", "-1");
-    progress.textContent = "50% selesai";
+    progress.textContent = isEnglish ? "Step 2 of 2" : "50% selesai";
     followup.scrollIntoView({behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start"});
     heading.focus({preventScroll:true});
   }
   function showPlan(goal) {
     goals.querySelectorAll("[data-goal]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.goal === goal)));
-    const plan = plans[stage + ":" + goal];
+    const plan = (isEnglish ? plansEn : plans)[stage + ":" + goal];
     if (!plan) return;
     title.textContent = plan.title;
     title.setAttribute("tabindex", "-1");
@@ -66,9 +86,9 @@
     steps.replaceChildren();
     plan.steps.forEach(text => { const li = document.createElement("li"); li.textContent = text; steps.appendChild(li); });
     caveat.textContent = plan.caveat;
-    consult.href = "/bagusin/contact/?" + new URLSearchParams({service:"consultation",mode:"consultation",path:stage,goal:goal,source:"homepage-recommender"}).toString();
+    consult.href = (isEnglish ? "/bagusin/en/contact/?" : "/bagusin/contact/?") + new URLSearchParams({service:"consultation",mode:"consultation",path:stage,goal:goal,source:"homepage-recommender"}).toString();
     result.hidden = false;
-    progress.textContent = "100% selesai";
+    progress.textContent = isEnglish ? "Recommendation ready" : "100% selesai";
     result.scrollIntoView({behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start"});
     title.focus({preventScroll:true});
   }
@@ -78,7 +98,7 @@
     stageButtons.forEach(button => button.setAttribute("aria-pressed", "false"));
     followup.hidden = true;
     result.hidden = true;
-    progress.textContent = "0% selesai";
+    progress.textContent = isEnglish ? "Step 1 of 2" : "0% selesai";
     root.scrollIntoView({behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start"});
     stageButtons[0]?.focus({preventScroll:true});
   });
