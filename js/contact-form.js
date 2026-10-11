@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (mode === "course-interest" && selectedLearningLabel && briefField) {
     if (serviceHeading) serviceHeading.textContent = selectedLearningLabel + (isEnglish ? " learning inquiry" : " — pertanyaan pembelajaran");
     if (!briefField.value.includes(selectedLearningLabel)) {
-      briefField.value = (isEnglish ? "Selected learning goal: " : "Bidang belajar pilihan: ") + selectedLearningLabel + "\\n\\n" + briefField.value;
+      briefField.value = (isEnglish ? "Selected learning goal: " : "Bidang belajar pilihan: ") + selectedLearningLabel + "\n\n" + briefField.value;
     }
     const context = document.getElementById("service-context");
     if (context && !context.querySelector("[data-learning-selection]")) {
