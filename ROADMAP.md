@@ -179,3 +179,12 @@ Homepage menjelaskan bantuan Bagus dengan cepat, mengutamakan layanan, menyediak
 - Added a consistent four-step practice/evaluation section to all 16 detailed course pages, responsive on mobile and desktop.
 - Static validation performed after these changes: 16 master domains and 16 domain actions per language; 37 legacy topic items; all eight detail pages per language contain the practice/evaluation section; all contact inquiry selections map to named labels.
 - Still required before calling the stage fully complete: validate JavaScript execution in a browser, keyboard/screen-reader interaction, mobile visual layout, and public GitHub Pages deployment.
+
+
+## Homepage and article FAQ correction — 11 October 2026
+
+- Removed the YouTube promotional card and homepage CTA from both Indonesian and English homepages. The channel remains available as a navigation/footer link for future use, without presenting it as an active content destination.
+- Replaced the two-part homepage closing promotion with one clear consultation CTA, keeping the current consultation price and scope.
+- Added topic-specific, accessible FAQ accordions to informational posts about domains, hosting, landing pages, and working from anywhere in Indonesian; added the matching English FAQ to the English working-from-anywhere article.
+- Added matching FAQPage structured data for the visible question-and-answer content and shared responsive styling in the article stylesheet.
+- Validation still required after commit: check the rendered pages on desktop/mobile and verify GitHub Pages deployment before considering this complete.
