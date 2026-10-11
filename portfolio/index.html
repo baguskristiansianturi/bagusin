@@ -80,28 +80,26 @@
 </aside>
 
 <main id="main-content" tabindex="-1" class="portfolio-page">
-  <section class="section portfolio-hero">
+  <section class="section portfolio-hero portfolio-hero--compact">
     <div class="container portfolio-hero__inner">
       <div>
-        <span class="section-kicker">Portofolio · Proyek dan proses</span>
-        <h1>Pekerjaan nyata, proses yang jujur, dan konteks yang jelas.</h1>
-        <p class="portfolio-hero__lead">Portofolio ini mendokumentasikan proyek yang memang bisa dibagikan. Pekerjaan untuk klien hanya akan ditampilkan jika ada izin. Sementara itu, proyek milik sendiri dan eksperimen diberi label yang jelas agar tidak disalahartikan sebagai proyek klien.</p>
+        <span class="section-kicker">Portofolio</span>
+        <h1>Proyek, konsep, dan eksperimen.</h1>
+        <p class="portfolio-hero__lead">Lihat karya yang sedang dibangun dan proses di baliknya.</p>
       </div>
-      <aside class="portfolio-hero__aside">
-        <span class="portfolio-hero__aside-label">Tiga label</span>
-        <div class="portfolio-statuses"><span>PROYEK</span><span>KONSEP</span><span>EKSPERIMEN</span></div>
-      </aside>
     </div>
   </section>
 
+  
+
   <section class="section" aria-labelledby="selected-work-title">
     <div class="container">
-      <div class="section-header">
-        <span class="section-kicker">Proyek milik sendiri & eksperimen</span>
-        <h2 id="selected-work-title" class="section-title">Apa yang sedang dibangun dan dipelajari.</h2>
-        <p class="section-description">Kartu di bawah adalah proyek internal atau eksperimen yang dibuat untuk mengembangkan gagasan dan proses. Bagian ini bukan pengganti studi kasus klien; proyek klien akan ditambahkan secara terpisah setelah izin publikasi diperoleh.</p>
+      <div class="portfolio-categories" aria-label="Kategori portofolio">
+        <button class="portfolio-category is-active" type="button" data-portfolio-filter="all" aria-pressed="true"><span>Semua</span><strong data-portfolio-count="all">0</strong></button>
+        <button class="portfolio-category" type="button" data-portfolio-filter="proyek" aria-pressed="false"><span>Proyek</span><strong data-portfolio-count="proyek">0</strong></button>
+        <button class="portfolio-category" type="button" data-portfolio-filter="konsep" aria-pressed="false"><span>Konsep</span><strong data-portfolio-count="konsep">0</strong></button>
+        <button class="portfolio-category" type="button" data-portfolio-filter="eksperimen" aria-pressed="false"><span>Eksperimen</span><strong data-portfolio-count="eksperimen">0</strong></button>
       </div>
-
       <div class="portfolio-grid">
         <article class="portfolio-project portfolio-project--featured">
           <div class="portfolio-project__visual portfolio-project__visual--journal"><span>Blog personal · Perangkat lunak</span><strong>Bagusin</strong></div>
@@ -189,6 +187,7 @@
   </div>
 </footer>
 </div>
+<script src="../js/portfolio-catalog.js" defer></script>
 <script src="../js/navigation.js" defer></script>
 <script src="../js/main.js" defer></script>
 </body>
