@@ -194,8 +194,12 @@ try {
   if (contactOptionsText.includes("software engineering") || contactOptionsText.includes("SEO content")) errors.push("Contact page: English service terms remain in Indonesian copy");
   let contactEmailPayload = null;
   await interactionPage.route("https://formsubmit.co/ajax/baguskristian@gmail.com", async (route) => {
+    if (route.request().method() === "OPTIONS") {
+      await route.fulfill({ status: 204, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" } });
+      return;
+    }
     contactEmailPayload = route.request().postDataJSON();
-    await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ success: "true", message: "Test submission accepted" }) });
+    await route.fulfill({ status: 200, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" }, contentType: "application/json", body: JSON.stringify({ success: "true", message: "Test submission accepted" }) });
   });
   await interactionPage.locator("#project-form input[name=name]").fill("Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("test@example.com");
@@ -234,7 +238,11 @@ try {
   // If the email service fails, the contact form must provide an honest manual email fallback.
   await interactionPage.unroute("https://formsubmit.co/ajax/baguskristian@gmail.com");
   await interactionPage.route("https://formsubmit.co/ajax/baguskristian@gmail.com", async (route) => {
-    await route.fulfill({ status: 500, contentType: "application/json", body: JSON.stringify({ success: "false", message: "Simulated email service failure" }) });
+    if (route.request().method() === "OPTIONS") {
+      await route.fulfill({ status: 204, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" } });
+      return;
+    }
+    await route.fulfill({ status: 500, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" }, contentType: "application/json", body: JSON.stringify({ success: "false", message: "Simulated email service failure" }) });
   });
   await interactionPage.goto(origin + "/bagusin/contact/", { waitUntil: "domcontentloaded" });
   await interactionPage.locator("#project-form input[name=name]").fill("Fallback Test User");
@@ -306,6 +314,9 @@ try {
   if (await interactionPage.locator("#service").inputValue() !== "landing-pages") errors.push("Checkout: incoming service was not preselected");
   await interactionPage.locator("#name").fill("Test Client");
   await interactionPage.locator("#email").fill("client@example.com");
+  await interactionPage.locator("#timeline").fill("Start 20 October, finish 5 November");
+  await interactionPage.locator("#agreed-quote").fill("1500000");
+  await interactionPage.locator("#payment-plan").fill("50% deposit, balance on handover");
   await interactionPage.locator("#brief").fill("Need a responsive campaign page <script>not executable</script>.");
   await interactionPage.locator('[data-next="2"]').click();
   if (await interactionPage.locator('[data-panel="2"]').isHidden()) errors.push("Checkout: valid brief did not advance to review");
@@ -324,8 +335,12 @@ try {
   if (checkoutText.includes("1460137710")) errors.push("Checkout: bank account details are shown before an agreed quotation");
   let submittedEmailPayload = null;
   await interactionPage.route("https://formsubmit.co/ajax/baguskristian@gmail.com", async (route) => {
+    if (route.request().method() === "OPTIONS") {
+      await route.fulfill({ status: 204, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" } });
+      return;
+    }
     submittedEmailPayload = route.request().postDataJSON();
-    await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ success: "true", message: "Test submission accepted" }) });
+    await route.fulfill({ status: 200, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" }, contentType: "application/json", body: JSON.stringify({ success: "true", message: "Test submission accepted" }) });
   });
   await interactionPage.locator("#send-order-brief").click();
   await interactionPage.waitForFunction(() => document.querySelector("#checkout-email-status")?.textContent.includes("pengiriman berhasil diterima"), null, { timeout: 5000 });
