@@ -75,7 +75,8 @@
         '<li class="site-nav__item"><button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-controls="work-dropdown">' + labels.work + ' <span aria-hidden="true">⌄</span></button>' +
         '<div class="nav-dropdown" id="work-dropdown" hidden><a class="nav-dropdown__link" href="' + navBase + '/work/"><strong>' + labels.allWork + '</strong></a><a class="nav-dropdown__link" href="' + navBase + '/portfolio/"><strong>' + labels.portfolio + '</strong></a></div></li>' +
         '<li class="site-nav__item"><a class="site-nav__link" href="' + navBase + '/youtube/">' + labels.youtube + '</a></li>' +
-        '<li class="site-nav__item"><a class="site-nav__link" href="' + navBase + '/about/">' + labels.about + '</a></li>';
+        '<li class="site-nav__item"><a class="site-nav__link" href="' + navBase + '/about/">' + labels.about + '</a></li>' +
+        '<li class="site-nav__item"><a class="site-nav__link" href="' + navBase + '/contact/">' + labels.contact + '</a></li>';
     }
     if (mobileList) {
       mobileList.innerHTML =
@@ -415,6 +416,12 @@
         else link.removeAttribute("aria-current");
       } catch (_) {}
     });
+    const workRoute = normalizePath(navBase + "/work/");
+    const portfolioRoute = normalizePath(navBase + "/portfolio/");
+    if (currentPath.startsWith(workRoute) || currentPath.startsWith(portfolioRoute)) {
+      const workToggle = document.querySelector('.nav-dropdown-toggle[aria-controls="work-dropdown"]');
+      workToggle?.classList.add("is-active");
+    }
 
     setHidden(searchPanel, true);
     setHidden(languageMenu, true);
