@@ -29,12 +29,11 @@
 
 **Active phase:** Phase 0 / Phase 1 — baseline and homepage-first repair. Do not jump to later phases until homepage issues and relevant tests are resolved.
 
-**Latest known smoke-test evidence:** run #244 for PR #108 concluded **failure** at last check. Never describe it as passing.
-- Homepage stylesheet returned 404 at `/bagusin/css/css/homepage-roadmap.css`.
-- English article stylesheet returned 404 at `/bagusin/en/css/article-consistency.css`.
-- Other failures requiring reproduction: homepage service-label assertions; contact copy assertions; work-page heading assertion; checkout progression/review assertions; interaction test timed out clicking `[data-next="3"]`.
-- PR #108 contains two targeted CSS path fixes. Verify its latest state, diff, and CI before depending on it or repeating changes. Do not duplicate blindly.
-- `README.md` on `main` was empty at last inspection. This file and root `AGENTS.md` preserve working context and AI instructions.
+**Latest known smoke-test evidence:** run #244 for PR #108 concluded **failure**. Never describe it as passing.
+- The two broken CSS URLs no longer appear in the latest run's failure summary; server logs show homepage stylesheets loading with HTTP 200. Treat the path corrections as validated by asset checks, but confirm PR status/merge state before relying on them.
+- Six failures remain: homepage service-label assertion; contact copy assertion; work-page heading assertion; checkout progression and review-summary assertions; interaction test timed out clicking `[data-next="3"]` because the control was not visible.
+- Reproduce each failure and compare test expectations with intended UX. Fix the site or update an outdated assertion only when evidence supports that choice; do not weaken tests just to get green.
+- `README.md` on `main` was empty at last inspection. Root `AGENTS.md` and this file preserve working context and AI instructions.
 
 **Immediate next actions:**
 1. Check current PR #108 state, changed files, CI, and latest `main` SHA. Do not merge while checks fail or are unverified.
