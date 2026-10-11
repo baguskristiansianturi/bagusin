@@ -83,7 +83,7 @@
       { icon: "◎", title: "Pengukuran hasil", description: "Mengetahui dari mana pengunjung datang dan tindakan apa yang mereka lakukan sebelum anggaran promosi ditingkatkan.", url: "/bagusin/work/seo-content/" }
     ],
     organic: [
-      { icon: "⌂", title: "Website profil bisnis", description: "Tempat utama untuk menjelaskan bisnis, layanan, area kerja, informasi penting, dan alasan pelanggan dapat mempercayai Anda.", url: "/bagusin/work/company-profile/" },
+      { icon: "⌂", title: "Website profil bisnis", description: "Tempat utama untuk menjelaskan bisnis, layanan, area kerja, informasi penting, dan alasan pelanggan dapat mempercayai Anda.", url: "/bagusin/work/" },
       { icon: "⌕", title: "SEO & konten", description: "Merapikan struktur halaman dan menjawab pertanyaan calon pelanggan agar bisnis lebih mudah dipahami dan ditemukan secara organik.", url: "/bagusin/work/seo-content/" }
     ],
     conversion: [
