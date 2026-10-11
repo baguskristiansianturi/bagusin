@@ -162,7 +162,7 @@ Homepage menjelaskan bantuan Bagus dengan cepat, mengutamakan layanan, menyediak
 
 ## Further curriculum refinement — 11 October 2026
 
-- Replaced the short legacy-topic list with a searchable catalogue of **37 reference topic families**, grouped into six practical categories, in Indonesian and English.
+- Replaced the short legacy-topic list with a searchable catalogue of **37 reference topic families**, grouped into the seven categories used by the reference programme, in Indonesian and English.
 - Rewrote descriptions rather than copying source marketing text. Historical prices, session counts, certificates and availability are not carried forward as Bagusin promises.
 - Added a search field that filters the catalogue and opens matching topic groups; every topic passes its selected identifier into the course inquiry form.
 - Added explicit next-step actions to all 16 master domains in both languages, with links to existing relevant detail pages where available.
