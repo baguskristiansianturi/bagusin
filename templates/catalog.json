@@ -54,41 +54,63 @@
   ],
   "templates": [
     {
-      "id": "rental-starter-01",
-      "slug": "rental-mobil-starter",
-      "name": "Rental Mobil — Starter",
-      "designName": "Clean Drive",
+      "id": "BG-TRV-STR-001",
+      "slug": "bagus-sewa-mobil-bali-01",
+      "name": "Bagus Sewa Mobil Bali 01",
+      "designName": "Island Journey",
       "category": "travel",
       "businessTypes": [
-        "rental-mobil",
+        "rental mobil Bali",
+        "rental mobil",
         "travel",
-        "transportasi"
+        "transportasi",
+        "antar jemput bandara"
       ],
       "level": "starter",
-      "format": "landing-page",
+      "format": "one-page-website",
       "price": 750000,
       "currency": "IDR",
       "status": "available",
       "isNew": true,
-      "description": "Landing page satu halaman untuk memperkenalkan layanan rental, menampilkan pilihan kendaraan, menjawab pertanyaan umum, dan mengarahkan calon pelanggan untuk menghubungi bisnis.",
+      "description": "Desain satu halaman untuk bisnis rental mobil: hero dengan copy yang berorientasi pelanggan, layanan, pilihan armada, tentang, cara pemesanan, FAQ, dan kontak. Struktur konten disusun agar dapat dikembangkan untuk SEO lokal menggunakan informasi bisnis yang benar.",
       "included": [
-        "Satu halaman responsif",
-        "Penyesuaian nama bisnis, warna, foto, dan copy dasar",
-        "Bagian layanan, armada, informasi harga, FAQ, dan CTA kontak",
-        "Pemasangan website gratis setelah domain dan hosting tersedia"
+        "Desain satu halaman responsif dengan beberapa section yang terstruktur",
+        "Copy original untuk hero, layanan, armada, tentang, alur pemesanan, FAQ, dan kontak",
+        "Struktur SEO dasar: title, meta description, heading hierarkis, konten yang relevan, dan CTA jelas",
+        "Penyesuaian nama bisnis, warna, foto, area layanan, dan informasi yang benar",
+        "CTA pemesanan yang dapat diarahkan ke WhatsApp atau kontak resmi"
       ],
       "notIncluded": [
-        "Domain dan hosting",
-        "Booking otomatis atau database",
-        "Dashboard pengelolaan",
-        "Integrasi pembayaran"
+        "Domain dan hosting untuk harga Rp750.000",
+        "Biaya tahunan perpanjangan domain dan hosting",
+        "Biaya iklan, jaminan peringkat Google, atau jaminan jumlah pelanggan",
+        "Booking otomatis, database, dashboard, dan integrasi pembayaran"
       ],
-      "demoUrl": "/bagusin/demos/starter/rental-mobil/",
-      "orderUrl": "/bagusin/contact/?service=website&mode=project&template=rental-starter-01",
-      "discussionUrl": "/bagusin/contact/?service=website&mode=consultation&template=rental-starter-01",
-      "image": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=85",
-      "imageAlt": "Mobil sebagai gambaran desain website rental mobil",
-      "updated": "2026-10-11"
+      "demoUrl": "/bagusin/demos/starter/travel-rental/bagus-sewa-mobil-bali-01/",
+      "orderUrl": "/bagusin/contact/?service=website&mode=project&template=BG-TRV-STR-001",
+      "discussionUrl": "/bagusin/contact/?service=website&mode=consultation&template=BG-TRV-STR-001",
+      "image": "https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=1200&q=85",
+      "imageAlt": "Visual perjalanan untuk konsep website rental mobil Bali",
+      "updated": "2026-10-11",
+      "folder": "demos/starter/travel-rental/bagus-sewa-mobil-bali-01/",
+      "pricingOptions": [
+        {
+          "id": "design-copy-seo",
+          "name": "Desain + Copy + Struktur SEO",
+          "price": 750000,
+          "billing": "one-time",
+          "includes": "Desain satu halaman, copy original yang disesuaikan, struktur SEO dasar, responsif, CTA kontak.",
+          "excludes": "Domain, hosting, biaya perpanjangan, iklan, dan fitur tambahan."
+        },
+        {
+          "id": "assisted-launch",
+          "name": "Paket Bantu Online",
+          "price": 1500000,
+          "billing": "estimated-first-year",
+          "includes": "Paket desain + copy + struktur SEO, bantuan setup dan publikasi, serta anggaran awal domain/hosting sesuai pilihan yang disepakati.",
+          "excludes": "Perpanjangan domain/hosting tahun berikutnya, biaya iklan, dan fitur berbayar tambahan; final mengikuti provider dan ruang lingkup."
+        }
+      ]
     }
   ]
 }
