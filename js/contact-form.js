@@ -25,6 +25,27 @@ document.addEventListener("DOMContentLoaded", function () {
     "mobile-apps": "Pengembangan Aplikasi Mobile"
   };
   const serviceHeading = document.getElementById("selected-service");
+  const termsLink = document.getElementById("contact-terms-link");
+  const termsTopics = {
+    copywriting: "copywriting",
+    "seo-content": "seo-content",
+    "landing-pages": "landing-pages",
+    websites: "websites",
+    "web-applications": "web-applications",
+    "maintenance-uiux": "maintenance-uiux",
+    "google-ads": "google-ads",
+    "mobile-apps": "mobile-apps"
+  };
+  function updateTermsLink(selectedService) {
+    if (!termsLink) return;
+    const topic = termsTopics[selectedService];
+    termsLink.href = topic
+      ? "/bagusin/terms/?topic=" + encodeURIComponent(topic) + "#" + encodeURIComponent(topic)
+      : "/bagusin/terms/#general";
+    termsLink.textContent = topic
+      ? (isEnglish ? "Read general and " + (labels[selectedService] || "service") + " terms" : "Baca ketentuan umum dan khusus " + (labels[selectedService] || "layanan"))
+      : (isEnglish ? "Read general terms" : "Baca ketentuan umum");
+  }
   const serviceInput = document.getElementById("service-value");
   const serviceSelect = document.getElementById("service-choice");
   const modeInput = document.getElementById("mode-value");
@@ -40,8 +61,10 @@ document.addEventListener("DOMContentLoaded", function () {
       service = serviceSelect.value;
       if (serviceInput) serviceInput.value = service;
       if (serviceHeading) serviceHeading.textContent = labels[service] || (isEnglish ? "General inquiry" : "Pertanyaan umum");
+      updateTermsLink(service);
     });
   }
+  updateTermsLink(service);
   if (modeInput) modeInput.value = mode;
 
   const template = params.get("template") || "";
