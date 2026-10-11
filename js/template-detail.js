@@ -7,7 +7,7 @@
   const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, char => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[char]));
   const money = value => new Intl.NumberFormat("id-ID", {style:"currency",currency:"IDR",maximumFractionDigits:0}).format(value);
   const setList = (selector, items) => { const el = root.querySelector(selector); if (el) el.innerHTML = (items || []).map(item => "<li>"+escapeHtml(item)+"</li>").join(""); };
-  const contactUrl = (mode, meeting = "") => "/bagusin/contact/?service=websites&mode="+encodeURIComponent(mode)+"&template="+encodeURIComponent(id)+(meeting ? "&meeting="+encodeURIComponent(meeting) : "");
+  const contactUrl = (mode, meeting = "") => "/bagusin/contact/?service="+encodeURIComponent(meeting === "in-person" ? "consultation" : "websites")+"&mode="+encodeURIComponent(mode)+"&template="+encodeURIComponent(id)+(meeting ? "&meeting="+encodeURIComponent(meeting) : "");
   fetch(base).then(response => { if (!response.ok) throw new Error("Catalog unavailable"); return response.json(); }).then(data => {
     const item = data.templates.find(entry => entry.id === id);
     if (!item) throw new Error("Template not found");
