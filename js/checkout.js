@@ -278,8 +278,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     if (target === 4) {
       if (!allTermsAccepted()) {
-        $("#terms-error").textContent = "Baca ketentuan yang relevan lalu centang persetujuan sebelum melanjutkan.";
-        $("#terms-agree").focus();
+        $("#terms-error").textContent = "Baca ketentuan yang relevan lalu centang semua persetujuan wajib sebelum melanjutkan.";
+        (form.querySelector('[data-panel="3"] input[type="checkbox"][required]:not(:checked)') || $("#terms-agree")).focus();
         return;
       }
       $("#terms-error").textContent = "";
@@ -371,7 +371,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!allTermsAccepted()) {
       $("#terms-error").textContent = "Persetujuan ketentuan diperlukan sebelum mengirim brief.";
       showStep(3);
-      $("#terms-agree").focus();
+      (form.querySelector('[data-panel="3"] input[type="checkbox"][required]:not(:checked)') || $("#terms-agree")).focus();
       return;
     }
     const honeypot = form.querySelector('input[name="_honey"]');
