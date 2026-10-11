@@ -578,3 +578,61 @@ a.home-consult-step:hover{transform:translateY(-3px);border-color:var(--color-ac
 @media(max-width:48rem){.home-final-cta__grid{grid-template-columns:1fr}.home-final-cta__card{padding:1.25rem}.home-course-preview__heading{align-items:flex-start;flex-direction:column}.home-course-preview__all{margin:0}.home-course-preview__grid{grid-template-columns:repeat(2,minmax(0,1fr))}.home-course-card:last-child{grid-column:1/-1}}
 @media(max-width:36rem){.home-course-preview__grid{grid-template-columns:1fr}.home-course-card:last-child{grid-column:auto}.home-course-card__top{align-items:flex-start}.home-final-cta__heading{text-align:left}.home-final-cta__heading h2,.home-final-cta__heading p{margin-left:0}.home-final-cta__card .button{width:100%;justify-content:center}}
 @media(prefers-reduced-motion:reduce){.home-course-card{transition:none}.home-course-card:hover{transform:none}}
+
+
+/* Mobile swipe rails for homepage service and website/demo cards.
+   Desktop keeps the existing multi-column grids. */
+@media (max-width: 39.999rem) {
+  .home-discovery-refresh .home-feature-grid--services,
+  .home-discovery-refresh .home-feature-grid--new {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(82%, 1fr);
+    grid-template-columns: none;
+    gap: .85rem;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0 .1rem .75rem;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: .1rem;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #b9cbc3 transparent;
+  }
+
+  .home-discovery-refresh .home-feature-grid--services > .home-feature-card,
+  .home-discovery-refresh .home-feature-grid--new > .home-feature-card {
+    grid-column: auto;
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    scroll-snap-align: start;
+  }
+
+  .home-discovery-refresh .home-feature-grid--services .home-feature-card__image,
+  .home-discovery-refresh .home-feature-grid--new .home-feature-card__image,
+  .home-discovery-refresh .home-feature-grid--new .home-feature-card--featured .home-feature-card__image {
+    aspect-ratio: 1.55;
+  }
+
+  .home-discovery-refresh .home-feature-grid--services::-webkit-scrollbar,
+  .home-discovery-refresh .home-feature-grid--new::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .home-discovery-refresh .home-feature-grid--services::-webkit-scrollbar-thumb,
+  .home-discovery-refresh .home-feature-grid--new::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: #b9cbc3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-discovery-refresh .home-feature-grid--services,
+  .home-discovery-refresh .home-feature-grid--new {
+    scroll-behavior: auto;
+  }
+}
