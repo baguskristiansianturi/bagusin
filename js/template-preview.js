@@ -76,6 +76,12 @@
     $("[data-preview-id]").textContent = item.id;
     $("[data-order-name]").textContent = item.name;
     $("[data-preview-price]").textContent = money(item.price);
+    const assisted = (item.pricingOptions || []).find(option => option.id === "assisted-launch");
+    if (assisted) {
+      $("[data-preview-assisted]").hidden = false;
+      $("[data-preview-assisted-price]").textContent = money(assisted.price);
+      $("[data-preview-assisted-note]").textContent = assisted.excludes || "Biaya final mengikuti provider dan ruang lingkup yang disepakati.";
+    }
     $("[data-details-intro]").textContent = "Desain " +
       ((item.format === "landing-page" || item.format === "one-page-website") ? "satu halaman" : "multi-halaman") +
       " yang bisa disesuaikan dengan identitas, informasi, dan tujuan bisnis kamu.";
