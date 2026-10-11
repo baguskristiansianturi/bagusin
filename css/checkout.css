@@ -193,3 +193,8 @@ body:has(.checkout-page) .skip-link{display:none!important}
  .checkout-page .checkout-hero h1{max-width:15ch;font-size:clamp(2rem,9vw,3rem)}
  .checkout-page .checkout-section{padding-block:1.25rem}
 }
+
+.checkout-page .terms-service-summary{max-width:46rem;margin:.45rem 0 0;color:var(--color-text-soft);font-size:.84rem;line-height:1.65}
+.checkout-page .terms-summary>div{min-width:0;flex:1}
+.checkout-page .terms-summary a{flex:0 0 auto;max-width:100%;white-space:normal}
+@media(max-width:48rem){.checkout-page .terms-summary a{align-self:flex-start}}
