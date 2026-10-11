@@ -159,3 +159,14 @@ Homepage menjelaskan bantuan Bagus dengan cepat, mengutamakan layanan, menyediak
 - Memperbaiki hreflang dan schema WebPage pada 16 halaman detail agar URL dan bahasa menunjuk halaman yang sesuai.
 - Pemeriksaan statis: kedua katalog berisi 16 domain dan 64 kartu level; delapan halaman detail bahasa Indonesia masing-masing memiliki tujuh modul, canonical dan hreflang spesifik; pemeriksaan path aset untuk 18 halaman lulus.
 - Belum dianggap selesai sampai tampilan desktop/mobile dan deployment publik diperiksa di browser nyata.
+
+## Further curriculum refinement — 11 October 2026
+
+- Replaced the short legacy-topic list with a searchable catalogue of **37 reference topic families**, grouped into six practical categories, in Indonesian and English.
+- Rewrote descriptions rather than copying source marketing text. Historical prices, session counts, certificates and availability are not carried forward as Bagusin promises.
+- Added a search field that filters the catalogue and opens matching topic groups; every topic passes its selected identifier into the course inquiry form.
+- Added explicit next-step actions to all 16 master domains in both languages, with links to existing relevant detail pages where available.
+- Fixed course-path inquiry handling: the selected learning path is now passed using `learning_path`; individual domain and legacy topic selections use `learning_domain` and `learning_item`. This avoids colliding with the homepage's existing recommendation parameter `path` and preserves the default contact briefing questions.
+- Added a consistent four-step practice/evaluation section to all 16 detailed course pages, responsive on mobile and desktop.
+- Static validation performed after these changes: 16 master domains and 16 domain actions per language; 37 legacy topic items; all eight detail pages per language contain the practice/evaluation section; all contact inquiry selections map to named labels.
+- Still required before calling the stage fully complete: validate JavaScript execution in a browser, keyboard/screen-reader interaction, mobile visual layout, and public GitHub Pages deployment.
