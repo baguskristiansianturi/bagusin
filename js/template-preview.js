@@ -24,7 +24,7 @@
  const consult="/bagusin/contact/?service=websites&mode=consultation&template="+encodeURIComponent(item.id);
  const custom="/bagusin/contact/?service=websites&mode=custom&template="+encodeURIComponent(item.id);
  link($("[data-preview-order]"),order);link($("[data-preview-consult]"),consult);link($("[data-preview-custom]"),custom);
- link($("[data-preview-detail]"),"/bagusin/templates/detail/?template="+encodeURIComponent(item.id));
+ link($("[data-preview-detail]"),"#spec-title");
  frame.addEventListener("load",()=>{$("[data-preview-loading]").classList.add("is-hidden")},{once:true});
  }).catch(()=>{$("[data-preview-title]").textContent="Preview belum tersedia";$("[data-preview-description]").textContent="Katalog desain belum dapat dimuat. Silakan kembali ke koleksi atau hubungi Bagus."; $("[data-preview-loading]").textContent="Demo belum dapat dimuat.";});
  setMode("desktop");
