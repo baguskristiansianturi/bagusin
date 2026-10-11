@@ -26,3 +26,11 @@
 @media(max-width:760px){.home-editorial-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.home-learning-cta{grid-template-columns:1fr;gap:1.25rem}}
 @media(max-width:520px){.home-editorial-grid,.home-principles{grid-template-columns:1fr}.home-editorial-card{border-radius:var(--radius-lg)}.home-editorial-card__image{aspect-ratio:16/9}.home-principle{border-radius:var(--radius-lg)}.home-learning-cta{padding:1.2rem;border-radius:var(--radius-lg)}.home-learning-cta__aside{padding:1rem}}
 @media(prefers-reduced-motion:reduce){.home-editorial-card{transition:none}.home-editorial-card:hover{transform:none}}
+
+
+/* Private learning clarity on homepage */
+.home-learning-requirements{display:grid;gap:.65rem;margin:1.1rem 0 0;padding-left:1.15rem;color:var(--color-text-muted);font-size:.9rem;line-height:1.65}
+.home-learning-requirements li{padding-left:.2rem}
+.home-learning-requirements strong{color:var(--color-text)}
+.home-learning-private .home-learning-cta{align-items:start}
+@media(max-width:700px){.home-learning-requirements{font-size:.86rem}.home-learning-private .home-learning-cta{gap:1.25rem}}
