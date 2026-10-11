@@ -57,6 +57,7 @@
 .article-content h2{scroll-margin-top:calc(var(--header-height) + 2rem);margin-top:var(--space-12);font-size:clamp(1.55rem,3vw,2.1rem);letter-spacing:-.025em}
 .article-content h3{scroll-margin-top:calc(var(--header-height) + 2rem);margin-top:var(--space-8);font-size:clamp(1.2rem,2vw,1.45rem)}
 .article-content p{max-width:48rem}
+.article-content p+p{margin-top:var(--copy-paragraph-gap)}
 .article-content .quote{margin-block:var(--space-8)}
 .article-note{margin-block:var(--space-8);padding:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg);background:var(--bg-soft)}
 .article-note strong{display:block;font-size:var(--text-sm)}
