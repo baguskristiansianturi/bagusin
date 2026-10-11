@@ -388,17 +388,6 @@ document.addEventListener("DOMContentLoaded", function () {
     status.insertAdjacentElement("afterend", link);
   }
 
-  form.addEventListener("submit", async function (event) {
-    event.preventDefault();
-    if (form.dataset.submitted === "true") return;
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      status.textContent = isEnglish
-        ? "Please complete the required fields before sending your brief."
-        : "Lengkapi kolom wajib sebelum mengirim brief.";
-      return;
-    }
-
     const scopeSummary = params.get("scope") || "";
   if (scopeSummary && briefField) {
     const scopeLabel = isEnglish ? "Initial project scope from estimator:" : "Ruang lingkup awal dari estimator:";
@@ -417,6 +406,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const goalLine = (isEnglish ? "Learning goal from homepage: " : "Tujuan belajar dari beranda: ") + learningGoalLabels[learningGoal];
     if (!briefField.value.includes(goalLine)) briefField.value = goalLine + "\n\n" + briefField.value;
   }
+
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    if (form.dataset.submitted === "true") return;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      status.textContent = isEnglish
+        ? "Please complete the required fields before sending your brief."
+        : "Lengkapi kolom wajib sebelum mengirim brief.";
+      return;
+    }
 
   const honeypot = form.querySelector('input[name="_honey"]');
     if (honeypot?.value.trim()) return;
