@@ -124,8 +124,17 @@ const interactionPage = await browser.newPage({ viewport: { width: 390, height: 
 try {
   await interactionPage.goto(origin + "/bagusin/", { waitUntil: "domcontentloaded" });
   const homepageText = await interactionPage.locator("main").innerText();
-  if (!homepageText.includes("Penulisan Konten & SEO") || !homepageText.includes("Aplikasi Web & Sistem")) errors.push("Homepage: Indonesian service labels are missing");
-  if (homepageText.includes("Content Writing & SEO") || homepageText.includes("Web Applications & Systems")) errors.push("Homepage: outdated English service labels remain");
+  if (!homepageText.includes("Bisnis Anda sedang di tahap mana?") || !homepageText.includes("Saya baru memulai")) errors.push("Homepage: business-stage pathfinder copy is missing");
+  if (homepageText.includes("Content Writing & SEO") || homepageText.includes("Web Applications & Systems")) errors.push("Homepage: English service copy remains in Indonesian content");
+  await interactionPage.locator('[data-stage="starter"]').click();
+  const firstGoal = interactionPage.locator("[data-goals] button").first();
+  if (!(await firstGoal.count())) errors.push("Homepage: selecting a business stage did not reveal goal choices");
+  else {
+    await firstGoal.click();
+    if (await interactionPage.locator("[data-result]").isHidden()) errors.push("Homepage: recommendation result did not appear after selecting a goal");
+    if (!(await interactionPage.locator("[data-result-title]").innerText()).trim()) errors.push("Homepage: recommendation result has no title");
+    await interactionPage.locator("[data-reset-pathfinder]").click();
+  }
   const menuToggle = interactionPage.locator("[data-mobile-menu-toggle]").first();
   if (!(await menuToggle.count())) errors.push("Homepage: mobile menu toggle is missing");
   else {
@@ -190,7 +199,7 @@ try {
   }
   if (!contactTitle.includes("Kontak")) errors.push("Contact page: title metadata is not localized");
   const contactOptionsText = await interactionPage.locator("main").innerText();
-  if (!contactOptionsText.includes("Layanan yang dibutuhkan") || !contactOptionsText.includes("ceritakan kebutuhanmu secara singkat")) errors.push("Contact page: concise service selection and brief guidance are missing");
+  if (!contactOptionsText.includes("Layanan yang dibutuhkan") || !(await interactionPage.locator('#project-form textarea[name="brief"]').getAttribute("placeholder")).includes("Ceritakan singkat")) errors.push("Contact page: concise service selection and brief guidance are missing");
   if (contactOptionsText.includes("software engineering") || contactOptionsText.includes("SEO content")) errors.push("Contact page: English service terms remain in Indonesian copy");
   let contactEmailPayload = null;
   await interactionPage.route("https://formsubmit.co/ajax/baguskristian@gmail.com", async (route) => {
@@ -253,7 +262,7 @@ try {
   const workTitle = await interactionPage.title();
   const workHeading = await interactionPage.locator("main h1").textContent();
   if (!workTitle.includes("Layanan dan Proyek")) errors.push("Work page: title metadata is not localized");
-  if (!workHeading || !workHeading.includes("Ada yang perlu dibangun")) errors.push("Work page: main heading is not localized");
+  if (!workHeading || !workHeading.includes("Apa yang bisa Bagus bantu?")) errors.push("Work page: main heading is not localized");
   const workText = await interactionPage.locator("main").innerText();
   if (workText.includes("What are you trying to achieve?") || workText.includes("View service")) errors.push("Work page: English interface copy remains in Indonesian content");
 
@@ -268,7 +277,7 @@ try {
   const aboutText = await interactionPage.locator("main").innerText();
   const aboutStructuredData = await interactionPage.locator('script[type="application/ld+json"]').textContent();
   if (!aboutTitle.includes("Tentang")) errors.push("About page: title metadata is not localized");
-  if (!aboutText.includes("blog personal") || !aboutText.includes("Berangkat dari masalah nyata.")) errors.push("About page: Indonesian positioning copy is missing");
+  if (!aboutText.includes("Bagusin mendokumentasikan perjalanan") || !aboutText.includes("Berangkat dari masalah nyata.")) errors.push("About page: Indonesian positioning copy is missing");
   if (aboutText.includes("independent software studio") || aboutText.includes("Built around real problems.")) errors.push("About page: outdated English positioning copy remains");
   if (!aboutStructuredData || aboutStructuredData.includes("independent software studio")) errors.push("About page: structured data still contains outdated positioning");
 
@@ -307,6 +316,9 @@ try {
   await interactionPage.locator("#name").fill("Test Client");
   await interactionPage.locator("#email").fill("client@example.com");
   await interactionPage.locator("#brief").fill("Need a responsive campaign page <script>not executable</script>.");
+  await interactionPage.locator("#timeline").fill("Start 20 October, delivery 5 November");
+  await interactionPage.locator("#agreed-quote").fill("1500000");
+  await interactionPage.locator("#payment-plan").fill("50% deposit, balance at handover");
   await interactionPage.locator('[data-next="2"]').click();
   if (await interactionPage.locator('[data-panel="2"]').isHidden()) errors.push("Checkout: valid brief did not advance to review");
   if (!(await interactionPage.locator("#review-box").innerText()).includes("Test Client")) errors.push("Checkout: review summary did not include entered details");
