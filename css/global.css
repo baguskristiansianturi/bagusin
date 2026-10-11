@@ -352,6 +352,12 @@ a:focus-visible {
   box-shadow: var(--focus-ring);
 }
 
+/* Shared keyboard focus for form controls and custom interactive elements. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid rgba(39, 116, 95, 0.48);
+  outline-offset: 3px;
+}
+
 
 /* =========================================================
    BUTTON BASE
