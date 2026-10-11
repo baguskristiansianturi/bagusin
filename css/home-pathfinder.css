@@ -122,3 +122,12 @@
  .home-recommended-solutions__card{grid-template-columns:2.25rem minmax(0,1fr);gap:.7rem}
  .home-recommended-solutions__icon{width:2.2rem;height:2.2rem}
 }
+
+
+/* Final layout guard: compact, non-sticky first impression on every viewport. */
+.home-hero--pathfinder{padding-block:clamp(2rem,4vw,3.5rem)}
+.home-pathfinder{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(1.25rem,3vw,2.75rem);align-items:center}
+.home-pathfinder__intro{position:static;top:auto;padding-top:0}
+.home-pathfinder__panel{min-width:0}
+@media(max-width:800px){.home-hero--pathfinder{padding-block:clamp(1.9rem,5vw,3rem)}.home-pathfinder{grid-template-columns:minmax(0,1fr);gap:1.25rem}.home-pathfinder__intro{position:static;padding-top:0}}
+@media(max-width:480px){.home-hero--pathfinder{padding-block:1.75rem}.home-pathfinder__intro h1{font-size:clamp(2.35rem,10vw,3rem);line-height:1.02}.home-pathfinder__panel{padding:.9rem}.home-pathfinder__choice{min-height:4.25rem}}
