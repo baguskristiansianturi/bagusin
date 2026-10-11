@@ -80,18 +80,18 @@
     customers: [
       { icon: "📍", title: "Google Business Profile & Maps", description: "Membantu orang menemukan bisnis lokal Anda di Google Search dan Maps, melihat lokasi, jam buka, foto, ulasan, serta cara menghubungi atau meminta petunjuk arah.", url: "/bagusin/work/google-business-profile/" },
       { icon: "↗", title: "Landing page penjualan", description: "Satu halaman yang fokus pada penawaran, manfaat, bukti yang tersedia, dan satu tindakan jelas—misalnya menghubungi WhatsApp atau meminta penawaran.", url: "/bagusin/work/landing-pages/" },
-      { icon: "◎", title: "Pengukuran hasil", description: "Mengetahui dari mana pengunjung datang dan tindakan apa yang mereka lakukan sebelum anggaran promosi ditingkatkan.", url: "/bagusin/work/seo-content/" }
+      { icon: "◎", title: "Pengukuran hasil", description: "Mengetahui dari mana pengunjung datang dan tindakan apa yang mereka lakukan sebelum anggaran promosi ditingkatkan.", url: "/bagusin/work/landing-pages/" }
     ],
     organic: [
-      { icon: "⌂", title: "Website profil bisnis", description: "Tempat utama untuk menjelaskan bisnis, layanan, area kerja, informasi penting, dan alasan pelanggan dapat mempercayai Anda.", url: "/bagusin/work/" },
+      { icon: "⌂", title: "Website profil bisnis", description: "Tempat utama untuk menjelaskan bisnis, layanan, area kerja, informasi penting, dan alasan pelanggan dapat mempercayai Anda.", url: "/bagusin/work/websites/" },
       { icon: "⌕", title: "SEO & konten", description: "Merapikan struktur halaman dan menjawab pertanyaan calon pelanggan agar bisnis lebih mudah dipahami dan ditemukan secara organik.", url: "/bagusin/work/seo-content/" }
     ],
     conversion: [
       { icon: "↗", title: "Landing page & perbaikan konversi", description: "Menyederhanakan pesan, susunan informasi, tombol tindakan, formulir, dan pengalaman mobile agar pengunjung tahu langkah berikutnya.", url: "/bagusin/work/landing-pages/" },
-      { icon: "◎", title: "Audit aset yang sudah ada", description: "Mulai dari masalah yang nyata; pertahankan bagian yang masih berfungsi dan prioritaskan perubahan yang paling dibutuhkan.", url: "/bagusin/work/" }
+      { icon: "◎", title: "Audit aset yang sudah ada", description: "Mulai dari masalah yang nyata; pertahankan bagian yang masih berfungsi dan prioritaskan perubahan yang paling dibutuhkan.", url: "/bagusin/work/maintenance-uiux/" }
     ],
     website: [
-      { icon: "▤", title: "Perbaikan website", description: "Perbarui copy, tampilan, navigasi, halaman, dan alur pengguna tanpa otomatis membangun semuanya dari awal.", url: "/bagusin/work/" },
+      { icon: "▤", title: "Perbaikan website", description: "Perbarui copy, tampilan, navigasi, halaman, dan alur pengguna tanpa otomatis membangun semuanya dari awal.", url: "/bagusin/work/maintenance-uiux/" },
       { icon: "↗", title: "Landing page khusus", description: "Cocok ketika satu layanan, produk, atau kampanye memerlukan halaman yang fokus pada satu tujuan.", url: "/bagusin/work/landing-pages/" }
     ],
     system: [
@@ -132,7 +132,7 @@
     items.forEach(item => {
       const card = document.createElement("a");
       card.className = "home-recommended-solutions__card";
-      card.href = isEnglish && item.url.startsWith("/bagusin/work/") ? "/bagusin/en/work/" : isEnglish && item.url === "/bagusin/collections/" ? "/bagusin/en/collections/" : item.url;
+      card.href = item.url;
       const icon = document.createElement("span");
       icon.className = "home-recommended-solutions__icon";
       icon.setAttribute("aria-hidden", "true");
