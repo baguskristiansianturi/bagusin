@@ -76,7 +76,14 @@
 <div class="terms-summary"><div><span>Layanan dipilih</span><strong id="terms-service">—</strong><p id="terms-service-summary" class="terms-service-summary">Pilih layanan untuk melihat ketentuan yang relevan.</p></div><a id="service-terms-link" href="/bagusin/terms/">Baca ketentuan layanan ↗</a></div>
 <div class="terms-summary"><div><span>Ketentuan umum</span><strong>Harga, ruang lingkup, revisi, pembatalan, dan serah terima</strong><p>Pastikan semua detail penting tertulis pada ringkasan proyek atau quotation.</p></div><a href="/bagusin/terms/#general">Baca ketentuan umum ↗</a></div>
 <div class="terms-summary"><div><span>Pembayaran</span><strong>Invoice dan rencana pembayaran</strong><p>Jangan transfer sebelum instruksi pembayaran sesuai kesepakatan diterima.</p></div><a href="/bagusin/terms/?topic=payment">Baca ketentuan pembayaran ↗</a></div>
-<label class="terms-check"><input id="terms-agree" type="checkbox" required><span>Saya telah membaca ketentuan umum dan ketentuan khusus layanan yang dipilih. Saya menyetujui ringkasan ruang lingkup, hasil kerja, harga, jadwal, revisi, pembatalan, serta rencana pembayaran yang tertulis untuk pesanan ini.</span></label>
+<div class="transaction-terms-checklist" id="transaction-terms-checklist" aria-live="polite">
+<h3>Persetujuan wajib untuk pesanan ini</h3>
+<p>Checklist di bawah menyesuaikan layanan yang dipilih. Buka tautan ketentuan sebelum mencentang.</p>
+<div id="service-specific-consents"></div>
+<label class="terms-check"><input id="terms-agree" type="checkbox" required><span><strong>Ketentuan umum transaksi.</strong> Saya telah membaca dan menyetujui ketentuan umum Bagusin, termasuk kejelasan penawaran tertulis, kewajiban kedua pihak, komunikasi, pembayaran, perubahan, pembatalan, penyelesaian keluhan, dan privasi.</span></label>
+<label class="terms-check"><input id="scope-agree" type="checkbox" required><span><strong>Ruang lingkup dan biaya.</strong> Saya telah memeriksa ringkasan pesanan dan memahami apa yang termasuk, yang tidak termasuk, batas revisi, jadwal, total harga, serta kemungkinan biaya tambahan yang harus disetujui terlebih dahulu.</span></label>
+<label class="terms-check"><input id="payment-agree" type="checkbox" required><span><strong>Pembayaran dan serah terima.</strong> Saya memahami bahwa halaman ini mengirim konfirmasi kesepakatan, bukan memproses pembayaran. Instruksi pembayaran dan serah terima mengikuti kesepakatan tertulis.</span></label>
+</div>
 <div class="panel-actions"><button class="button button--secondary" type="button" data-back="2">← Kembali ke ringkasan</button><button class="button button--accent" type="button" data-next="4">Setujui &amp; lanjut →</button></div>
 <p class="checkout-error" id="terms-error" role="alert"></p>
 </section>
