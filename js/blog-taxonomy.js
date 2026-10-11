@@ -22,7 +22,8 @@
   const categories=[...new Set(published.map(a=>a.category).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
   function setParam(kind,value){
    const next=new URLSearchParams(location.search);
-   if(value)next.set(kind,value);else next.delete(kind);
+   next.delete("category");next.delete("tag");
+   if(value)next.set(kind,value);
    const url=archive+(next.toString()?"?"+next.toString():"");
    location.href=url;
   }
@@ -62,7 +63,7 @@
    count.textContent=english?(list.length+" article"+(list.length===1?"":"s")+" shown"):(list.length+" artikel ditampilkan");
    if(title)title.textContent=category||tag?(english?"Articles: ":"Artikel: ")+(category||("#"+tag)):(english?"All articles":"Semua artikel");
    const page=document.querySelector(".blog-page");
-   if(page&&(category||tag)){page.classList.add("is-taxonomy-filtered");}
+   if(page&&(category||tag||query)){page.classList.add("is-taxonomy-filtered");}
    else if(page){page.classList.remove("is-taxonomy-filtered");}
   }
   render();
