@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const params = new URLSearchParams(window.location.search);
-  const service = params.get("service") || "";
+  let service = params.get("service") || "";
   const mode = params.get("mode") || "consultation";
   const isEnglish = document.documentElement.lang === "en";
   const labels = isEnglish ? {
@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
   };
   const serviceHeading = document.getElementById("selected-service");
   const serviceInput = document.getElementById("service-value");
+  const serviceSelect = document.getElementById("service-choice");
   const modeInput = document.getElementById("mode-value");
   const form = document.getElementById("project-form");
   const status = document.getElementById("form-status");
@@ -31,6 +32,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (serviceHeading) serviceHeading.textContent = labels[service] || (isEnglish ? "General inquiry" : "Pertanyaan umum");
   if (serviceInput) serviceInput.value = service;
+  if (serviceSelect) {
+    serviceSelect.value = service;
+    serviceSelect.addEventListener("change", function () {
+      service = serviceSelect.value;
+      if (serviceInput) serviceInput.value = service;
+      if (serviceHeading) serviceHeading.textContent = labels[service] || (isEnglish ? "General inquiry" : "Pertanyaan umum");
+    });
+  }
   if (modeInput) modeInput.value = mode;
 
   const template = params.get("template") || "";
