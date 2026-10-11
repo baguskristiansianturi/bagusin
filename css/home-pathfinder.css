@@ -163,14 +163,19 @@
   .home-recommended-solutions__card:hover { transform: none; }
 }
 
-/* Keep recommendation answers readable: stack cards on phones only. */
+/* Mobile: stack the recommendation CARDS vertically, keep each card's icon beside its text. */
 @media (max-width: 41.999rem) {
-  .home-recommended-solutions__grid {
+  .home-pathfinder .home-recommended-solutions .home-recommended-solutions__grid {
+    display: grid !important;
     grid-template-columns: minmax(0, 1fr) !important;
+    grid-auto-flow: row;
     gap: .75rem;
   }
-  .home-recommended-solutions__card {
-    grid-template-columns: minmax(0, 1fr);
+  .home-pathfinder .home-recommended-solutions .home-recommended-solutions__card {
+    display: grid;
+    grid-template-columns: 2.35rem minmax(0, 1fr);
+    width: 100%;
+    min-width: 0;
     padding: 1rem;
   }
 }
