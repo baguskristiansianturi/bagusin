@@ -107,10 +107,8 @@
 .home-recommended-solutions__link{font-size:.88rem;margin-top:.55rem}
 .home-pathfinder__result-actions{gap:.75rem}
 .home-pathfinder__result-actions .button{min-height:3rem;padding:.75rem 1rem;font-size:.95rem;white-space:normal;text-align:center}
-@media(min-width:76rem){
- .home-pathfinder__result{container-type:inline-size}
- .home-recommended-solutions__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
+.home-pathfinder__result{container-type:inline-size}
+@container (min-width:48rem){.home-recommended-solutions__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:48rem){
  .home-pathfinder__result{margin-top:1rem;padding:1rem}
  .home-pathfinder__result h3{font-size:1.22rem}
