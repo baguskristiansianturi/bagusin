@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded",function(){
  const R=window.BAGUSIN_SERVICE_REGISTRY;
  if(!R||!Array.isArray(R.articles))return;
  const path=location.pathname.replace(/\/$/,"");
- const isEnglish=path.startsWith("/en/");
+ const isEnglish=path.includes("/en/");
  const article=R.articles.find(a=>a.status==="PUBLISHED"&&path.endsWith("/blog/"+a.slug)&&((String(a.language||"id").toLowerCase()==="en")===isEnglish));
  if(!article)return;
  const host=document.querySelector(".article-pro-footer")||document.querySelector("article");
