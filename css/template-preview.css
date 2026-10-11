@@ -75,3 +75,38 @@
 
 .preview-price__assisted{display:grid;gap:.25rem;margin-top:.85rem;padding-top:.85rem;border-top:1px solid #dfe8df}.preview-price__assisted span,.preview-price__assisted small{color:var(--color-text-muted);font-size:.72rem;line-height:1.5}.preview-price__assisted strong{font-size:1.2rem;letter-spacing:-.025em;color:#263e32}
 .preview-switch__button{font-family:inherit;font-size:.82rem;font-weight:600;line-height:1.2}
+
+/* Device frame refinements: desktop browser chrome and a more natural iPhone preview. */
+.preview-device--desktop{border-color:#cbd2ce;border-radius:1rem;background:#e6e9e7}
+.preview-desktop-controls{display:flex;align-items:center;gap:.4rem}
+.preview-desktop-controls span{display:block;width:.48rem;height:.48rem;border-radius:50%;background:#b5bdb8}
+.preview-device__chrome>.preview-desktop-controls>span:first-child{background:#e28b82}
+.preview-device__chrome>.preview-desktop-controls>span:nth-child(2){background:#e7c36d}
+.preview-device__chrome>.preview-desktop-controls>span:nth-child(3){background:#78b990}
+.preview-mobile-status{display:none}
+.preview-device--mobile{position:relative;width:min(390px,100%);padding:0 6px 7px;border:1px solid #5a615d;border-radius:3.25rem;background:linear-gradient(135deg,#454b47 0%,#171b19 36%,#343a36 68%,#111412 100%);box-shadow:inset 0 0 0 2px #090b0a,0 2rem 4rem rgba(17,29,22,.28),0 0 0 1px rgba(255,255,255,.65)}
+.preview-device--mobile::before,.preview-device--mobile::after{content:"";position:absolute;z-index:4;left:-3px;width:3px;border-radius:3px 0 0 3px;background:#5d655f}
+.preview-device--mobile::before{top:8rem;height:2.2rem}
+.preview-device--mobile::after{top:11rem;height:3rem}
+.preview-device--mobile .preview-device__chrome{position:relative;display:flex;align-items:center;justify-content:center;height:3.05rem;padding:0 .85rem;border:0;border-radius:3rem 3rem 0 0;background:#171b19}
+.preview-device--mobile .preview-desktop-controls,.preview-device--mobile .preview-address,.preview-device--mobile .preview-zoom{display:none}
+.preview-device--mobile .preview-mobile-status{position:relative;display:flex;align-items:center;justify-content:space-between;width:100%;height:100%;padding:0 .65rem;color:#f4f6f4;font-size:.66rem;font-weight:700;letter-spacing:.01em}
+.preview-device--mobile .preview-device__island{position:absolute;top:.62rem;left:50%;transform:translateX(-50%);width:6rem;height:1.2rem;border:1px solid #282d2a;border-radius:1rem;background:#050605;box-shadow:inset 0 0 0 1px #0d100e}
+.preview-mobile-status__signals{display:flex;align-items:center;gap:.3rem}
+.preview-mobile-status__signals svg{width:1rem;height:.75rem;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.preview-device--mobile .preview-viewport{height:min(72vh,760px);min-height:500px;border-radius:0 0 2.55rem 2.55rem;overflow:hidden;background:#fff}
+.preview-device--mobile .preview-viewport iframe{border:0;border-radius:0 0 2.55rem 2.55rem}
+.preview-device__home-indicator{display:none}
+.preview-device--mobile .preview-device__home-indicator{display:grid;place-items:center;height:1.4rem;background:#171b19;border-radius:0 0 2.5rem 2.5rem}
+.preview-device--mobile .preview-device__home-indicator span{display:block;width:5.2rem;height:.25rem;border-radius:1rem;background:#f1f3f1}
+.preview-device--mobile .preview-loading{font-size:.82rem;padding:1.5rem;text-align:center}
+.preview-toolbar__hint{padding-left:.1rem}
+.preview-switch__button:focus-visible,.preview-open:focus-visible,.preview-back:focus-visible{outline:3px solid #7bb69a;outline-offset:3px}
+@media(max-width:40rem){
+ .preview-device--mobile{width:min(375px,100%);padding:0 5px 6px;border-radius:2.8rem}
+ .preview-device--mobile .preview-device__chrome{height:2.8rem}
+ .preview-device--mobile .preview-device__island{width:5.4rem;height:1.05rem;top:.57rem}
+ .preview-device--mobile .preview-viewport{height:66vh;min-height:450px;border-radius:0 0 2.2rem 2.2rem}
+ .preview-device--mobile .preview-viewport iframe{border-radius:0 0 2.2rem 2.2rem}
+ .preview-device--mobile .preview-device__home-indicator{height:1.2rem}
+}
