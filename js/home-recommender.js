@@ -76,7 +76,7 @@
       li.textContent = text(step);
       steps.appendChild(li);
     });
-    nextLink.href = item.href;
+    nextLink.href = english ? item.href.replace("/bagusin/contact/", "/bagusin/en/contact/") : item.href;
     nextLink.textContent = text(item.cta) + " →";
     if (progress) progress.textContent = english ? "Suggested next step" : "Saran langkah berikutnya";
     result.hidden = false;
