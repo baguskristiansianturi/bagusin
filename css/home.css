@@ -282,3 +282,7 @@
 @media(max-width:55.999rem){.home-section__header--row{align-items:flex-start;flex-direction:column;gap:1rem}.home-work-teaser__inner{grid-template-columns:1fr}.home-work-teaser__copy{max-width:45rem}}
 @media(max-width:39.999rem){.home-discovery__grid{grid-template-columns:1fr}.home-discovery-card{min-height:0;padding:1.35rem}.home-discovery-card__link{padding-top:1rem}.home-section__view-all{margin:0}.home-hero__copy h1{font-size:clamp(2.55rem,11vw,3.6rem);line-height:1.05;letter-spacing:-.045em}.home-hero__copy h1 span{display:inline}.home-work-teaser__list>a{grid-template-columns:2.5rem minmax(0,1fr) .8rem;gap:.65rem}.home-story__visual,.home-story--featured .home-story__visual{min-height:12rem}}
 @media(prefers-reduced-motion:reduce){.home-discovery-card,.home-discovery-card__link span,.home-story__visual,.home-work-teaser__list>a{transition:none}}
+
+/* Five clear discovery paths: balanced desktop, tablet and mobile grids. */
+@media(min-width:56rem){.home-discovery__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(min-width:40rem) and (max-width:55.999rem){.home-discovery__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
