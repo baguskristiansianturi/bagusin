@@ -47,7 +47,12 @@ document.addEventListener("DOMContentLoaded",function(){
  const related=[...curated,...ranked].slice(0,3);
  const serviceIds=new Set([...(article.services||[]),...(article.relatedServices||[])]);
  const services=R.services.filter(s=>serviceIds.has(s.id));
- if(!related.length&&!services.length)return;
+ if(!related.length&&!services.length){
+   const section=document.createElement("section");section.className="article-ecosystem";section.setAttribute("aria-labelledby","article-ecosystem-title");
+   const label=article.category||article.subcategory||(isEnglish?"Blog":"Blog");
+   section.innerHTML='<div class="article-ecosystem__header"><span class="section-kicker">'+(isEnglish?"Explore by topic":"Jelajahi berdasarkan topik")+'</span><h2 id="article-ecosystem-title">'+(isEnglish?"Keep exploring":"Lanjutkan membaca")+'</h2><p>'+(isEnglish?"Browse this category or return to the full article archive.":"Jelajahi kategori ini atau kembali ke seluruh arsip artikel.")+'</p></div><div class="article-ecosystem__links"><a href="'+esc(categoryLink(label,"category"))+'"><strong>'+esc(label)+'</strong><span>'+(isEnglish?"Browse articles in this category":"Lihat artikel dalam kategori ini")+'</span></a><a href="'+esc(archive)+'"><strong>'+(isEnglish?"All articles":"Semua artikel")+'</strong><span>'+(isEnglish?"Return to the complete blog archive":"Kembali ke seluruh arsip blog")+'</span></a></div>';
+   host.parentNode.insertBefore(section,host);return;
+ }
  const section=document.createElement("section");
  section.className="article-ecosystem";
  section.setAttribute("aria-labelledby","article-ecosystem-title");
