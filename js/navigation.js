@@ -90,6 +90,28 @@
     addCollectionsLink(desktopList, false);
     addCollectionsLink(mobileList, true);
 
+    function addLearningLink(list, mobile) {
+      if (!list || list.querySelector('a[href$="/learning/"]')) return;
+      const item = document.createElement("li");
+      const link = document.createElement("a");
+      link.className = mobile ? "mobile-nav__link" : "site-nav__link";
+      link.href = navBase + "/learning/";
+      link.textContent = navEnglish ? "Learning" : "Belajar";
+      item.className = mobile ? "" : "site-nav__item";
+      item.appendChild(link);
+      const blogItem = Array.from(list.children).find(function (li) {
+        return li.querySelector('a[href$="/blog/"]');
+      });
+      const collectionItem = Array.from(list.children).find(function (li) {
+        return li.querySelector('a[href$="/collections/"]');
+      });
+      const reference = collectionItem || blogItem;
+      if (reference && reference.nextSibling) list.insertBefore(item, reference.nextSibling);
+      else list.appendChild(item);
+    }
+    addLearningLink(desktopList, false);
+    addLearningLink(mobileList, true);
+
     const mobileToggle = document.querySelector("[data-mobile-menu-toggle]");
     const mobileNav = document.getElementById("mobile-navigation");
     const mobileOverlay = document.querySelector("[data-mobile-overlay]");
@@ -147,7 +169,7 @@
       const checkoutBase = (usesProjectBase ? "/bagusin" : "") + "/checkout";
       const t = en ? {
         explore:"Explore", work:"Work", start:"Start", legal:"Legal",
-        blog:"Blog", collections:"Collection", destinations:"Destinations", youtube:"YouTube", about:"About",
+        blog:"Blog", collections:"Collection", learning:"Learning", destinations:"Destinations", youtube:"YouTube", about:"About",
         workWithMe:"Work With Me", services:"Services", portfolio:"Portfolio",
         startProject:"Start a Project", help:"Help Me Choose", contact:"Contact",
         privacy:"Privacy Policy", terms:"Terms", disclaimer:"Disclaimer", editorial:"Editorial Policy",
@@ -156,7 +178,7 @@
         ctaText:"Start with the problem. If you know what you need, start a project. If not, ask for help choosing the right path."
       } : {
         explore:"Jelajahi", work:"Layanan", start:"Mulai", legal:"Informasi",
-        blog:"Blog", collections:"Koleksi", destinations:"Destinasi", youtube:"YouTube", about:"Tentang",
+        blog:"Blog", collections:"Koleksi", learning:"Belajar", destinations:"Destinasi", youtube:"YouTube", about:"Tentang",
         workWithMe:"Lihat Layanan", services:"Layanan", portfolio:"Portofolio",
         startProject:"Mulai Proyek", help:"Bantu Pilihkan", contact:"Kontak",
         privacy:"Kebijakan Privasi", terms:"Ketentuan", disclaimer:"Penafian", editorial:"Kebijakan Editorial",
@@ -183,7 +205,7 @@
                 <div class="site-footer__social" aria-label="Social media">${social}</div>
               </div>
               <div class="site-footer__column"><h2 class="site-footer__title">${t.explore}</h2><ul class="site-footer__links">
-                <li><a class="site-footer__link" href="${base}/blog/">${t.blog}</a></li><li><a class="site-footer__link" href="${base}/collections/">${t.collections}</a></li><li><a class="site-footer__link" href="${base}/destinations/">${t.destinations}</a></li><li><a class="site-footer__link" href="${base}/youtube/">${t.youtube}</a></li><li><a class="site-footer__link" href="${base}/about/">${t.about}</a></li>
+                <li><a class="site-footer__link" href="${base}/blog/">${t.blog}</a></li><li><a class="site-footer__link" href="${base}/collections/">${t.collections}</a></li><li><a class="site-footer__link" href="${base}/learning/">${t.learning}</a></li><li><a class="site-footer__link" href="${base}/destinations/">${t.destinations}</a></li><li><a class="site-footer__link" href="${base}/youtube/">${t.youtube}</a></li><li><a class="site-footer__link" href="${base}/about/">${t.about}</a></li>
               </ul></div>
               <div class="site-footer__column"><h2 class="site-footer__title">${t.work}</h2><ul class="site-footer__links">
                 <li><a class="site-footer__link" href="${base}/work/">${t.workWithMe}</a></li><li><a class="site-footer__link" href="${base}/work/">${t.services}</a></li><li><a class="site-footer__link" href="${base}/portfolio/">${t.portfolio}</a></li>
