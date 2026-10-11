@@ -142,6 +142,50 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+
+  const learningPathSlug = params.get("learning_path") || "";
+  const learningPathNames = {
+    "web-software-engineering": "Web & Software Engineering",
+    "cloud-infrastructure": isEnglish ? "Cloud & Infrastructure" : "Cloud & Infrastruktur",
+    "ai-engineering": "AI Engineering",
+    "iot-connected-systems": isEnglish ? "IoT & Connected Systems" : "IoT & Sistem Terhubung",
+    "data-automation": isEnglish ? "Data & Automation" : "Data & Otomasi"
+  };
+  const learningDomainSlug = params.get("learning_domain") || "";
+  const learningDomainNames = {
+    "digital-foundations": isEnglish ? "Digital Foundations" : "Fondasi Digital",
+    "ui-ux-and-desain-web": isEnglish ? "UI/UX & Web Design" : "UI/UX & Desain Web",
+    "frontend-development": "Frontend Development",
+    "programming-and-algorithms": isEnglish ? "Programming & Algorithms" : "Pemrograman & Algoritma",
+    "backend-development": "Backend Development",
+    "database-and-data-engineering": isEnglish ? "Database & Data Engineering" : "Database & Rekayasa Data",
+    "cms-and-web-platforms": isEnglish ? "CMS & Web Platforms" : "CMS & Platform Web",
+    "cloud-computing": "Cloud Computing",
+    "devops-and-security": "DevOps & Security",
+    "ai-and-machine-learning": isEnglish ? "AI & Machine Learning" : "AI & Machine Learning",
+    "automation-and-integration": isEnglish ? "Automation & Integration" : "Otomasi & Integrasi",
+    "mobile-development": isEnglish ? "Mobile Development" : "Pengembangan Mobile",
+    "embedded-systems-and-iot": isEnglish ? "Embedded Systems & IoT" : "Sistem Embedded & IoT",
+    "computer-and-networking": isEnglish ? "Computer & Networking" : "Komputer & Jaringan",
+    "data-analysis-and-business-tools": isEnglish ? "Data Analysis & Business Tools" : "Analisis Data & Perangkat Bisnis",
+    "graphic-design-and-media": isEnglish ? "Graphic Design & Media" : "Desain Grafis & Media"
+  };
+  const selectedLearningLabel = learningPathNames[learningPathSlug] || learningDomainNames[learningDomainSlug] || "";
+  if (mode === "course-interest" && selectedLearningLabel && briefField) {
+    if (serviceHeading) serviceHeading.textContent = selectedLearningLabel + (isEnglish ? " learning inquiry" : " — pertanyaan pembelajaran");
+    if (!briefField.value.includes(selectedLearningLabel)) {
+      briefField.value = (isEnglish ? "Selected learning goal: " : "Bidang belajar pilihan: ") + selectedLearningLabel + "\\n\\n" + briefField.value;
+    }
+    const context = document.getElementById("service-context");
+    if (context && !context.querySelector("[data-learning-selection]")) {
+      const tag = document.createElement("p");
+      tag.dataset.learningSelection = "";
+      tag.className = "form-template-context";
+      tag.textContent = (isEnglish ? "Selected learning topic: " : "Topik belajar pilihan: ") + selectedLearningLabel;
+      context.appendChild(tag);
+    }
+  }
+
   const recommendationPath = params.get("path") || "";
   const recommendationGoal = params.get("goal") || "";
   const recommendationLabels = {
@@ -175,29 +219,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  const learningPathSlug = params.get("path") || "";
-  const learningPathNames = {
-    "web-software-engineering": isEnglish ? "Web & Software Engineering" : "Web & Software Engineering",
-    "cloud-infrastructure": isEnglish ? "Cloud & Infrastructure" : "Cloud & Infrastruktur",
-    "ai-engineering": "AI Engineering",
-    "iot-connected-systems": isEnglish ? "IoT & Connected Systems" : "IoT & Sistem Terhubung",
-    "data-automation": isEnglish ? "Data & Automation" : "Data & Otomasi"
-  };
-  if (mode === "course-interest" && learningPathSlug && learningPathNames[learningPathSlug] && briefField) {
-    const selectedPath = learningPathNames[learningPathSlug];
-    if (!briefField.value.includes(selectedPath)) {
-      briefField.value = (isEnglish ? "Learning pathway selected: " : "Jalur belajar yang dipilih: ") + selectedPath + "\\n\\n" + briefField.value;
-    }
-    if (serviceHeading) serviceHeading.textContent = selectedPath + (isEnglish ? " pathway inquiry" : " — pertanyaan jalur belajar");
-    const context = document.getElementById("service-context");
-    if (context && !context.querySelector("[data-learning-path-selected]")) {
-      const tag = document.createElement("p");
-      tag.dataset.learningPathSelected = "";
-      tag.className = "form-template-context";
-      tag.textContent = (isEnglish ? "Selected pathway: " : "Jalur belajar pilihan: ") + selectedPath;
-      context.appendChild(tag);
-    }
-  }
 
   function valueOf(name) {
     const field = form.elements.namedItem(name);
