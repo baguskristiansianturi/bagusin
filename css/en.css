@@ -21,3 +21,14 @@
 @media(max-width:63.999rem){.en-page .page-hero__inner{grid-template-columns:1fr;gap:2rem}.en-page .content-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:47.999rem){.en-page .page-hero{padding-block:4rem}.en-page .page-hero__inner{gap:1.5rem}.en-page .content-grid{grid-template-columns:1fr}.en-page .link-row,.en-page .link-row .button{width:100%}.en-page .search-field{width:100%}}
 @media(prefers-reduced-motion:reduce){.en-page a{transition:none}}
+
+/* One understated YouTube mention at the bottom of the homepage. */
+.home-youtube-note{padding:1.1rem 0;border-top:1px solid var(--color-border, #e7e7e7);background:var(--color-surface-soft, #fafafa)}
+.home-youtube-note__inner{display:flex;align-items:center;gap:.85rem;max-width:var(--container-width, 1200px)}
+.home-youtube-note__mark{display:grid;place-items:center;flex:0 0 2.25rem;width:2.25rem;height:2.25rem;border:1px solid var(--color-border, #e7e7e7);border-radius:50%;font-size:.8rem;color:var(--color-text-muted, #666)}
+.home-youtube-note p{display:grid;gap:.15rem;flex:1;margin:0;font-size:.9rem}
+.home-youtube-note p strong{font-weight:600}
+.home-youtube-note p span{color:var(--color-text-muted, #666);font-size:.82rem}
+.home-youtube-note a{font-size:.85rem;color:var(--color-accent, #6654c0);text-decoration:none;white-space:nowrap}
+.home-youtube-note a:hover{text-decoration:underline}
+@media(max-width:540px){.home-youtube-note__inner{align-items:flex-start;flex-wrap:wrap}.home-youtube-note p{min-width:calc(100% - 3.2rem)}.home-youtube-note a{margin-left:3.1rem}}
