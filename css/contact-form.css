@@ -323,3 +323,34 @@
   margin-top:.75rem;
   white-space:normal;
 }
+
+
+/* Focused contact flow: one task, with a clear route back home. */
+body:has(#project-form) .site-header,
+body:has(#project-form) .site-footer,
+body:has(#project-form) .skip-link{display:none!important}
+.contact-hero{padding-block:clamp(1.8rem,4vw,3.25rem);background:linear-gradient(130deg,#fff 0%,#f5f9f7 100%)}
+.contact-hero__inner{align-items:center}
+.contact-hero__inner h1{max-width:14ch;font-size:clamp(2.25rem,5vw,3.8rem);line-height:1.03;letter-spacing:-.05em}
+.contact-hero__lead{max-width:36rem;font-size:1rem;line-height:1.65}
+.contact-home-link{display:inline-flex;margin-bottom:1.1rem;color:var(--color-accent-dark);font-size:.88rem;font-weight:700;text-decoration:none}
+.contact-home-link:hover{text-decoration:none;color:var(--color-text)}
+.contact-home-link:focus-visible{outline:3px solid var(--color-accent);outline-offset:4px}
+.contact-hero__aside{padding:1.1rem;border:1px solid var(--color-border);border-radius:var(--radius-lg);background:rgba(255,255,255,.75)}
+.contact-form-section{padding-block:clamp(1.8rem,4vw,3.5rem);background:#fff}
+.contact-form-layout{grid-template-columns:minmax(0,.65fr) minmax(0,1.35fr);gap:clamp(1.5rem,4vw,3.5rem)}
+.contact-form-layout>:first-child{position:static}
+.contact-form-layout>:first-child .section-title{font-size:clamp(1.55rem,3vw,2.1rem);line-height:1.18}
+.contact-form-layout>:first-child .section-description{font-size:.9rem;line-height:1.65}
+.contact-form{padding:clamp(1rem,2.5vw,1.6rem);box-shadow:0 8px 28px rgba(17,21,20,.045)}
+.contact-form textarea{min-height:7rem;resize:vertical}
+.contact-form .form-disclosure{font-size:.72rem}
+.contact-form-section~.section{display:none}
+@media(max-width:47.999rem){
+ .contact-hero{padding-block:1.5rem}
+ .contact-hero__inner{grid-template-columns:1fr;gap:1rem}
+ .contact-hero__aside{display:none}
+ .contact-form-layout{grid-template-columns:1fr;gap:1rem}
+ .contact-form-layout>:first-child .section-title{max-width:18ch}
+ .contact-form{max-width:none}
+}
