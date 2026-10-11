@@ -1,1 +1,13 @@
 .article-ecosystem{max-width:var(--content-width,68rem);margin:3rem auto 0;padding:2rem 0;border-top:1px solid var(--color-border,#e7ece9)}.article-ecosystem__header{max-width:48rem}.article-ecosystem__header h2{margin:.35rem 0 .6rem}.article-ecosystem__header p{color:var(--color-muted,#737b78)}.article-ecosystem__group{margin-top:1.5rem}.article-ecosystem__links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:.75rem}.article-ecosystem__links a{display:flex;flex-direction:column;gap:.4rem;padding:1rem;border:1px solid var(--color-border,#e7ece9);border-radius:var(--radius-md,.75rem);text-decoration:none;background:var(--color-white,#fff)}.article-ecosystem__links a span{font-size:.9rem;color:var(--color-muted,#737b78)}@media(max-width:48rem){.article-ecosystem{margin-top:2rem;padding:1.5rem 0}.article-ecosystem__links{grid-template-columns:1fr}}
+/* Article taxonomy + related content shared across all article pages */
+.article-pro-footer{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.article-pro-footer>div{min-width:0}
+.article-pro-footer>div>span,.article-labels>.section-kicker{display:block;margin-bottom:.55rem;font-size:.78rem;font-weight:700;color:var(--color-text-muted,#65716b)}
+.article-pro-tags,.article-labels .article-tags{display:flex;flex-wrap:wrap;gap:.45rem}
+.article-pro-tags a,.article-labels .article-tags a{display:inline-flex;max-width:100%;padding:.38rem .65rem;border:1px solid #d8e5de;border-radius:999px;background:#f7faf8;color:#315b49;text-decoration:none;font-size:.8rem;line-height:1.4;overflow-wrap:anywhere}
+.article-pro-tags a:hover,.article-labels .article-tags a:hover{background:#edf6f1;border-color:#8eb7a3}
+.article-ecosystem{width:min(calc(100% - 2rem),68rem);box-sizing:border-box}
+.article-ecosystem__links a{min-width:0;overflow-wrap:anywhere}
+.article-ecosystem__links a strong{font-size:1rem;line-height:1.45}
+.article-ecosystem__links a span{font-size:.9rem;line-height:1.6}
+@media(max-width:48rem){.article-pro-footer{display:grid;grid-template-columns:minmax(0,1fr);gap:1rem}.article-pro-footer .button{width:100%;max-width:none}.article-ecosystem{width:100%;padding-inline:0}.article-ecosystem__links{grid-template-columns:minmax(0,1fr)}}
