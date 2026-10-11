@@ -230,3 +230,78 @@
     gap:.55rem;
   }
 }
+
+
+/* Homepage exploration cards: make links identifiable and responsive. */
+.home-pillars{
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:1rem;
+  overflow:visible;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+}
+.home-pillar{
+  min-width:0;
+  min-height:19rem;
+  padding:1.5rem;
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-xl);
+  box-shadow:0 5px 18px rgba(17,21,20,.035);
+  text-decoration:none;
+}
+.home-pillar::after{display:none}
+.home-pillar:hover{
+  border-color:var(--color-border-strong);
+  box-shadow:0 14px 32px rgba(17,21,20,.08);
+  transform:translateY(-3px);
+}
+.home-pillar:focus-visible{outline:3px solid var(--color-accent-dark);outline-offset:4px}
+.home-pillar__icon{
+  display:flex;
+  width:3rem;
+  height:3rem;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:1.1rem;
+  border-radius:.9rem;
+  background:#e7f4f0;
+  color:#287b6c;
+  font-size:1.35rem;
+  font-weight:700;
+}
+.home-pillar__icon--places{background:#edf1fb;color:#4a62a8}
+.home-pillar__icon--projects{background:#fbf0e4;color:#a65c20}
+.home-pillar__icon--video{background:#f9e9e8;color:#b34d4d}
+.home-pillar__eyebrow{color:var(--color-text-muted);font-size:.68rem;font-weight:700;letter-spacing:.07em;line-height:1.4;text-transform:uppercase}
+.home-pillar h3{margin-top:.65rem;font-size:1.35rem;line-height:1.25}
+.home-pillar p{margin-top:.65rem;color:var(--color-text-soft);font-size:.875rem;line-height:1.65}
+.home-pillar__link{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.75rem;
+  margin-top:auto;
+  padding-top:1.25rem;
+  color:var(--color-accent-dark);
+  font-size:.875rem;
+  font-weight:700;
+}
+.home-pillar__link>span{
+  display:inline-flex;
+  width:2rem;
+  height:2rem;
+  flex:0 0 auto;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(63,145,129,.28);
+  border-radius:50%;
+  transition:transform var(--transition-base),background-color var(--transition-base);
+}
+.home-pillar:hover .home-pillar__link>span{transform:translateX(2px);background:var(--color-accent-soft)}
+.home-pillar--places .home-pillar__link{color:#4a62a8}
+.home-pillar--projects .home-pillar__link{color:#a65c20}
+.home-pillar--video .home-pillar__link{color:#b34d4d}
+@media(max-width:67.999rem){.home-pillars{grid-template-columns:repeat(2,minmax(0,1fr))}.home-pillar{min-height:17rem}}
+@media(max-width:39.999rem){.home-pillars{grid-template-columns:minmax(0,1fr);gap:.8rem}.home-pillar{min-height:0;padding:1.25rem}.home-pillar h3{margin-top:.55rem}.home-pillar__icon{width:2.75rem;height:2.75rem;margin-bottom:.9rem}}
+@media(prefers-reduced-motion:reduce){.home-pillar,.home-pillar__link>span{transition:none}}
