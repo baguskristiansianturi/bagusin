@@ -26,3 +26,25 @@
 @media(max-width:760px){.home-editorial-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.home-learning-cta{grid-template-columns:1fr;gap:1.25rem}}
 @media(max-width:520px){.home-editorial-grid,.home-principles{grid-template-columns:1fr}.home-editorial-card{border-radius:var(--radius-lg)}.home-editorial-card__image{aspect-ratio:16/9}.home-principle{border-radius:var(--radius-lg)}.home-learning-cta{padding:1.2rem;border-radius:var(--radius-lg)}.home-learning-cta__aside{padding:1rem}}
 @media(prefers-reduced-motion:reduce){.home-editorial-card{transition:none}.home-editorial-card:hover{transform:none}}
+
+
+/* Final homepage cascade: intentional last-loaded overrides for hero and choice cards. */
+.home-hero.home-hero--pathfinder{padding-block:clamp(2.6rem,5vw,4.5rem)}
+.home-hero--pathfinder .home-pathfinder{display:grid;grid-template-columns:minmax(0,1fr) minmax(19rem,.88fr);align-items:center;gap:clamp(1.5rem,4vw,4rem)}
+.home-pathfinder__intro{min-width:0}
+.home-pathfinder__intro h1{max-width:12ch;margin:.8rem 0 1rem;font-size:clamp(2.65rem,5.2vw,4.7rem);line-height:1.02;letter-spacing:-.055em;text-wrap:balance}
+.home-pathfinder__intro .home-hero__lead{max-width:38rem;font-size:clamp(1rem,1.4vw,1.15rem);line-height:1.75}
+.home-pathfinder__panel{min-width:0;padding:clamp(1.1rem,2.4vw,1.65rem);border:1px solid var(--color-border);border-radius:var(--radius-xl,1.25rem);background:rgba(255,255,255,.96);box-shadow:0 18px 48px rgba(17,35,28,.07)}
+.home-pathfinder__panel h2{font-size:clamp(1.2rem,2vw,1.55rem);line-height:1.25;letter-spacing:-.025em}
+.home-pathfinder__choice{width:100%;min-width:0;gap:.8rem;padding:1rem;border:1px solid var(--color-border);border-radius:.85rem;background:#fff;text-align:left;transition:border-color .18s ease,background .18s ease,transform .18s ease}
+.home-pathfinder__choice:hover,.home-pathfinder__choice[aria-pressed="true"]{border-color:var(--color-accent);background:#f5f9f6}
+.home-pathfinder__choice:hover{transform:translateY(-1px)}
+.home-pathfinder__choice strong{display:block;line-height:1.4}
+.home-pathfinder__choice small{display:block;margin-top:.3rem;color:var(--color-muted);line-height:1.55}
+.home-pathfinder__choice:focus-visible{outline:3px solid var(--color-accent);outline-offset:3px}
+.home-discovery-refresh__heading h2,.home-course-preview__heading h2{letter-spacing:-.035em;text-wrap:balance}
+.home-feature-card,.home-editorial-card,.home-course-card,.home-path-card{border-radius:var(--radius-lg,1rem)}
+.home-feature-card__body p,.home-editorial-card__body p,.home-course-card p,.home-path-card p{line-height:1.7}
+@media(max-width:55.999rem){.home-hero--pathfinder .home-pathfinder{grid-template-columns:minmax(0,1fr);gap:1.5rem}.home-pathfinder__intro h1{max-width:14ch}.home-pathfinder__panel{max-width:none}}
+@media(max-width:39.999rem){.home-hero.home-hero--pathfinder{padding-block:2.2rem}.home-pathfinder__intro h1{font-size:clamp(2.55rem,12vw,3.6rem)}.home-pathfinder__panel{padding:1rem}.home-pathfinder__choice{padding:.85rem;align-items:flex-start}.home-discovery-refresh__heading{align-items:flex-start}.home-course-card__top{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){.home-pathfinder__choice{transition:none}.home-pathfinder__choice:hover{transform:none}}
