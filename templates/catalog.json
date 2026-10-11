@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "id": "travel",
+      "name": "Travel & Rental",
+      "description": "Website untuk rental mobil, tour, transportasi, dan layanan perjalanan.",
+      "icon": "compass"
+    },
+    {
+      "id": "business",
+      "name": "Bisnis & Perusahaan",
+      "description": "Website untuk menjelaskan bisnis, layanan, tim, dan membangun kepercayaan.",
+      "icon": "building"
+    },
+    {
+      "id": "campaign",
+      "name": "Promosi & Landing Page",
+      "description": "Halaman fokus untuk satu penawaran, iklan, produk, atau kampanye.",
+      "icon": "target"
+    },
+    {
+      "id": "commerce",
+      "name": "Toko & Katalog",
+      "description": "Tampilkan pilihan produk atau layanan dan bantu pelanggan melanjutkan pemesanan.",
+      "icon": "shopping-bag"
+    }
+  ],
+  "levels": [
+    {
+      "id": "starter",
+      "name": "Starter",
+      "summary": "Mulai dengan tampilan siap pakai dan kebutuhan inti.",
+      "details": "Pilihan awal yang praktis untuk bisnis yang ingin tampil online dengan jelas."
+    },
+    {
+      "id": "business",
+      "name": "Business",
+      "summary": "Lebih banyak halaman dan alur informasi.",
+      "details": "Untuk bisnis yang membutuhkan halaman layanan, tentang, FAQ, dan struktur informasi lebih lengkap."
+    },
+    {
+      "id": "commerce",
+      "name": "Commerce",
+      "summary": "Katalog dan alur pemesanan yang lebih lengkap.",
+      "details": "Untuk kebutuhan katalog produk atau layanan, dan alur pemesanan sesuai ruang lingkup."
+    },
+    {
+      "id": "custom",
+      "name": "Custom",
+      "summary": "Rancang sesuai kebutuhan khusus.",
+      "details": "Kebutuhan yang tidak cocok dengan paket standar dibahas bersama sebelum penawaran."
+    }
+  ],
+  "templates": [
+    {
+      "id": "rental-starter-01",
+      "slug": "rental-mobil-starter",
+      "name": "Rental Mobil — Starter",
+      "designName": "Clean Drive",
+      "category": "travel",
+      "businessTypes": [
+        "rental-mobil",
+        "travel",
+        "transportasi"
+      ],
+      "level": "starter",
+      "format": "landing-page",
+      "price": 750000,
+      "currency": "IDR",
+      "status": "available",
+      "isNew": true,
+      "description": "Landing page satu halaman untuk memperkenalkan layanan rental, menampilkan pilihan kendaraan, menjawab pertanyaan umum, dan mengarahkan calon pelanggan untuk menghubungi bisnis.",
+      "included": [
+        "Satu halaman responsif",
+        "Penyesuaian nama bisnis, warna, foto, dan copy dasar",
+        "Bagian layanan, armada, informasi harga, FAQ, dan CTA kontak",
+        "Pemasangan website gratis setelah domain dan hosting tersedia"
+      ],
+      "notIncluded": [
+        "Domain dan hosting",
+        "Booking otomatis atau database",
+        "Dashboard pengelolaan",
+        "Integrasi pembayaran"
+      ],
+      "demoUrl": "/bagusin/demos/starter/rental-mobil/",
+      "orderUrl": "/bagusin/contact/?service=website&mode=project&template=rental-starter-01",
+      "discussionUrl": "/bagusin/contact/?service=website&mode=consultation&template=rental-starter-01",
+      "image": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=85",
+      "imageAlt": "Mobil sebagai gambaran desain website rental mobil",
+      "updated": "2026-10-11"
+    }
+  ]
+}
