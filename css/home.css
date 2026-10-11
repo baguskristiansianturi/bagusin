@@ -286,3 +286,76 @@
 /* Five clear discovery paths: balanced desktop, tablet and mobile grids. */
 @media(min-width:56rem){.home-discovery__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(min-width:40rem) and (max-width:55.999rem){.home-discovery__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+
+/* Homepage direction: content first, compact hero, visible search */
+.home-hero{
+  min-height:0;
+  padding-block:clamp(3.25rem,7vw,5.25rem);
+}
+.home-hero__inner{
+  display:block;
+  width:100%;
+}
+.home-hero__copy{
+  max-width:58rem;
+  margin-inline:auto;
+}
+.home-hero__copy h1{
+  max-width:44rem;
+  margin-top:1rem;
+  font-size:clamp(2.75rem,6.8vw,5rem);
+  line-height:1.04;
+  letter-spacing:-.055em;
+}
+.home-hero__lead{
+  max-width:35rem;
+  margin-top:1rem;
+  font-size:clamp(1rem,1.8vw,1.12rem);
+  line-height:1.6;
+}
+.home-hero__search{
+  display:flex;
+  align-items:center;
+  gap:.65rem;
+  max-width:38rem;
+  margin-top:1.6rem;
+  padding:.4rem;
+  border:1px solid var(--color-border-strong);
+  border-radius:var(--radius-lg);
+  background:rgba(255,255,255,.94);
+  box-shadow:0 8px 28px rgba(17,21,20,.06);
+}
+.home-hero__search input{
+  flex:1;
+  min-width:0;
+  min-height:2.9rem;
+  padding:.65rem .9rem;
+  border:0;
+  outline-offset:-2px;
+  background:transparent;
+  color:var(--color-text);
+  font:inherit;
+}
+.home-hero__search input:focus{outline:2px solid var(--color-accent)}
+.home-hero__search .button{flex:0 0 auto}
+.home-hero__browse{
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  margin-top:1rem;
+  color:var(--color-accent-dark);
+  font-size:.9rem;
+  font-weight:650;
+  text-decoration:none;
+}
+.home-hero__browse:hover{color:var(--color-text)}
+.home-hero__browse span{transition:transform var(--transition-base)}
+.home-hero__browse:hover span{transform:translateX(3px)}
+@media(max-width:29.999rem){
+  .home-hero{padding-block:2.75rem}
+  .home-hero__copy h1{font-size:clamp(2.55rem,13vw,3.5rem)}
+  .home-hero__search{gap:.25rem}
+  .home-hero__search input{padding-inline:.65rem;font-size:.92rem}
+  .home-hero__search .button{padding-inline:.9rem}
+}
