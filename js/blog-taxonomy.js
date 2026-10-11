@@ -33,7 +33,7 @@
    filters.appendChild(b);
   }
   filters.replaceChildren();
-  makeFilter(english?"All articles":"Semua artikel","category","",!category&&!tag);
+  makeFilter(english?"All articles":"Semua artikel","category","",!category&&!tag&&!query);
   categories.forEach(c=>makeFilter(c,"category",c,norm(category)===norm(c)));
   const commonTags=[...new Set(published.flatMap(a=>a.tags||[]))].filter(t=>t).sort((a,b)=>a.localeCompare(b)).slice(0,12);
   if(!category&&!tag){commonTags.slice(0,6).forEach(t=>makeFilter("#"+t,"tag",t,false));}
