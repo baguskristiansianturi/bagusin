@@ -170,7 +170,47 @@ document.addEventListener("DOMContentLoaded", function () {
     "data-analysis-business-tools": isEnglish ? "Data Analysis & Business Tools" : "Analisis Data & Perangkat Bisnis",
     "graphic-design-media": isEnglish ? "Graphic Design & Media" : "Desain Grafis & Media"
   };
-  const selectedLearningLabel = learningPathNames[learningPathSlug] || learningDomainNames[learningDomainSlug] || "";
+  const learningItemSlug = params.get("learning_item") || "";
+  const learningItemNames = {
+    "office-admin": isEnglish ? "Office & Computer Administration" : "Komputer Administrasi & Office",
+    "excel-basic": isEnglish ? "Excel Fundamentals" : "Excel Dasar",
+    "excel-intermediate": "Excel Intermediate",
+    "excel-advanced": isEnglish ? "Excel Advanced & Dashboards" : "Excel Advanced & Dashboard",
+    "google-sheets-basic": isEnglish ? "Google Sheets Fundamentals" : "Google Sheets Dasar",
+    "google-sheets-intermediate": "Google Sheets Intermediate",
+    "google-sheets-advanced": "Google Sheets Advanced",
+    "powerpoint": isEnglish ? "PowerPoint & Presentations" : "PowerPoint & Presentasi",
+    "powerpoint-advanced": isEnglish ? "Advanced PowerPoint" : "PowerPoint Lanjutan",
+    "accounting-excel": isEnglish ? "Excel-Based Accounting" : "Akuntansi Berbasis Excel",
+    "graphic-design": isEnglish ? "Graphic Design" : "Desain Grafis",
+    "animation-video": isEnglish ? "Animation & Video Editing" : "Animasi & Editing Video",
+    "3d-sketchup-lumion": isEnglish ? "3D Design: SketchUp & Visualisation" : "Desain 3D: SketchUp & Visualisasi",
+    "autocad": "AutoCAD & Drafting",
+    "photoshop": isEnglish ? "Image Editing & Photoshop" : "Pengolahan Gambar & Photoshop",
+    "graphic-design-kids": isEnglish ? "Graphic Design for Children" : "Desain Grafis untuk Anak",
+    "photoshop-kids": isEnglish ? "Photoshop for Children" : "Photoshop untuk Anak",
+    "web-design-seo": isEnglish ? "Web Design & SEO" : "Web Design & SEO",
+    "web-programming-php-ci": isEnglish ? "Web Programming: PHP & Dynamic Applications" : "Web Programming: PHP & Aplikasi Dinamis",
+    "advanced-web-programming": "Advanced Web Programming",
+    "wordpress-cms": "WordPress & CMS",
+    "laravel-booking": isEnglish ? "Laravel & Booking Systems" : "Laravel & Sistem Booking",
+    "coding-web-kids": isEnglish ? "Web Coding for Children" : "Coding Web untuk Anak",
+    "seo": "Search Engine Optimisation (SEO)",
+    "social-media-marketing": "Social Media Marketing",
+    "internet-marketing": "Internet Marketing",
+    "google-ads": "Google Ads",
+    "whatsapp-marketing": "WhatsApp Marketing",
+    "data-analysis-looker": "Data Analysis & Looker Studio",
+    "google-apps-script": isEnglish ? "Google Apps Script & Automation" : "Google Apps Script & Otomasi",
+    "excel-macro-vba": isEnglish ? "Excel Macros & VBA" : "Excel Macro & VBA",
+    "computer-network-tech": isEnglish ? "Computer Technician & Networking" : "Teknisi Komputer & Jaringan",
+    "computer-basics-kids": isEnglish ? "Computer Basics for Children" : "Dasar Komputer untuk Anak",
+    "office-design-students": isEnglish ? "Office & Design Basics for Students" : "Office & Desain Dasar untuk Pelajar",
+    "word-kids": isEnglish ? "Microsoft Word for Children" : "Microsoft Word untuk Anak",
+    "excel-kids": isEnglish ? "Excel for Children" : "Excel untuk Anak",
+    "cat-cpns": isEnglish ? "Computer-Based Test Literacy" : "Literasi Tes Berbasis Komputer"
+  };
+  const selectedLearningLabel = learningItemNames[learningItemSlug] || learningPathNames[learningPathSlug] || learningDomainNames[learningDomainSlug] || "";
   if (mode === "course-interest" && selectedLearningLabel && briefField) {
     if (serviceHeading) serviceHeading.textContent = selectedLearningLabel + (isEnglish ? " learning inquiry" : " — pertanyaan pembelajaran");
     if (!briefField.value.includes(selectedLearningLabel)) {
