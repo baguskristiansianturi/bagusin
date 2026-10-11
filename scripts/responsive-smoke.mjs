@@ -331,7 +331,7 @@ try {
   await interactionPage.locator('[data-next="4"]').click();
   if (await interactionPage.locator('[data-panel="4"]').isHidden()) errors.push("Checkout: terms consent did not advance to next steps");
   const checkoutText = await interactionPage.locator("#main-content").innerText();
-  if (!checkoutText.includes("Invoice dan instruksi pembayaran tetap dikirim terpisah")) errors.push("Checkout: manual WhatsApp follow-up process is not explained");
+  if (!checkoutText.includes("Invoice dan instruksi pembayaran tetap dikirim terpisah")) errors.push("Checkout: separate invoice and payment steps are not explained");
   if (!checkoutText.includes("baguskristian@gmail.com")) errors.push("Checkout: destination email is not disclosed");
   if (checkoutText.includes("1460137710")) errors.push("Checkout: bank account details are shown before an agreed quotation");
   let submittedEmailPayload = null;
@@ -384,6 +384,9 @@ try {
     await interactionPage.locator("#name").fill("Collection Test");
     await interactionPage.locator("#email").fill("collection@example.com");
     await interactionPage.locator("#brief").fill("Please review the selected collection and discuss scope.");
+    await interactionPage.locator("#timeline").fill("Start and delivery dates to be agreed");
+    if (!(await interactionPage.locator("#agreed-quote").inputValue())) await interactionPage.locator("#agreed-quote").fill("1500000");
+    if (!(await interactionPage.locator("#payment-plan").inputValue())) await interactionPage.locator("#payment-plan").fill("50% deposit, balance at handover");
     await interactionPage.locator('[data-next="2"]').click();
     if (await interactionPage.locator('[data-panel="2"]').isHidden()) errors.push("Checkout: collection brief did not advance to review for " + item.service);
     const review = await interactionPage.locator("#review-box").innerText();
@@ -397,7 +400,7 @@ try {
   await interactionPage.locator("#terms-agree").check();
   await interactionPage.locator('[data-next="4"]').click();
   await interactionPage.locator("#send-order-brief").click();
-  await interactionPage.waitForFunction(() => document.querySelector("#checkout-email-status")?.textContent.includes("pengiriman berhasil diterima"), null, { timeout: 5000 });
+  await interactionPage.waitForFunction(() => document.querySelector("#checkout-email-status")?.textContent.includes("diterima layanan email"), null, { timeout: 5000 });
   if (!submittedEmailPayload || submittedEmailPayload.category !== "Landing Page") errors.push("Checkout: copywriting category was not included in the email payload");
 
   // Collections and Portfolio have distinct roles and destinations.
