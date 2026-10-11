@@ -164,6 +164,7 @@
     renderSolutions(goal);
     const learning = stage === "learning";
     consult.href = (isEnglish ? "/bagusin/en/contact/?" : "/bagusin/contact/?") + new URLSearchParams({service:learning ? "course-interest" : "consultation",mode:learning ? "course-interest" : "consultation",path:stage,goal:goal,source:"homepage-recommender"}).toString();
+    consult.textContent = learning ? (isEnglish ? "Ask about this learning path" : "Tanyakan jalur belajar ini") : (isEnglish ? "Optional consultation for guidance →" : "Masih perlu arahan? Konsultasi opsional →");
     result.hidden = false;
     progress.textContent = isEnglish ? "Recommendation ready" : "100% selesai";
     result.scrollIntoView({behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start"});
