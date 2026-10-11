@@ -1094,7 +1094,7 @@ main > section > .container > * { min-width: 0; }
 .home-consult-flow__grid, .work-grid, .work-card-grid, .service-grid,
 .service-card-grid, .portfolio-grid, .portfolio-project-grid, .collection-grid,
 .collection-card-grid, .blog-grid, .article-grid, .destination-grid,
-.related-articles__grid, .article-related-grid, .home-recommended-solutions__grid {
+.related-articles__grid, .article-related-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   gap: clamp(.85rem, 2vw, 1.4rem);
@@ -1210,43 +1210,6 @@ main > section > .container > * { min-width: 0; }
   .site-footer__top { grid-template-columns: minmax(0, 1fr) !important; }
   .site-footer__brand { grid-column: auto; }
   .home-pathfinder__panel { padding: .8rem; }
-}
-/* Pathfinder recommendations: two columns on wider screens, one readable card per mobile row. */
-.home-recommended-solutions__grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-}
-.home-recommended-solutions__card {
-  min-width: 0;
-  grid-template-columns: 2.4rem minmax(0, 1fr);
-  overflow-wrap: anywhere;
-}
-.home-recommended-solutions__card > * { min-width: 0; }
-.home-recommended-solutions__card strong,
-.home-recommended-solutions__card small,
-.home-recommended-solutions__link {
-  overflow-wrap: anywhere;
-  word-break: normal;
-}
-@media (max-width: 47.999rem) {
-  .home-recommended-solutions__grid {
-    grid-template-columns: minmax(0, 1fr) !important;
-    gap: .75rem;
-  }
-  .home-recommended-solutions__card {
-    grid-template-columns: 2.4rem minmax(0, 1fr);
-    padding: .9rem;
-  }
-}
-@media (max-width: 22.5rem) {
-  .home-recommended-solutions__card {
-    grid-template-columns: 2rem minmax(0, 1fr);
-    gap: .65rem;
-    padding: .75rem;
-  }
-  .home-recommended-solutions__icon {
-    width: 2rem;
-    height: 2rem;
-  }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; }
