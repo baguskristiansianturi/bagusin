@@ -154,21 +154,21 @@ document.addEventListener("DOMContentLoaded", function () {
   const learningDomainSlug = params.get("learning_domain") || "";
   const learningDomainNames = {
     "digital-foundations": isEnglish ? "Digital Foundations" : "Fondasi Digital",
-    "ui-ux-and-desain-web": isEnglish ? "UI/UX & Web Design" : "UI/UX & Desain Web",
+    "ui-ux-web-design": isEnglish ? "UI/UX & Web Design" : "UI/UX & Desain Web",
     "frontend-development": "Frontend Development",
-    "programming-and-algorithms": isEnglish ? "Programming & Algorithms" : "Pemrograman & Algoritma",
+    "programming-algorithms": isEnglish ? "Programming & Algorithms" : "Pemrograman & Algoritma",
     "backend-development": "Backend Development",
-    "database-and-data-engineering": isEnglish ? "Database & Data Engineering" : "Database & Rekayasa Data",
-    "cms-and-web-platforms": isEnglish ? "CMS & Web Platforms" : "CMS & Platform Web",
+    "database-data-engineering": isEnglish ? "Database & Data Engineering" : "Database & Rekayasa Data",
+    "cms-web-platforms": isEnglish ? "CMS & Web Platforms" : "CMS & Platform Web",
     "cloud-computing": "Cloud Computing",
-    "devops-and-security": "DevOps & Security",
-    "ai-and-machine-learning": isEnglish ? "AI & Machine Learning" : "AI & Machine Learning",
-    "automation-and-integration": isEnglish ? "Automation & Integration" : "Otomasi & Integrasi",
+    "devops-security": "DevOps & Security",
+    "ai-machine-learning": isEnglish ? "AI & Machine Learning" : "AI & Machine Learning",
+    "automation-integration": isEnglish ? "Automation & Integration" : "Otomasi & Integrasi",
     "mobile-development": isEnglish ? "Mobile Development" : "Pengembangan Mobile",
-    "embedded-systems-and-iot": isEnglish ? "Embedded Systems & IoT" : "Sistem Embedded & IoT",
-    "computer-and-networking": isEnglish ? "Computer & Networking" : "Komputer & Jaringan",
-    "data-analysis-and-business-tools": isEnglish ? "Data Analysis & Business Tools" : "Analisis Data & Perangkat Bisnis",
-    "graphic-design-and-media": isEnglish ? "Graphic Design & Media" : "Desain Grafis & Media"
+    "embedded-systems-iot": isEnglish ? "Embedded Systems & IoT" : "Sistem Embedded & IoT",
+    "computer-networking": isEnglish ? "Computer & Networking" : "Komputer & Jaringan",
+    "data-analysis-business-tools": isEnglish ? "Data Analysis & Business Tools" : "Analisis Data & Perangkat Bisnis",
+    "graphic-design-media": isEnglish ? "Graphic Design & Media" : "Desain Grafis & Media"
   };
   const selectedLearningLabel = learningPathNames[learningPathSlug] || learningDomainNames[learningDomainSlug] || "";
   if (mode === "course-interest" && selectedLearningLabel && briefField) {
