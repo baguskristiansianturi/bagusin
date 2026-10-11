@@ -19,7 +19,7 @@
     business: [["customers","Menambah calon pelanggan dan penjualan"],["organic","Membangun visibilitas organik jangka panjang"],["conversion","Memperbaiki hasil dari website yang sudah ada"],["allin","Menyusun strategi menyeluruh sesuai kondisi bisnis"]],
     existing: [["conversion","Website belum menghasilkan kontak atau penjualan"],["website","Memperbaiki tampilan, copy, struktur, atau menambah halaman"],["system","Menambah fitur, integrasi, atau sistem operasional"],["marketing","Menilai apakah SEO atau iklan layak dijalankan"],["allin","Menganalisis dan mengelola perbaikan secara menyeluruh"]]
   };
-  const isEnglish = /^\\/(?:bagusin\\/)?en(?:\\/|$)/.test(window.location.pathname);
+  const isEnglish = window.location.pathname.split("/").includes("en");
   const optionsEn = {
     starter: [["customers","Get your first customers soon"],["organic","Build long-term online visibility"],["allin","Get help planning and managing the whole process"]],
     business: [["customers","Attract more leads and sales"],["organic","Grow long-term organic visibility"],["conversion","Improve results from my current website"],["allin","Plan a broader strategy for my business"]],
