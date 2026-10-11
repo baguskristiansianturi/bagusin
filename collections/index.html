@@ -40,24 +40,25 @@
 <aside class="mobile-nav" id="mobile-navigation" aria-label="Navigasi mobile" aria-hidden="true"><div class="mobile-nav__inner"><div class="mobile-nav__header"><span class="mobile-nav__label">Menu</span><button class="header-action" type="button" data-mobile-menu-close aria-label="Tutup menu">×</button></div><nav aria-label="Menu utama mobile"><ul class="mobile-nav__list"><li><a class="mobile-nav__link" href="/bagusin/">Beranda</a></li><li><a class="mobile-nav__link" href="/bagusin/collections/">Template & Demo</a></li><li><a class="mobile-nav__link" href="/bagusin/work/">Layanan</a></li><li><a class="mobile-nav__link" href="/bagusin/blog/">Blog & panduan</a></li><li><a class="mobile-nav__link" href="/bagusin/contact/">Kontak</a></li></ul></nav></div></aside>
 
 <main id="main-content" tabindex="-1">
-  <section class="template-catalog-hero">
+  <section class="template-catalog-hero template-catalog-hero--compact">
     <div class="container template-catalog-hero__grid">
       <div>
-        <span class="section-kicker">Pilih tampilan · Lihat demo · Kembangkan</span>
-        <h1>Website yang cocok dimulai dari desain yang bisa kamu bayangkan.</h1>
-        <p class="template-catalog-lead">Pilih jenis bisnis dan tampilan yang kamu suka. Bagusin membantu menyesuaikan desain, mengisi copy dasar, dan menyiapkan halaman sesuai paket yang disepakati. Kalau belum tahu istilah teknisnya, tidak masalah—mulai dari kebutuhanmu saja.</p>
-        <div class="template-catalog-hero__actions"><a class="button button--accent" href="#pilihan-template">Jelajahi desain <span aria-hidden="true">↓</span></a><a class="button button--secondary" href="/bagusin/contact/?service=websites&mode=consultation">Bantu saya memilih</a></div>
+        <span class="section-kicker">Koleksi website</span>
+        <h1>Pilih desain untuk bisnismu.</h1>
+        <p class="template-catalog-lead">Lihat demo yang tersedia, bandingkan pilihan, lalu pilih yang paling sesuai.</p>
       </div>
-      <aside class="template-catalog-note"><h2>Bagaimana cara memilih?</h2><p><strong>1. Pilih kategori bisnis.</strong> Misalnya rental mobil, travel, perusahaan, atau toko.</p><p><strong>2. Bandingkan desain dan level.</strong> Lihat demo untuk membayangkan hasilnya dengan foto dan identitas bisnismu.</p><p><strong>3. Pilih cara mulai.</strong> Pesan desain, minta penyesuaian, atau diskusikan website custom.</p></aside>
     </div>
   </section>
 
+  
+
   <section class="section" id="pilihan-template">
     <div class="container">
-      <span class="section-kicker">Katalog yang terus bertambah</span>
-      <h2 class="section-title">Temukan desain untuk bisnismu</h2>
-      <p class="section-description">Koleksi terbaru ditampilkan lebih dahulu. Setiap desain dapat menjadi titik awal; pilihan halaman, isi, dan fitur akan disesuaikan dengan paket.</p>
-      <div class="template-catalog-filters" role="search" aria-label="Filter template">
+      <div class="template-catalog-shortcuts" data-template-category-shortcuts aria-label="Kategori koleksi">
+        <button class="template-category-shortcut is-active" type="button" data-template-shortcut="" aria-pressed="true"><span class="template-category-shortcut__number" data-shortcut-count="all">0</span><span>Semua koleksi</span></button>
+      </div>
+      <p class="template-catalog-hint">Pilih kategori untuk menampilkan desain terkait lebih dahulu. Koleksi lain tetap tersedia di bawahnya.</p>
+      <div class="template-catalog-filters" role="search" aria-label="Cari dan pilih template">
         <label class="template-catalog-field">Cari bisnis atau desain<input type="search" data-template-search placeholder="Contoh: rental mobil, travel..." autocomplete="off"></label>
         <label class="template-catalog-field">Kategori bisnis<select data-template-category><option value="">Memuat kategori…</option></select></label>
         <label class="template-catalog-field">Level kebutuhan<select data-template-level><option value="">Memuat level…</option></select></label>
