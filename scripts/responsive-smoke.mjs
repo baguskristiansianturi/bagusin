@@ -277,7 +277,7 @@ try {
   const aboutText = await interactionPage.locator("main").innerText();
   const aboutStructuredData = await interactionPage.locator('script[type="application/ld+json"]').textContent();
   if (!aboutTitle.includes("Tentang")) errors.push("About page: title metadata is not localized");
-  if (!aboutText.includes("Bagusin adalah ruang untuk mendokumentasikan perjalanan") || !aboutText.includes("Berangkat dari masalah nyata.")) errors.push("About page: Indonesian positioning copy is missing");
+  if (!aboutText.includes("Bagusin adalah ruang personal untuk mendokumentasikan perjalanan") || !aboutText.includes("Berangkat dari masalah nyata.")) errors.push("About page: Indonesian positioning copy is missing");
   if (aboutText.includes("independent software studio") || aboutText.includes("Built around real problems.")) errors.push("About page: outdated English positioning copy remains");
   if (!aboutStructuredData || aboutStructuredData.includes("independent software studio")) errors.push("About page: structured data still contains outdated positioning");
 
