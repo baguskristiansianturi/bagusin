@@ -46,6 +46,18 @@ document.addEventListener("DOMContentLoaded", function () {
   const meeting = params.get("meeting") || "";
   const meetingPreference = document.getElementById("meeting-preference");
   if (meeting === "in-person" && meetingPreference) meetingPreference.value = "in-person";
+  if (meeting === "in-person") {
+    const context = document.getElementById("service-context");
+    if (context && !context.querySelector("[data-meeting-fee]")) {
+      const fee = document.createElement("p");
+      fee.dataset.meetingFee = "";
+      fee.className = "form-template-context";
+      fee.textContent = isEnglish
+        ? "In-person consultation: Rp1,000,000 per 60 minutes. Date and location must be confirmed before the meeting."
+        : "Konsultasi tatap muka: Rp1.000.000 per 60 menit. Jadwal dan lokasi dikonfirmasi sebelum pertemuan.";
+      context.appendChild(fee);
+    }
+  }
   const templateNames = { "BG-TRV-STR-001": "Bagus Sewa Mobil Bali 01 (ID: BG-TRV-STR-001)" };
   const selectedTemplateName = templateNames[template] || template;
   const modeDisplay = document.querySelector(".form-context");
