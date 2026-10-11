@@ -79,14 +79,15 @@ The original reference programme separates package-based courses from individual
 Reference page: https://www.computer-course-center.com/program-kursus-komputer.html  
 Additional reference index: https://www.computer-course-center.com/sitemap.html
 
-The catalogue currently maps these **37 individual topic families** into searchable groups:
+The catalogue currently maps these **37 individual topic families** into the seven category labels used by the reference programme:
 
-- **Productivity & administration:** Office/computer administration; Excel fundamentals, intermediate and advanced/dashboard work; Google Sheets fundamentals, intermediate and advanced; PowerPoint and advanced presentations; Excel-based accounting.
-- **Design, animation & visualisation:** graphic design; animation/video editing; 3D design with SketchUp/visualisation; AutoCAD/drafting; image editing/Photoshop; graphic design for children; Photoshop for children.
-- **Websites & programming:** web design/SEO; PHP/dynamic web programming; advanced web programming; WordPress/CMS; Laravel/booking systems; web coding for children.
-- **Digital marketing:** SEO; social media marketing; internet marketing; Google Ads; WhatsApp marketing.
-- **Data & automation:** data analysis/Looker Studio; Google Apps Script automation; Excel Macro/VBA.
-- **Computers, networking & learners:** computer technician/networking; computer basics for children; Office/design basics for students; Word for children; Excel for children; computer-based test literacy.
+- **Komputer Administrasi / Computer Administration (15):** office/computer administration; Excel fundamentals, intermediate and advanced/dashboard work; Google Sheets fundamentals, intermediate and advanced; PowerPoint and advanced presentations; Excel-based accounting; computer basics for children; Office/design basics for students; Word and Excel for children; computer-based test literacy.
+- **Desain / Design (5):** graphic design; AutoCAD/drafting; image editing/Photoshop; graphic design for children; Photoshop for children.
+- **Animasi / Animation (2):** animation/video editing; 3D design with SketchUp and visualisation.
+- **Website / Websites (6):** web design/SEO; PHP/dynamic web programming; advanced web programming; WordPress/CMS; Laravel/booking systems; web coding for children.
+- **Marketing (5):** SEO; social media marketing; internet marketing; Google Ads; WhatsApp marketing.
+- **Data Analysis (3):** data analysis/Looker Studio; Google Apps Script automation; Excel Macro/VBA.
+- **Teknik Komputer / Computer Technology (1):** computer technician and networking.
 
 The searchable reference catalogue is a topic map, not a claim that all topics have a dedicated detail page or that all classes are open. Every item has an inquiry action; the selected item is passed into the contact brief. The five cross-domain learning pathways use the separate `learning_path` parameter so they do not conflict with the homepage's existing recommendation `path` parameter.
 
