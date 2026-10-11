@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let category = "all", tier = "all", availableTemplates = [];
   nav.innerHTML = '<button class="is-active" data-category="all" data-label="Semua kategori">Semua kategori <span>' + items.length + '</span></button>' + cats.map(c => '<button data-category="' + esc(c[0]) + '" data-label="' + esc(c[1]) + '">' + esc(c[1]) + ' <span>›</span></button>').join("");
   const filterBar = type === "website" ? root.querySelector("[data-tier-filter]") : null;
-  if (filterBar) filterBar.innerHTML = [["all","Semua tingkat"],["starter","Starter"],["business","Business"],["growth","Growth"],["commerce","Commerce"],["complex","Complex"]].map(x => '<button class="collection-filter' + (x[0] === "all" ? " is-active" : "") + '" data-tier="' + x[0] + '">' + x[1] + "</button>").join("");
+  if (filterBar) filterBar.innerHTML = [["all","Semua tingkat"],["starter","Starter"],["business","Bisnis"],["growth","Pengembangan"],["commerce","Katalog &amp; toko"],["complex","Kustom"]].map(x => '<button class="collection-filter' + (x[0] === "all" ? " is-active" : "") + '" data-tier="' + x[0] + '" aria-pressed="' + (x[0] === "all" ? "true" : "false") + '">' + x[1] + "</button>").join("");
   const detailBase = type === "landing" ? "/bagusin/landing-pages/collections/detail/" : type === "website" ? "/bagusin/websites/collections/detail/" : "/bagusin/copywriting/collections/detail/";
   const render = () => {
     const planned = items.filter(x => (category === "all" || x[0] === category) && (tier === "all" || x[3] === tier));
@@ -33,8 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!hasResults) grid.setAttribute("data-empty", "true"); else grid.removeAttribute("data-empty");
     const active = nav.querySelector('[data-category="' + category + '"]');
     title.textContent = active ? active.dataset.label : "Semua kategori";
-    nav.querySelectorAll("button").forEach(b => b.classList.toggle("is-active", b.dataset.category === category));
-    if (filterBar) filterBar.querySelectorAll("button").forEach(b => b.classList.toggle("is-active", b.dataset.tier === tier));
+    nav.querySelectorAll("button").forEach(b => { const active = b.dataset.category === category; b.classList.toggle("is-active", active); b.setAttribute("aria-pressed", String(active)); });
+    if (filterBar) filterBar.querySelectorAll("button").forEach(b => { const active = b.dataset.tier === tier; b.classList.toggle("is-active", active); b.setAttribute("aria-pressed", String(active)); });
   };
   nav.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; category = b.dataset.category; tier = "all"; render(); });
   filterBar?.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; tier = b.dataset.tier; render(); });
