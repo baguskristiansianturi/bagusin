@@ -52,3 +52,18 @@
 @media(max-width:58rem) { .template-catalog-hero__grid { grid-template-columns:1fr; } .template-catalog-results { grid-template-columns:repeat(2,minmax(0,1fr)); } .template-level-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media(max-width:40rem) { .template-catalog-filters,.template-catalog-results,.template-explainer,.template-level-grid { grid-template-columns:1fr; } .template-catalog-hero__actions,.template-catalog-cta,.template-catalog-cta__actions { flex-direction:column; align-items:stretch; } .template-catalog-hero__actions .button,.template-catalog-cta .button { width:100%; } .template-product__bottom { align-items:flex-start; flex-direction:column; } .template-product__actions { flex-direction:column; } .template-product__actions .button { width:100%; } }
 @media(prefers-reduced-motion:reduce) { .template-product { transition:none; } .template-product:hover { transform:none; } }
+
+
+/* Catalog-first layout: shorten the intro and bring categories above the filters. */
+.template-catalog-hero--compact{padding-block:clamp(1.8rem,3.5vw,3rem)}
+.template-catalog-hero--compact .template-catalog-hero__grid{grid-template-columns:minmax(0,1fr)}
+.template-catalog-hero--compact h1{max-width:18ch;font-size:clamp(2.3rem,5vw,3.8rem)}
+.template-catalog-hero--compact .template-catalog-lead{margin-top:.65rem;font-size:1rem;line-height:1.55}
+.template-catalog-shortcuts{display:flex;flex-wrap:wrap;gap:.65rem;margin:1.25rem 0 .65rem}
+.template-category-shortcut{display:flex;align-items:center;gap:.65rem;min-height:3rem;padding:.55rem .85rem;border:1px solid #dfe5e4;border-radius:.8rem;background:#fff;color:var(--color-text);font:inherit;text-align:left;cursor:pointer;transition:border-color .18s ease,background .18s ease}
+.template-category-shortcut:hover,.template-category-shortcut:focus-visible{border-color:var(--color-accent);outline-offset:3px}
+.template-category-shortcut.is-active{border-color:var(--color-accent-dark);background:#f0f7f4}
+.template-category-shortcut__number{display:grid;min-width:1.9rem;height:1.9rem;place-items:center;border-radius:.55rem;background:#f0f3f2;font-size:.8rem;font-weight:800;font-variant-numeric:tabular-nums}
+.template-catalog-hint{margin-bottom:.75rem;color:var(--color-text-soft);font-size:.82rem;line-height:1.5}
+@media(max-width:40rem){.template-catalog-shortcuts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem}.template-category-shortcut{min-width:0;gap:.5rem;padding:.5rem;font-size:.84rem}.template-category-shortcut span:last-child{overflow-wrap:anywhere}.template-catalog-hero--compact{padding-block:1.7rem}.template-catalog-hero--compact h1{font-size:clamp(2.1rem,9vw,3rem)}}
+@media(prefers-reduced-motion:reduce){.template-category-shortcut{transition:none}}
