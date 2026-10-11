@@ -11,9 +11,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const esc = v => String(v ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
   const slug = v => String(v).toLowerCase().trim().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   let category = "all", tier = "all", availableTemplates = [];
-  nav.innerHTML = '<button class="is-active" data-category="all" data-label="All categories">All categories <span>' + items.length + '</span></button>' + cats.map(c => '<button data-category="' + esc(c[0]) + '" data-label="' + esc(c[1]) + '">' + esc(c[1]) + ' <span>›</span></button>').join("");
+  nav.innerHTML = '<button class="is-active" data-category="all" data-label="Semua kategori">Semua kategori <span>' + items.length + '</span></button>' + cats.map(c => '<button data-category="' + esc(c[0]) + '" data-label="' + esc(c[1]) + '">' + esc(c[1]) + ' <span>›</span></button>').join("");
   const filterBar = type === "website" ? root.querySelector("[data-tier-filter]") : null;
-  if (filterBar) filterBar.innerHTML = [["all","All levels"],["starter","Starter"],["business","Business"],["growth","Growth"],["commerce","Commerce"],["complex","Complex"]].map(x => '<button class="collection-filter' + (x[0] === "all" ? " is-active" : "") + '" data-tier="' + x[0] + '">' + x[1] + "</button>").join("");
+  if (filterBar) filterBar.innerHTML = [["all","Semua tingkat"],["starter","Starter"],["business","Business"],["growth","Growth"],["commerce","Commerce"],["complex","Complex"]].map(x => '<button class="collection-filter' + (x[0] === "all" ? " is-active" : "") + '" data-tier="' + x[0] + '">' + x[1] + "</button>").join("");
   const detailBase = type === "landing" ? "/bagusin/landing-pages/collections/detail/" : type === "website" ? "/bagusin/websites/collections/detail/" : "/bagusin/copywriting/collections/detail/";
   const render = () => {
     const planned = items.filter(x => (category === "all" || x[0] === category) && (tier === "all" || x[3] === tier));
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const plannedCards = planned.map(x => {
       const ready = x[3] === "ready";
       const url = detailBase + "?collection=" + encodeURIComponent(slug(x[1])) + "&industry=" + encodeURIComponent(x[0]) + (type === "website" ? "&tier=" + encodeURIComponent(x[3]) : "");
-      return '<article class="collection-card"><div class="collection-card__top"><span class="collection-card__icon" aria-hidden="true">✦</span><span class="collection-card__status' + (ready ? " is-ready" : "") + '">' + (ready ? "Available" : "Belum tersedia") + '</span></div><h3>' + esc(x[1]) + '</h3><p>' + esc(x[2]) + '</p><div class="collection-card__meta"><span>' + esc(type === "website" ? x[4] : x[0]) + '</span><span>·</span><span>Project-based</span></div><div class="collection-card__actions"><a href="' + url + '">Lihat detail →</a>' + (ready ? '<a href="' + url + '#demo">Preview demo</a>' : '<span>Collection sedang disiapkan</span>') + '</div></article>';
+      return '<article class="collection-card"><div class="collection-card__top"><span class="collection-card__icon" aria-hidden="true">✦</span><span class="collection-card__status' + (ready ? " is-ready" : "") + '">' + (ready ? "Tersedia" : "Belum tersedia") + '</span></div><h3>' + esc(x[1]) + '</h3><p>' + esc(x[2]) + '</p><div class="collection-card__meta"><span>' + esc(type === "website" ? x[4] : x[0]) + '</span><span>·</span><span>Project-based</span></div><div class="collection-card__actions"><a href="' + url + '">Lihat detail →</a>' + (ready ? '<a href="' + url + '#demo">Preview demo</a>' : '<span>Collection sedang disiapkan</span>') + '</div></article>';
     }).join("");
     const hasResults = demos.length + planned.length > 0;
     grid.innerHTML = (demoCards + plannedCards) || '<div class="collection-empty" style="display:block">Belum ada koleksi untuk kategori ini. Koleksi baru akan muncul di sini saat siap ditampilkan.</div>';
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     grid.setAttribute("aria-busy", "false");
     if (!hasResults) grid.setAttribute("data-empty", "true"); else grid.removeAttribute("data-empty");
     const active = nav.querySelector('[data-category="' + category + '"]');
-    title.textContent = active ? active.dataset.label : "All categories";
+    title.textContent = active ? active.dataset.label : "Semua kategori";
     nav.querySelectorAll("button").forEach(b => b.classList.toggle("is-active", b.dataset.category === category));
     if (filterBar) filterBar.querySelectorAll("button").forEach(b => b.classList.toggle("is-active", b.dataset.tier === tier));
   };
