@@ -102,3 +102,13 @@
 .curriculum-domain__detail-link{display:inline-flex;align-items:center;gap:.35rem;color:var(--color-accent-dark);font-weight:700;text-decoration:none;padding:.65rem .2rem}
 .curriculum-domain__detail-link:hover,.curriculum-domain__detail-link:focus-visible{text-decoration:underline;text-underline-offset:.2em}
 @media(max-width:36rem){.curriculum-domain__actions{align-items:stretch;flex-direction:column}.curriculum-domain__actions .button{width:100%}.curriculum-domain__detail-link{justify-content:center}}
+
+/* Shared practice and assessment block for every course detail page */
+.course-practice-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.85rem;margin-top:1.4rem}
+.course-practice-card{min-width:0;padding:1.1rem;border:1px solid var(--color-border);border-radius:1rem;background:var(--color-surface,#fff)}
+.course-practice-card>span{display:inline-grid;place-items:center;width:2rem;height:2rem;border-radius:.65rem;background:#edf5f2;color:var(--color-accent-dark);font-size:.75rem;font-weight:800}
+.course-practice-card h3{margin:.85rem 0 .45rem;font-size:1rem;line-height:1.4}
+.course-practice-card p,.course-practice-note{color:var(--color-text-muted);font-size:.9rem;line-height:1.7}
+.course-practice-note{margin:1.2rem 0 0;padding:1rem 1.1rem;border-left:3px solid var(--color-accent,#27745f);background:var(--color-surface,#f8faf9);border-radius:0 .7rem .7rem 0}
+@media(max-width:60rem){.course-practice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:36rem){.course-practice-grid{grid-template-columns:minmax(0,1fr)}}
