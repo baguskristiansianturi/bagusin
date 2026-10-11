@@ -661,3 +661,51 @@ a.home-consult-step:hover{transform:translateY(-3px);border-color:var(--color-ac
     scroll-behavior: auto;
   }
 }
+
+
+/* Mobile UX correction: keep preview cards content-sized and put the
+   section-level "view all" action after the cards, where it is discovered. */
+@media (max-width: 39.999rem) {
+  .home-discovery-refresh:has(.home-feature-grid) > .container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .home-discovery-refresh:has(.home-feature-grid) .home-discovery-refresh__heading {
+    display: contents;
+  }
+
+  .home-discovery-refresh:has(.home-feature-grid) .home-discovery-refresh__heading > div {
+    order: 0;
+    margin-bottom: 1.1rem;
+  }
+
+  .home-discovery-refresh:has(.home-feature-grid) .home-feature-grid {
+    order: 1;
+    flex: 0 0 auto;
+    align-self: stretch;
+    margin-top: 0;
+  }
+
+  .home-discovery-refresh:has(.home-feature-grid) .home-discovery-refresh__heading > .text-link {
+    order: 2;
+    align-self: flex-start;
+    margin: .7rem 0 0;
+    padding: .55rem 0;
+  }
+
+  .home-discovery-refresh .home-feature-grid--services > .home-feature-card,
+  .home-discovery-refresh .home-feature-grid--new > .home-feature-card {
+    height: auto;
+    min-height: 0;
+    align-self: start;
+  }
+
+  .home-discovery-refresh .home-feature-grid--services .home-feature-card__body,
+  .home-discovery-refresh .home-feature-grid--new .home-feature-card__body {
+    height: auto;
+    min-height: 0;
+    flex: 0 0 auto;
+  }
+}
