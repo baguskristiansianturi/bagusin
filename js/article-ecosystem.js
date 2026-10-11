@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded",function(){
  const isEnglish=path.includes("/en/");
  const article=R.articles.find(a=>a.status==="PUBLISHED"&&path.endsWith("/blog/"+a.slug)&&((String(a.language||"id").toLowerCase()==="en")===isEnglish));
  if(!article)return;
- const host=document.querySelector(".article-pro-footer")||document.querySelector("article");
+ const host=document.querySelector(".article-pro-footer")||document.querySelector(".article-labels")||document.querySelector("article");
  const archive="/bagusin/"+(isEnglish?"en/":"")+"blog/";
  const categoryLink=(value,kind)=>archive+"?"+kind+"="+encodeURIComponent(value);
  const categoryAnchor=document.querySelector(".article-pro-meta .article-category-link");
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded",function(){
  }
  const footerLabel=document.querySelector(".article-pro-footer>div>span");
  if(footerLabel)footerLabel.textContent=isEnglish?"Category & labels":"Kategori & label";
- const footerButton=document.querySelector(".article-pro-footer>.button");
+ const footerButton=document.querySelector(".article-pro-footer a.button[href*=\"/blog/\"]");
  if(footerButton){footerButton.textContent=isEnglish?"More from Blog":"Artikel lainnya";footerButton.href=archive;}
 
  if(!host)return;
