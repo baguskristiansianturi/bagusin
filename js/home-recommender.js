@@ -28,8 +28,8 @@
         ["Kirim brief singkat agar ruang lingkup bisa dibahas dengan jelas.", "Send a short brief so the scope can be discussed clearly."]
       ],
       caveat: ["Belum perlu memutuskan semuanya sekarang. Biaya dan ruang lingkup dibahas sebelum pekerjaan dimulai.", "You do not need to decide everything now. Cost and scope are discussed before work begins."],
-      href: "/bagusin/contact/?mode=brief",
-      cta: ["Ceritakan kebutuhan Anda", "Tell us what you need"]
+      href: "/bagusin/work/",
+      cta: ["Lihat layanan yang sesuai", "View matching services"]
     },
     business: {
       id: "seo-content",
@@ -41,8 +41,8 @@
         ["Bahas perbaikan berdasarkan prioritas dan anggaran.", "Discuss improvements based on priorities and budget."]
       ],
       caveat: ["Tidak semua bisnis membutuhkan website baru, SEO, atau iklan sekaligus.", "Not every business needs a new website, SEO, or ads all at once."],
-      href: "/bagusin/contact/?mode=brief",
-      cta: ["Bahas kebutuhan bisnis", "Discuss your business needs"]
+      href: "/bagusin/work/seo-content/",
+      cta: ["Lihat layanan yang sesuai", "View matching services"]
     },
     existing: {
       id: "maintenance-uiux",
@@ -54,8 +54,8 @@
         ["Tentukan prioritas, ruang lingkup, dan batas anggaran.", "Set priorities, scope, and budget limits."]
       ],
       caveat: ["Rekomendasi akhir bergantung pada kondisi website dan kebutuhan yang sebenarnya.", "The final recommendation depends on the actual website and requirements."],
-      href: "/bagusin/contact/?mode=brief",
-      cta: ["Minta peninjauan awal", "Request an initial review"]
+      href: "/bagusin/work/maintenance-uiux/",
+      cta: ["Lihat layanan perbaikan", "View improvement services"]
     }
   };
 
