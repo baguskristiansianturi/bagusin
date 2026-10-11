@@ -30,7 +30,7 @@
           <div class="template-product__meta"><span class="template-chip">${escapeHtml(cat?.name || item.category)}</span><span class="template-chip">${escapeHtml(tier?.name || item.level)}</span><span class="template-chip">${item.format === "landing-page" ? "Satu halaman" : "Multi-halaman"}</span></div>
           <h3>${escapeHtml(item.name)}</h3><p class="template-product__description">${escapeHtml(item.description)}</p>
           <ul class="template-product__included">${features}</ul>
-          <div class="template-product__bottom"><div><span class="template-product__price-label">Harga awal</span><strong class="template-product__price">${money(item.price)}</strong></div><span class="template-chip">Copy dasar termasuk</span></div>
+          <div class="template-product__bottom"><div><span class="template-product__price-label">Harga awal</span><strong class="template-product__price">${money(item.price)}</strong></div><span class="template-chip">Copy original + SEO dasar</span></div>
           <div class="template-product__actions"><a class="button button--secondary" href="${escapeHtml(item.demoUrl)}">Lihat demo <span aria-hidden="true">↗</span></a><a class="button button--accent" href="${escapeHtml(item.orderUrl)}">Pesan website <span aria-hidden="true">→</span></a><a class="text-link" href="${escapeHtml(item.discussionUrl)}">Diskusikan pilihan ini</a></div>
         </div>
       </article>`;
