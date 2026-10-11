@@ -30,7 +30,7 @@
 .article-pro-content{min-width:0;font-size:1.06rem;line-height:1.85}
 .article-pro-lead{font-size:clamp(1.2rem,2.4vw,1.45rem);line-height:1.7;color:var(--color-text)}
 .article-pro-content h2{margin:clamp(3rem,7vw,5.5rem) 0 1rem;font-size:clamp(1.7rem,3vw,2.5rem);line-height:1.08;letter-spacing:-.035em;scroll-margin-top:calc(var(--header-height) + 2rem)}
-.article-pro-content p+p{margin-top:1.35rem}
+.article-pro-content p+p{margin-top:var(--copy-paragraph-gap)}
 .article-pro-content blockquote{margin:3rem 0;padding:1.5rem 0 1.5rem 1.5rem;border-left:2px solid var(--color-accent);font-size:clamp(1.25rem,2.6vw,1.7rem);line-height:1.45;letter-spacing:-.02em}
 .article-pro-note{display:grid;grid-template-columns:2.2rem 1fr;gap:1rem;margin:2.5rem 0;padding:1.25rem;border:1px solid var(--color-border);background:#f7f9f8}
 .article-pro-note>span{font:600 .65rem var(--font-mono);color:var(--color-accent-dark)}
