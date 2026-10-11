@@ -397,7 +397,6 @@ try {
   await interactionPage.locator("#timeline").fill("Start 20 October, handover 5 November");
   await interactionPage.locator("#agreed-quote").fill("1500000");
   await interactionPage.locator("#payment-plan").fill("50% deposit, balance on handover");
-  await interactionPage.locator('[data-next="2"]').click();
   await interactionPage.locator('[data-next="3"]').click();
   await interactionPage.locator("#terms-agree").check();
   await interactionPage.locator('[data-next="4"]').click();
