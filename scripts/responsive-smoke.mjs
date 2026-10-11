@@ -194,8 +194,12 @@ try {
   if (contactOptionsText.includes("software engineering") || contactOptionsText.includes("SEO content")) errors.push("Contact page: English service terms remain in Indonesian copy");
   let contactEmailPayload = null;
   await interactionPage.route("https://formsubmit.co/ajax/baguskristian@gmail.com", async (route) => {
+    if (route.request().method() === "OPTIONS") {
+      await route.fulfill({ status: 204, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" } });
+      return;
+    }
     contactEmailPayload = route.request().postDataJSON();
-    await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ success: "true", message: "Test submission accepted" }) });
+    await route.fulfill({ status: 200, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" }, contentType: "application/json", body: JSON.stringify({ success: "true", message: "Test submission accepted" }) });
   });
   await interactionPage.locator("#project-form input[name=name]").fill("Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("test@example.com");
@@ -234,7 +238,11 @@ try {
   // If the email service fails, the contact form must provide an honest manual email fallback.
   await interactionPage.unroute("https://formsubmit.co/ajax/baguskristian@gmail.com");
   await interactionPage.route("https://formsubmit.co/ajax/baguskristian@gmail.com", async (route) => {
-    await route.fulfill({ status: 500, contentType: "application/json", body: JSON.stringify({ success: "false", message: "Simulated email service failure" }) });
+    if (route.request().method() === "OPTIONS") {
+      await route.fulfill({ status: 204, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" } });
+      return;
+    }
+    await route.fulfill({ status: 500, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" }, contentType: "application/json", body: JSON.stringify({ success: "false", message: "Simulated email service failure" }) });
   });
   await interactionPage.goto(origin + "/bagusin/contact/", { waitUntil: "domcontentloaded" });
   await interactionPage.locator("#project-form input[name=name]").fill("Fallback Test User");
