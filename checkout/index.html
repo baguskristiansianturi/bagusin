@@ -43,7 +43,7 @@
 
 <section class="checkout-section"><div class="container checkout-layout">
 <div class="checkout-main">
-<nav class="checkout-progress" aria-label="Tahapan order"><button type="button" class="checkout-step is-active" data-step-nav="1"><span>01</span><strong>Brief</strong></button><span aria-hidden="true">—</span><button type="button" class="checkout-step" data-step-nav="2"><span>02</span><strong>Review</strong></button><span aria-hidden="true">—</span><button type="button" class="checkout-step" data-step-nav="3"><span>03</span><strong>Terms</strong></button><span aria-hidden="true">—</span><button type="button" class="checkout-step" data-step-nav="4"><span>04</span><strong>Next steps</strong></button></nav>
+<nav class="checkout-progress" aria-label="Tahapan order"><button type="button" class="checkout-step is-active" data-step-nav="1"><span>01</span><strong>Detail</strong></button><span aria-hidden="true">—</span><button type="button" class="checkout-step" data-step-nav="2"><span>02</span><strong>Periksa</strong></button><span aria-hidden="true">—</span><button type="button" class="checkout-step" data-step-nav="3"><span>03</span><strong>Persetujuan</strong></button><span aria-hidden="true">—</span><button type="button" class="checkout-step" data-step-nav="4"><span>04</span><strong>Selesai</strong></button></nav>
 
 <form id="checkout-form" class="checkout-card" novalidate>
 <div class="checkout-honeypot" aria-hidden="true"><label>Leave this field empty<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
@@ -60,7 +60,7 @@
 <label class="checkout-field checkout-field--full">Ruang lingkup dan hasil pekerjaan<textarea id="brief" name="brief" rows="7" required placeholder="Tuliskan hasil yang disepakati, halaman/fitur yang termasuk, batasan, serta hal yang tidak termasuk."></textarea></label>
 <div class="checkout-guidance checkout-field--full" id="guided-brief" hidden><span class="section-kicker">Guided brief</span><strong id="guided-brief-title">Helpful context</strong><p id="guided-brief-copy"></p><ul id="guided-brief-list"></ul></div>
 </div>
-<div class="panel-actions"><a class="button button--secondary" href="/bagusin/contact/">Butuh konsultasi dulu</a><button class="button button--accent" type="button" data-next="2">Review brief →</button></div>
+<div class="panel-actions"><a class="button button--secondary" href="/bagusin/contact/">Butuh konsultasi dulu</a><button class="button button--accent" type="button" data-next="2">Periksa pesanan →</button></div>
 <p class="checkout-error" id="brief-error" role="alert"></p>
 </section>
 
@@ -68,7 +68,7 @@
 <div class="panel-heading"><span class="section-kicker">02 · Review</span><h2>Periksa ringkasan pesanan.</h2><p>Konfirmasi hanya jika layanan, ruang lingkup, harga, jadwal, dan ketentuan pembayaran sudah sesuai dengan kesepakatan.</p></div>
 <div class="review-box" id="review-box"></div>
 <div class="review-note"><span aria-hidden="true">i</span><p><strong>Periksa sebelum mengirim.</strong> Ringkasan ini akan dikirim melalui email sebagai catatan konfirmasi pesanan. Jika ada detail yang belum disepakati, kembali ke konsultasi sebelum melanjutkan.</p></div>
-<div class="panel-actions"><button class="button button--secondary" type="button" data-back="1">← Edit brief</button><button class="button button--accent" type="button" data-next="3">Lanjut ke Terms →</button></div>
+<div class="panel-actions"><button class="button button--secondary" type="button" data-back="1">← Ubah detail</button><button class="button button--accent" type="button" data-next="3">Lanjut ke persetujuan →</button></div>
 </section>
 
 <section class="checkout-panel" data-panel="3" hidden>
@@ -76,7 +76,7 @@
 <div class="terms-summary"><div><span>Service terms</span><strong id="terms-service">—</strong></div><a id="service-terms-link" href="/bagusin/terms/">Open service terms ↗</a></div>
 <div class="terms-summary"><div><span>Payment terms</span><strong>Payment &amp; quotation</strong></div><a href="/bagusin/terms/?topic=payment">Open payment terms ↗</a></div>
 <label class="terms-check"><input id="terms-agree" type="checkbox" required><span>Saya menyetujui layanan, ruang lingkup, harga, jadwal, dan ketentuan pembayaran yang tercantum sebagai ringkasan kesepakatan pesanan.</span></label>
-<div class="panel-actions"><button class="button button--secondary" type="button" data-back="2">← Review</button><button class="button button--accent" type="button" data-next="4">Setujui &amp; lanjut →</button></div>
+<div class="panel-actions"><button class="button button--secondary" type="button" data-back="2">← Kembali ke ringkasan</button><button class="button button--accent" type="button" data-next="4">Setujui &amp; lanjut →</button></div>
 <p class="checkout-error" id="terms-error" role="alert"></p>
 </section>
 
@@ -85,7 +85,7 @@
 <div class="payment-warning"><strong>Belum ada pembayaran</strong><p>Jangan melakukan transfer dari halaman ini. Tunggu konfirmasi ruang lingkup, quotation, jadwal, dan instruksi pembayaran yang disepakati secara langsung.</p></div>
 <div class="payment-confirm"><div><span class="section-kicker">Setelah brief dikirim</span><h3>Review manual · Follow-up WhatsApp</h3><p>Kami akan membaca layanan dan kebutuhan yang Anda kirim. Pembahasan personal, kesepakatan harga, jadwal, dan instruksi pembayaran dilakukan setelahnya melalui WhatsApp.</p></div></div>
 <div class="checkout-email-status" id="checkout-email-status" role="status" aria-live="polite"></div>
-<div class="panel-actions"><button class="button button--secondary" type="button" data-back="3">← Kembali ke Terms</button><button class="button button--accent" type="submit" id="send-order-brief">Konfirmasi pesanan →</button></div>
+<div class="panel-actions"><button class="button button--secondary" type="button" data-back="3">← Kembali ke persetujuan</button><button class="button button--accent" type="submit" id="send-order-brief">Konfirmasi pesanan →</button></div>
 <p class="checkout-email-note">Konfirmasi dikirim ke baguskristian@gmail.com melalui FormSubmit. Jangan kirim kata sandi, data pembayaran sensitif, atau informasi pribadi yang tidak diperlukan.</p>
 </section>
 </form>
