@@ -778,3 +778,80 @@ a.home-consult-step:hover{transform:translateY(-3px);border-color:var(--color-ac
     scroll-behavior: auto;
   }
 }
+
+
+/* Card art direction: clear category cues and a purposeful final all-services card. */
+.home-discovery-refresh .home-feature-card__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .42rem;
+  min-height: 1.2rem;
+}
+.home-discovery-refresh .home-feature-card__eyebrow svg {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
+}
+.home-discovery-refresh .home-feature-card h3 {
+  letter-spacing: -.02em;
+}
+.home-discovery-refresh .home-feature-grid--services > .home-feature-card--all-services {
+  position: relative;
+  border-color: #d5e4de;
+  background: linear-gradient(155deg, #f4f8f6 0%, #e8f2ee 100%);
+}
+.home-feature-card--all-services .home-feature-card__all-visual {
+  display: flex;
+  min-height: 0;
+  aspect-ratio: 1.62;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: clamp(1rem, 2vw, 1.35rem);
+  background: radial-gradient(circle at 80% 15%, rgba(255,255,255,.9), transparent 42%), linear-gradient(135deg, #e4f0eb, #f6f9f7);
+  color: #244f43;
+}
+.home-feature-card--all-services .home-feature-card__all-icon {
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  place-items: center;
+  border: 1px solid rgba(36,79,67,.16);
+  border-radius: .9rem;
+  background: rgba(255,255,255,.78);
+}
+.home-feature-card--all-services .home-feature-card__all-icon svg {
+  width: 1.65rem;
+  height: 1.65rem;
+}
+.home-feature-card--all-services .home-feature-card__all-note {
+  padding: .38rem .6rem;
+  border: 1px solid rgba(36,79,67,.15);
+  border-radius: 999px;
+  background: rgba(255,255,255,.62);
+  color: #42675c;
+  font-size: .7rem;
+  font-weight: 650;
+  letter-spacing: .01em;
+}
+.home-feature-card--all-services .home-feature-card__body {
+  background: transparent;
+}
+.home-feature-card--all-services .home-feature-card__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: .5rem;
+  padding-top: .8rem;
+  border-top: 1px solid #d3e2dc;
+}
+.home-feature-card--all-services:hover {
+  border-color: #a9c8bc;
+  background: #edf5f1;
+}
+@media (max-width: 39.999rem) {
+  .home-feature-card--all-services .home-feature-card__all-visual {
+    aspect-ratio: 1.62;
+  }
+}
