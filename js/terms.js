@@ -1,1 +1,57 @@
-document.addEventListener("DOMContentLoaded",()=>{const p=new URLSearchParams(location.search),topic=p.get("topic"),banner=document.getElementById("context-banner"),title=document.getElementById("context-title"),clear=document.getElementById("clear-context");const map={copywriting:"Copywriting","seo-content":"SEO Content","landing-pages":"Landing Pages & Ads",website:"Website",websites:"Websites","web-application":"Web Application","web-applications":"Web Applications & Database Systems","maintenance-uiux":"Maintenance, Improvement & UI/UX","google-ads":"Google Ads","mobile-apps":"Mobile App Development",payment:"Payment",refund:"Cancellation & Refund",revision:"Revision Policy"};if(topic&&map[topic]){banner.hidden=false;title.textContent=map[topic];const id={copywriting:"copywriting","seo-content":"seo-content","landing-pages":"landing-pages",website:"website",websites:"website","web-application":"web-application","web-applications":"web-application","maintenance-uiux":"maintenance-uiux","google-ads":"google-ads","mobile-apps":"mobile-apps",payment:"payment",refund:"cancellation",revision:"revision"}[topic];document.getElementById(id)?.scrollIntoView({behavior:"smooth",block:"start"})}clear?.addEventListener("click",()=>{history.replaceState(null,"",location.pathname);banner.hidden=true;window.scrollTo({top:0,behavior:"smooth"})});const input=document.getElementById("terms-filter"),links=[...document.querySelectorAll("#terms-nav a")];input?.addEventListener("input",()=>{const q=input.value.toLowerCase().trim();links.forEach(a=>a.hidden=q&&!a.textContent.toLowerCase().includes(q))});const sections=[...document.querySelectorAll(".terms-content section[id]")];const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle("is-current",a.getAttribute("href")==="#"+e.target.id))}}),{rootMargin:"-25% 0px -65% 0px"});sections.forEach(s=>io.observe(s))});
+document.addEventListener("DOMContentLoaded", () => {
+  "use strict";
+  const params = new URLSearchParams(location.search);
+  const topic = (params.get("topic") || "").toLowerCase();
+  const banner = document.getElementById("context-banner");
+  const title = document.getElementById("context-title");
+  const clear = document.getElementById("clear-context");
+  const map = {
+    copywriting: ["Copywriting", "copywriting"],
+    "seo-content": ["Penulisan Konten & SEO", "seo-content"],
+    "landing-pages": ["Landing Page & Iklan", "landing-pages"],
+    websites: ["Website & Template", "websites"],
+    website: ["Website & Template", "websites"],
+    "web-applications": ["Aplikasi Web & Sistem Basis Data", "web-applications"],
+    "web-application": ["Aplikasi Web & Sistem Basis Data", "web-applications"],
+    "maintenance-uiux": ["Pemeliharaan, Peningkatan & UI/UX", "maintenance-uiux"],
+    "google-ads": ["Google Ads", "google-ads"],
+    "mobile-apps": ["Aplikasi Mobile", "mobile-apps"],
+    payment: ["Pembayaran", "payment"],
+    refund: ["Pembatalan & Pengembalian Dana", "cancellation"],
+    cancellation: ["Pembatalan & Pengembalian Dana", "cancellation"],
+    revision: ["Revisi", "revision"],
+    terms: ["Ketentuan Umum", "general"],
+    general: ["Ketentuan Umum", "general"]
+  };
+  const selected = map[topic];
+  const targetId = selected ? selected[1] : "";
+  if (selected && banner && title) {
+    banner.hidden = false;
+    title.textContent = selected[0];
+    requestAnimationFrame(() => document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" }));
+  }
+  clear?.addEventListener("click", () => {
+    history.replaceState(null, "", location.pathname);
+    if (banner) banner.hidden = true;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+  const input = document.getElementById("terms-filter");
+  const links = [...document.querySelectorAll("#terms-nav a")];
+  const sections = [...document.querySelectorAll(".terms-content section[id]")];
+  const normalize = (value) => String(value || "").toLocaleLowerCase("id").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  input?.addEventListener("input", () => {
+    const query = normalize(input.value.trim());
+    links.forEach((link) => {
+      const target = document.querySelector(link.getAttribute("href"));
+      const haystack = normalize((link.textContent || "") + " " + (target?.textContent || ""));
+      link.hidden = Boolean(query && !haystack.includes(query));
+    });
+  });
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      links.forEach((link) => link.classList.toggle("is-current", link.getAttribute("href") === "#" + entry.target.id));
+    }), { rootMargin: "-25% 0px -65% 0px" });
+    sections.forEach((section) => observer.observe(section));
+  }
+});
