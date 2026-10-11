@@ -58,6 +58,38 @@
       header.insertAdjacentElement("afterend", searchPanel);
     }
 
+    // Keep the new Collections destination discoverable on older pages that still use legacy nav markup.
+    const navEnglish = /^\\/(?:bagusin\\/)?en(?:\\/|$)/.test(window.location.pathname);
+    const navProjectBase = window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin" ? "/bagusin" : "";
+    const navBase = navProjectBase + (navEnglish ? "/en" : "");
+    const desktopList = document.querySelector(".site-nav__list");
+    const mobileList = document.querySelector(".mobile-nav__list");
+    function addCollectionsLink(list, mobile) {
+      if (!list || list.querySelector('a[href$="/collections/"]')) return;
+      const item = document.createElement("li");
+      if (mobile) {
+        const link = document.createElement("a");
+        link.className = "mobile-nav__link";
+        link.href = navBase + "/collections/";
+        link.textContent = navEnglish ? "Collection" : "Koleksi";
+        item.appendChild(link);
+      } else {
+        item.className = "site-nav__item";
+        const link = document.createElement("a");
+        link.className = "site-nav__link";
+        link.href = navBase + "/collections/";
+        link.textContent = navEnglish ? "Collection" : "Koleksi";
+        item.appendChild(link);
+      }
+      const blogItem = Array.from(list.children).find(function (li) {
+        return li.querySelector('a[href$="/blog/"]');
+      });
+      if (blogItem && blogItem.nextSibling) list.insertBefore(item, blogItem.nextSibling);
+      else list.appendChild(item);
+    }
+    addCollectionsLink(desktopList, false);
+    addCollectionsLink(mobileList, true);
+
     const mobileToggle = document.querySelector("[data-mobile-menu-toggle]");
     const mobileNav = document.getElementById("mobile-navigation");
     const mobileOverlay = document.querySelector("[data-mobile-overlay]");
@@ -115,7 +147,7 @@
       const checkoutBase = (usesProjectBase ? "/bagusin" : "") + "/checkout";
       const t = en ? {
         explore:"Explore", work:"Work", start:"Start", legal:"Legal",
-        blog:"Blog", destinations:"Destinations", youtube:"YouTube", about:"About",
+        blog:"Blog", collections:"Collection", destinations:"Destinations", youtube:"YouTube", about:"About",
         workWithMe:"Work With Me", services:"Services", portfolio:"Portfolio",
         startProject:"Start a Project", help:"Help Me Choose", contact:"Contact",
         privacy:"Privacy Policy", terms:"Terms", disclaimer:"Disclaimer", editorial:"Editorial Policy",
@@ -124,11 +156,11 @@
         ctaText:"Start with the problem. If you know what you need, start a project. If not, ask for help choosing the right path."
       } : {
         explore:"Jelajahi", work:"Layanan", start:"Mulai", legal:"Informasi",
-        blog:"Blog", destinations:"Destinasi", youtube:"YouTube", about:"Tentang",
+        blog:"Blog", collections:"Koleksi", destinations:"Destinasi", youtube:"YouTube", about:"Tentang",
         workWithMe:"Lihat Layanan", services:"Layanan", portfolio:"Portofolio",
         startProject:"Mulai Proyek", help:"Bantu Pilihkan", contact:"Kontak",
         privacy:"Kebijakan Privasi", terms:"Ketentuan", disclaimer:"Penafian", editorial:"Kebijakan Editorial",
-        description:"Blog personal tentang perjalanan, pekerjaan, proyek, dan hal-hal yang dibangun dari berbagai tempat.",
+        description:"Ruang pribadi untuk cerita, perjalanan, pekerjaan, panduan, dan karya yang sedang dibangun.",
         ctaTitle:"Punya proyek atau masalah yang perlu diselesaikan?",
         ctaText:"Mulai dari masalahnya. Jika sudah tahu kebutuhannya, mulai proyek. Jika belum yakin, saya bantu menentukan jalur yang paling tepat."
       };
@@ -145,13 +177,13 @@
               <div class="site-footer__brand">
                 <a class="site-footer__brand-link" href="${base}/" aria-label="BagusIn">
                   <span class="site-footer__brand-mark" aria-hidden="true">B</span>
-                  <span class="site-footer__brand-text"><span class="site-footer__brand-name">BagusIn</span><span class="site-footer__brand-tagline">Work. Travel. Build.</span></span>
+                  <span class="site-footer__brand-text"><span class="site-footer__brand-name">Bagusin</span><span class="site-footer__brand-tagline">Work. Travel. Build.</span></span>
                 </a>
                 <p class="site-footer__description">${t.description}</p>
                 <div class="site-footer__social" aria-label="Social media">${social}</div>
               </div>
               <div class="site-footer__column"><h2 class="site-footer__title">${t.explore}</h2><ul class="site-footer__links">
-                <li><a class="site-footer__link" href="${base}/blog/">${t.blog}</a></li><li><a class="site-footer__link" href="${base}/destinations/">${t.destinations}</a></li><li><a class="site-footer__link" href="${base}/youtube/">${t.youtube}</a></li><li><a class="site-footer__link" href="${base}/about/">${t.about}</a></li>
+                <li><a class="site-footer__link" href="${base}/blog/">${t.blog}</a></li><li><a class="site-footer__link" href="${base}/collections/">${t.collections}</a></li><li><a class="site-footer__link" href="${base}/destinations/">${t.destinations}</a></li><li><a class="site-footer__link" href="${base}/youtube/">${t.youtube}</a></li><li><a class="site-footer__link" href="${base}/about/">${t.about}</a></li>
               </ul></div>
               <div class="site-footer__column"><h2 class="site-footer__title">${t.work}</h2><ul class="site-footer__links">
                 <li><a class="site-footer__link" href="${base}/work/">${t.workWithMe}</a></li><li><a class="site-footer__link" href="${base}/work/">${t.services}</a></li><li><a class="site-footer__link" href="${base}/portfolio/">${t.portfolio}</a></li>
@@ -166,7 +198,7 @@
             <div class="site-footer__cta"><div class="site-footer__cta-content"><h2 class="site-footer__cta-title">${t.ctaTitle}</h2><p class="site-footer__cta-description">${t.ctaText}</p></div>
               <div class="site-footer__cta-action"><a class="button button--light" href="${checkoutBase}/">${t.startProject}</a><a class="button button--footer-ghost" href="${base}/contact/?mode=consultation">${t.help}</a></div>
             </div>
-            <div class="site-footer__bottom"><div class="site-footer__bottom-inner"><p class="site-footer__copyright">© <span data-current-year>2026</span> BagusIn.</p><div class="site-footer__legal"><a class="site-footer__legal-link" href="${base}/legal/privacy/">${t.privacy}</a><a class="site-footer__legal-link" href="${base}/legal/terms/">${t.terms}</a><a class="site-footer__legal-link" href="${base}/contact/">${t.contact}</a></div></div></div>
+            <div class="site-footer__bottom"><div class="site-footer__bottom-inner"><p class="site-footer__copyright">© <span data-current-year>2026</span> Bagusin.</p><div class="site-footer__legal"><a class="site-footer__legal-link" href="${base}/legal/privacy/">${t.privacy}</a><a class="site-footer__legal-link" href="${base}/legal/terms/">${t.terms}</a><a class="site-footer__legal-link" href="${base}/contact/">${t.contact}</a></div></div></div>
           </div>
         </div>`;
     }
