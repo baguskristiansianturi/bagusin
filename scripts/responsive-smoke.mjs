@@ -124,6 +124,34 @@ const interactionPage = await browser.newPage({ viewport: { width: 390, height: 
 try {
   await interactionPage.goto(origin + "/bagusin/", { waitUntil: "domcontentloaded" });
   const homepageText = await interactionPage.locator("main").innerText();
+  // Homepage solution recommendations must stack into one readable column on mobile.
+  await interactionPage.locator("[data-stage='starter']").click();
+  await interactionPage.locator("[data-goal]").first().click();
+  const mobileSolutions = interactionPage.locator("[data-recommended-solutions] > .home-recommended-solutions__grid");
+  await mobileSolutions.waitFor({ state: "visible", timeout: 5000 });
+  const mobileGrid = await mobileSolutions.evaluate((el) => {
+    const style = getComputedStyle(el);
+    return {
+      columns: style.gridTemplateColumns.split(" ").filter(Boolean).length,
+      width: el.getBoundingClientRect().width,
+      scrollWidth: el.scrollWidth,
+      cardWidths: [...el.children].map(card => Math.round(card.getBoundingClientRect().width))
+    };
+  });
+  if (mobileGrid.columns !== 1) errors.push("Homepage solutions @ 390px: expected one column, got " + JSON.stringify(mobileGrid));
+  if (mobileGrid.scrollWidth > mobileGrid.width + 2) errors.push("Homepage solutions @ 390px: horizontal overflow " + JSON.stringify(mobileGrid));
+  await interactionPage.setViewportSize({ width: 320, height: 740 });
+  const narrowGrid = await mobileSolutions.evaluate((el) => ({
+    columns: getComputedStyle(el).gridTemplateColumns.split(" ").filter(Boolean).length,
+    width: el.getBoundingClientRect().width,
+    scrollWidth: el.scrollWidth,
+    cardWidths: [...el.children].map(card => Math.round(card.getBoundingClientRect().width))
+  }));
+  if (narrowGrid.columns !== 1) errors.push("Homepage solutions @ 320px: expected one column, got " + JSON.stringify(narrowGrid));
+  if (narrowGrid.scrollWidth > narrowGrid.width + 2) errors.push("Homepage solutions @ 320px: horizontal overflow " + JSON.stringify(narrowGrid));
+  await interactionPage.setViewportSize({ width: 390, height: 844 });
+  await interactionPage.locator("[data-reset-pathfinder]").click();
+
   if (!homepageText.includes("Penulisan Konten & SEO") || !homepageText.includes("Aplikasi Web & Sistem")) errors.push("Homepage: Indonesian service labels are missing");
   if (homepageText.includes("Content Writing & SEO") || homepageText.includes("Web Applications & Systems")) errors.push("Homepage: outdated English service labels remain");
   const menuToggle = interactionPage.locator("[data-mobile-menu-toggle]").first();
