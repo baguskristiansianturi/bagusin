@@ -22,7 +22,8 @@ document.addEventListener("DOMContentLoaded",function(){
   .map(a=>({a,score:values(a).reduce((sum,v)=>sum+(current.has(v)?(v===norm(a.category)||v===norm(article.category)?3:1):0),0)}))
   .filter(x=>x.score>0).sort((x,y)=>y.score-x.score||String(x.a.title).localeCompare(String(y.a.title))).map(x=>x.a);
  const related=[...curated,...ranked].slice(0,3);
- const services=R.services.filter(s=>(article.services||article.relatedServices||[]).includes(s.id));
+ const serviceIds=new Set([...(article.services||[]),...(article.relatedServices||[])]);
+ const services=R.services.filter(s=>serviceIds.has(s.id));
  if(!related.length&&!services.length)return;
  const section=document.createElement("section");
  section.className="article-ecosystem";
