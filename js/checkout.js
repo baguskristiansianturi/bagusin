@@ -23,6 +23,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const incomingIndustry = params.get("industry") || "";
   const incomingCategory = params.get("category") || "";
   const incomingTier = params.get("tier") || "";
+  const incomingQuote = params.get("quote") || "";
+  const incomingTimeline = params.get("timeline") || "";
+  const incomingPayment = params.get("payment") || "";
+  const incomingScope = params.get("scope") || "";
+  const incomingOrderRef = params.get("order_ref") || "";
   const storageKey = "bagusin-checkout";
   const readDraft = () => {
     try { return JSON.parse(sessionStorage.getItem(storageKey) || "null"); }
@@ -42,6 +47,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   if (incomingService && serviceNames[incomingService]) service.value = incomingService;
+  if (incomingQuote) $("#agreed-quote").value = incomingQuote;
+  if (incomingTimeline) $("#timeline").value = incomingTimeline;
+  if (incomingPayment) $("#payment-plan").value = incomingPayment;
+  if (incomingScope) $("#brief").value = incomingScope;
   const explicitService = Boolean(incomingService && serviceNames[incomingService]);
   const collection = incomingCollection || (explicitService ? "" : saved?.collection || "");
   const industry = incomingIndustry || (explicitService ? "" : saved?.industry || "");
@@ -148,9 +157,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const name = $("#name");
     const email = $("#email");
     const brief = $("#brief");
-    if (!service.value || !name.value.trim() || !email.value.trim() || !email.validity.valid || !brief.value.trim()) {
-      $("#brief-error").textContent = "Lengkapi layanan, nama, email yang valid, dan ringkasan kebutuhan sebelum melanjutkan.";
-      const invalid = !service.value ? service : !name.value.trim() ? name : !email.value.trim() || !email.validity.valid ? email : brief;
+    const timeline = $("#timeline");
+    const quote = $("#agreed-quote");
+    const payment = $("#payment-plan");
+    if (!service.value || !name.value.trim() || !email.value.trim() || !email.validity.valid || !timeline.value.trim() || !quote.value.trim() || !payment.value.trim() || !brief.value.trim()) {
+      $("#brief-error").textContent = "Lengkapi layanan, nama, email yang valid, ruang lingkup, harga yang disepakati, jadwal, dan ketentuan pembayaran.";
+      const invalid = !service.value ? service : !name.value.trim() ? name : !email.value.trim() || !email.validity.valid ? email : !timeline.value.trim() ? timeline : !quote.value.trim() ? quote : !payment.value.trim() ? payment : brief;
       invalid.focus();
       return false;
     }
@@ -173,8 +185,10 @@ document.addEventListener("DOMContentLoaded", () => {
       ["Nama", $("#name").value],
       ["Email", $("#email").value],
       ["Brand / perusahaan", $("#company").value || "—"],
-      ["Target waktu", $("#timeline").value || "—"],
-      ["Kebutuhan", $("#brief").value]
+      ["Jadwal pengerjaan", $("#timeline").value || "—"],
+      ["Harga disepakati (Rp)", $("#agreed-quote").value || "—"],
+      ["Ketentuan pembayaran", $("#payment-plan").value || "—"],
+      ["Ruang lingkup dan hasil", $("#brief").value]
     ];
     $("#review-box").innerHTML = rows.map(([heading, value]) =>
       '<div class="review-row"><dt>' + escapeHtml(heading) + '</dt><dd>' + escapeHtml(value) + "</dd></div>"
@@ -236,20 +250,23 @@ document.addEventListener("DOMContentLoaded", () => {
       _template: "table",
       _captcha: "false",
       _honey: "",
-      inquiry_type: "Project inquiry — manual WhatsApp follow-up",
+      inquiry_type: "Order confirmation — agreed scope and terms",
       service: label(),
       service_id: service.value,
       collection: collection ? pretty(collection) : "Tidak dipilih",
       industry: industry ? pretty(industry) : "Tidak diisi",
       category: category ? categoryLabel() : "Tidak dipilih",
       tier: tier ? pretty(tier) : "Belum ditentukan",
+      order_reference: incomingOrderRef || ("BG-" + new Date().toISOString().slice(0, 10).replace(/-/g, "") + "-" + Math.random().toString(36).slice(2, 8).toUpperCase()),
+      agreed_quote_idr: $("#agreed-quote").value.trim(),
+      payment_plan: $("#payment-plan").value.trim(),
       client_name: $("#name").value.trim(),
       client_email: $("#email").value.trim(),
       company: $("#company").value.trim() || "Tidak diisi",
       timeline: $("#timeline").value.trim() || "Tidak ditentukan",
       project_brief: $("#brief").value.trim(),
-      terms_acknowledged: $("#terms-agree").checked ? "Ya" : "Tidak",
-      follow_up: "Hubungi calon klien secara personal melalui WhatsApp setelah meninjau brief. Scope, quotation, jadwal, dan pembayaran disepakati manual.",
+      order_confirmation_consent: $("#terms-agree").checked ? "Ya — setuju dengan ruang lingkup, harga, jadwal, dan ketentuan pembayaran yang tercantum" : "Tidak",
+      follow_up: "Konfirmasi pesanan diterima untuk dicatat. Kirim invoice dan instruksi pembayaran sesuai ketentuan yang telah disepakati secara personal.",
       source_page: location.href,
       submitted_at_utc: new Date().toISOString()
     };
@@ -304,7 +321,7 @@ document.addEventListener("DOMContentLoaded", () => {
       form.dataset.submitted = "true";
       sendButton.textContent = "Brief berhasil dikirim";
       sendButton.disabled = true;
-      emailStatus.textContent = "Permintaan pengiriman berhasil diterima layanan email. Jika ini pengiriman pertama, pemilik email perlu menyelesaikan aktivasi FormSubmit dari inbox sebelum brief dapat diteruskan. Setelah layanan aktif, brief akan masuk ke baguskristian@gmail.com; follow-up WhatsApp, quotation, dan pembayaran dilakukan manual.";
+      emailStatus.textContent = "Konfirmasi pesanan " + payload.order_reference + " diterima layanan email. Jika ini pengiriman pertama, pemilik email perlu menyelesaikan aktivasi FormSubmit dari inbox sebelum pesan dapat diteruskan. Invoice dan instruksi pembayaran tetap dikirim terpisah sesuai kesepakatan. Ini bukan bukti pembayaran.";
       const status = $("#aside-status");
       if (status) status.textContent = "Brief dikirim · follow-up manual";
       try { sessionStorage.removeItem(storageKey); } catch (_) {}
