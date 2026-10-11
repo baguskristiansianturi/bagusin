@@ -124,7 +124,7 @@ const interactionPage = await browser.newPage({ viewport: { width: 390, height: 
 try {
   await interactionPage.goto(origin + "/bagusin/", { waitUntil: "domcontentloaded" });
   const homepageText = await interactionPage.locator("main").innerText();
-  if (!homepageText.includes("Penulisan Konten & SEO") || !homepageText.includes("Aplikasi Web & Sistem")) errors.push("Homepage: Indonesian service labels are missing");
+  if (!homepageText.includes("Mulai dari kebutuhan bisnis") || !homepageText.includes("Katalog & pemesanan")) errors.push("Homepage: business discovery and example sections are missing");
   if (homepageText.includes("Content Writing & SEO") || homepageText.includes("Web Applications & Systems")) errors.push("Homepage: outdated English service labels remain");
   const menuToggle = interactionPage.locator("[data-mobile-menu-toggle]").first();
   if (!(await menuToggle.count())) errors.push("Homepage: mobile menu toggle is missing");
@@ -153,6 +153,35 @@ try {
       errors.push("Homepage: global search input is missing");
     }
   }
+
+  // Homepage recommendation flow: test keyboard focus, reset, recommendation, and consultation handoff in both languages.
+  await interactionPage.goto(origin + "/bagusin/", { waitUntil: "domcontentloaded" });
+  await interactionPage.locator('[data-stage="starter"]').click();
+  if (await interactionPage.locator("[data-followup]").getAttribute("hidden") === "") errors.push("Homepage recommender: follow-up did not open");
+  const followupFocus = await interactionPage.locator("[data-followup-title]").evaluate((element) => element === document.activeElement);
+  if (!followupFocus) errors.push("Homepage recommender: keyboard focus did not move to the follow-up question");
+  await interactionPage.locator("[data-reset-pathfinder]").click();
+  if (await interactionPage.locator('[data-stage="starter"]').getAttribute("aria-pressed") !== "false") errors.push("Homepage recommender: reset did not clear the selected stage");
+  await interactionPage.locator('[data-stage="starter"]').click();
+  await interactionPage.locator('[data-goal="customers"]').click();
+  if (!(await interactionPage.locator("[data-result-title]").innerText()).includes("Mulai dari jalur mendapatkan pelanggan")) errors.push("Homepage recommender: Indonesian recommendation did not render");
+  const idConsultHref = await interactionPage.locator("[data-consult-link]").getAttribute("href");
+  if (!idConsultHref?.startsWith("/bagusin/contact/?") || !idConsultHref.includes("path=starter") || !idConsultHref.includes("goal=customers")) errors.push("Homepage recommender: Indonesian consultation link is missing recommendation context");
+  await interactionPage.locator("[data-consult-link]").click();
+  await interactionPage.waitForURL(/\/bagusin\/contact\/\?/, { timeout: 10000 });
+  const idPrefill = await interactionPage.locator('#project-form textarea[name="brief"]').inputValue();
+  if (!idPrefill.includes("Rekomendasi dari beranda") || !idPrefill.includes("Mendapatkan pelanggan dalam waktu dekat")) errors.push("Homepage recommender: Indonesian recommendation was not prefilled on the contact form");
+
+  await interactionPage.goto(origin + "/bagusin/en/", { waitUntil: "domcontentloaded" });
+  await interactionPage.locator('[data-stage="existing"]').click();
+  await interactionPage.locator('[data-goal="system"]').click();
+  if (!(await interactionPage.locator("[data-result-title]").innerText()).includes("Map the process before adding a system")) errors.push("Homepage recommender: English recommendation did not render");
+  const enConsultHref = await interactionPage.locator("[data-consult-link]").getAttribute("href");
+  if (!enConsultHref?.startsWith("/bagusin/en/contact/?") || !enConsultHref.includes("path=existing") || !enConsultHref.includes("goal=system")) errors.push("Homepage recommender: English consultation link is missing recommendation context");
+  await interactionPage.locator("[data-consult-link]").click();
+  await interactionPage.waitForURL(/\/bagusin\/en\/contact\/\?/, { timeout: 10000 });
+  const enPrefill = await interactionPage.locator('#project-form textarea[name="brief"]').inputValue();
+  if (!enPrefill.includes("Homepage recommendation") || !enPrefill.includes("Add features or operational system")) errors.push("Homepage recommender: English recommendation was not prefilled on the contact form");
 
   // Regression case: legacy articles may have a search toggle but no search panel.
   await interactionPage.goto(origin + "/bagusin/blog/bekerja-dari-mana-saja/", { waitUntil: "domcontentloaded" });
@@ -190,7 +219,7 @@ try {
   }
   if (!contactTitle.includes("Kontak")) errors.push("Contact page: title metadata is not localized");
   const contactOptionsText = await interactionPage.locator("main").innerText();
-  if (!contactOptionsText.includes("Layanan yang dibutuhkan") || !contactOptionsText.includes("ceritakan kebutuhanmu secara singkat")) errors.push("Contact page: concise service selection and brief guidance are missing");
+  if (!contactOptionsText.includes("Layanan yang dibutuhkan") || !contactOptionsText.includes("Ceritakan singkat; detail bisa dibahas nanti.")) errors.push("Contact page: concise service selection and brief guidance are missing");
   if (contactOptionsText.includes("software engineering") || contactOptionsText.includes("SEO content")) errors.push("Contact page: English service terms remain in Indonesian copy");
   let contactEmailPayload = null;
   await interactionPage.route("https://formsubmit.co/ajax/baguskristian@gmail.com", async (route) => {
@@ -253,7 +282,7 @@ try {
   const workTitle = await interactionPage.title();
   const workHeading = await interactionPage.locator("main h1").textContent();
   if (!workTitle.includes("Layanan dan Proyek")) errors.push("Work page: title metadata is not localized");
-  if (!workHeading || !workHeading.includes("Ada yang perlu dibangun")) errors.push("Work page: main heading is not localized");
+  if (!workHeading || !workHeading.includes("Apa yang bisa Bagus bantu")) errors.push("Work page: main heading is not localized");
   const workText = await interactionPage.locator("main").innerText();
   if (workText.includes("What are you trying to achieve?") || workText.includes("View service")) errors.push("Work page: English interface copy remains in Indonesian content");
 
@@ -306,6 +335,9 @@ try {
   if (await interactionPage.locator("#service").inputValue() !== "landing-pages") errors.push("Checkout: incoming service was not preselected");
   await interactionPage.locator("#name").fill("Test Client");
   await interactionPage.locator("#email").fill("client@example.com");
+  await interactionPage.locator("#timeline").fill("Start 20 October, handover 5 November");
+  await interactionPage.locator("#agreed-quote").fill("1500000");
+  await interactionPage.locator("#payment-plan").fill("50% deposit, 50% on handover");
   await interactionPage.locator("#brief").fill("Need a responsive campaign page <script>not executable</script>.");
   await interactionPage.locator('[data-next="2"]').click();
   if (await interactionPage.locator('[data-panel="2"]').isHidden()) errors.push("Checkout: valid brief did not advance to review");
