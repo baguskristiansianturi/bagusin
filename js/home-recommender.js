@@ -78,7 +78,7 @@
   }
   const solutionCatalog = {
     customers: [
-      { icon: "📍", title: "Google Business Profile & Maps", description: "Membantu orang menemukan bisnis lokal Anda di Google Search dan Maps, melihat lokasi, jam buka, foto, ulasan, serta cara menghubungi atau meminta petunjuk arah.", url: "https://www.google.com/business/" },
+      { icon: "📍", title: "Google Business Profile & Maps", description: "Membantu orang menemukan bisnis lokal Anda di Google Search dan Maps, melihat lokasi, jam buka, foto, ulasan, serta cara menghubungi atau meminta petunjuk arah.", url: "/bagusin/work/google-business-profile/" },
       { icon: "↗", title: "Landing page penjualan", description: "Satu halaman yang fokus pada penawaran, manfaat, bukti yang tersedia, dan satu tindakan jelas—misalnya menghubungi WhatsApp atau meminta penawaran.", url: "/bagusin/work/landing-pages/" },
       { icon: "◎", title: "Pengukuran hasil", description: "Mengetahui dari mana pengunjung datang dan tindakan apa yang mereka lakukan sebelum anggaran promosi ditingkatkan.", url: "/bagusin/work/seo-content/" }
     ],
@@ -121,7 +121,7 @@
     items.forEach(item => {
       const card = document.createElement("a");
       card.className = "home-recommended-solutions__card";
-      card.href = isEnglish && item.url.startsWith("/bagusin/") ? item.url.replace("/bagusin/", "/bagusin/en/") : item.url;
+      card.href = isEnglish && item.url.startsWith("/bagusin/") && !item.url.includes("/google-business-profile/") ? item.url.replace("/bagusin/", "/bagusin/en/") : item.url;
       const icon = document.createElement("span");
       icon.className = "home-recommended-solutions__icon";
       icon.setAttribute("aria-hidden", "true");
