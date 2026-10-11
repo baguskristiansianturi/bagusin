@@ -14,7 +14,8 @@
 .article-pro-tags a,
 .article-labels a,
 .article-meta__category,
-.article-category {
+.article-category,
+.article-header__category {
   box-sizing: border-box;
 }
 .blog-featured__eyebrow,
@@ -128,5 +129,22 @@
   font-weight: 650;
   line-height: 1.35;
   text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.article-header__category {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  padding: .35rem .65rem;
+  border: 1px solid var(--content-label-border);
+  border-radius: 999px;
+  background: var(--content-label-bg);
+  color: var(--content-label-text);
+  font-size: .72rem;
+  font-weight: 650;
+  line-height: 1.35;
+  letter-spacing: .015em;
   overflow-wrap: anywhere;
 }
