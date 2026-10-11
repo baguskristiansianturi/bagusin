@@ -125,9 +125,14 @@ try {
   await interactionPage.goto(origin + "/bagusin/", { waitUntil: "domcontentloaded" });
   const servicesSection = interactionPage.locator(".home-feature-grid--services");
   await servicesSection.waitFor({ state: "visible", timeout: 10000 });
-  const homepageText = await servicesSection.innerText();
-  if (!homepageText.includes("Penulisan Konten & SEO") || !homepageText.includes("Aplikasi Web & Sistem")) errors.push("Homepage: Indonesian service labels are missing");
-  if (homepageText.includes("Content Writing & SEO") || homepageText.includes("Web Applications & Systems")) errors.push("Homepage: outdated English service labels remain");
+  const serviceCardLabels = (await servicesSection.locator(".home-feature-card__eyebrow").allTextContents()).join(" ");
+  const serviceCards = servicesSection.locator(".home-feature-card");
+  if (await serviceCards.count() !== 3) errors.push("Homepage: expected three clear service cards");
+  for (let cardIndex = 0; cardIndex < await serviceCards.count(); cardIndex += 1) {
+    if (!(await serviceCards.nth(cardIndex).isVisible())) errors.push("Homepage: a service card is not visible on mobile");
+  }
+  if (!serviceCardLabels.includes("Penulisan Konten & SEO") || !serviceCardLabels.includes("Aplikasi Web & Sistem")) errors.push("Homepage: Indonesian service labels are missing");
+  if (serviceCardLabels.includes("Content Writing & SEO") || serviceCardLabels.includes("Web Applications & Systems")) errors.push("Homepage: outdated English service labels remain");
   const menuToggle = interactionPage.locator("[data-mobile-menu-toggle]").first();
   if (!(await menuToggle.count())) errors.push("Homepage: mobile menu toggle is missing");
   else {
@@ -333,7 +338,7 @@ try {
     await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ success: "true", message: "Test submission accepted" }) });
   });
   await interactionPage.locator("#send-order-brief").click();
-  await interactionPage.waitForFunction(() => document.querySelector("#checkout-email-status")?.textContent.includes("pengiriman berhasil diterima"), null, { timeout: 5000 });
+  await interactionPage.waitForFunction(() => { const status = document.querySelector("#checkout-email-status")?.textContent.toLowerCase() || ""; return status.includes("konfirmasi pesanan") && status.includes("diterima layanan email"); }, null, { timeout: 5000 });
   if (!submittedEmailPayload || submittedEmailPayload.client_email !== "client@example.com") errors.push("Checkout: email submission payload is missing the client's reply address");
   if (!submittedEmailPayload || submittedEmailPayload.service_id !== "landing-pages") errors.push("Checkout: email submission payload is missing the selected service");
   if (!submittedEmailPayload || !submittedEmailPayload.project_brief.includes("responsive campaign page")) errors.push("Checkout: email submission payload is missing the project brief");
@@ -390,7 +395,7 @@ try {
   await interactionPage.locator("#terms-agree").check();
   await interactionPage.locator('[data-next="4"]').click();
   await interactionPage.locator("#send-order-brief").click();
-  await interactionPage.waitForFunction(() => document.querySelector("#checkout-email-status")?.textContent.includes("pengiriman berhasil diterima"), null, { timeout: 5000 });
+  await interactionPage.waitForFunction(() => { const status = document.querySelector("#checkout-email-status")?.textContent.toLowerCase() || ""; return status.includes("konfirmasi pesanan") && status.includes("diterima layanan email"); }, null, { timeout: 5000 });
   if (!submittedEmailPayload || submittedEmailPayload.category !== "Landing Page") errors.push("Checkout: copywriting category was not included in the email payload");
 
   // Collections and Portfolio have distinct roles and destinations.
