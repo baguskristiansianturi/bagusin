@@ -96,7 +96,7 @@
       const link = document.createElement("a");
       link.className = mobile ? "mobile-nav__link" : "site-nav__link";
       link.href = navBase + "/learning/";
-      link.textContent = navEnglish ? "Learning" : "Belajar";
+      link.textContent = navEnglish ? "Courses" : "Kursus";
       item.className = mobile ? "" : "site-nav__item";
       item.appendChild(link);
       const blogItem = Array.from(list.children).find(function (li) {
@@ -169,7 +169,7 @@
       const checkoutBase = (usesProjectBase ? "/bagusin" : "") + "/checkout";
       const t = en ? {
         explore:"Explore", work:"Work", start:"Start", legal:"Legal",
-        blog:"Blog", collections:"Collection", learning:"Learning", destinations:"Destinations", youtube:"YouTube", about:"About",
+        blog:"Blog", collections:"Collection", learning:"Courses", destinations:"Destinations", youtube:"YouTube", about:"About",
         workWithMe:"Work With Me", services:"Services", portfolio:"Portfolio",
         startProject:"Start a Project", help:"Help Me Choose", contact:"Contact",
         privacy:"Privacy Policy", terms:"Terms", disclaimer:"Disclaimer", editorial:"Editorial Policy",
@@ -178,7 +178,7 @@
         ctaText:"Start with the problem. If you know what you need, start a project. If not, ask for help choosing the right path."
       } : {
         explore:"Jelajahi", work:"Layanan", start:"Mulai", legal:"Informasi",
-        blog:"Blog", collections:"Koleksi", learning:"Belajar", destinations:"Destinasi", youtube:"YouTube", about:"Tentang",
+        blog:"Blog", collections:"Koleksi", learning:"Kursus", destinations:"Destinasi", youtube:"YouTube", about:"Tentang",
         workWithMe:"Lihat Layanan", services:"Layanan", portfolio:"Portofolio",
         startProject:"Mulai Proyek", help:"Bantu Pilihkan", contact:"Kontak",
         privacy:"Kebijakan Privasi", terms:"Ketentuan", disclaimer:"Penafian", editorial:"Kebijakan Editorial",
