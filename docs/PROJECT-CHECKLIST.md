@@ -29,7 +29,7 @@
 
 **Active phase:** Phase 0 / Phase 1 — baseline and homepage-first repair. Do not jump to later phases until homepage issues and relevant tests are resolved.
 
-**Latest known smoke-test evidence:** run #244 and the later run #38125042910 for PR #108 concluded **failure**. New targeted fixes were pushed after those runs; check the latest workflow run before claiming improvement.
+**Latest known smoke-test evidence:** run #244, #38125042910, and #38125376280 for PR #108 concluded **failure**. The latest run found three remaining issues: homepage service-label assertion, checkout manual WhatsApp follow-up explanation, and a generic `waitForFunction` timeout. Follow-up changes were pushed in commit `efb14f70cad104c9c98e0f736781d8b787a17b6a`; the new workflow run must be checked before claiming improvement.
 - Homepage roadmap CSS path is corrected on PR #108 branch; the English article stylesheet path is also corrected there. The previous smoke-test server logs showed the corrected assets returning HTTP 200.
 - Homepage service card labels and section structure were corrected on PR #108 branch. Follow-up fixes now also remove a broken Google Business Profile demo link, clarify contact brief guidance, localize the work-page H1, and make the checkout smoke test provide all fields required by the real validation rules. The homepage smoke test now checks the visible service-card grid directly. Latest commits are on `fix/homepage-and-english-article-asset-paths-20261011` / PR #108; validation remains pending.
 - Other known failures remain unresolved pending their phase: contact hero/service brief copy; work-page heading expectation; checkout progression and review-summary; interaction smoke timeout on `[data-next="3"]` because the control was not visible.
@@ -37,10 +37,10 @@
 - `README.md` on `main` was empty at last inspection. Root `AGENTS.md` and this file preserve working context and AI instructions.
 
 **Immediate next actions:**
-1. Inspect latest PR #108 CI after commit `ca538a2e1ff1f77a6c195d83aeae8bf535ec7d58`; do not merge while checks fail or are unverified.
+1. Inspect latest PR #108 CI after commit `efb14f70cad104c9c98e0f736781d8b787a17b6a`; do not merge while checks fail or are unverified.
 2. Confirm visible homepage service-card labels and CSS assets pass, then review all 276 responsive viewport checks and pathfinder interaction.
 3. Confirm the static audit no longer reports the nonexistent Google Business Profile collections URL.
-4. Verify contact copy, work-page heading, checkout validation/review/terms path, and that no user-provided text is interpreted as HTML.
+4. Verify contact copy, work-page heading, checkout validation/review/terms path, status messaging, and that user-provided text is escaped.
 5. Record exact pass/fail counts. Only move to Phase 2 after Phase 1 homepage acceptance criteria pass.
 
 ## Homepage acceptance checklist
