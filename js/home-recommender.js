@@ -121,7 +121,7 @@
     items.forEach(item => {
       const card = document.createElement("a");
       card.className = "home-recommended-solutions__card";
-      card.href = isEnglish && item.url.startsWith("/bagusin/") && !item.url.includes("/google-business-profile/") ? item.url.replace("/bagusin/", "/bagusin/en/") : item.url;
+      card.href = isEnglish && item.url.startsWith("/bagusin/work/") ? "/bagusin/en/work/" : isEnglish && item.url === "/bagusin/collections/" ? "/bagusin/en/collections/" : item.url;
       const icon = document.createElement("span");
       icon.className = "home-recommended-solutions__icon";
       icon.setAttribute("aria-hidden", "true");
