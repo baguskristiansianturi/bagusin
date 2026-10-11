@@ -70,10 +70,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const briefField = form.elements.namedItem("brief");
   if (briefField && !briefField.value.trim()) {
-    if (template) briefField.value = (isEnglish ? "Selected website design: " : "Desain website dipilih: ") + selectedTemplateName + "\\n\\n" +
-      (isEnglish ? "Business name / brand:\\nMain goal for this website:\\nServices / products:\\nContact / WhatsApp number:\\nAddress and business hours:\\nDomain / hosting status:\\nPreferred launch date:\\nChanges or extra features:\\n\\nPlease confirm scope, final price, timeline, and delivery method before work begins." :
-      "Nama bisnis / brand:\\nTujuan utama website:\\nLayanan / produk:\\nNomor kontak / WhatsApp:\\nAlamat dan jam operasional:\\nStatus domain / hosting:\\nTarget publikasi:\\nPerubahan atau fitur tambahan:\\n\\nMohon konfirmasi ruang lingkup, harga final, jadwal, dan cara serah terima sebelum pengerjaan dimulai.");
-    if (meeting === "in-person") briefField.value += "\\n\\nPermintaan konsultasi tatap muka: Rp1.000.000 per 60 menit. Mohon konfirmasi jadwal, lokasi, dan biaya sebelum pertemuan.";
+    if (template) briefField.value = (isEnglish ? "Selected website design: " : "Desain website dipilih: ") + selectedTemplateName + "\n\n" +
+      (isEnglish ? "Business name / brand:\nMain goal for this website:\nServices / products:\nContact / WhatsApp number:\nAddress and business hours:\nDomain / hosting status:\nPreferred launch date:\nChanges or extra features:\n\nPlease confirm scope, final price, timeline, and delivery method before work begins." :
+      "Nama bisnis / brand:\nTujuan utama website:\nLayanan / produk:\nNomor kontak / WhatsApp:\nAlamat dan jam operasional:\nStatus domain / hosting:\nTarget publikasi:\nPerubahan atau fitur tambahan:\n\nMohon konfirmasi ruang lingkup, harga final, jadwal, dan cara serah terima sebelum pengerjaan dimulai.");
+    if (meeting === "in-person") briefField.value += "\n\nPermintaan konsultasi tatap muka: Rp1.000.000 per 60 menit. Mohon konfirmasi jadwal, lokasi, dan biaya sebelum pertemuan.";
   }
   if (template === "sewa-mobil-bali" && briefField && !briefField.value.trim()) {
     briefField.value = isEnglish
