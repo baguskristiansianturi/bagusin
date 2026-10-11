@@ -407,6 +407,17 @@ document.addEventListener("DOMContentLoaded", function () {
     if (serviceHeading && service) serviceHeading.textContent = (labels[service] || service) + (isEnglish ? " — quote request" : " — permintaan penawaran");
   }
 
+  const learningGoal = params.get("goal") || "";
+  const learningGoalLabels = {
+    "learn-web": isEnglish ? "Learn website development" : "Belajar membuat website",
+    "learn-marketing": isEnglish ? "Learn digital marketing" : "Belajar pemasaran digital",
+    "learn-workflow": isEnglish ? "Learn automation and digital systems" : "Belajar otomasi dan sistem digital"
+  };
+  if (params.get("path") === "learning" && learningGoalLabels[learningGoal] && briefField) {
+    const goalLine = (isEnglish ? "Learning goal from homepage: " : "Tujuan belajar dari beranda: ") + learningGoalLabels[learningGoal];
+    if (!briefField.value.includes(goalLine)) briefField.value = goalLine + "\n\n" + briefField.value;
+  }
+
   const honeypot = form.querySelector('input[name="_honey"]');
     if (honeypot?.value.trim()) return;
 
