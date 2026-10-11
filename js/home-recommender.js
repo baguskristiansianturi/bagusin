@@ -72,7 +72,7 @@
     const heading = root.querySelector("[data-followup-title]");
     heading.textContent = isEnglish ? (stage === "starter" ? "What do you need most right now?" : stage === "business" ? "What would you most like to improve?" : "What change are you looking to make?") : (stage === "starter" ? "Apa yang paling Anda butuhkan saat ini?" : stage === "business" ? "Apa yang paling ingin ditingkatkan?" : "Apa perubahan yang ingin Anda capai?");
     heading.setAttribute("tabindex", "-1");
-    progress.textContent = isEnglish ? "Step 2 of 2" : "50% selesai";
+    progress.textContent = isEnglish ? "Question 2 of 2" : "Pertanyaan 2 dari 2";
     followup.scrollIntoView({behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start"});
     heading.focus({preventScroll:true});
   }
@@ -155,7 +155,7 @@
     renderSolutions(goal);
     consult.href = (isEnglish ? "/bagusin/en/contact/?" : "/bagusin/contact/?") + new URLSearchParams({service:"consultation",mode:"consultation",path:stage,goal:goal,source:"homepage-recommender"}).toString();
     result.hidden = false;
-    progress.textContent = isEnglish ? "Recommendation ready" : "100% selesai";
+    progress.textContent = isEnglish ? "Recommendation ready" : "Solusi siap ditinjau";
     result.scrollIntoView({behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start"});
     title.focus({preventScroll:true});
   }
@@ -166,7 +166,7 @@
     followup.hidden = true;
     result.hidden = true;
     result.querySelector("[data-recommended-solutions]")?.remove();
-    progress.textContent = isEnglish ? "Step 1 of 2" : "0% selesai";
+    progress.textContent = isEnglish ? "Question 1 of 2" : "Pertanyaan 1 dari 2";
     root.scrollIntoView({behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start"});
     stageButtons[0]?.focus({preventScroll:true});
   });
