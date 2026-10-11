@@ -34,13 +34,13 @@
           <div class="template-product__actions"><a class="button button--secondary" href="${escapeHtml(item.demoUrl)}">Lihat demo <span aria-hidden="true">↗</span></a><a class="button button--accent" href="/bagusin/templates/detail/?template=${encodeURIComponent(item.id)}">Detail paket &amp; harga <span aria-hidden="true">→</span></a><a class="text-link" href="/bagusin/contact/?service=websites&amp;mode=consultation&amp;template=${encodeURIComponent(item.id)}">Tanya sebelum memesan</a></div>
         </div>
       </article>`;
-    }).join("") : '<div class="template-empty"><h3>Desain belum tersedia</h3><p>Pilihan ini belum ada di katalog. Kamu tetap bisa meminta desain khusus atau menyampaikan kategori yang ingin ditambahkan.</p><p><a class="button button--accent" href="/bagusin/contact/?service=website&mode=consultation">Diskusikan kebutuhanmu</a></p></div>';
+    }).join("") : '<div class="template-empty"><h3>Desain belum tersedia</h3><p>Pilihan ini belum ada di katalog. Kamu tetap bisa meminta desain khusus atau menyampaikan kategori yang ingin ditambahkan.</p><p><a class="button button--accent" href="/bagusin/contact/?service=websites&mode=consultation">Diskusikan kebutuhanmu</a></p></div>';
   }
   fetch(base).then(response => { if (!response.ok) throw new Error("Catalog unavailable"); return response.json(); }).then(data => {
     catalog = data;
     category.innerHTML = '<option value="">Semua kategori</option>' + data.categories.map(item => `<option value="${escapeHtml(item.id)}">${escapeHtml(item.name)}</option>`).join("");
     level.innerHTML = '<option value="">Semua level</option>' + data.levels.map(item => `<option value="${escapeHtml(item.id)}">${escapeHtml(item.name)}</option>`).join("");
     render();
-  }).catch(() => { status.textContent = "Katalog belum dapat dimuat. Silakan hubungi Bagus untuk melihat pilihan yang tersedia."; grid.innerHTML = '<div class="template-empty"><p>Maaf, katalog sedang tidak tersedia.</p><a class="button button--accent" href="/bagusin/contact/?service=website&mode=consultation">Tanya pilihan template</a></div>'; });
+  }).catch(() => { status.textContent = "Katalog belum dapat dimuat. Silakan hubungi Bagus untuk melihat pilihan yang tersedia."; grid.innerHTML = '<div class="template-empty"><p>Maaf, katalog sedang tidak tersedia.</p><a class="button button--accent" href="/bagusin/contact/?service=websites&mode=consultation">Tanya pilihan template</a></div>'; });
   [search, category, level].forEach(control => control.addEventListener(control === search ? "input" : "change", render));
 })();
