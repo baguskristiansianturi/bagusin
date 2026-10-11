@@ -472,7 +472,7 @@ try {
     await interactionPage.goto(origin + item.route, { waitUntil: "domcontentloaded" });
     const estimator = interactionPage.locator("[data-scope-estimator]");
     if (!(await estimator.count())) { errors.push("Scope estimator missing on " + item.route); continue; }
-    await estimator.locator("[data-scope-item]").filter({ hasValue: item.choice }).check();
+    await estimator.locator("label.scope-estimator__option").filter({ hasText: item.choice }).locator("input").check();
     const href = await estimator.locator("[data-scope-cta]").getAttribute("href");
     if (!href?.includes("service=" + item.service) || !href.includes("mode=quote") || !href.includes("scope=")) errors.push("Scope estimator: contact CTA parameters are incomplete on " + item.route);
     await interactionPage.goto(origin + href, { waitUntil: "domcontentloaded" });
