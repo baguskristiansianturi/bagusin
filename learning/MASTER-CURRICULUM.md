@@ -59,9 +59,11 @@ Every course page should eventually state:
 A recommended practice loop is: **Understand → See an example → Practise → Modify → Solve a challenge → Receive feedback → Build a project → Review**.
 
 ## Honest status and trust
-Never imply that all 16 domains or every level is already open for enrolment. Distinguish:
+**Customer-facing booking rule (2026-10-11):** The eight published detail courses—Web Developer, Digital Marketer, Online Business, UI/UX Design, Cloud & DevOps, Data Analyst, AI & Automation, and IoT & Embedded Systems—are offered for enrolment requests. Do not label these eight offers as “in development” or “planned.” Their detail pages and catalogue cards must use a clear booking/enrolment CTA. Session dates and final scope are agreed directly with the learner; do not imply that a specific date is confirmed until agreed.
+
+The 16-domain curriculum map and five cross-domain pathways are the broader learning framework, not a claim that every individual module, level or specialist class is separately bookable today. Keep their status language separate from the eight customer-facing courses. Distinguish:
 - **Available:** confirmed to run and with verified details.
-- **In development:** curriculum/page being built; registration availability not promised.
+- **In development:** use only for a specific unpublished curriculum or page that is genuinely still being built; never use this status to describe the eight published courses above.
 - **Planned:** mapped but not yet developed into a course.
 Do not invent instructors, schedules, pricing, testimonials, certifications, accreditation or outcomes. Certificates are not the primary promise; demonstrated practical competence and projects matter.
 
