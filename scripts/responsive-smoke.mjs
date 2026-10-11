@@ -419,7 +419,7 @@ try {
 
   // Landing-page category catalogs should prioritize the newest relevant demo without leaking it into unrelated industries.
   await interactionPage.goto(origin + "/bagusin/landing-pages/collections/", { waitUntil: "domcontentloaded" });
-  await interactionPage.locator("[data-catalog-grid] .collection-card").first().waitFor({ timeout: 10000 });
+  await interactionPage.locator("[data-catalog-grid]").getByText("Bagus Sewa Mobil Bali 01").waitFor({ timeout: 10000 });
   if (!(await interactionPage.locator("[data-catalog-grid] .collection-card").first().innerText()).includes("Bagus Sewa Mobil Bali 01")) errors.push("Landing catalog: newest available demo is not prioritized at the top");
   await interactionPage.locator("[data-catalog-nav] [data-category=\"travel\"]").click();
   if (!(await interactionPage.locator("[data-catalog-grid]").innerText()).includes("Bagus Sewa Mobil Bali 01")) errors.push("Landing catalog: relevant demo is missing from its industry category");
