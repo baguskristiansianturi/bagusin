@@ -131,3 +131,26 @@
 .home-pathfinder__panel{min-width:0}
 @media(max-width:800px){.home-hero--pathfinder{padding-block:clamp(1.9rem,5vw,3rem)}.home-pathfinder{grid-template-columns:minmax(0,1fr);gap:1.25rem}.home-pathfinder__intro{position:static;padding-top:0}}
 @media(max-width:480px){.home-hero--pathfinder{padding-block:1.75rem}.home-pathfinder__intro h1{font-size:clamp(2.35rem,10vw,3rem);line-height:1.02}.home-pathfinder__panel{padding:.9rem}.home-pathfinder__choice{min-height:4.25rem}}
+
+
+/* Premium pathfinder refinement — strong first impression without excess height. */
+.home-hero--pathfinder{border-bottom-color:#e2eae5;background:radial-gradient(ellipse at 8% 12%,rgba(216,235,225,.62),transparent 34%),radial-gradient(ellipse at 92% 86%,rgba(229,241,235,.8),transparent 37%),linear-gradient(120deg,#fff 0%,#fbfcfb 55%,#f0f6f2 100%)}
+.home-pathfinder{max-width:var(--container-width,1200px)}
+.home-pathfinder__intro h1{max-width:10.5ch;font-size:clamp(3.15rem,6.2vw,5.15rem);line-height:.99;letter-spacing:-.065em;color:#15231b}
+.home-pathfinder__intro .home-hero__lead{max-width:36rem;color:#4c5a52;line-height:1.72}
+.home-pathfinder__panel{border-color:#dfe8e2;border-radius:1.2rem;background:rgba(255,255,255,.97);box-shadow:0 22px 60px rgba(25,48,37,.09)}
+.home-pathfinder__panel>h2{font-size:clamp(1.3rem,2.3vw,1.7rem);letter-spacing:-.035em}
+.home-pathfinder__topline{letter-spacing:.09em}
+.home-pathfinder__choice{border-color:#e2e9e4;border-radius:.85rem;min-height:4.75rem}
+.home-pathfinder__choice:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(30,70,48,.06)}
+.home-pathfinder__choice-icon{background:#eef5f0;color:#28694c}
+.home-pathfinder__footer-note{border-color:#e0e9e3;background:rgba(255,255,255,.72)}
+@media(max-width:800px){
+ .home-pathfinder__intro h1{max-width:12ch;font-size:clamp(2.8rem,8vw,4rem)}
+ .home-pathfinder__panel{max-width:48rem}
+}
+@media(max-width:480px){
+ .home-pathfinder__intro h1{max-width:11ch;font-size:clamp(2.55rem,10.4vw,3.1rem)}
+ .home-pathfinder__panel{padding:1rem}
+ .home-pathfinder__choice{min-height:4.2rem}
+}
