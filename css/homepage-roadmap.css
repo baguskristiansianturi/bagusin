@@ -34,3 +34,27 @@
 .home-learning-requirements strong{color:var(--color-text)}
 .home-learning-private .home-learning-cta{align-items:start}
 @media(max-width:700px){.home-learning-requirements{font-size:.86rem}.home-learning-private .home-learning-cta{gap:1.25rem}}
+
+
+/* Focused course-section polish — leaves the hero and existing discovery sections untouched */
+.home-learning-private{padding-block:clamp(2.8rem,5.5vw,4.75rem)}
+.home-learning-private .home-learning-cta--featured{grid-template-columns:minmax(0,1.25fr) minmax(17rem,.75fr);gap:clamp(1.5rem,4vw,3rem);align-items:stretch;padding:clamp(1.4rem,4vw,3rem);border:1px solid #dce8e3;border-radius:var(--radius-xl);background:linear-gradient(135deg,#fbfdfc 0%,#f0f7f4 100%);box-shadow:0 14px 40px rgba(17,21,20,.045)}
+.home-learning-cta__main{min-width:0}
+.home-learning-cta--featured h2{max-width:43rem;margin-top:.45rem;font-size:clamp(1.8rem,3.6vw,2.8rem);line-height:1.12;letter-spacing:-.04em;text-wrap:balance}
+.home-learning-cta--featured .home-learning-cta__main>p{max-width:45rem;margin-top:.9rem;font-size:.96rem;line-height:1.75}
+.home-learning-highlights{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem;margin-top:1.45rem}
+.home-learning-highlight{display:flex;gap:.6rem;align-items:flex-start;padding:.85rem;border:1px solid rgba(63,145,129,.15);border-radius:var(--radius-md);background:rgba(255,255,255,.72)}
+.home-learning-highlight>span{display:grid;place-items:center;flex:0 0 1.65rem;width:1.65rem;height:1.65rem;border-radius:50%;background:#e1f1eb;color:var(--color-accent-dark);font-weight:800}
+.home-learning-highlight strong{display:block;font-size:.8rem;line-height:1.35}
+.home-learning-highlight p{margin-top:.3rem;color:var(--color-text-muted);font-size:.75rem;line-height:1.5}
+.home-learning-cta--featured .home-learning-cta__aside{display:flex;flex-direction:column;align-items:flex-start;padding:clamp(1.15rem,2.5vw,1.65rem);border:1px solid rgba(63,145,129,.17);border-radius:var(--radius-lg);background:#fff;box-shadow:0 5px 20px rgba(17,21,20,.035)}
+.home-learning-cta__eyebrow{display:inline-flex;margin-bottom:.6rem;color:var(--color-accent-dark);font-size:.68rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
+.home-learning-cta--featured .home-learning-cta__aside>strong{font-size:1.12rem;line-height:1.35}
+.home-learning-cta--featured .home-learning-cta__aside>p{margin-top:.45rem;font-size:.83rem;line-height:1.65}
+.home-learning-checklist{display:grid;gap:.55rem;width:100%;margin:1rem 0 0;padding:0;list-style:none}
+.home-learning-checklist li{position:relative;padding-left:1.45rem;color:var(--color-text-soft);font-size:.81rem;line-height:1.5}
+.home-learning-checklist li::before{content:"✓";position:absolute;left:0;top:0;color:var(--color-accent-dark);font-weight:800}
+.home-learning-cta--featured .home-learning-cta__aside .button{width:100%;margin-top:1.15rem;white-space:normal}
+.home-learning-cta__note{padding-top:.85rem;border-top:1px solid var(--color-border);font-size:.74rem!important;line-height:1.55!important}
+@media(max-width:850px){.home-learning-private .home-learning-cta--featured{grid-template-columns:1fr}.home-learning-highlights{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:560px){.home-learning-private .home-learning-cta--featured{padding:1.1rem;gap:1.1rem}.home-learning-highlights{grid-template-columns:1fr}.home-learning-highlight{padding:.75rem}.home-learning-cta--featured h2{font-size:clamp(1.65rem,8vw,2.2rem)}}
