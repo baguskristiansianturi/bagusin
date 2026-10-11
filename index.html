@@ -124,97 +124,103 @@
 </aside>
 
 <main id="main-content" tabindex="-1">
-  <section class="home-hero section" aria-labelledby="home-title">
+  <section class="home-hero home-hero--discovery section" aria-labelledby="home-title">
     <div class="container home-hero__inner">
       <div class="home-hero__copy">
-        <span class="section-kicker">Artikel · Panduan · Cerita</span>
+        <span class="section-kicker">Jelajahi · Pelajari · Temukan</span>
         <h1 id="home-title">Temukan hal yang <span>berguna.</span></h1>
-        <p class="home-hero__lead">Artikel, panduan praktis, cerita, dan ide dari berbagai bidang.</p>
+        <p class="home-hero__lead">Baca sesuatu yang menarik, temukan ide baru, atau jelajahi layanan yang bisa membantu langkah berikutnya.</p>
         <form class="search-field home-hero__search" action="/bagusin/search/" method="get" role="search">
-          <label class="sr-only" for="home-search">Cari artikel atau topik</label>
-          <input id="home-search" name="q" type="search" placeholder="Cari artikel atau topik…" autocomplete="off">
-          <button class="button button--accent" type="submit">Cari</button>
+          <label class="sr-only" for="home-search">Cari topik, artikel, atau layanan</label>
+          <input id="home-search" name="q" type="search" placeholder="Apa yang ingin kamu temukan?" autocomplete="off">
+          <button class="button button--accent" type="submit">Cari <span aria-hidden="true">→</span></button>
         </form>
-        <a class="home-hero__browse" href="/bagusin/blog/">Atau jelajahi semua artikel <span aria-hidden="true">→</span></a>
+        <div class="home-quick-links" aria-label="Jelajahi kategori utama">
+          <a href="/bagusin/blog/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 4.5A2.5 2.5 0 0 1 7.5 2H20v18H7.5A2.5 2.5 0 0 0 5 22z"/><path d="M5 5v17M9 7h7M9 11h7"/></svg>Blog &amp; panduan</a>
+          <a href="/bagusin/collections/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="5" rx="1.5"/><rect x="13" y="10" width="8" height="11" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/></svg>Koleksi website</a>
+          <a href="/bagusin/work/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V4h8v3M3 12h18"/></svg>Layanan</a>
+          <a href="/bagusin/portfolio/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 19.5h16M6 16V8l6-4 6 4v8M9 16v-4h6v4"/></svg>Proyek &amp; karya</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section home-section home-latest" aria-labelledby="latest-title">
+  <section class="section home-discovery-refresh" aria-labelledby="latest-title">
     <div class="container">
-      <div class="section-header home-section__header home-section__header--row">
-        <div><span class="section-kicker">Mulai membaca</span><h2 id="latest-title" class="section-title">Artikel dan cerita terbaru</h2><p class="section-description">Temukan jawaban, pengalaman, dan ide baru. Pilih bacaan yang relevan, lalu lanjutkan menjelajah dari sana.</p></div>
-        <a class="text-link home-section__view-all" href="/bagusin/blog/">Semua tulisan <span class="text-link__arrow" aria-hidden="true">→</span></a>
+      <div class="home-discovery-refresh__heading">
+        <div><span class="section-kicker">Pilihan untuk mulai</span><h2 id="latest-title" class="section-title">Jelajahi yang terbaru</h2></div>
+        <a class="text-link" href="/bagusin/blog/">Semua artikel <span aria-hidden="true">→</span></a>
       </div>
-      <div class="home-story-grid">
-        <article class="home-story home-story--featured">
-          <a class="home-story__visual" href="/bagusin/blog/bekerja-dari-mana-saja/" aria-label="Baca: Bekerja dari mana saja bukan berarti bekerja tanpa arah"><span class="home-story__visual-label">Catatan lapangan</span><span class="home-story__visual-mark" aria-hidden="true">01</span></a>
-          <div class="home-story__body"><span class="home-story__category">Pekerjaan</span><h3><a href="/bagusin/blog/bekerja-dari-mana-saja/">Bekerja dari mana saja bukan berarti bekerja tanpa arah</a></h3><p>Menjaga pekerjaan tetap berjalan ketika tempat, meja kerja, dan rutinitas berubah.</p><a class="text-link" href="/bagusin/blog/bekerja-dari-mana-saja/">Baca catatan <span class="text-link__arrow" aria-hidden="true">→</span></a></div>
-        </article>
-        <article class="home-story">
-          <a class="home-story__visual home-story__visual--soft" href="/bagusin/destinations/" aria-label="Jelajahi catatan destinasi"><span class="home-story__visual-label">Catatan perjalanan</span><span class="home-story__visual-mark" aria-hidden="true">02</span></a>
-          <div class="home-story__body"><span class="home-story__category">Perjalanan & destinasi</span><h3><a href="/bagusin/destinations/">Tempat, pengalaman, dan hal yang tidak selalu ada di peta</a></h3><p>Pengalaman dari tempat yang dikunjungi, dengan catatan praktis dan sudut pandang personal.</p><a class="text-link" href="/bagusin/destinations/">Jelajahi destinasi <span class="text-link__arrow" aria-hidden="true">→</span></a></div>
-        </article>
-        <article class="home-story">
-          <a class="home-story__visual home-story__visual--dark" href="/bagusin/blog/" aria-label="Baca catatan tentang proses membangun"><span class="home-story__visual-label">Catatan pekerjaan</span><span class="home-story__visual-mark" aria-hidden="true">03</span></a>
-          <div class="home-story__body"><span class="home-story__category">Proyek & eksperimen</span><h3><a href="/bagusin/blog/">Hal-hal yang sedang dibangun, satu langkah pada satu waktu</a></h3><p>Catatan proses, keputusan, dan pelajaran yang muncul saat mengerjakan sesuatu.</p><a class="text-link" href="/bagusin/blog/">Baca catatan kerja <span class="text-link__arrow" aria-hidden="true">→</span></a></div>
-        </article>
+      <div class="home-feature-grid">
+        <a class="home-feature-card home-feature-card--featured" href="/bagusin/blog/bekerja-dari-mana-saja/">
+          <img class="home-feature-card__image" src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Ruang kerja dengan meja dan cahaya alami" width="1200" height="900" fetchpriority="high">
+          <span class="home-feature-card__body"><span class="home-feature-card__eyebrow">Pekerjaan · Catatan lapangan</span><h3>Bekerja dari mana saja bukan berarti bekerja tanpa arah</h3><p>Menjaga pekerjaan tetap berjalan ketika tempat, meja kerja, dan rutinitas berubah.</p><span class="home-feature-card__link">Baca artikel <span aria-hidden="true">→</span></span></span>
+        </a>
+        <a class="home-feature-card" href="/bagusin/destinations/">
+          <img class="home-feature-card__image" src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Pemandangan danau dan pegunungan untuk inspirasi perjalanan" width="900" height="650" loading="lazy">
+          <span class="home-feature-card__body"><span class="home-feature-card__eyebrow">Tempat &amp; pengalaman</span><h3>Temukan cerita dari berbagai tempat</h3><p>Catatan perjalanan, destinasi, dan hal praktis yang layak diketahui.</p><span class="home-feature-card__link">Jelajahi destinasi <span aria-hidden="true">→</span></span></span>
+        </a>
+        <a class="home-feature-card" href="/bagusin/collections/">
+          <img class="home-feature-card__image" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Tampilan desain dan analitik pada layar laptop" width="900" height="650" loading="lazy">
+          <span class="home-feature-card__body"><span class="home-feature-card__eyebrow">Contoh &amp; inspirasi</span><h3>Website yang bisa kamu jadikan titik awal</h3><p>Lihat demo, konsep, dan koleksi website untuk menemukan arah yang cocok.</p><span class="home-feature-card__link">Lihat koleksi <span aria-hidden="true">→</span></span></span>
+        </a>
       </div>
     </div>
   </section>
 
-
-  <section class="section home-section home-discovery" id="jelajahi" aria-labelledby="discovery-title">
+  <section class="section home-discovery-refresh" aria-labelledby="paths-title">
     <div class="container">
-      <div class="section-header home-section__header">
-        <span class="section-kicker">Jelajahi Bagusin</span>
-        <h2 id="discovery-title" class="section-title">Lanjutkan ke topik yang kamu butuhkan.</h2>
-        <p class="section-description">Pilih jalur yang sesuai dengan hal yang ingin kamu temukan.</p>
+      <div class="home-discovery-refresh__heading">
+        <div><span class="section-kicker">Pilih jalurmu</span><h2 id="paths-title" class="section-title">Apa yang ingin kamu jelajahi?</h2></div>
       </div>
-      <div class="home-discovery__grid">
-        <a class="home-discovery-card home-discovery-card--blog" href="/bagusin/blog/">
-          <span class="home-discovery-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 4.75A2.75 2.75 0 0 1 7.75 2H20v17H7.75A2.75 2.75 0 0 0 5 21.75z"/><path d="M5 5v16.5M9 7h7M9 11h7"/></svg></span>
-          <span class="home-discovery-card__eyebrow">Cerita & pengetahuan</span>
-          <h3>Blog dan panduan</h3>
-          <p>Artikel praktis, pengalaman personal, perjalanan, destinasi, pekerjaan, ulasan, dan hal-hal yang sedang dipelajari.</p>
-          <span class="home-discovery-card__link">Baca dan jelajahi <span aria-hidden="true">↗</span></span>
+      <div class="home-path-grid">
+        <a class="home-path-card" style="--path-bg:#f2f7f5" href="/bagusin/blog/">
+          <span class="home-path-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 4.5A2.5 2.5 0 0 1 7.5 2H20v18H7.5A2.5 2.5 0 0 0 5 22z"/><path d="M5 5v17M9 7h7M9 11h7"/></svg></span>
+          <h3>Blog &amp; panduan</h3><p>Artikel, pengalaman, pengetahuan praktis, dan ide baru.</p><span class="home-path-card__arrow">Mulai membaca ↗</span>
         </a>
-        <a class="home-discovery-card home-discovery-card--collection" href="/bagusin/collections/">
-          <span class="home-discovery-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="5" rx="1.5"/><rect x="13" y="10" width="8" height="11" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/></svg></span>
-          <span class="home-discovery-card__eyebrow">Contoh & inspirasi</span>
-          <h3>Koleksi</h3>
-          <p>Jelajahi contoh website, konsep, dan eksperimen sebagai referensi atau titik awal untuk ide berikutnya.</p>
-          <span class="home-discovery-card__link">Lihat contoh <span aria-hidden="true">↗</span></span>
+        <a class="home-path-card" style="--path-bg:#f7f5ef" href="/bagusin/collections/">
+          <span class="home-path-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="5" rx="1.5"/><rect x="13" y="10" width="8" height="11" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/></svg></span>
+          <h3>Koleksi website</h3><p>Demo dan template sebagai referensi atau titik awal.</p><span class="home-path-card__arrow">Lihat koleksi ↗</span>
         </a>
-        <a class="home-discovery-card home-discovery-card--portfolio" href="/bagusin/portfolio/">
-          <span class="home-discovery-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V4h8v3M3 12h18M10 12v2h4v-2"/></svg></span>
-          <span class="home-discovery-card__eyebrow">Proyek & proses</span>
-          <h3>Portofolio</h3>
-          <p>Lihat proyek yang sedang dikembangkan dan proses di baliknya. Pekerjaan klien hanya ditampilkan jika diizinkan.</p>
-          <span class="home-discovery-card__link">Lihat portofolio <span aria-hidden="true">↗</span></span>
+        <a class="home-path-card" style="--path-bg:#f1f4fa" href="/bagusin/portfolio/">
+          <span class="home-path-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V4h8v3M3 12h18M10 12v2h4v-2"/></svg></span>
+          <h3>Portofolio</h3><p>Proyek, eksperimen, dan proses membangun sesuatu.</p><span class="home-path-card__arrow">Lihat karya ↗</span>
         </a>
-        <a class="home-discovery-card home-discovery-card--services" href="/bagusin/work/">
-          <span class="home-discovery-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 19.5h16M6 16V8l6-4 6 4v8M9 16v-4h6v4"/></svg></span>
-          <span class="home-discovery-card__eyebrow">Bekerja bersama</span>
-          <h3>Layanan</h3>
-          <p>Butuh website, konten, atau solusi digital? Mulai dari kebutuhan dan temukan jalur yang sesuai.</p>
-          <span class="home-discovery-card__link">Lihat layanan <span aria-hidden="true">↗</span></span>
+        <a class="home-path-card" style="--path-bg:#f8f1ef" href="/bagusin/work/">
+          <span class="home-path-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 19.5h16M6 16V8l6-4 6 4v8M9 16v-4h6v4"/></svg></span>
+          <h3>Layanan</h3><p>Temukan bantuan digital sesuai kebutuhan dan ruang lingkupmu.</p><span class="home-path-card__arrow">Jelajahi layanan ↗</span>
         </a>
       </div>
     </div>
   </section>
 
-  <section class="section home-section home-work-teaser" aria-labelledby="work-title">
-    <div class="container home-work-teaser__inner">
-      <div class="home-work-teaser__copy"><span class="section-kicker">Jika ada yang bisa dibantu</span><h2 id="work-title" class="section-title">Mulai dari kebutuhan, bukan dari daftar teknologi.</h2><p class="section-description">Saya membantu mengerjakan konten, landing page, website, aplikasi web, dan penyempurnaan produk digital. Kita mulai dengan memahami masalah, ruang lingkup, dan hasil yang dibutuhkan.</p><a class="button button--accent" href="/bagusin/work/">Kenali layanan <span aria-hidden="true">→</span></a></div>
-      <div class="home-work-teaser__list"><a href="/bagusin/work/copywriting/"><span class="home-work-teaser__icon" aria-hidden="true">Aa</span><span><strong>Penulisan Konten &amp; SEO</strong><small>Pesan yang jelas dan berguna</small></span><span aria-hidden="true">↗</span></a><a href="/bagusin/work/landing-pages/"><span class="home-work-teaser__icon" aria-hidden="true">↗</span><span><strong>Landing page & website</strong><small>Halaman untuk kebutuhan nyata</small></span><span aria-hidden="true">↗</span></a><a href="/bagusin/work/web-applications/"><span class="home-work-teaser__icon" aria-hidden="true">⌘</span><span><strong>Aplikasi Web &amp; Sistem</strong><small>Alur kerja yang lebih tertata</small></span><span aria-hidden="true">↗</span></a><a href="/bagusin/work/maintenance-uiux/"><span class="home-work-teaser__icon" aria-hidden="true">✳</span><span><strong>Penyempurnaan UI/UX</strong><small>Memperbaiki pengalaman yang ada</small></span><span aria-hidden="true">↗</span></a></div>
+  <section class="section home-discovery-refresh" aria-labelledby="services-title">
+    <div class="container">
+      <div class="home-services-compact">
+        <div class="home-services-compact__intro">
+          <span class="section-kicker">Butuh bantuan untuk sesuatu?</span>
+          <h2 id="services-title" class="section-title">Mulai dari kebutuhanmu.</h2>
+          <p>Pilih layanan untuk melihat cakupan, proses, dan langkah berikutnya. Setiap proyek dimulai dengan memahami kebutuhan dan ruang lingkupnya.</p>
+          <a class="button button--accent" href="/bagusin/work/">Lihat semua layanan <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="home-services-compact__list">
+          <a href="/bagusin/work/copywriting/"><span class="home-services-compact__index">01</span><span><strong>Konten &amp; SEO</strong><small>Artikel, copywriting, dan struktur konten</small></span><span aria-hidden="true">↗</span></a>
+          <a href="/bagusin/work/landing-pages/"><span class="home-services-compact__index">02</span><span><strong>Landing page &amp; website</strong><small>Halaman yang jelas dan siap dikembangkan</small></span><span aria-hidden="true">↗</span></a>
+          <a href="/bagusin/work/web-applications/"><span class="home-services-compact__index">03</span><span><strong>Aplikasi web &amp; sistem</strong><small>Fitur digital dan alur kerja yang tertata</small></span><span aria-hidden="true">↗</span></a>
+          <a href="/bagusin/work/maintenance-uiux/"><span class="home-services-compact__index">04</span><span><strong>Penyempurnaan UI/UX</strong><small>Evaluasi dan perbaikan pengalaman pengguna</small></span><span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="section section--dark home-section home-youtube" aria-labelledby="youtube-title">
-    <div class="container home-youtube__inner"><div><span class="section-kicker">Video & cerita visual</span><h2 id="youtube-title">Hal-hal yang lebih enak diceritakan lewat video.</h2><p>Perjalanan, proses kerja, eksperimen, dan momen yang tidak selalu masuk ke tulisan.</p></div><a class="button button--light" href="/bagusin/youtube/">Jelajahi YouTube <span aria-hidden="true">↗</span></a></div>
+  <section class="section home-discovery-refresh" aria-labelledby="video-title">
+    <div class="container">
+      <div class="home-video-strip">
+        <div><span class="section-kicker">Tonton &amp; temukan</span><h2 id="video-title">Ada cerita yang lebih pas ditonton.</h2><p>Ikuti video tentang perjalanan, proses kerja, eksperimen, dan hal menarik yang melengkapi tulisan di Bagusin.</p></div>
+        <a class="button button--light" href="/bagusin/youtube/">Jelajahi YouTube <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
   </section>
-
 </main>
 
 <footer class="site-footer">
