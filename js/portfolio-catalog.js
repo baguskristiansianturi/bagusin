@@ -11,6 +11,10 @@
     return "proyek";
   };
   const categories = new Map(cards.map(card => [card, getCategory(card)]));
+  controls.forEach(button => {
+    const key = button.dataset.portfolioFilter;
+    if (key !== "all" && ![...categories.values()].includes(key)) button.hidden = true;
+  });
   countNodes.forEach(node => {
     const key = node.dataset.portfolioCount;
     node.textContent = key === "all" ? String(cards.length) : String([...categories.values()].filter(value => value === key).length);
