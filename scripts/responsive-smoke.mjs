@@ -123,7 +123,9 @@ for (const route of routes) {
 const interactionPage = await browser.newPage({ viewport: { width: 390, height: 844 } });
 try {
   await interactionPage.goto(origin + "/bagusin/", { waitUntil: "domcontentloaded" });
-  const homepageText = await interactionPage.locator("main").innerText();
+  const servicesSection = interactionPage.locator(".home-feature-grid--services");
+  await servicesSection.waitFor({ state: "visible", timeout: 10000 });
+  const homepageText = await servicesSection.innerText();
   if (!homepageText.includes("Penulisan Konten & SEO") || !homepageText.includes("Aplikasi Web & Sistem")) errors.push("Homepage: Indonesian service labels are missing");
   if (homepageText.includes("Content Writing & SEO") || homepageText.includes("Web Applications & Systems")) errors.push("Homepage: outdated English service labels remain");
   const menuToggle = interactionPage.locator("[data-mobile-menu-toggle]").first();
