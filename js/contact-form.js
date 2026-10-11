@@ -175,6 +175,30 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  const learningPathSlug = params.get("path") || "";
+  const learningPathNames = {
+    "web-software-engineering": isEnglish ? "Web & Software Engineering" : "Web & Software Engineering",
+    "cloud-infrastructure": isEnglish ? "Cloud & Infrastructure" : "Cloud & Infrastruktur",
+    "ai-engineering": "AI Engineering",
+    "iot-connected-systems": isEnglish ? "IoT & Connected Systems" : "IoT & Sistem Terhubung",
+    "data-automation": isEnglish ? "Data & Automation" : "Data & Otomasi"
+  };
+  if (mode === "course-interest" && learningPathSlug && learningPathNames[learningPathSlug] && briefField) {
+    const selectedPath = learningPathNames[learningPathSlug];
+    if (!briefField.value.includes(selectedPath)) {
+      briefField.value = (isEnglish ? "Learning pathway selected: " : "Jalur belajar yang dipilih: ") + selectedPath + "\\n\\n" + briefField.value;
+    }
+    if (serviceHeading) serviceHeading.textContent = selectedPath + (isEnglish ? " pathway inquiry" : " — pertanyaan jalur belajar");
+    const context = document.getElementById("service-context");
+    if (context && !context.querySelector("[data-learning-path-selected]")) {
+      const tag = document.createElement("p");
+      tag.dataset.learningPathSelected = "";
+      tag.className = "form-template-context";
+      tag.textContent = (isEnglish ? "Selected pathway: " : "Jalur belajar pilihan: ") + selectedPath;
+      context.appendChild(tag);
+    }
+  }
+
   function valueOf(name) {
     const field = form.elements.namedItem(name);
     return field && typeof field.value === "string" ? field.value.trim() : "";
