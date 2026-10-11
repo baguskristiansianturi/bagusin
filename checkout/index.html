@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Konfirmasi Pesanan — Bagusin</title>
+<meta name="description" content="Konfirmasi pesanan Bagusin setelah ruang lingkup, harga, jadwal, dan ketentuan pembayaran disepakati secara personal.">
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://baguskristiansianturi.github.io/bagusin/checkout/">
+<link rel="stylesheet" href="../css/reset.css">
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="../css/global.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/header.css">
+<link rel="stylesheet" href="../css/footer.css">
+<link rel="stylesheet" href="../css/responsive.css">
+<link rel="stylesheet" href="../css/checkout.css">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Lewati ke konten utama</a>
+<div id="app">
+<header class="site-header" id="site-header" data-site-header>
+  <div class="site-header__inner container">
+    <a class="site-brand" href="/bagusin/" aria-label="BagusIn — Beranda"><span class="site-brand__mark" aria-hidden="true">B</span><span class="site-brand__text"><span class="site-brand__name">BagusIn</span><span class="site-brand__tagline">Work. Travel. Build.</span></span></a>
+    <nav class="site-nav" aria-label="Navigasi utama"><ul class="site-nav__list">
+      <li><a class="site-nav__link" href="/bagusin/blog/">Blog</a></li>
+      <li><a class="site-nav__link" href="/bagusin/destinations/">Destinasi</a></li>
+      <li class="site-nav__item"><button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-controls="work-dropdown">Work <span aria-hidden="true">⌄</span></button><div class="nav-dropdown" id="work-dropdown" hidden><a class="nav-dropdown__link" href="/bagusin/work/"><strong>Layanan</strong><small>Jarak jauh project-based work</small></a><a class="nav-dropdown__link" href="/bagusin/portfolio/"><strong>Portofolio</strong><small>Projects, concepts &amp; experiments</small></a></div></li>
+      <li><a class="site-nav__link" href="/bagusin/youtube/">YouTube</a></li><li><a class="site-nav__link" href="/bagusin/about/">Tentang</a></li>
+    </ul></nav>
+    <div class="site-header__actions"><button class="header-action" type="button" data-search-toggle aria-label="Buka pencarian" aria-expanded="false" aria-controls="header-search"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.2 4.2"></path></svg></button><button class="mobile-menu-toggle" type="button" data-mobile-menu-toggle aria-expanded="false" aria-controls="mobile-navigation" aria-label="Buka menu"><span class="mobile-menu-toggle__icon"><span></span><span></span><span></span></span></button></div>
+  </div>
+  <div class="header-search" id="header-search" hidden><div class="header-search__inner container"><form class="search-field" action="/bagusin/search/" method="get" role="search"><label class="sr-only" for="global-search">Cari artikel</label><input id="global-search" name="q" type="search" placeholder="Cari cerita, destinasi, remote work..." autocomplete="off"><button class="button button--accent button--small" type="submit">Cari</button></form></div></div>
+</header>
+<div class="mobile-nav-overlay" data-mobile-overlay hidden></div>
+<aside class="mobile-nav" id="mobile-navigation" aria-label="Navigasi mobile" aria-hidden="true"><div class="mobile-nav__inner"><div class="mobile-nav__header"><span class="mobile-nav__label">Menu</span><button class="header-action" type="button" data-mobile-menu-close aria-label="Tutup menu">×</button></div><nav><ul class="mobile-nav__list"><li><a class="mobile-nav__link" href="/bagusin/blog/">Blog</a></li><li><a class="mobile-nav__link" href="/bagusin/destinations/">Destinasi</a></li><li class="mobile-nav__group"><span class="mobile-nav__label">Work</span><a class="mobile-nav__link" href="/bagusin/work/">Layanan</a><a class="mobile-nav__link" href="/bagusin/portfolio/">Portofolio</a></li><li><a class="mobile-nav__link" href="/bagusin/youtube/">YouTube</a></li><li><a class="mobile-nav__link" href="/bagusin/about/">Tentang</a></li><li><a class="mobile-nav__link" href="/bagusin/contact/">Kontak</a></li></ul></nav></div></aside>
+
+<main id="main-content" class="checkout-page">
+<section class="checkout-hero"><div class="container">
+  <a class="checkout-back" href="/bagusin/contact/">← Kembali ke diskusi</a>
+  <div class="checkout-hero__grid"><div><span class="section-kicker">Konfirmasi kesepakatan</span><h1>Pastikan detail proyek sudah disepakati.</h1><p>Gunakan langkah ini setelah berdiskusi dengan Bagus dan menyepakati ruang lingkup, harga, jadwal, serta ketentuan pembayaran. Formulir ini mencatat kesepakatan—bukan memproses pembayaran.</p></div><div class="checkout-trust"><span class="checkout-trust__icon" aria-hidden="true">✓</span><div><strong>Pekerjaan sesuai kesepakatan</strong><span>Ruang lingkup dan penawaran ditinjau sebelum konfirmasi.</span></div></div></div>
+</div></section>
+
+<section class="checkout-section"><div class="container checkout-layout">
+<div class="checkout-main">
+<nav class="checkout-progress" aria-label="Tahapan order"><button type="button" class="checkout-step is-active" data-step-nav="1"><span>01</span><strong>Detail</strong></button><span aria-hidden="true">—</span><button type="button" class="checkout-step" data-step-nav="2"><span>02</span><strong>Periksa</strong></button><span aria-hidden="true">—</span><button type="button" class="checkout-step" data-step-nav="3"><span>03</span><strong>Persetujuan</strong></button><span aria-hidden="true">—</span><button type="button" class="checkout-step" data-step-nav="4"><span>04</span><strong>Kirim</strong></button></nav>
+
+<form id="checkout-form" class="checkout-card" novalidate>
+<div class="checkout-honeypot" aria-hidden="true"><label>Leave this field empty<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
+<section class="checkout-panel is-active" data-panel="1">
+<div class="panel-heading"><span class="section-kicker">01 · Detail pesanan</span><h2>Masukkan detail kesepakatan.</h2><p>Lanjutkan hanya jika Anda dan Bagus sudah membahas serta menyepakati detail proyek ini.</p></div>
+<div class="checkout-form-grid"><div class="checkout-context" id="collection-context" hidden><span class="section-kicker">Demo yang dipilih</span><strong id="collection-context-title">—</strong><span id="collection-context-meta">—</span><a id="collection-context-link" href="#">Lihat detail demo →</a></div>
+<label class="checkout-field checkout-field--full">Layanan<select id="service" name="service" required><option value="">Pilih layanan</option><option value="copywriting">Copywriting</option><option value="seo-content">Penulisan Konten &amp; SEO</option><option value="landing-pages">Landing Page &amp; Iklan</option><option value="websites">Website &amp; Web Kompleks</option><option value="web-applications">Aplikasi Web &amp; Sistem Basis Data</option><option value="maintenance-uiux">Pemeliharaan, Peningkatan &amp; UI/UX</option><option value="google-ads">Google Ads · Segera hadir</option><option value="mobile-apps">Pengembangan Aplikasi Mobile · Direncanakan</option></select></label>
+<label class="checkout-field">Nama<input id="name" name="name" required autocomplete="name"></label>
+<label class="checkout-field">Email<input id="email" name="email" type="email" required autocomplete="email"></label>
+<label class="checkout-field">Brand / perusahaan <small>(opsional)</small><input id="company" name="company" autocomplete="organization"></label>
+<label class="checkout-field">Jadwal pengerjaan<input id="timeline" name="timeline" required placeholder="Contoh: mulai 20 Oktober, selesai 5 November"></label>
+<label class="checkout-field">Harga yang disepakati (Rp)<input id="agreed-quote" name="agreed_quote" required inputmode="decimal" placeholder="Contoh: 1.500.000"></label>
+<label class="checkout-field">Ketentuan pembayaran<input id="payment-plan" name="payment_plan" required placeholder="Contoh: DP 50%, pelunasan saat serah terima"></label>
+<label class="checkout-field checkout-field--full">Ruang lingkup dan hasil pekerjaan<textarea id="brief" name="brief" rows="7" required placeholder="Tuliskan hasil yang disepakati, halaman/fitur yang termasuk, batasan, serta hal yang tidak termasuk."></textarea></label>
+<div class="checkout-guidance checkout-field--full" id="guided-brief" hidden><span class="section-kicker">Panduan kebutuhan</span><strong id="guided-brief-title">Konteks tambahan</strong><p id="guided-brief-copy"></p><ul id="guided-brief-list"></ul></div>
+</div>
+<div class="panel-actions"><a class="button button--secondary" href="/bagusin/contact/">Belum berdiskusi dengan Bagus?</a><button class="button button--accent" type="button" data-next="2">Periksa pesanan →</button></div>
+<p class="checkout-error" id="brief-error" role="alert"></p>
+</section>
+
+<section class="checkout-panel" data-panel="2" hidden>
+<div class="panel-heading"><span class="section-kicker">02 · Periksa</span><h2>Periksa ringkasan pesanan.</h2><p>Konfirmasi hanya jika layanan, ruang lingkup, harga, jadwal, dan ketentuan pembayaran sudah sesuai dengan kesepakatan.</p></div>
+<div class="review-box" id="review-box"></div>
+<div class="review-note"><span aria-hidden="true">i</span><p><strong>Periksa sebelum mengirim.</strong> Ringkasan ini akan dikirim melalui email sebagai catatan konfirmasi pesanan. Jika ada detail yang belum disepakati, kembali ke konsultasi sebelum melanjutkan.</p></div>
+<div class="panel-actions"><button class="button button--secondary" type="button" data-back="1">← Ubah detail</button><button class="button button--accent" type="button" data-next="3">Lanjut ke persetujuan →</button></div>
+</section>
+
+<section class="checkout-panel" data-panel="3" hidden>
+<div class="panel-heading"><span class="section-kicker">03 · Persetujuan</span><h2>Baca ketentuan untuk layanan ini.</h2><p>Ketentuan umum berlaku untuk semua pesanan. Bagian khusus di bawah menyesuaikan layanan yang Anda pilih. Jika ada yang belum jelas, kembali ke diskusi sebelum menyetujui.</p></div>
+<div class="terms-summary"><div><span>Layanan dipilih</span><strong id="terms-service">—</strong><p id="terms-service-summary" class="terms-service-summary">Pilih layanan untuk melihat ketentuan yang relevan.</p></div><a id="service-terms-link" href="/bagusin/terms/">Baca ketentuan layanan ↗</a></div>
+<div class="terms-summary"><div><span>Ketentuan umum</span><strong>Harga, ruang lingkup, revisi, pembatalan, dan serah terima</strong><p>Pastikan semua detail penting tertulis pada ringkasan proyek atau quotation.</p></div><a href="/bagusin/terms/#general">Baca ketentuan umum ↗</a></div>
+<div class="terms-summary"><div><span>Pembayaran</span><strong>Invoice dan rencana pembayaran</strong><p>Jangan transfer sebelum instruksi pembayaran sesuai kesepakatan diterima.</p></div><a href="/bagusin/terms/?topic=payment">Baca ketentuan pembayaran ↗</a></div>
+<label class="terms-check"><input id="terms-agree" type="checkbox" required><span>Saya telah membaca ketentuan umum dan ketentuan khusus layanan yang dipilih. Saya menyetujui ringkasan ruang lingkup, hasil kerja, harga, jadwal, revisi, pembatalan, serta rencana pembayaran yang tertulis untuk pesanan ini.</span></label>
+<div class="panel-actions"><button class="button button--secondary" type="button" data-back="2">← Kembali ke ringkasan</button><button class="button button--accent" type="button" data-next="4">Setujui &amp; lanjut →</button></div>
+<p class="checkout-error" id="terms-error" role="alert"></p>
+</section>
+
+<section class="checkout-panel" data-panel="4" hidden>
+<div class="panel-heading"><span class="section-kicker">04 · Langkah berikutnya</span><h2>Kirim catatan kesepakatan.</h2><p>Ringkasan layanan dan persetujuanmu akan dikirim ke email Bagusin sebagai catatan pesanan. Invoice dan instruksi pembayaran mengikuti ketentuan yang telah disepakati dan dikirim secara terpisah. Pengiriman formulir ini bukan bukti bahwa pembayaran sudah dilakukan.</p></div>
+<div class="payment-warning"><strong>Belum ada pembayaran</strong><p>Jangan melakukan transfer dari halaman ini. Invoice dan instruksi pembayaran akan mengikuti kontrak atau kesepakatan yang telah dikonfirmasi secara langsung.</p></div>
+<div class="payment-confirm"><div><span class="section-kicker">Setelah brief dikirim</span><h3>Ditinjau secara manual</h3><p>Konfirmasi ini dicatat untuk ditinjau. Jika ada yang belum jelas, kita akan menghubungi Anda untuk menyepakati langkah berikutnya. Instruksi pembayaran diberikan terpisah setelah detail dikonfirmasi.</p></div></div>
+<div class="checkout-email-status" id="checkout-email-status" role="status" aria-live="polite"></div>
+<div class="panel-actions"><button class="button button--secondary" type="button" data-back="3">← Kembali ke persetujuan</button><button class="button button--accent" type="submit" id="send-order-brief">Kirim konfirmasi →</button></div>
+<p class="checkout-email-note">Konfirmasi dikirim ke baguskristian@gmail.com melalui FormSubmit. Jangan kirim kata sandi, data pembayaran sensitif, atau informasi pribadi yang tidak diperlukan.</p>
+</section>
+</form>
+</div>
+
+<aside class="checkout-aside">
+<div class="checkout-aside__card"><span class="section-kicker">Ringkasan kebutuhan</span><div class="aside-service"><span class="aside-service__icon" aria-hidden="true">✦</span><div><small>Layanan dipilih</small><strong id="aside-service">Pilih layanan</strong><small id="aside-collection" class="aside-collection">Belum memilih demo</small></div></div><dl><div><dt>Model kerja</dt><dd>Independen · Berbasis proyek</dd></div><div><dt>Lokasi</dt><dd>Jarak jauh</dd></div><div id="aside-category-row" hidden><dt>Kategori</dt><dd id="aside-category">—</dd></div><div><dt>Tingkat</dt><dd id="aside-tier">—</dd></div><div><dt>Harga</dt><dd>Melalui quotation</dd></div></dl><div class="aside-status"><span class="status-dot" aria-hidden="true"></span><span id="aside-status">Draft tersimpan di sesi browser</span></div></div>
+<div class="checkout-aside__help"><strong>Belum yakin?</strong><p>Belum ada kesepakatan? Kembali ke konsultasi terlebih dahulu.</p><a href="/bagusin/contact/?mode=consultation">Konsultasi dulu →</a></div>
+</aside>
+</div></section>
+</main>
+
+<footer class="site-footer"><div class="container"><div class="site-footer__main"><div><a class="site-brand" href="/bagusin/"><span class="site-brand__mark">B</span><span class="site-brand__text"><span class="site-brand__name">BagusIn</span><span class="site-brand__tagline">Work. Travel. Build.</span></span></a><p class="site-footer__description">Work, travel, build, and document the process.</p></div><div><span class="site-footer__label">Jelajahi</span><a href="/bagusin/work/">Layanan</a><a href="/bagusin/blog/">Blog</a><a href="/bagusin/terms/">Syarat &amp; Ketentuan</a></div></div><div class="site-footer__bottom"><span>© 2026 BagusIn</span></div></div></footer>
+<script src="../js/navigation.js" defer></script><script src="../js/service-registry.js" defer></script><script src="../js/checkout.js" defer></script>
+</body></html>

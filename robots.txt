@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bagusin.com/sitemap.xml
+Sitemap: https://baguskristiansianturi.github.io/bagusin/sitemap.xml

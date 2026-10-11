@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "catalog_owner": "Bagusin",
+  "currency_default": "IDR",
+  "items": [
+    {
+      "item_code": "BG-CON-STR-001",
+      "name": "Konsultasi Strategi Digital",
+      "item_type": "service",
+      "status": "draft",
+      "version": "1.0.0",
+      "price": null,
+      "currency": "IDR",
+      "note": "Harga dan ruang lingkup dikonfirmasi sebelum pemesanan."
+    },
+    {
+      "item_code": "BG-WEB-LND-001",
+      "name": "Landing Page Bisnis",
+      "item_type": "service",
+      "status": "draft",
+      "version": "1.0.0",
+      "price": null,
+      "currency": "IDR"
+    },
+    {
+      "item_code": "BG-WEB-CMP-001",
+      "name": "Website Profil Perusahaan",
+      "item_type": "service",
+      "status": "draft",
+      "version": "1.0.0",
+      "price": null,
+      "currency": "IDR"
+    },
+    {
+      "item_code": "BG-TPL-TMP-001",
+      "name": "Template Website Starter",
+      "item_type": "digital_product",
+      "status": "draft",
+      "version": "1.0.0",
+      "price": null,
+      "currency": "IDR"
+    },
+    {
+      "item_code": "BG-SYS-APP-001",
+      "name": "Aplikasi Web atau Sistem Khusus",
+      "item_type": "service",
+      "status": "draft",
+      "version": "1.0.0",
+      "price": null,
+      "currency": "IDR"
+    },
+    {
+      "item_code": "BG-MKT-SEO-001",
+      "name": "Fondasi SEO",
+      "item_type": "service",
+      "status": "draft",
+      "version": "1.0.0",
+      "price": null,
+      "currency": "IDR"
+    },
+    {
+      "item_code": "BG-MKT-ADS-001",
+      "name": "Setup dan Pengelolaan Iklan",
+      "item_type": "service",
+      "status": "draft",
+      "version": "1.0.0",
+      "price": null,
+      "currency": "IDR"
+    }
+  ],
+  "notes": [
+    "Kode usulan internal, belum merupakan daftar harga atau janji layanan aktif.",
+    "Jangan gunakan ulang item_code yang pernah masuk transaksi."
+  ]
+}

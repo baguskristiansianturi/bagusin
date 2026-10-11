@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "id": "travel",
+      "name": "Travel & Rental",
+      "description": "Website untuk rental mobil, tour, transportasi, dan layanan perjalanan.",
+      "icon": "compass"
+    },
+    {
+      "id": "business",
+      "name": "Bisnis & Perusahaan",
+      "description": "Website untuk menjelaskan bisnis, layanan, tim, dan membangun kepercayaan.",
+      "icon": "building"
+    },
+    {
+      "id": "campaign",
+      "name": "Promosi & Landing Page",
+      "description": "Halaman fokus untuk satu penawaran, iklan, produk, atau kampanye.",
+      "icon": "target"
+    },
+    {
+      "id": "commerce",
+      "name": "Toko & Katalog",
+      "description": "Tampilkan pilihan produk atau layanan dan bantu pelanggan melanjutkan pemesanan.",
+      "icon": "shopping-bag"
+    }
+  ],
+  "levels": [
+    {
+      "id": "starter",
+      "name": "Starter",
+      "summary": "Mulai dengan tampilan siap pakai dan kebutuhan inti.",
+      "details": "Pilihan awal yang praktis untuk bisnis yang ingin tampil online dengan jelas."
+    },
+    {
+      "id": "business",
+      "name": "Business",
+      "summary": "Lebih banyak halaman dan alur informasi.",
+      "details": "Untuk bisnis yang membutuhkan halaman layanan, tentang, FAQ, dan struktur informasi lebih lengkap."
+    },
+    {
+      "id": "commerce",
+      "name": "Commerce",
+      "summary": "Katalog dan alur pemesanan yang lebih lengkap.",
+      "details": "Untuk kebutuhan katalog produk atau layanan, dan alur pemesanan sesuai ruang lingkup."
+    },
+    {
+      "id": "custom",
+      "name": "Custom",
+      "summary": "Rancang sesuai kebutuhan khusus.",
+      "details": "Kebutuhan yang tidak cocok dengan paket standar dibahas bersama sebelum penawaran."
+    }
+  ],
+  "templates": [
+    {
+      "id": "BG-TRV-STR-001",
+      "slug": "bagus-sewa-mobil-bali-01",
+      "name": "Bagus Sewa Mobil Bali 01",
+      "designName": "Island Journey",
+      "category": "travel",
+      "businessTypes": [
+        "rental mobil Bali",
+        "rental mobil",
+        "travel",
+        "transportasi",
+        "antar jemput bandara"
+      ],
+      "level": "starter",
+      "format": "one-page-website",
+      "price": 750000,
+      "currency": "IDR",
+      "status": "available",
+      "isNew": true,
+      "description": "Desain satu halaman untuk bisnis rental mobil: hero dengan copy yang berorientasi pelanggan, layanan, pilihan armada, tentang, cara pemesanan, FAQ, dan kontak. Struktur konten disusun agar dapat dikembangkan untuk SEO lokal menggunakan informasi bisnis yang benar.",
+      "included": [
+        "Desain satu halaman responsif dengan beberapa section yang terstruktur",
+        "Copy original untuk hero, layanan, armada, tentang, alur pemesanan, FAQ, dan kontak",
+        "Struktur SEO dasar: title, meta description, heading hierarkis, konten yang relevan, dan CTA jelas",
+        "Penyesuaian nama bisnis, warna, foto, area layanan, dan informasi yang benar",
+        "CTA pemesanan yang dapat diarahkan ke WhatsApp atau kontak resmi"
+      ],
+      "notIncluded": [
+        "Domain dan hosting untuk harga Rp750.000",
+        "Biaya tahunan perpanjangan domain dan hosting",
+        "Biaya iklan, jaminan peringkat Google, atau jaminan jumlah pelanggan",
+        "Booking otomatis, database, dashboard, dan integrasi pembayaran"
+      ],
+      "demoUrl": "/bagusin/demos/starter/travel-rental/bagus-sewa-mobil-bali-01/",
+      "orderUrl": "/bagusin/templates/detail/?template=BG-TRV-STR-001",
+      "discussionUrl": "/bagusin/contact/?service=websites&mode=consultation&template=BG-TRV-STR-001",
+      "image": "https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=1200&q=85",
+      "imageAlt": "Visual perjalanan untuk konsep website rental mobil Bali",
+      "updated": "2026-10-11",
+      "folder": "demos/starter/travel-rental/bagus-sewa-mobil-bali-01/",
+      "pricingOptions": [
+        {
+          "id": "design-copy-seo",
+          "name": "Desain + Copy + Struktur SEO",
+          "price": 750000,
+          "billing": "one-time",
+          "includes": "Desain satu halaman, copy original yang disesuaikan, struktur SEO dasar, responsif, CTA kontak.",
+          "excludes": "Domain, hosting, biaya perpanjangan, iklan, dan fitur tambahan."
+        },
+        {
+          "id": "assisted-launch",
+          "name": "Paket Bantu Online",
+          "price": 1500000,
+          "billing": "estimated-first-year",
+          "includes": "Paket desain + copy + struktur SEO, bantuan setup dan publikasi, serta anggaran awal domain/hosting sesuai pilihan yang disepakati.",
+          "excludes": "Perpanjangan domain/hosting tahun berikutnya, biaya iklan, dan fitur berbayar tambahan; final mengikuti provider dan ruang lingkup."
+        }
+      ]
+    }
+  ]
+}
