@@ -59,7 +59,7 @@
     }
 
     // Keep the new Collections destination discoverable on older pages that still use legacy nav markup.
-    const navEnglish = /^\\/(?:bagusin\\/)?en(?:\\/|$)/.test(window.location.pathname);
+    const navEnglish = /^\/(?:bagusin\/)?en(?:\/|$)/.test(window.location.pathname);
     const navProjectBase = window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin" ? "/bagusin" : "";
     const navBase = navProjectBase + (navEnglish ? "/en" : "");
     const desktopList = document.querySelector(".site-nav__list");
