@@ -115,6 +115,33 @@ document.addEventListener("DOMContentLoaded", function () {
       : "Tujuan belajar / keterampilan yang ingin dikembangkan:\nPengalaman atau kemampuan awal saat ini:\nHal yang ingin bisa saya lakukan setelah belajar:\nPreferensi metode belajar (online / offline / hybrid):\nPertanyaan atau batasan (jadwal, perangkat, anggaran):\n\nMohon konfirmasi ketersediaan course, materi, metode belajar, jadwal, dan total biaya sebelum pendaftaran.";
   }
 
+  const courseSlug = params.get("course") || "";
+  const courseNames = {
+    "web-developer": "Web Developer",
+    "digital-marketer": "Digital Marketer",
+    "online-business": isEnglish ? "Online Business" : "Bisnis Online",
+    "ui-ux-design": "UI/UX Design",
+    "cloud-devops": "Cloud & DevOps",
+    "data-analyst": "Data Analyst",
+    "ai-automation": isEnglish ? "AI & Automation" : "AI & Otomasi",
+    "iot-embedded": isEnglish ? "IoT & Embedded Systems" : "IoT & Sistem Embedded"
+  };
+  if (courseSlug && courseNames[courseSlug] && briefField) {
+    const selectedCourse = courseNames[courseSlug];
+    if (serviceHeading) serviceHeading.textContent = selectedCourse + (isEnglish ? " course inquiry" : " — pertanyaan course");
+    if (!briefField.value.includes(selectedCourse)) {
+      briefField.value = (isEnglish ? "Course selected: " : "Course yang dipilih: ") + selectedCourse + "\n\n" + briefField.value;
+    }
+    const context = document.getElementById("service-context");
+    if (context && !context.querySelector("[data-course-selected]")) {
+      const tag = document.createElement("p");
+      tag.dataset.courseSelected = "";
+      tag.className = "form-template-context";
+      tag.textContent = (isEnglish ? "Selected course: " : "Course pilihan: ") + selectedCourse;
+      context.appendChild(tag);
+    }
+  }
+
   const recommendationPath = params.get("path") || "";
   const recommendationGoal = params.get("goal") || "";
   const recommendationLabels = {
