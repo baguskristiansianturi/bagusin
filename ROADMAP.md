@@ -134,3 +134,13 @@ Homepage menjelaskan bantuan Bagus dengan cepat, mengutamakan layanan, menyediak
 - **Dalam pengerjaan:** perubahan sedang dilakukan atau pemeriksaan belum lengkap.
 - **Siap ditinjau:** implementasi ada, menunggu pemeriksaan yang relevan.
 - **Selesai:** implementasi, pemeriksaan fungsi/struktur, dan verifikasi visual/deployment yang relevan sudah lolos.
+
+## Course roadmap implementation — 2026-10-11
+
+- Replaced the temporary learning hub with a real course catalogue at `/learning/` and `/en/learning/`.
+- Added eight course tracks in Indonesian and English: Web Developer, Digital Marketer, Online Business/Bisnis Online, UI/UX Design, Cloud & DevOps, Data Analyst, AI & Automation, and IoT & Embedded Systems.
+- Each course detail page includes the target audience, learning outcomes, module-by-module curriculum, a suggested practical project, and a course-specific enquiry CTA.
+- Course enquiries pass the selected course slug into the contact form and prefill the brief so the enquiry is tied to the intended course.
+- Added responsive styles for the catalogue, course detail layouts, and expandable curriculum modules; added all 16 language-specific detail URLs to the sitemap.
+- No unsupported promises about price, schedule, or current cohort availability are published. These must be confirmed before enrolment.
+- Still required before calling this done: verify GitHub Pages deployment and visually test desktop/mobile on the live site; course delivery formats and final pricing/schedules remain operational decisions.
