@@ -183,12 +183,12 @@ try {
   await interactionPage.goto(origin + "/bagusin/contact/?service=landing-pages", { waitUntil: "domcontentloaded" });
   const contactHeading = await interactionPage.locator(".contact-hero h1").textContent();
   const contactTitle = await interactionPage.title();
-  if (!contactHeading || !contactHeading.includes("Mulai dari masalahnya")) {
-    errors.push("Contact page: Indonesian hero copy is not localized");
+  if (!contactHeading || !contactHeading.includes("Mari mulai dari kebutuhanmu")) {
+    errors.push("Contact page: concise Indonesian hero copy is missing");
   }
   if (!contactTitle.includes("Kontak")) errors.push("Contact page: title metadata is not localized");
   const contactOptionsText = await interactionPage.locator("main").innerText();
-  if (!contactOptionsText.includes("pengembangan perangkat lunak") || !contactOptionsText.includes("konten SEO")) errors.push("Contact page: Indonesian service description is missing");
+  if (!contactOptionsText.includes("Layanan yang dibutuhkan") || !contactOptionsText.includes("Ceritakan kebutuhanmu secara singkat")) errors.push("Contact page: concise service selection and brief guidance are missing");
   if (contactOptionsText.includes("software engineering") || contactOptionsText.includes("SEO content")) errors.push("Contact page: English service terms remain in Indonesian copy");
   let contactEmailPayload = null;
   await interactionPage.route("https://formsubmit.co/ajax/baguskristian@gmail.com", async (route) => {
