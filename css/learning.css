@@ -95,3 +95,10 @@
 .legacy-course-card ul{display:grid;gap:.55rem;margin:.8rem 0 0;padding-left:1.1rem}
 .legacy-course-card li{font-size:.9rem;line-height:1.5}
 @media(max-width:48rem){.curriculum-domain>summary{grid-template-columns:2rem minmax(0,1fr) 1.2rem;gap:.65rem;padding:.85rem}.curriculum-domain__index{width:2rem;height:2rem}.curriculum-levels,.legacy-course-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* Domain actions: every curriculum area has a clear next step */
+.curriculum-domain__actions{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;margin:1rem 0;padding-top:.25rem}
+.curriculum-domain__actions .button{max-width:100%;white-space:normal;text-align:center}
+.curriculum-domain__detail-link{display:inline-flex;align-items:center;gap:.35rem;color:var(--color-accent-dark);font-weight:700;text-decoration:none;padding:.65rem .2rem}
+.curriculum-domain__detail-link:hover,.curriculum-domain__detail-link:focus-visible{text-decoration:underline;text-underline-offset:.2em}
+@media(max-width:36rem){.curriculum-domain__actions{align-items:stretch;flex-direction:column}.curriculum-domain__actions .button{width:100%}.curriculum-domain__detail-link{justify-content:center}}
