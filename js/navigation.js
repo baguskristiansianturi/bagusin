@@ -58,37 +58,36 @@
       header.insertAdjacentElement("afterend", searchPanel);
     }
 
-    // Keep the new Collections destination discoverable on older pages that still use legacy nav markup.
-    const navEnglish = /^\/(?:bagusin\/)?en(?:\/|$)/.test(window.location.pathname);
+    // Canonical navigation: every page uses the same information architecture.
+    const navEnglish = /^\\/(?:bagusin\\/)?en(?:\\/|$)/.test(window.location.pathname);
     const navProjectBase = window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin" ? "/bagusin" : "";
     const navBase = navProjectBase + (navEnglish ? "/en" : "");
     const desktopList = document.querySelector(".site-nav__list");
     const mobileList = document.querySelector(".mobile-nav__list");
-    function addCollectionsLink(list, mobile) {
-      if (!list || list.querySelector('a[href$="/collections/"]')) return;
-      const item = document.createElement("li");
-      if (mobile) {
-        const link = document.createElement("a");
-        link.className = "mobile-nav__link";
-        link.href = navBase + "/collections/";
-        link.textContent = navEnglish ? "Collection" : "Koleksi";
-        item.appendChild(link);
-      } else {
-        item.className = "site-nav__item";
-        const link = document.createElement("a");
-        link.className = "site-nav__link";
-        link.href = navBase + "/collections/";
-        link.textContent = navEnglish ? "Collection" : "Koleksi";
-        item.appendChild(link);
-      }
-      const blogItem = Array.from(list.children).find(function (li) {
-        return li.querySelector('a[href$="/blog/"]');
-      });
-      if (blogItem && blogItem.nextSibling) list.insertBefore(item, blogItem.nextSibling);
-      else list.appendChild(item);
+    const labels = navEnglish
+      ? {blog:"Blog",destinations:"Destinations",collections:"Collection",work:"Services",allWork:"All services",portfolio:"Portfolio",youtube:"YouTube",about:"About",contact:"Contact",menu:"Main navigation"}
+      : {blog:"Blog",destinations:"Destinasi",collections:"Koleksi",work:"Layanan",allWork:"Semua layanan",portfolio:"Portofolio",youtube:"YouTube",about:"Tentang",contact:"Kontak",menu:"Navigasi utama"};
+    if (desktopList) {
+      desktopList.innerHTML =
+        '<li class="site-nav__item"><a class="site-nav__link" href="' + navBase + '/blog/">' + labels.blog + '</a></li>' +
+        '<li class="site-nav__item"><a class="site-nav__link" href="' + navBase + '/destinations/">' + labels.destinations + '</a></li>' +
+        '<li class="site-nav__item"><a class="site-nav__link" href="' + navBase + '/collections/">' + labels.collections + '</a></li>' +
+        '<li class="site-nav__item"><button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-controls="work-dropdown">' + labels.work + ' <span aria-hidden="true">⌄</span></button>' +
+        '<div class="nav-dropdown" id="work-dropdown" hidden><a class="nav-dropdown__link" href="' + navBase + '/work/"><strong>' + labels.allWork + '</strong></a><a class="nav-dropdown__link" href="' + navBase + '/portfolio/"><strong>' + labels.portfolio + '</strong></a></div></li>' +
+        '<li class="site-nav__item"><a class="site-nav__link" href="' + navBase + '/youtube/">' + labels.youtube + '</a></li>' +
+        '<li class="site-nav__item"><a class="site-nav__link" href="' + navBase + '/about/">' + labels.about + '</a></li>';
     }
-    addCollectionsLink(desktopList, false);
-    addCollectionsLink(mobileList, true);
+    if (mobileList) {
+      mobileList.innerHTML =
+        '<li><a class="mobile-nav__link" href="' + navBase + '/blog/">' + labels.blog + '</a></li>' +
+        '<li><a class="mobile-nav__link" href="' + navBase + '/destinations/">' + labels.destinations + '</a></li>' +
+        '<li><a class="mobile-nav__link" href="' + navBase + '/collections/">' + labels.collections + '</a></li>' +
+        '<li><a class="mobile-nav__link" href="' + navBase + '/work/">' + labels.allWork + '</a></li>' +
+        '<li><a class="mobile-nav__link" href="' + navBase + '/portfolio/">' + labels.portfolio + '</a></li>' +
+        '<li><a class="mobile-nav__link" href="' + navBase + '/youtube/">' + labels.youtube + '</a></li>' +
+        '<li><a class="mobile-nav__link" href="' + navBase + '/about/">' + labels.about + '</a></li>' +
+        '<li><a class="mobile-nav__link" href="' + navBase + '/contact/">' + labels.contact + '</a></li>';
+    }
 
     const mobileToggle = document.querySelector("[data-mobile-menu-toggle]");
     const mobileNav = document.getElementById("mobile-navigation");
@@ -186,10 +185,10 @@
                 <li><a class="site-footer__link" href="${base}/blog/">${t.blog}</a></li><li><a class="site-footer__link" href="${base}/collections/">${t.collections}</a></li><li><a class="site-footer__link" href="${base}/destinations/">${t.destinations}</a></li><li><a class="site-footer__link" href="${base}/youtube/">${t.youtube}</a></li><li><a class="site-footer__link" href="${base}/about/">${t.about}</a></li>
               </ul></div>
               <div class="site-footer__column"><h2 class="site-footer__title">${t.work}</h2><ul class="site-footer__links">
-                <li><a class="site-footer__link" href="${base}/work/">${t.workWithMe}</a></li><li><a class="site-footer__link" href="${base}/work/">${t.services}</a></li><li><a class="site-footer__link" href="${base}/portfolio/">${t.portfolio}</a></li>
+                <li><a class="site-footer__link" href="${base}/work/">${t.workWithMe}</a></li><li><a class="site-footer__link" href="${base}/portfolio/">${t.portfolio}</a></li>
               </ul></div>
               <div class="site-footer__column"><h2 class="site-footer__title">${t.start}</h2><ul class="site-footer__links">
-                <li><a class="site-footer__link" href="${checkoutBase}/">${t.startProject}</a></li><li><a class="site-footer__link" href="${base}/contact/?mode=consultation">${t.help}</a></li><li><a class="site-footer__link" href="${base}/contact/">${t.contact}</a></li>
+                <li><a class="site-footer__link" href="${base}/contact/?mode=project">${t.startProject}</a></li><li><a class="site-footer__link" href="${base}/contact/?mode=consultation">${t.help}</a></li><li><a class="site-footer__link" href="${base}/contact/">${t.contact}</a></li>
               </ul></div>
               <div class="site-footer__column"><h2 class="site-footer__title">${t.legal}</h2><ul class="site-footer__links">
                 <li><a class="site-footer__link" href="${base}/legal/privacy/">${t.privacy}</a></li><li><a class="site-footer__link" href="${base}/legal/terms/">${t.terms}</a></li><li><a class="site-footer__link" href="${base}/legal/disclaimer/">${t.disclaimer}</a></li><li><a class="site-footer__link" href="${base}/legal/editorial-policy/">${t.editorial}</a></li>
