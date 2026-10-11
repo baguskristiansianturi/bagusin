@@ -76,6 +76,72 @@
     followup.scrollIntoView({behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start"});
     heading.focus({preventScroll:true});
   }
+  const solutionCatalog = {
+    customers: [
+      { icon: "📍", title: "Google Business Profile & Maps", description: "Membantu orang menemukan bisnis lokal Anda di Google Search dan Maps, melihat lokasi, jam buka, foto, ulasan, serta cara menghubungi atau meminta petunjuk arah.", url: "https://www.google.com/business/" },
+      { icon: "↗", title: "Landing page penjualan", description: "Satu halaman yang fokus pada penawaran, manfaat, bukti yang tersedia, dan satu tindakan jelas—misalnya menghubungi WhatsApp atau meminta penawaran.", url: "/bagusin/work/landing-pages/" },
+      { icon: "◎", title: "Pengukuran hasil", description: "Mengetahui dari mana pengunjung datang dan tindakan apa yang mereka lakukan sebelum anggaran promosi ditingkatkan.", url: "/bagusin/work/seo-content/" }
+    ],
+    organic: [
+      { icon: "⌂", title: "Website profil bisnis", description: "Tempat utama untuk menjelaskan bisnis, layanan, area kerja, informasi penting, dan alasan pelanggan dapat mempercayai Anda.", url: "/bagusin/work/company-profile/" },
+      { icon: "⌕", title: "SEO & konten", description: "Merapikan struktur halaman dan menjawab pertanyaan calon pelanggan agar bisnis lebih mudah dipahami dan ditemukan secara organik.", url: "/bagusin/work/seo-content/" }
+    ],
+    conversion: [
+      { icon: "↗", title: "Landing page & perbaikan konversi", description: "Menyederhanakan pesan, susunan informasi, tombol tindakan, formulir, dan pengalaman mobile agar pengunjung tahu langkah berikutnya.", url: "/bagusin/work/landing-pages/" },
+      { icon: "◎", title: "Audit aset yang sudah ada", description: "Mulai dari masalah yang nyata; pertahankan bagian yang masih berfungsi dan prioritaskan perubahan yang paling dibutuhkan.", url: "/bagusin/work/" }
+    ],
+    website: [
+      { icon: "▤", title: "Perbaikan website", description: "Perbarui copy, tampilan, navigasi, halaman, dan alur pengguna tanpa otomatis membangun semuanya dari awal.", url: "/bagusin/work/" },
+      { icon: "↗", title: "Landing page khusus", description: "Cocok ketika satu layanan, produk, atau kampanye memerlukan halaman yang fokus pada satu tujuan.", url: "/bagusin/work/landing-pages/" }
+    ],
+    system: [
+      { icon: "▦", title: "Aplikasi dan sistem khusus", description: "Untuk kebutuhan seperti formulir lanjutan, dashboard, integrasi, otomasi, atau alur kerja yang tidak cukup ditangani website biasa.", url: "/bagusin/work/web-applications/" }
+    ],
+    marketing: [
+      { icon: "⌕", title: "SEO & konten", description: "Membangun fondasi jangka panjang dan halaman yang menjawab kebutuhan pencarian calon pelanggan.", url: "/bagusin/work/seo-content/" },
+      { icon: "↗", title: "Landing page & pengukuran", description: "Pastikan penawaran dan halaman siap sebelum membayar trafik dari iklan.", url: "/bagusin/work/landing-pages/" }
+    ],
+    allin: [
+      { icon: "✓", title: "Rencana solusi bertahap", description: "Gabungkan hanya bagian yang memang diperlukan—website, Google Maps, konten, SEO, iklan, atau sistem—berdasarkan prioritas dan anggaran.", url: "/bagusin/work/" },
+      { icon: "▤", title: "Lihat contoh dan demo", description: "Pelajari konsep yang tersedia terlebih dahulu, lalu pilih untuk memakai, menyesuaikan, atau membangun solusi khusus.", url: "/bagusin/collections/" }
+    ]
+  };
+  function renderSolutions(goal) {
+    const old = result.querySelector("[data-recommended-solutions]");
+    if (old) old.remove();
+    const items = solutionCatalog[goal] || solutionCatalog.allin;
+    const section = document.createElement("div");
+    section.className = "home-recommended-solutions";
+    section.dataset.recommendedSolutions = "";
+    const heading = document.createElement("h4");
+    heading.textContent = isEnglish ? "Solutions to explore next" : "Solusi yang bisa Anda pelajari";
+    section.appendChild(heading);
+    const grid = document.createElement("div");
+    grid.className = "home-recommended-solutions__grid";
+    items.forEach(item => {
+      const card = document.createElement("a");
+      card.className = "home-recommended-solutions__card";
+      card.href = isEnglish && item.url.startsWith("/bagusin/") ? item.url.replace("/bagusin/", "/bagusin/en/") : item.url;
+      const icon = document.createElement("span");
+      icon.className = "home-recommended-solutions__icon";
+      icon.setAttribute("aria-hidden", "true");
+      icon.textContent = item.icon;
+      const body = document.createElement("span");
+      const name = document.createElement("strong");
+      name.textContent = item.title;
+      const description = document.createElement("small");
+      description.textContent = item.description;
+      const link = document.createElement("span");
+      link.className = "home-recommended-solutions__link";
+      link.textContent = isEnglish ? "Explore solution →" : "Pelajari solusi →";
+      body.append(name, description, link);
+      card.append(icon, body);
+      grid.appendChild(card);
+    });
+    section.appendChild(grid);
+    const actions = result.querySelector(".home-pathfinder__result-actions");
+    result.insertBefore(section, actions);
+  }
   function showPlan(goal) {
     goals.querySelectorAll("[data-goal]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.goal === goal)));
     const plan = (isEnglish ? plansEn : plans)[stage + ":" + goal];
@@ -86,6 +152,7 @@
     steps.replaceChildren();
     plan.steps.forEach(text => { const li = document.createElement("li"); li.textContent = text; steps.appendChild(li); });
     caveat.textContent = plan.caveat;
+    renderSolutions(goal);
     consult.href = (isEnglish ? "/bagusin/en/contact/?" : "/bagusin/contact/?") + new URLSearchParams({service:"consultation",mode:"consultation",path:stage,goal:goal,source:"homepage-recommender"}).toString();
     result.hidden = false;
     progress.textContent = isEnglish ? "Recommendation ready" : "100% selesai";
@@ -98,6 +165,7 @@
     stageButtons.forEach(button => button.setAttribute("aria-pressed", "false"));
     followup.hidden = true;
     result.hidden = true;
+    result.querySelector("[data-recommended-solutions]")?.remove();
     progress.textContent = isEnglish ? "Step 1 of 2" : "0% selesai";
     root.scrollIntoView({behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start"});
     stageButtons[0]?.focus({preventScroll:true});
