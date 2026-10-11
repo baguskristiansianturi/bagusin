@@ -1,0 +1,39 @@
+/* Bagusin shared article consistency layer: layout safeguards only. */
+.article-page--pro,.article-page{min-width:0}
+.article-pro-hero__inner,.article-pro-layout,.article-pro-cover{box-sizing:border-box;width:min(calc(100% - 2 * var(--page-padding,1.25rem)),100%);margin-inline:auto}
+.article-pro-hero__inner{max-width:58rem}
+.article-pro-cover{max-width:58rem}
+.article-pro-layout{max-width:68rem;grid-template-columns:minmax(0,15rem) minmax(0,42rem);gap:clamp(1.5rem,5vw,5.5rem);align-items:start}
+.article-pro-aside,.article-pro-content,.article-pro-toc,.article-pro-footer,.article-pro-cover img{min-width:0}
+.article-pro-content{overflow-wrap:break-word}
+.article-pro-content img,.article-pro-content video,.article-pro-content iframe,.article-pro-content table{max-width:100%}
+.article-pro-content img,.article-pro-content video{height:auto}
+.article-pro-content pre,.article-pro-content table{display:block;max-width:100%;overflow-x:auto}
+.article-pro-content a,.article-pro-toc a,.article-pro-side-link{overflow-wrap:anywhere}
+.article-pro-meta{min-width:0;align-items:center}
+.article-pro-meta>*{min-width:0}
+.article-pro-cover img{object-fit:cover}
+@media(max-width:56rem){.article-pro-layout{width:min(calc(100% - 2 * var(--page-padding,1.25rem)),48rem);grid-template-columns:minmax(0,1fr);gap:2rem}.article-pro-aside{position:static}.article-pro-content{width:100%}}
+@media(max-width:36rem){.article-pro-hero__inner,.article-pro-layout{width:min(calc(100% - 1.5rem),48rem)}.article-pro-hero h1{overflow-wrap:anywhere}.article-pro-meta{gap:.45rem .65rem}.article-pro-meta span+span{padding-left:.65rem}.article-pro-cover{width:calc(100% - 1.5rem)}.article-pro-content{font-size:1rem;line-height:1.8}.article-pro-content h2,.article-pro-content h3{overflow-wrap:anywhere}.article-pro-footer{gap:1.25rem}.article-pro-footer .button{max-width:100%}}
+@media(prefers-reduced-motion:reduce){.article-page--pro *{scroll-behavior:auto!important}}
+
+/* Keep the English article on the same editorial layout as Indonesian articles. */
+.article-page--pro .article-header{padding:clamp(2rem,5vw,4.5rem) 0 2.5rem;background:linear-gradient(180deg,#fafcfb 0%,#fff 100%);border-bottom:1px solid var(--color-border)}
+.article-page--pro .article-header>.container{max-width:var(--content-width,68rem)}
+.article-page--pro .article-header__content{width:100%;max-width:58rem;margin:2rem 0 0}
+.article-page--pro .article-header__title{max-width:62rem;font-size:clamp(2.5rem,7vw,5.8rem);line-height:.98;letter-spacing:-.055em;text-wrap:balance}
+.article-page--pro .article-header__dek{max-width:47rem;font-size:clamp(1.05rem,2vw,1.3rem);line-height:1.65}
+.article-page--pro .article-header__meta{gap:1rem;margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--color-border)}
+.article-page--pro .article-main-column{display:grid;grid-template-columns:minmax(11rem,15rem) minmax(0,46rem);justify-content:center;align-items:start;gap:clamp(2rem,6vw,5rem)}
+.article-page--pro .article-sidebar{position:sticky;top:calc(var(--header-height,5rem) + 1.5rem);min-width:0}
+.article-page--pro .article-content{min-width:0;max-width:46rem;font-size:1.06rem;line-height:1.85}
+.article-page--pro .article-body-section .article-layout{display:block;max-width:68rem;padding-top:clamp(3rem,7vw,6rem)}
+.article-page--pro .toc{display:flex;flex-direction:column;border-left:1px solid var(--color-border)}
+.article-page--pro .toc__title{padding:0 0 1rem 1rem;color:var(--color-text-soft);font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.article-page--pro .toc__list{padding:0;list-style:none}
+.article-page--pro .toc__list a{display:block;padding:.45rem .7rem;border-left:2px solid transparent;color:var(--color-text-soft);font-size:.78rem;line-height:1.45;text-decoration:none}
+.article-page--pro .toc__list a:hover{border-left-color:var(--color-accent);color:var(--color-text)}
+.article-page--pro .article-labels{padding-block:1rem 2rem}
+.article-page--pro .article-labels .article-tags{display:flex;flex-wrap:wrap;gap:.45rem}
+@media(max-width:56rem){.article-page--pro .article-main-column{grid-template-columns:minmax(0,1fr);gap:2rem}.article-page--pro .article-sidebar{position:static}.article-page--pro .toc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-left:0;border-top:1px solid var(--color-border);padding-top:1rem}.article-page--pro .toc__title{grid-column:1/-1;padding:0 0 .5rem}.article-page--pro .toc__list{grid-column:1/-1}.article-page--pro .toc__list a{padding:.55rem 0;border-left:0;border-bottom:1px solid var(--color-border)}}
+@media(max-width:36rem){.article-page--pro .article-header__title{font-size:clamp(2.25rem,13vw,3.5rem)}.article-page--pro .article-body-section .article-layout{padding-top:2.5rem}.article-page--pro .article-content{font-size:1rem;line-height:1.8}}

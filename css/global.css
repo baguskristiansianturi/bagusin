@@ -242,6 +242,11 @@ p {
   line-height: var(--line-relaxed);
 }
 
+/* Adjacent paragraphs share one predictable reading rhythm. */
+main p + p {
+  margin-block-start: var(--copy-paragraph-gap);
+}
+
 strong {
   color: var(--color-text);
   font-weight: var(--weight-semibold);
@@ -261,15 +266,15 @@ small {
 }
 
 .prose > * + * {
-  margin-top: var(--space-6);
+  margin-top: var(--copy-paragraph-gap);
 }
 
 .prose h2 {
-  margin-top: var(--space-12);
+  margin-top: var(--copy-heading-gap);
 }
 
 .prose h3 {
-  margin-top: var(--space-10);
+  margin-top: var(--space-8);
 }
 
 .prose p {
@@ -296,9 +301,11 @@ small {
 
 .prose a {
   color: var(--color-accent-dark);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
+  text-decoration: none;
+}
+.prose a:hover {
+  color: var(--color-accent-dark);
+  text-decoration: none;
 }
 
 .prose blockquote {
@@ -343,6 +350,12 @@ a:focus-visible {
   outline: 2px solid var(--color-accent-dark);
   outline-offset: 3px;
   box-shadow: var(--focus-ring);
+}
+
+/* Shared keyboard focus for form controls and custom interactive elements. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid rgba(39, 116, 95, 0.48);
+  outline-offset: 3px;
 }
 
 
@@ -864,4 +877,138 @@ a:focus-visible {
     scroll-behavior: auto !important;
   }
 
+}
+
+/* Semantic section icon system: decorative numbering is avoided unless the number carries real data. */
+.home-pillar__icon,
+.contact-option__icon,
+.destination-card__icon,
+.author-topic > span,
+.youtube-themes article > span,
+.work-fit__item > span,
+.en-page .number{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+  width:2rem;
+  height:2rem;
+  border:1px solid var(--color-border);
+  border-radius:50%;
+  color:var(--color-accent-dark);
+  font:600 .85rem/1 var(--font-sans);
+}
+.home-pillar__number{display:none}
+.contact-option__number,.destination-card__index{display:none}
+
+/* =========================================================
+   LAYOUT SAFETY — RESPONSIVE FOUNDATION
+   ========================================================= */
+
+main,
+.page-shell,
+.page-content,
+.container,
+.container--narrow,
+.container--article {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+main {
+  width: 100%;
+  overflow: clip;
+}
+
+main > section,
+main > .section {
+  width: 100%;
+  min-width: 0;
+}
+
+.grid,
+[class*="grid"],
+[class*="__grid"],
+.layout-two-column,
+.layout-three-column,
+.content-sidebar {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.grid > *,
+[class*="grid"] > *,
+[class*="__grid"] > *,
+.layout-two-column > *,
+.layout-three-column > *,
+.content-sidebar > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+img,
+picture,
+video,
+iframe,
+embed,
+object,
+svg,
+canvas {
+  max-width: 100%;
+}
+
+input,
+textarea,
+select,
+button {
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: 0;
+}
+
+pre,
+code {
+  max-width: 100%;
+}
+
+pre {
+  overflow-x: auto;
+}
+
+table {
+  max-width: 100%;
+}
+
+@media (max-width: 47.999rem) {
+  .container,
+  .container--narrow,
+  .container--article {
+    width: min(
+      calc(100% - (var(--page-padding) * 2)),
+      100%
+    );
+  }
+
+  .full-bleed {
+    width: 100%;
+    margin-left: 0;
+    transform: none;
+  }
+}
+
+
+/* Responsive hardening — interactive controls */
+@media (max-width: 47.999rem) {
+  .button {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .button-group,
+  .actions,
+  .hero-actions {
+    min-width: 0;
+  }
 }

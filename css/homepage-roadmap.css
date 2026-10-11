@@ -1,0 +1,28 @@
+/* Bagusin homepage roadmap: editorial stories, principles and learning CTA */
+.home-editorial-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.15rem}
+.home-editorial-card{display:flex;min-width:0;flex-direction:column;overflow:hidden;border:1px solid var(--color-border);border-radius:var(--radius-xl);background:#fff;color:var(--color-text);text-decoration:none;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.home-editorial-card:hover{transform:translateY(-3px);border-color:rgba(63,145,129,.4);box-shadow:0 14px 32px rgba(17,21,20,.07)}
+.home-editorial-card:focus-visible{outline:3px solid var(--color-accent);outline-offset:3px}
+.home-editorial-card__image{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:#edf2ef}
+.home-editorial-card__body{display:flex;flex:1;flex-direction:column;align-items:flex-start;padding:1.2rem}
+.home-editorial-card__eyebrow{color:var(--color-accent-dark);font-size:.7rem;font-weight:750;letter-spacing:.07em;text-transform:uppercase}
+.home-editorial-card h3{margin-top:.45rem;font-size:clamp(1.1rem,1.8vw,1.35rem);line-height:1.3;letter-spacing:-.02em}
+.home-editorial-card p{margin-top:.55rem;color:var(--color-text-soft);font-size:.88rem;line-height:1.7}
+.home-editorial-card__link{margin-top:auto;padding-top:1rem;color:var(--color-accent-dark);font-size:.84rem;font-weight:750}
+.home-principles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.home-principle{padding:clamp(1.4rem,3vw,2.1rem);border:1px solid var(--color-border);border-radius:var(--radius-xl);background:linear-gradient(145deg,#fff 45%,#f7faf8)}
+.home-principle__icon{display:grid;width:2.8rem;height:2.8rem;place-items:center;border-radius:.85rem;background:var(--color-accent-soft);color:var(--color-accent-dark)}
+.home-principle__icon svg{width:1.35rem;height:1.35rem}
+.home-principle h3{margin-top:1.1rem;font-size:1.3rem;line-height:1.3}
+.home-principle p{margin-top:.55rem;color:var(--color-text-soft);font-size:.9rem;line-height:1.75}
+.home-principle .text-link{display:inline-flex;margin-top:1rem;color:var(--color-accent-dark);font-weight:750}
+.home-learning-cta{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(15rem,.8fr);gap:2rem;align-items:center;padding:clamp(1.5rem,5vw,3.25rem);border:1px solid rgba(63,145,129,.2);border-radius:var(--radius-xl);background:radial-gradient(circle at 92% 12%,rgba(102,183,167,.2),transparent 28%),linear-gradient(135deg,#f7fbf9,#edf5f1)}
+.home-learning-cta h2{max-width:42rem;font-size:clamp(1.7rem,3.7vw,2.65rem);line-height:1.15;letter-spacing:-.035em;text-wrap:balance}
+.home-learning-cta p{max-width:42rem;margin-top:.75rem;color:var(--color-text-soft);font-size:.95rem;line-height:1.75}
+.home-learning-cta__aside{padding:1.2rem;border:1px solid rgba(63,145,129,.18);border-radius:var(--radius-lg);background:rgba(255,255,255,.72)}
+.home-learning-cta__aside strong{display:block;font-size:.95rem}
+.home-learning-cta__aside p{margin-top:.4rem;font-size:.82rem}
+.home-learning-cta__aside .button{width:100%;margin-top:1rem}
+@media(max-width:760px){.home-editorial-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.home-learning-cta{grid-template-columns:1fr;gap:1.25rem}}
+@media(max-width:520px){.home-editorial-grid,.home-principles{grid-template-columns:1fr}.home-editorial-card{border-radius:var(--radius-lg)}.home-editorial-card__image{aspect-ratio:16/9}.home-principle{border-radius:var(--radius-lg)}.home-learning-cta{padding:1.2rem;border-radius:var(--radius-lg)}.home-learning-cta__aside{padding:1rem}}
+@media(prefers-reduced-motion:reduce){.home-editorial-card{transition:none}.home-editorial-card:hover{transform:none}}

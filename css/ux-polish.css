@@ -1,0 +1,155 @@
+/* Bagusin shared UX polish — homepage, learning pages, and global footer.
+   Keep component-specific rules here; base typography, focus, and overflow live in shared foundations. */
+:where(.home-pathfinder,.home-discovery-refresh,.home-course-preview,.home-final-cta) :where(h2,.section-title){
+  text-wrap:balance;
+}
+.home-pathfinder{width:100%;max-width:var(--container-xl,75rem);margin-inline:auto}
+.home-pathfinder__intro{max-width:49rem}
+.home-pathfinder__intro h1{
+  max-width:13ch;
+  font-size:clamp(2.75rem,6.2vw,5.25rem);
+  line-height:.99;
+  letter-spacing:-.055em;
+  font-weight:780;
+  text-wrap:balance;
+}
+.home-pathfinder__intro .home-hero__lead{
+  max-width:39rem;
+  margin-top:1.25rem;
+  font-size:clamp(1.05rem,1.6vw,1.25rem);
+  line-height:1.7;
+}
+.home-pathfinder__reassurance{gap:.65rem 1rem}
+.home-pathfinder__reassurance-item{font-size:.88rem;line-height:1.5}
+.home-pathfinder__panel{
+  border:1px solid rgba(43,93,77,.16);
+  box-shadow:0 22px 60px rgba(22,49,39,.09);
+}
+.home-pathfinder__panel h2{font-size:clamp(1.3rem,2.2vw,1.7rem);line-height:1.2;letter-spacing:-.025em;text-wrap:balance}
+.home-pathfinder__hint{font-size:.96rem;line-height:1.65}
+.home-pathfinder__choice{
+  min-height:4.5rem;
+  gap:.8rem;
+  padding:1rem;
+  border-radius:.85rem;
+  transition:transform .18s ease,border-color .18s ease,background-color .18s ease,box-shadow .18s ease;
+}
+.home-pathfinder__choice strong{font-size:1rem;line-height:1.4}
+.home-pathfinder__choice small{font-size:.88rem;line-height:1.55}
+.home-pathfinder__choice:hover{transform:translateY(-1px);box-shadow:0 7px 20px rgba(20,50,39,.06)}
+.home-pathfinder__choice-icon{width:2.75rem;height:2.75rem;flex:0 0 2.75rem}
+.home-pathfinder__choice-icon svg{width:1.35rem;height:1.35rem}
+.home-pathfinder__footer-note{font-size:.94rem;line-height:1.65}
+.home-discovery-refresh,.home-course-preview{padding-block:clamp(3.25rem,6vw,5.5rem)}
+.home-discovery-refresh__heading{
+  display:flex;align-items:end;justify-content:space-between;gap:1.5rem;
+  margin-bottom:clamp(1.5rem,3vw,2.25rem);
+}
+.home-discovery-refresh__heading>div{min-width:0;max-width:46rem}
+.home-discovery-refresh__heading .section-title{font-size:clamp(1.8rem,3.5vw,2.7rem);line-height:1.12;letter-spacing:-.04em}
+.home-section__description,.home-discovery-refresh__heading p{max-width:42rem;margin-top:.65rem;font-size:1rem;line-height:1.7}
+.home-feature-grid,.home-editorial-grid,.home-path-grid,.home-course-preview__grid{gap:1rem}
+.home-feature-card,.home-editorial-card,.home-path-card,.home-course-card{
+  min-width:0;border-radius:1rem;overflow:hidden;
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+}
+.home-feature-card:hover,.home-editorial-card:hover,.home-path-card:hover,.home-course-card:hover{
+  transform:translateY(-2px);box-shadow:0 12px 32px rgba(20,40,32,.08);
+}
+.home-feature-card__image,.home-editorial-card__image{display:block;width:100%;object-fit:cover}
+.home-feature-card__body,.home-editorial-card__body{gap:.5rem;padding:clamp(1rem,2vw,1.35rem)}
+.home-feature-card__eyebrow,.home-editorial-card__eyebrow{font-size:.75rem;line-height:1.4;letter-spacing:.06em}
+.home-feature-card__body h3,.home-editorial-card__body h3,.home-path-card h3,.home-course-card h3{
+  font-size:clamp(1.15rem,1.8vw,1.4rem);line-height:1.25;letter-spacing:-.02em;text-wrap:balance;
+}
+.home-feature-card__body p,.home-editorial-card__body p,.home-path-card p,.home-course-card p{font-size:.95rem;line-height:1.65}
+.home-path-card{padding:clamp(1rem,2vw,1.4rem)}
+.home-path-card__icon{width:2.8rem;height:2.8rem;margin-bottom:.75rem}
+.home-path-card__icon svg{width:1.45rem;height:1.45rem}
+.home-path-card__arrow,.home-feature-card__link,.home-editorial-card__link{font-size:.9rem;font-weight:750}
+.home-course-preview__heading{display:flex;align-items:end;justify-content:space-between;gap:1.5rem;margin-bottom:1.5rem}
+.home-course-preview__heading>div{max-width:46rem}
+.home-course-preview__heading h2{font-size:clamp(1.8rem,3.5vw,2.65rem);line-height:1.12;letter-spacing:-.04em}
+.home-course-preview__heading p{margin-top:.65rem;font-size:1rem;line-height:1.7}
+.home-course-card{padding:clamp(1.1rem,2.3vw,1.5rem)}
+.home-course-card__number{font-size:.8rem}
+.home-course-card__status{font-size:.76rem;line-height:1.45}
+.home-course-card__eyebrow{font-size:.78rem;line-height:1.5}
+.home-course-card h3{font-size:clamp(1.3rem,2vw,1.55rem)}
+.home-course-card p{font-size:.98rem;line-height:1.7}
+.home-course-card__link{font-size:.95rem;font-weight:750}
+.home-course-preview__note{font-size:.9rem;line-height:1.7}
+.home-contact-nudge{gap:1.25rem;padding:clamp(1rem,2.5vw,1.5rem)}
+.home-contact-nudge p{font-size:.95rem;line-height:1.65}
+.site-footer__description{max-width:27rem;font-size:.9rem;line-height:1.75;color:rgba(255,255,255,.76)}
+.site-footer__brand-name{font-size:1.1rem}
+.site-footer__brand-tagline{font-size:.68rem;letter-spacing:.1em;color:rgba(255,255,255,.65)}
+.site-footer__title{font-size:.88rem;line-height:1.45}
+.site-footer__link{min-height:2rem;font-size:.86rem;line-height:1.45;color:rgba(255,255,255,.76)}
+.site-footer__social-link{width:2.75rem;height:2.75rem;min-width:2.75rem}
+.site-footer__social-link svg{width:1.15rem;height:1.15rem}
+.site-footer__cta-description{font-size:.92rem;line-height:1.7}
+.site-footer__copyright,.site-footer__legal-link{font-size:.78rem;line-height:1.5;color:rgba(255,255,255,.64)}
+/* Course and curriculum pages: make dense labels and module titles readable. */
+.learning-hero h1,.course-detail-hero h1{
+  font-size:clamp(2.6rem,6vw,4.6rem);line-height:1.02;letter-spacing:-.045em;text-wrap:balance;
+}
+.learning-hero p,.course-detail-hero p,.learning-next__grid>div:first-child p,
+.course-overview-panel p,.course-project-grid>div:first-child p{
+  font-size:1rem;line-height:1.75;
+}
+.learning-path-card h3,.course-overview-panel h2{line-height:1.25;text-wrap:balance}
+.learning-path-card p,.course-card p,.course-policy-card p,.course-offer-panel p,
+.course-practice-card p,.course-module__body p,.curriculum-source,.curriculum-status{
+  font-size:.96rem;line-height:1.75;
+}
+.course-card__eyebrow,.course-card__meta span,.course-module summary small,
+.curriculum-domain__heading small,.curriculum-level>span,.course-offer-status{
+  font-size:.82rem;line-height:1.5;
+}
+.course-module summary{min-height:4.25rem;padding:1rem 1.1rem}
+.course-module summary strong,.curriculum-domain__heading strong{font-size:1.02rem;line-height:1.5}
+.course-module__body h4{font-size:.95rem;line-height:1.5}
+.curriculum-domain>summary{min-height:4.5rem}
+.curriculum-level h3,.course-policy-card h3,.course-practice-card h3{font-size:1.1rem;line-height:1.4}
+.course-offer-facts dt,.course-offer-facts dd{font-size:.9rem;line-height:1.55}
+.legacy-course-group>summary strong,.legacy-item-card h3{font-size:1.05rem;line-height:1.45}
+.legacy-course-group>summary small,.legacy-item-card p{font-size:.92rem;line-height:1.65}
+@media(max-width:48rem){
+  .home-pathfinder{padding-inline:0}
+  .home-pathfinder__intro h1{max-width:12ch;font-size:clamp(2.65rem,10.5vw,4rem);line-height:1.02}
+  .home-pathfinder__intro .home-hero__lead{font-size:1.05rem;line-height:1.7}
+  .home-pathfinder__panel{padding:1.1rem}
+  .home-discovery-refresh__heading,.home-course-preview__heading{align-items:flex-start;flex-direction:column;gap:.75rem}
+  .home-discovery-refresh__heading>.text-link,.home-course-preview__all{min-height:2.75rem}
+  .home-feature-grid,.home-editorial-grid,.home-path-grid,.home-course-preview__grid{grid-template-columns:minmax(0,1fr)}
+  .home-feature-card__image,.home-editorial-card__image{aspect-ratio:16/10}
+  .home-feature-card__body,.home-editorial-card__body{padding:1.05rem}
+  .home-course-card{padding:1.1rem}
+  .home-course-card__top{gap:.5rem}
+  .home-course-card__status{max-width:55%;text-align:right}
+  .home-pathfinder__choice{grid-template-columns:2.5rem minmax(0,1fr) 1rem;gap:.65rem;padding:.85rem}
+  .home-pathfinder__choice strong{font-size:1rem}
+  .home-pathfinder__choice small{font-size:.88rem}
+  .site-footer__top{grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem 1rem}
+  .site-footer__brand{grid-column:1/-1}
+  .site-footer__link{font-size:.88rem;min-height:2.1rem}
+  .learning-hero h1,.course-detail-hero h1{font-size:clamp(2.5rem,10vw,3.5rem);line-height:1.04}
+  .course-module summary{grid-template-columns:2rem minmax(0,1fr) 1.2rem;gap:.65rem;padding:.9rem}
+  .course-module summary strong,.curriculum-domain__heading strong{font-size:1rem}
+  .course-module summary small,.curriculum-domain__heading small{font-size:.85rem}
+  .course-module__body{padding:0 .95rem 1rem}
+}
+@media(max-width:30rem){
+  .home-pathfinder__intro h1{font-size:clamp(2.45rem,11.5vw,3.3rem)}
+  .home-pathfinder__panel{padding:.9rem}
+  .home-pathfinder__choice{grid-template-columns:2.25rem minmax(0,1fr) .9rem;gap:.55rem}
+  .home-pathfinder__choice-icon{width:2.25rem;height:2.25rem;flex-basis:2.25rem}
+  .home-pathfinder__choice small{font-size:.86rem}
+  .site-footer__top{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .site-footer__description{font-size:.9rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .home-pathfinder__choice,.home-feature-card,.home-editorial-card,.home-path-card,.home-course-card{transition:none}
+  .home-pathfinder__choice:hover,.home-feature-card:hover,.home-editorial-card:hover,.home-path-card:hover,.home-course-card:hover{transform:none}
+}

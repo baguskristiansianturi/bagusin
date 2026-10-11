@@ -1,0 +1,190 @@
+# Bagusin — Roadmap Pengerjaan Website
+
+Terakhir diperbarui: 11 Oktober 2026
+
+## Catatan perubahan — UX homepage, course, dan footer
+
+- Dibuat branch kerja `ux/homepage-course-footer-polish` dari `main` agar perubahan dapat ditinjau tanpa langsung mengubah branch produksi.
+- Hero homepage dipersingkat dan copy diperjelas agar lebih langsung menyatakan bantuan yang diberikan Bagus.
+- Section layanan utama dipindahkan tepat setelah hero; course dipindahkan menjelang CTA penutup agar prioritas layanan lebih kuat.
+- Ditambahkan stylesheet `css/ux-polish.css` yang dimuat melalui navigasi bersama untuk memperbaiki keterbacaan, hierarki heading, target sentuh, state fokus, kartu, modul course, dan footer.
+- Cache-buster stylesheet responsif diperbarui agar browser meminta versi terbaru.
+- Status: perubahan kode sudah dicatat pada branch kerja. Pemeriksaan browser lintas ukuran layar dan verifikasi GitHub Pages masih harus dilakukan sebelum merge.
+
+## Prinsip kerja
+
+- Bagusin diposisikan sebagai ekosistem personal yang dijalankan secara independen oleh Bagus, bukan perusahaan yang mengklaim memiliki tim besar.
+- Layanan yang siap digunakan menjadi prioritas utama homepage. Course dan jalur belajar diperkenalkan sebagai pilihan tambahan, terutama bagi pengunjung yang ingin membangun kemampuan sendiri.
+- Halaman layanan menjelaskan bantuan secara ringkas; penjelasan mendalam dikembangkan menjadi artikel Blog orisinal.
+- Jangan menampilkan layanan, course, demo, jadwal, tim, atau hasil yang belum benar-benar tersedia seolah-olah sudah siap.
+- Hindari pengulangan isi. Setiap halaman harus mempunyai tujuan yang jelas dan mengarahkan pengunjung ke langkah relevan berikutnya.
+- Sebelum perubahan besar, buat titik pemulihan. Setelah perubahan, lakukan pemeriksaan struktur, tautan, responsivitas, aksesibilitas, SEO, dan fungsi.
+- Bedakan pemeriksaan kode statis dari pengujian visual browser dan verifikasi deployment langsung.
+
+## Tahap 1 — Homepage
+
+**Status: Perbaikan responsif lintas halaman dan hub jalur belajar sudah masuk ke `main`; verifikasi visual di browser dan deployment live masih belum dapat dikonfirmasi.**
+
+### Sasaran
+Homepage menjelaskan bantuan Bagus dengan cepat, mengutamakan layanan, menyediakan jalur ke demo dan artikel, memperlihatkan cerita personal, menjelaskan pendekatan Bagusin, dan memperkenalkan course menjelang akhir halaman.
+
+### Susunan konten
+1. Hero dan pemilih jalur kebutuhan bisnis.
+2. Layanan utama yang dapat digunakan.
+3. Demo dan koleksi yang baru tersedia.
+4. Kebutuhan populer dan contoh solusi.
+5. Artikel/cerita terbaru.
+6. Panduan pilihan untuk pertanyaan dasar.
+7. Cerita lain: perjalanan, proyek, eksperimen, dan video.
+8. Prinsip kerja: mengapa bekerja dengan Bagus dan membaca Blog Bagusin.
+9. Video/YouTube.
+10. CTA course dan jalur pembelajaran menjelang footer.
+
+### Implementasi yang sudah dicatat
+- Layanan dipindahkan tepat setelah hero pada homepage Indonesia.
+- Copy hero disesuaikan agar lebih personal dan tidak memberi kesan sebagai perusahaan dengan tim besar.
+- Ditambahkan section cerita, prinsip kerja, dan CTA pembelajaran.
+- Ditambahkan stylesheet responsif untuk kartu editorial, prinsip kerja, dan CTA pembelajaran.
+- Homepage Inggris diselaraskan dengan struktur service-first.
+- Link kartu layanan diperiksa agar mengarah ke halaman katalog/detail yang tersedia.
+- CTA course diarahkan ke formulir kontak dengan mode pertanyaan course/jalur belajar; formulir menampilkan ringkasan tujuan belajar, kemampuan awal, metode, dan kebutuhan peserta.
+- Metadata judul dan deskripsi homepage diperbarui.
+- Lapisan perbaikan responsif lintas halaman ditambahkan ke `css/final-responsive.css`, yang dimuat setelah CSS halaman; mencakup grid, kartu, hero, konten artikel, formulir, dan footer pada desktop/tablet/ponsel.
+- Cache-buster stylesheet final diperbarui agar browser meminta versi terbaru.
+- Halaman jalur belajar ID/EN dibuat dan ditautkan dari CTA homepage, navigasi global, footer, serta sitemap. Halaman menjelaskan jalur mandiri dan meminta konfirmasi format/ketersediaan sebelum pendaftaran; tidak mengklaim course berbayar yang belum tersedia.
+- Katalog layanan, artikel, halaman legal, pencarian, koleksi, dan halaman course/learning terkait diperiksa secara statis untuk memastikan template memakai navigasi dan stylesheet responsif global. Ini bukan pengganti uji visual browser.
+
+
+### Pemeriksaan kode yang sudah dilakukan
+- Jumlah tag `<section>` dan `</section>` seimbang pada homepage Indonesia dan Inggris.
+- Tidak ditemukan ID HTML duplikat pada dua homepage.
+- Tautan internal homepage yang diperiksa cocok dengan jalur pada sitemap.
+- CSS baru terhubung pada kedua versi bahasa.
+- Mode pertanyaan course tersedia pada JavaScript formulir dan versi formulir Indonesia/Inggris.
+
+### Yang masih harus diperiksa sebelum Tahap 1 ditandai selesai
+- Buka homepage pada browser desktop dan ponsel; periksa layout, pemotongan konten, jarak, overflow horizontal, dan hierarki visual.
+- Uji interaksi pemilih jalur, navigasi desktop/mobile, pencarian, pengalih bahasa, dan semua CTA.
+- Uji pengisian formulir pertanyaan course serta formulir layanan tanpa mengirim data uji yang tidak diinginkan.
+- Pastikan deployment live benar-benar menampilkan commit terbaru. Pemeriksaan melalui alat browser pada 11 Oktober 2026 tidak berhasil mengakses URL publik, jadi status live belum dapat dikonfirmasi dari pemeriksaan tersebut.
+- Setelah visual dan fungsi lolos, tinjau ulang urutan section dan panjang homepage di ponsel.
+
+## Tahap 2 — Katalog dan detail layanan
+
+**Status: Belum dimulai.**
+
+- Audit semua layanan dan status ketersediaannya.
+- Samakan istilah, kategori, deskripsi ringkas, dan CTA.
+- Pastikan setiap layanan memiliki halaman detail yang menjelaskan cakupan, batasan, proses, hasil yang diharapkan, dan cara memulai.
+- Bedakan permintaan konsultasi, brief proyek, kesepakatan ruang lingkup, dan checkout setelah kesepakatan personal.
+- Pastikan tidak ada link kategori atau layanan yang menuju halaman kosong atau salah.
+
+## Tahap 3 — Demo, koleksi, dan portofolio
+
+**Status: Belum dimulai.**
+
+- Satukan katalog demo lintas kategori supaya demo yang tersedia tetap terlihat saat pengunjung memilih kategori.
+- Urutkan item terbaru terlebih dahulu; siapkan struktur untuk populer jika data yang sah tersedia.
+- Tampilkan status demo, cakupan kustomisasi, tautan demo, dan tindakan berikutnya.
+- Bedakan demo, konsep, eksperimen, dan proyek klien; jangan mengarang bukti atau testimoni.
+
+## Tahap 4 — Blog, artikel, dan kategori
+
+**Status: Belum dimulai.**
+
+- Audit struktur Blog, kategori, tag, metadata, artikel terbaru, dan artikel pilihan.
+- Buat peta topik dan maksud pencarian untuk mencegah artikel yang saling bersaing atau mengulang isi.
+- Hubungkan artikel ke layanan, demo, dan course hanya ketika relevan.
+- Artikel harus ditulis orisinal. Sumber eksternal digunakan untuk verifikasi fakta dan dicantumkan bila diperlukan; jangan menyalin artikel pihak lain.
+- Pastikan tampilan artikel dan rekomendasi tetap responsif pada ponsel.
+
+## Tahap 5 — Course dan jalur pembelajaran
+
+**Status: Perencanaan; jangan tampilkan course yang belum siap sebagai penawaran aktif.**
+
+- Petakan kebutuhan pelaku usaha/UMKM, pekerja, freelancer, pelajar/mahasiswa, dan pembelajar mandiri.
+- Susun jalur belajar dari tujuan dan kemampuan awal, bukan hanya berdasarkan nama teknologi.
+- Untuk setiap course, definisikan level, prasyarat, modul, hasil belajar, proyek/evaluasi, metode online/offline/hybrid, durasi, biaya, perangkat, biaya tambahan, pengajar, dan status kesiapan.
+- Jelaskan bahwa course pada tahap awal diajar oleh Bagus; struktur harus dapat menampung pengajar tepercaya di masa depan.
+- Jangan menjanjikan pekerjaan, keahlian profesional, atau sertifikasi resmi hanya karena menyelesaikan course.
+
+## Tahap 6 — Kontak, brief, pemesanan, dan pendaftaran
+
+**Status: Belum dimulai sebagai audit menyeluruh; dukungan minimum CTA pertanyaan course telah ditambahkan.**
+
+- Pastikan form layanan, konsultasi, pertanyaan course, dan pendaftaran memiliki tujuan yang jelas.
+- Kumpulkan data secukupnya dan hindari meminta informasi sensitif yang tidak diperlukan.
+- Tampilkan ringkasan brief dan persetujuan yang relevan.
+- Pertahankan alur kerja: diskusi dan kesepakatan personal dahulu; checkout dilakukan setelah ruang lingkup dan harga disepakati.
+- Uji validasi, pesan sukses/gagal, pengiriman, aksesibilitas, dan pengalaman ponsel.
+
+## Tahap 7 — Spesifikasi backend dan administrasi
+
+**Status: Belum dimulai.**
+
+- Tentukan kebutuhan data untuk artikel, kategori, layanan, demo, course, pengguna, brief, pendaftaran, status, dan notifikasi.
+- Pilih mana yang tetap statis dan mana yang benar-benar memerlukan database atau backend.
+- Rancang pengelolaan konten, publikasi, ketersediaan, pendaftaran, dan tindak lanjut.
+- Tentukan keamanan, privasi, backup, akses admin, dan penanganan kegagalan sebelum implementasi.
+
+## Tahap 8 — Audit akhir
+
+**Status: Belum dimulai.**
+
+- Audit semua tautan internal, navigasi, bahasa, form, metadata, sitemap, dan struktur heading.
+- Uji layout pada ukuran ponsel kecil, ponsel umum, tablet, dan desktop.
+- Periksa akses keyboard, focus state, kontras, alt text, reduced motion, serta elemen yang terpotong/overflow.
+- Periksa kecepatan dan gambar, lalu pastikan deployment live sesuai commit yang dimaksud.
+- Tutup setiap temuan dengan perubahan dan pemeriksaan ulang.
+
+## Aturan status
+
+- **Belum dimulai:** belum diaudit.
+- **Dalam pengerjaan:** perubahan sedang dilakukan atau pemeriksaan belum lengkap.
+- **Siap ditinjau:** implementasi ada, menunggu pemeriksaan yang relevan.
+- **Selesai:** implementasi, pemeriksaan fungsi/struktur, dan verifikasi visual/deployment yang relevan sudah lolos.
+
+## Course roadmap implementation — 2026-10-11
+
+- Replaced the temporary learning hub with a real course catalogue at `/learning/` and `/en/learning/`.
+- Added eight course tracks in Indonesian and English: Web Developer, Digital Marketer, Online Business/Bisnis Online, UI/UX Design, Cloud & DevOps, Data Analyst, AI & Automation, and IoT & Embedded Systems.
+- Each course detail page includes the target audience, learning outcomes, module-by-module curriculum, a suggested practical project, and a course-specific enquiry CTA.
+- Course enquiries pass the selected course slug into the contact form and prefill the brief so the enquiry is tied to the intended course.
+- Added responsive styles for the catalogue, course detail layouts, and expandable curriculum modules; added all 16 language-specific detail URLs to the sitemap.
+- No unsupported promises about price, schedule, or current cohort availability are published. These must be confirmed before enrolment.
+- Still required before calling this done: verify GitHub Pages deployment and visually test desktop/mobile on the live site; course delivery formats and final pricing/schedules remain operational decisions.
+
+## Tahap kurikulum Bagusin — pemulihan master curriculum (11 Oktober 2026)
+
+**Status kode: diperbarui di `main`. Status visual browser dan deployment GitHub Pages: belum terverifikasi.**
+
+- Katalog Indonesia dan Inggris kini menampilkan 16 domain kompetensi, masing-masing dengan empat jenjang: dasar/foundation, menengah/intermediate, lanjutan/advanced, dan profesional/professional.
+- Lima jalur lintas domain ditampilkan: Web & Software Engineering; Cloud & Infrastructure; AI Engineering; IoT & Connected Systems; Data & Automation.
+- Materi praktis dari referensi Computer Course Center dipetakan kembali, termasuk administrasi/Office, desain, animasi/video, 3D/AutoCAD, website/programming/CMS, marketing, Excel/Sheets, data analysis, Apps Script, Macro/VBA, akuntansi spreadsheet, serta teknisi komputer/jaringan.
+- Master kurikulum disimpan di `learning/MASTER-CURRICULUM.md` sebagai sumber acuan untuk menghindari penyusutan kembali menjadi delapan course.
+- Delapan halaman detail yang sudah ada diposisikan sebagai draft awal, bukan keseluruhan kurikulum atau klaim bahwa semua kelas sudah tersedia.
+- CTA jalur belajar membawa pilihan jalur ke ringkasan pertanyaan kontak.
+- Memperbaiki path CSS/JavaScript relatif pada 18 halaman katalog/detail agar sesuai kedalaman direktori GitHub Pages.
+- Memperbaiki hreflang dan schema WebPage pada 16 halaman detail agar URL dan bahasa menunjuk halaman yang sesuai.
+- Pemeriksaan statis: kedua katalog berisi 16 domain dan 64 kartu level; delapan halaman detail bahasa Indonesia masing-masing memiliki tujuh modul, canonical dan hreflang spesifik; pemeriksaan path aset untuk 18 halaman lulus.
+- Belum dianggap selesai sampai tampilan desktop/mobile dan deployment publik diperiksa di browser nyata.
+
+## Further curriculum refinement — 11 October 2026
+
+- Replaced the short legacy-topic list with a searchable catalogue of **37 reference topic families**, grouped into the seven categories used by the reference programme, in Indonesian and English.
+- Rewrote descriptions rather than copying source marketing text. Historical prices, session counts, certificates and availability are not carried forward as Bagusin promises.
+- Added a search field that filters the catalogue and opens matching topic groups; every topic passes its selected identifier into the course inquiry form.
+- Added explicit next-step actions to all 16 master domains in both languages, with links to existing relevant detail pages where available.
+- Fixed course-path inquiry handling: the selected learning path is now passed using `learning_path`; individual domain and legacy topic selections use `learning_domain` and `learning_item`. This avoids colliding with the homepage's existing recommendation parameter `path` and preserves the default contact briefing questions.
+- Added a consistent four-step practice/evaluation section to all 16 detailed course pages, responsive on mobile and desktop.
+- Static validation performed after these changes: 16 master domains and 16 domain actions per language; 37 legacy topic items; all eight detail pages per language contain the practice/evaluation section; all contact inquiry selections map to named labels.
+- Still required before calling the stage fully complete: validate JavaScript execution in a browser, keyboard/screen-reader interaction, mobile visual layout, and public GitHub Pages deployment.
+
+
+## Homepage and article FAQ correction — 11 October 2026
+
+- Removed the YouTube promotional card and homepage CTA from both Indonesian and English homepages. The channel remains available as a navigation/footer link for future use, without presenting it as an active content destination.
+- Replaced the two-part homepage closing promotion with one clear consultation CTA, keeping the current consultation price and scope.
+- Added topic-specific, accessible FAQ accordions to informational posts about domains, hosting, landing pages, and working from anywhere in Indonesian; added the matching English FAQ to the English working-from-anywhere article.
+- Added matching FAQPage structured data for the visible question-and-answer content and shared responsive styling in the article stylesheet.
+- Validation still required after commit: check the rendered pages on desktop/mobile and verify GitHub Pages deployment before considering this complete.

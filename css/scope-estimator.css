@@ -1,0 +1,24 @@
+/* Bagusin — project scope estimator */
+.scope-estimator{padding:clamp(2.5rem,6vw,5rem) 0;background:#f5f8f6;border-block:1px solid var(--color-border)}
+.scope-estimator__layout{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(1.5rem,5vw,4rem);align-items:start}
+.scope-estimator__intro h2{margin-top:.65rem;font-size:clamp(1.8rem,3.6vw,2.8rem);line-height:1.1;letter-spacing:-.035em}
+.scope-estimator__intro p{margin-top:1rem;max-width:34rem;color:var(--color-text-muted);line-height:1.7}
+.scope-estimator__form{min-width:0;padding:clamp(1rem,3vw,1.5rem);border:1px solid var(--color-border);border-radius:1rem;background:#fff}
+.scope-estimator__form fieldset{min-width:0;border:0;padding:0;margin:0}
+.scope-estimator__form legend{font-weight:700;line-height:1.45}
+.scope-estimator__options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem;margin-top:.8rem}
+.scope-estimator__option{display:flex;align-items:flex-start;gap:.65rem;min-width:0;padding:.8rem;border:1px solid var(--color-border);border-radius:.75rem;line-height:1.5;font-size:.88rem;cursor:pointer}
+.scope-estimator__option:has(input:checked){border-color:var(--color-accent-dark);background:#f4faf7}
+.scope-estimator__option input{flex:0 0 auto;margin-top:.2rem;accent-color:var(--color-accent-dark)}
+.scope-estimator__priority{display:grid;gap:.45rem;margin-top:1.1rem}
+.scope-estimator__priority label{font-size:.88rem;font-weight:650}
+.scope-estimator__priority select,.scope-estimator__notes{width:100%;min-width:0;padding:.8rem;border:1px solid var(--color-border);border-radius:.65rem;background:#fff;color:var(--color-text);font:inherit}
+.scope-estimator__notes{margin-top:.85rem;min-height:5rem;resize:vertical}
+.scope-estimator__summary{margin-top:1rem;padding:1rem;border-radius:.75rem;background:#f5f8f6}
+.scope-estimator__summary h3{font-size:1rem}
+.scope-estimator__summary p{margin-top:.45rem;color:var(--color-text-muted);font-size:.86rem;line-height:1.65;overflow-wrap:anywhere;white-space:pre-line}
+.scope-estimator__actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1rem}
+.scope-estimator__actions .button{max-width:100%;white-space:normal}
+.scope-estimator__disclaimer{margin-top:.8rem;color:var(--color-text-muted);font-size:.76rem;line-height:1.6}
+@media(max-width:48rem){.scope-estimator__layout{grid-template-columns:1fr;gap:1.5rem}}
+@media(max-width:34rem){.scope-estimator__options{grid-template-columns:1fr}.scope-estimator__actions{display:grid;grid-template-columns:1fr}.scope-estimator__actions .button{width:100%;justify-content:center}}
