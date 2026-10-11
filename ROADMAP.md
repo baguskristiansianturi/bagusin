@@ -144,3 +144,18 @@ Homepage menjelaskan bantuan Bagus dengan cepat, mengutamakan layanan, menyediak
 - Added responsive styles for the catalogue, course detail layouts, and expandable curriculum modules; added all 16 language-specific detail URLs to the sitemap.
 - No unsupported promises about price, schedule, or current cohort availability are published. These must be confirmed before enrolment.
 - Still required before calling this done: verify GitHub Pages deployment and visually test desktop/mobile on the live site; course delivery formats and final pricing/schedules remain operational decisions.
+
+## Tahap kurikulum Bagusin — pemulihan master curriculum (11 Oktober 2026)
+
+**Status kode: diperbarui di `main`. Status visual browser dan deployment GitHub Pages: belum terverifikasi.**
+
+- Katalog Indonesia dan Inggris kini menampilkan 16 domain kompetensi, masing-masing dengan empat jenjang: dasar/foundation, menengah/intermediate, lanjutan/advanced, dan profesional/professional.
+- Lima jalur lintas domain ditampilkan: Web & Software Engineering; Cloud & Infrastructure; AI Engineering; IoT & Connected Systems; Data & Automation.
+- Materi praktis dari referensi Computer Course Center dipetakan kembali, termasuk administrasi/Office, desain, animasi/video, 3D/AutoCAD, website/programming/CMS, marketing, Excel/Sheets, data analysis, Apps Script, Macro/VBA, akuntansi spreadsheet, serta teknisi komputer/jaringan.
+- Master kurikulum disimpan di `learning/MASTER-CURRICULUM.md` sebagai sumber acuan untuk menghindari penyusutan kembali menjadi delapan course.
+- Delapan halaman detail yang sudah ada diposisikan sebagai draft awal, bukan keseluruhan kurikulum atau klaim bahwa semua kelas sudah tersedia.
+- CTA jalur belajar membawa pilihan jalur ke ringkasan pertanyaan kontak.
+- Memperbaiki path CSS/JavaScript relatif pada 18 halaman katalog/detail agar sesuai kedalaman direktori GitHub Pages.
+- Memperbaiki hreflang dan schema WebPage pada 16 halaman detail agar URL dan bahasa menunjuk halaman yang sesuai.
+- Pemeriksaan statis: kedua katalog berisi 16 domain dan 64 kartu level; delapan halaman detail bahasa Indonesia masing-masing memiliki tujuh modul, canonical dan hreflang spesifik; pemeriksaan path aset untuk 18 halaman lulus.
+- Belum dianggap selesai sampai tampilan desktop/mobile dan deployment publik diperiksa di browser nyata.
