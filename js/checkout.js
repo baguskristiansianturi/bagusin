@@ -38,6 +38,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const label = () => serviceNames[service.value] || "Pilih layanan";
   const categoryNames = { website: "Website", landing: "Landing Page", social: "Media sosial", product: "Produk", ecommerce: "E-commerce", ads: "Iklan & kampanye", email: "Email", seo: "Konten SEO", brand: "Brand", travel: "Travel & hospitality", sales: "Penjualan & proposal", ux: "UX / Microcopy", script: "Naskah video / kreator", other: "Copywriting khusus" };
   const categoryLabel = () => categoryNames[category] || pretty(category);
+  const termsDetails = {
+    copywriting: "Brief menentukan materi, audiens, tone of voice, jumlah aset, dan revisi. Fakta, harga, serta klaim bisnis harus diperiksa klien sebelum publikasi.",
+    "seo-content": "Topik dan deliverables mengikuti brief. Ranking, trafik, leads, dan penjualan tidak dijamin; implementasi teknis dan backlink terpisah kecuali disepakati.",
+    "landing-pages": "Scope menetapkan tujuan konversi, konten, CTA, dan integrasi. Pengelolaan iklan, anggaran media, tracking lanjutan, dan tool berbayar terpisah kecuali disepakati.",
+    websites: "Jumlah halaman, fitur, konten, dan serah terima mengikuti paket/quotation. Domain, hosting, lisensi, booking otomatis, database, dan fitur tambahan hanya termasuk jika tertulis.",
+    "web-applications": "Requirement menetapkan role, workflow, data, integrasi, dan kriteria penerimaan. Infrastruktur, migrasi data, audit keamanan, dan operasi berkelanjutan hanya termasuk jika disepakati.",
+    "maintenance-uiux": "Scope mengikuti URL/repositori, daftar masalah, prioritas, dan akses. Rebuild besar, SLA, serta perbaikan layanan pihak ketiga tidak termasuk kecuali disepakati.",
+    "google-ads": "Layanan ini konsultasi/persiapan dan belum tersedia untuk order langsung. Anggaran iklan terpisah; approval, biaya, konversi, dan hasil tidak dijamin.",
+    "mobile-apps": "Layanan ini masih direncanakan dan belum tersedia untuk order langsung. Platform, akun developer, biaya toko aplikasi, backend, pengujian, dan maintenance perlu ditetapkan saat discovery."
+  };
+  const topicForService = {
+    copywriting: "copywriting", "seo-content": "seo-content", "landing-pages": "landing-pages",
+    websites: "websites", "web-applications": "web-applications", "maintenance-uiux": "maintenance-uiux",
+    "google-ads": "google-ads", "mobile-apps": "mobile-apps"
+  };
 
   // Restore draft first; explicit collection/service links take precedence over an old draft.
   if (saved && typeof saved === "object") {
@@ -104,7 +119,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const categoryNode = $("#aside-category");
     if (categoryNode) categoryNode.textContent = category ? categoryLabel() : "—";
     const termsLink = $("#service-terms-link");
-    if (termsLink) termsLink.href = service.value ? "/bagusin/terms/?topic=" + encodeURIComponent(service.value) : "/bagusin/terms/";
+    const termsSummary = $("#terms-service-summary");
+    const termsTopic = topicForService[service.value] || "";
+    if (termsLink) termsLink.href = termsTopic ? "/bagusin/terms/?topic=" + encodeURIComponent(termsTopic) : "/bagusin/terms/";
+    if (termsSummary) termsSummary.textContent = termsDetails[service.value] || "Pilih layanan untuk melihat ketentuan khusus. Ketentuan final mengikuti quotation dan kesepakatan tertulis.";
     const context = $("#collection-context");
     if (context) {
       context.hidden = !collection;
@@ -265,7 +283,10 @@ document.addEventListener("DOMContentLoaded", () => {
       company: $("#company").value.trim() || "Tidak diisi",
       timeline: $("#timeline").value.trim() || "Tidak ditentukan",
       project_brief: $("#brief").value.trim(),
-      order_confirmation_consent: $("#terms-agree").checked ? "Ya — setuju dengan ruang lingkup, harga, jadwal, dan ketentuan pembayaran yang tercantum" : "Tidak",
+      terms_topic: topicForService[service.value] || "general",
+      terms_version: "2026-10-11",
+      terms_agreed_at_utc: $("#terms-agree").checked ? new Date().toISOString() : "",
+      order_confirmation_consent: $("#terms-agree").checked ? "Ya — menyetujui ketentuan umum, ketentuan khusus layanan, serta ringkasan ruang lingkup, harga, jadwal, revisi, pembatalan, dan pembayaran" : "Tidak",
       follow_up: "Konfirmasi pesanan diterima untuk dicatat. Kirim invoice dan instruksi pembayaran sesuai ketentuan yang telah disepakati secara personal.",
       source_page: location.href,
       submitted_at_utc: new Date().toISOString()
