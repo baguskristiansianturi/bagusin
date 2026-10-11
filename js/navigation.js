@@ -59,7 +59,7 @@
     }
 
     // Canonical navigation: every page uses the same information architecture.
-    const navEnglish = /^\\/(?:bagusin\\/)?en(?:\\/|$)/.test(window.location.pathname);
+    const navEnglish = window.location.pathname.split("/").includes("en");
     const navProjectBase = window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin" ? "/bagusin" : "";
     const navBase = navProjectBase + (navEnglish ? "/en" : "");
     const desktopList = document.querySelector(".site-nav__list");
