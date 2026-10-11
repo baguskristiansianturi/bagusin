@@ -452,6 +452,34 @@ try {
   if (!portfolioSeparationText.includes("hanya akan ditampilkan jika ada izin")) errors.push("Portfolio page: client permission boundary is missing");
   if (portfolioSeparationText.includes("Koleksi terbaru") || portfolioSeparationText.includes("Pilih template")) errors.push("Portfolio page: collection/order content has not been separated");
 
+  // Verify the homepage pathfinder produces a learning-specific contact brief.
+  await interactionPage.goto(origin + "/bagusin/", { waitUntil: "domcontentloaded" });
+  await interactionPage.locator('[data-stage="learning"]').click();
+  await interactionPage.locator('[data-goal="learn-web"]').click();
+  const learningHref = await interactionPage.locator("[data-consult-link]").getAttribute("href");
+  if (!learningHref?.includes("service=course-interest") || !learningHref.includes("mode=course-interest") || !learningHref.includes("goal=learn-web")) errors.push("Homepage pathfinder: learning route does not preselect a course inquiry");
+  await interactionPage.goto(origin + learningHref, { waitUntil: "domcontentloaded" });
+  if (!(await interactionPage.locator("#service-choice").inputValue()).includes("course-interest")) errors.push("Contact form: selected learning route did not preselect course interest");
+  if (!(await interactionPage.locator("#project-form textarea[name='brief']").inputValue()).includes("Belajar membuat website")) errors.push("Contact form: selected learning goal was not added to the brief");
+
+  // Each estimator should summarize selected scope and prefill the matching contact form.
+  const estimatorCases = [
+    { route:"/bagusin/work/maintenance-uiux/", service:"maintenance-uiux", choice:"Memperbaiki bug atau error" },
+    { route:"/bagusin/work/seo-content/", service:"seo-content", choice:"Artikel untuk menjawab pertanyaan pelanggan" },
+    { route:"/bagusin/work/web-applications/", service:"web-applications", choice:"Dashboard atau laporan" }
+  ];
+  for (const item of estimatorCases) {
+    await interactionPage.goto(origin + item.route, { waitUntil: "domcontentloaded" });
+    const estimator = interactionPage.locator("[data-scope-estimator]");
+    if (!(await estimator.count())) { errors.push("Scope estimator missing on " + item.route); continue; }
+    await estimator.locator("[data-scope-item]").filter({ hasValue: item.choice }).check();
+    const href = await estimator.locator("[data-scope-cta]").getAttribute("href");
+    if (!href?.includes("service=" + item.service) || !href.includes("mode=quote") || !href.includes("scope=")) errors.push("Scope estimator: contact CTA parameters are incomplete on " + item.route);
+    await interactionPage.goto(origin + href, { waitUntil: "domcontentloaded" });
+    if (await interactionPage.locator("#service-choice").inputValue() !== item.service) errors.push("Scope estimator: contact form selected the wrong service for " + item.route);
+    if (!(await interactionPage.locator("#project-form textarea[name='brief']").inputValue()).includes(item.choice)) errors.push("Scope estimator: selected needs were not passed into the contact brief for " + item.route);
+  }
+
   // Destinations should remain experience-based, without fabricated ratings or itineraries.
   await interactionPage.goto(origin + "/bagusin/destinations/", { waitUntil: "domcontentloaded" });
   const destinationsTitle = await interactionPage.title();
