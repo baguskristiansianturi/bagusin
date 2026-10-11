@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
       group.hidden = groupVisible === 0;
       if (query && groupVisible > 0) group.open = true;
-      if (!query) group.open = group.dataset.legacyGroup === "productivity";
+      if (!query) group.open = group.dataset.legacyGroup === "administration";
     });
     if (count) count.textContent = query
       ? (document.documentElement.lang === "en" ? visible + " matching topics" : visible + " materi cocok")
