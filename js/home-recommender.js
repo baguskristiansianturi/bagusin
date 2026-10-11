@@ -49,15 +49,19 @@
     });
     followup.hidden = false;
     result.hidden = true;
-    root.querySelector("[data-followup-title]").textContent = stage === "starter" ? "Apa yang paling Anda butuhkan saat ini?" : stage === "business" ? "Apa yang paling ingin ditingkatkan?" : "Apa perubahan yang ingin Anda capai?";
+    const heading = root.querySelector("[data-followup-title]");
+    heading.textContent = stage === "starter" ? "Apa yang paling Anda butuhkan saat ini?" : stage === "business" ? "Apa yang paling ingin ditingkatkan?" : "Apa perubahan yang ingin Anda capai?";
+    heading.setAttribute("tabindex", "-1");
     progress.textContent = "50% selesai";
-    followup.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest"});
+    followup.scrollIntoView({behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start"});
+    heading.focus({preventScroll:true});
   }
   function showPlan(goal) {
     goals.querySelectorAll("[data-goal]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.goal === goal)));
     const plan = plans[stage + ":" + goal];
     if (!plan) return;
     title.textContent = plan.title;
+    title.setAttribute("tabindex", "-1");
     summary.textContent = plan.summary;
     steps.replaceChildren();
     plan.steps.forEach(text => { const li = document.createElement("li"); li.textContent = text; steps.appendChild(li); });
@@ -65,7 +69,8 @@
     consult.href = "/bagusin/contact/?" + new URLSearchParams({service:"consultation",mode:"consultation",path:stage,goal:goal,source:"homepage-recommender"}).toString();
     result.hidden = false;
     progress.textContent = "100% selesai";
-    result.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest"});
+    result.scrollIntoView({behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start"});
+    title.focus({preventScroll:true});
   }
   stageButtons.forEach(button => button.addEventListener("click", () => selectStage(button.dataset.stage)));
   root.querySelector("[data-reset-pathfinder]").addEventListener("click", () => {
@@ -74,6 +79,7 @@
     followup.hidden = true;
     result.hidden = true;
     progress.textContent = "0% selesai";
-    root.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start"});
+    root.scrollIntoView({behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start"});
+    stageButtons[0]?.focus({preventScroll:true});
   });
 })();
