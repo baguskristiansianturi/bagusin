@@ -462,6 +462,15 @@ try {
   if (!(await interactionPage.locator("#service-choice").inputValue()).includes("course-interest")) errors.push("Contact form: selected learning route did not preselect course interest");
   if (!(await interactionPage.locator("#project-form textarea[name='brief']").inputValue()).includes("Belajar membuat website")) errors.push("Contact form: selected learning goal was not added to the brief");
 
+  // The shared pathfinder must also work on the English homepage.
+  await interactionPage.goto(origin + "/bagusin/en/", { waitUntil: "domcontentloaded" });
+  await interactionPage.locator('[data-stage="learning"]').click();
+  await interactionPage.locator('[data-goal="learn-web"]').click();
+  const englishLearningHref = await interactionPage.locator("[data-consult-link]").getAttribute("href");
+  if (!englishLearningHref?.includes("/bagusin/en/contact/") || !englishLearningHref.includes("service=course-interest") || !englishLearningHref.includes("goal=learn-web")) errors.push("English homepage pathfinder: learning route does not preselect a course inquiry");
+  await interactionPage.goto(origin + englishLearningHref, { waitUntil: "domcontentloaded" });
+  if (!(await interactionPage.locator("#project-form textarea[name='brief']").inputValue()).includes("Learn website development")) errors.push("English contact form: selected learning goal was not added to the brief");
+
   // Each estimator should summarize selected scope and prefill the matching contact form.
   const estimatorCases = [
     { route:"/bagusin/work/maintenance-uiux/", service:"maintenance-uiux", choice:"Memperbaiki bug atau error" },
