@@ -603,68 +603,44 @@ a.home-consult-step:hover{transform:translateY(-3px);border-color:var(--color-ac
     scrollbar-color: #b9cbc3 transparent;
   }
 
+  .home-discovery-refresh .home-feature-grid--services,
+  .home-discovery-refresh .home-feature-grid--new {
+    align-items: start;
+    grid-auto-rows: auto;
+  }
+
   .home-discovery-refresh .home-feature-grid--services > .home-feature-card,
   .home-discovery-refresh .home-feature-grid--new > .home-feature-card {
-    display: grid;
-    grid-template-columns: minmax(7rem, 38%) minmax(0, 1fr);
-    grid-template-rows: minmax(0, 1fr);
-    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    align-self: start;
     grid-column: auto;
-    width: 100%;
-    min-width: 0;
-    height: 11.5rem;
-    max-height: 11.5rem;
+    height: auto;
+    min-height: 0;
+    max-height: none;
     scroll-snap-align: start;
   }
 
   .home-discovery-refresh .home-feature-grid--services .home-feature-card__image,
   .home-discovery-refresh .home-feature-grid--new .home-feature-card__image,
   .home-discovery-refresh .home-feature-grid--new .home-feature-card--featured .home-feature-card__image {
+    display: block;
     width: 100%;
-    height: 100%;
+    height: auto;
     min-height: 0;
-    aspect-ratio: auto;
+    aspect-ratio: 1.62;
     object-fit: cover;
   }
 
   .home-discovery-refresh .home-feature-grid--services .home-feature-card__body,
   .home-discovery-refresh .home-feature-grid--new .home-feature-card__body {
-    min-width: 0;
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+    height: auto;
     min-height: 0;
-    height: 100%;
-    overflow: hidden;
-    padding: .8rem;
-  }
-
-  .home-discovery-refresh .home-feature-card__eyebrow {
-    font-size: .62rem;
-    line-height: 1.25;
-  }
-
-  .home-discovery-refresh .home-feature-card h3 {
-    display: -webkit-box;
-    overflow: hidden;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    margin-top: .3rem;
-    font-size: .95rem;
-    line-height: 1.22;
-  }
-
-  .home-discovery-refresh .home-feature-card p {
-    display: -webkit-box;
-    overflow: hidden;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    margin-top: .35rem;
-    font-size: .74rem;
-    line-height: 1.4;
-  }
-
-  .home-discovery-refresh .home-feature-card__link {
-    margin-top: auto;
-    padding-top: .4rem;
-    font-size: .74rem;
+    overflow: visible;
+    padding: 1rem;
   }
 
   .home-discovery-refresh .home-feature-grid--services::-webkit-scrollbar,
