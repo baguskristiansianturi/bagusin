@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
   const params = new URLSearchParams(window.location.search);
   let service = params.get("service") || "";
+  if (!service && params.get("mode") === "course-interest") service = "course-interest";
   const mode = params.get("mode") || "consultation";
   const isEnglish = document.documentElement.lang === "en";
   const labels = isEnglish ? {
     consultation: "Strategy consultation",
+    "course-interest": "Course / learning path inquiry",
     copywriting: "Copywriting",
     "seo-content": "Content Writing & SEO",
     "landing-pages": "Landing Pages & Ads",
@@ -15,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "mobile-apps": "Mobile App Development"
   } : {
     consultation: "Konsultasi strategis",
+    "course-interest": "Course / jalur belajar",
     copywriting: "Copywriting",
     "seo-content": "Penulisan Konten & SEO",
     "landing-pages": "Landing Page & Iklan",
@@ -106,6 +109,12 @@ document.addEventListener("DOMContentLoaded", function () {
       : "Template dipilih: Sewa Mobil Bali\n\nNama bisnis / brand:\nArmada dan kategori kendaraan:\nHarga sewa dan paket:\nArea layanan dan opsi penjemputan:\nWhatsApp / kontak:\nWarna dan perubahan tampilan yang diinginkan:\nFitur tambahan (jika ada):\n\nMohon konfirmasi ruang lingkup, harga final, waktu pengerjaan, dan hal yang termasuk sebelum pengerjaan dimulai.";
   }
 
+  if (mode === "course-interest" && briefField && !briefField.value.trim()) {
+    briefField.value = isEnglish
+      ? "Learning goal / skill I want to develop:\nCurrent experience or starting level:\nWhat I want to be able to do after learning:\nPreferred learning method (online / offline / hybrid):\nQuestions or constraints (schedule, equipment, budget):\n\nPlease confirm course availability, curriculum, learning method, schedule, and total cost before registration."
+      : "Tujuan belajar / keterampilan yang ingin dikembangkan:\nPengalaman atau kemampuan awal saat ini:\nHal yang ingin bisa saya lakukan setelah belajar:\nPreferensi metode belajar (online / offline / hybrid):\nPertanyaan atau batasan (jadwal, perangkat, anggaran):\n\nMohon konfirmasi ketersediaan course, materi, metode belajar, jadwal, dan total biaya sebelum pendaftaran.";
+  }
+
   const recommendationPath = params.get("path") || "";
   const recommendationGoal = params.get("goal") || "";
   const recommendationLabels = {
@@ -147,7 +156,9 @@ document.addEventListener("DOMContentLoaded", function () {
   function buildBrief() {
     const modeLabel = mode === "consultation"
       ? (isEnglish ? "Consultation" : "Konsultasi")
-      : (isEnglish ? "Project inquiry" : "Pertanyaan proyek");
+      : mode === "course-interest"
+        ? (isEnglish ? "Course / learning path inquiry" : "Pertanyaan course / jalur belajar")
+        : (isEnglish ? "Project inquiry" : "Pertanyaan proyek");
     return [
       "BagusIn — " + (isEnglish ? "Project brief" : "Ringkasan proyek"),
       "",
