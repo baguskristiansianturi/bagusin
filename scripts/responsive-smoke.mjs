@@ -276,7 +276,7 @@ try {
   const portfolioText = await interactionPage.locator("main").innerText();
   const portfolioStructuredData = await interactionPage.locator('script[type="application/ld+json"]').textContent();
   if (!portfolioTitle.includes("Portofolio")) errors.push("Portfolio page: title metadata is not localized");
-  if (!portfolioText.includes("Hal-hal yang saya bangun, uji, dan jelajahi.") || !portfolioText.includes("Portofolio seharusnya menunjukkan cara berpikir")) errors.push("Portfolio page: Indonesian headings are missing");
+  if (!portfolioText.includes("Pekerjaan nyata, proses yang jujur, dan konteks yang jelas.") || !portfolioText.includes("Portofolio seharusnya menunjukkan cara berpikir")) errors.push("Portfolio page: Indonesian headings are missing");
   if (portfolioText.includes("Things I’ve built, tested, and explored.") || portfolioText.includes("independent software studio") || portfolioText.includes("Work With Me")) errors.push("Portfolio page: outdated English or studio positioning remains");
   if (!portfolioStructuredData || portfolioStructuredData.includes("software engineering")) errors.push("Portfolio page: structured data still contains outdated English description");
 
