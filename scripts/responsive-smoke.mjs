@@ -335,8 +335,12 @@ try {
   if (checkoutText.includes("1460137710")) errors.push("Checkout: bank account details are shown before an agreed quotation");
   let submittedEmailPayload = null;
   await interactionPage.route("https://formsubmit.co/ajax/baguskristian@gmail.com", async (route) => {
+    if (route.request().method() === "OPTIONS") {
+      await route.fulfill({ status: 204, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" } });
+      return;
+    }
     submittedEmailPayload = route.request().postDataJSON();
-    await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ success: "true", message: "Test submission accepted" }) });
+    await route.fulfill({ status: 200, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" }, contentType: "application/json", body: JSON.stringify({ success: "true", message: "Test submission accepted" }) });
   });
   await interactionPage.locator("#send-order-brief").click();
   await interactionPage.waitForFunction(() => document.querySelector("#checkout-email-status")?.textContent.includes("pengiriman berhasil diterima"), null, { timeout: 5000 });
