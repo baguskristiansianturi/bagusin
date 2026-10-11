@@ -396,6 +396,10 @@ input,select,textarea,button{
    One predictable mobile geometry. Desktop is untouched.
    ========================================================= */
 @media (max-width: 47.999rem) {
+  .home-recommended-solutions__grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: .75rem;
+  }
   html,
   body {
     width: 100% !important;
@@ -1081,12 +1085,20 @@ main > section > .container > * { min-width: 0; }
 .home-consult-flow__grid, .work-grid, .work-card-grid, .service-grid,
 .service-card-grid, .portfolio-grid, .portfolio-project-grid, .collection-grid,
 .collection-card-grid, .blog-grid, .article-grid, .destination-grid,
-.related-articles__grid, .article-related-grid, .home-recommended-solutions__grid {
+.related-articles__grid, .article-related-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   gap: clamp(.85rem, 2vw, 1.4rem);
 }
-.home-feature-card, .home-editorial-card, .home-story, .home-principle,
+/* Recommendation cards use dedicated breakpoints instead of the shared three-column grid. */
+.home-recommended-solutions__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: .85rem;
+  width: 100%;
+  min-width: 0;
+}.home-feature-card, .home-editorial-card, .home-story, .home-principle,
 .home-consult-step, .work-card, .service-card, .portfolio-project,
 .collection-card, .article-card, .destination-card {
   min-width: 0;
@@ -1138,6 +1150,9 @@ main > section > .container > * { min-width: 0; }
 .site-footer__bottom, .site-footer__bottom-inner { min-width: 0; }
 
 @media (max-width: 63.999rem) {
+  .home-recommended-solutions__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
   .home-feature-grid, .home-story-grid, .home-editorial-grid, .home-principles,
   .home-consult-flow__grid, .work-grid, .work-card-grid, .service-grid,
   .service-card-grid, .portfolio-grid, .portfolio-project-grid, .collection-grid,
