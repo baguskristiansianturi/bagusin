@@ -1,16 +1,5 @@
 /* Bagusin shared UX polish — homepage, learning pages, and global footer.
-   Additive overrides only: preserve existing design tokens and component behavior. */
-:root{
-  --ux-body-size:1rem;
-  --ux-body-leading:1.7;
-}
-html{ text-size-adjust:100%; -webkit-text-size-adjust:100%; }
-body{ -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
-p{ overflow-wrap:break-word; }
-:where(a,button,input,select,textarea,[tabindex]):focus-visible{
-  outline:3px solid rgba(39,116,95,.48);
-  outline-offset:3px;
-}
+   Keep component-specific rules here; base typography, focus, and overflow live in shared foundations. */
 :where(.home-pathfinder,.home-discovery-refresh,.home-course-preview,.home-final-cta) :where(h2,.section-title){
   text-wrap:balance;
 }
