@@ -196,3 +196,12 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 - Added a consistent four-step practice/evaluation section to all 16 detailed course pages, responsive on mobile and desktop.
 - Static validation performed after these changes: 16 master domains and 16 domain actions per language; 37 legacy topic items; all eight detail pages per language contain the practice/evaluation section; all contact inquiry selections map to named labels.
 - Still required before calling the stage fully complete: validate JavaScript execution in a browser, keyboard/screen-reader interaction, mobile visual layout, and public GitHub Pages deployment.
+
+
+## Contact terms-link parity audit — 13 October 2026
+
+**Status: Finding verified statically; implementation not changed.**
+
+- Indonesian contact form has a service-specific terms link that the shared script updates from the selected service.
+- English contact form points to the existing generic English legal terms page, but does not participate in the service-specific link updater. The English terms page does not yet mirror the detailed Indonesian terms sections/anchors.
+- Next: create/review the equivalent English terms content and anchors, wire language-aware link updates, then test selected service → correct terms section in both languages. Browser and live deployment checks remain pending.
