@@ -40,10 +40,11 @@
 .about-next-steps__heading{margin-bottom:1.5rem}
 .about-next-steps h2{font-size:clamp(1.55rem,3vw,2.2rem)}
 .about-topic-links{display:flex;flex-wrap:wrap;gap:.65rem}
-.about-topic-links a{display:inline-flex;align-items:center;gap:.6rem;max-width:100%;padding:.78rem 1rem;border:1px solid #e1e5e2;border-radius:8px;background:#f6f7f6;color:var(--color-text);font-size:.88rem;font-weight:600;text-decoration:none;transition:background-color .18s ease,border-color .18s ease,color .18s ease,transform .18s ease}
+.about-topic-links a{display:inline-flex;align-items:center;gap:.55rem;flex:0 0 auto;max-width:100%;width:max-content;padding:.62rem .82rem;border:1px solid #dfe5e1;border-radius:999px;background:rgba(247,249,247,.72);color:var(--color-text);font-size:.84rem;font-weight:600;line-height:1.25;text-decoration:none;transition:background-color .18s ease,border-color .18s ease,color .18s ease,transform .18s ease}
 .about-topic-links a:hover,.about-topic-links a:focus-visible{border-color:#b7c8bf;background:#eaf1ed;color:#2f6558;transform:translateY(-1px)}
 .about-topic-links a:focus-visible,.about-inline-links a:focus-visible{outline:2px solid var(--color-accent-dark);outline-offset:3px}
-.about-topic-links__icon{display:inline-grid;place-items:center;width:1.25rem;height:1.25rem;color:var(--color-accent-dark);font-size:1rem}
+.about-topic-links__icon{display:block;flex:0 0 1.1rem;width:1.1rem;height:1.1rem;color:var(--color-accent-dark)}
+.about-next-steps__heading>p{max-width:48rem;margin-top:.65rem;color:var(--color-text-soft);line-height:1.75}
 .about-page .site-footer{margin-top:0}
 @media(max-width:48rem){
  .about-hero{padding-top:3.5rem}
@@ -55,15 +56,25 @@
  .about-illustration{max-width:34rem;margin-inline:auto}
  .about-youtube__copy{margin-top:1.15rem}
  .about-youtube__placeholder{gap:.6rem;padding:1rem}
- .about-topic-links a{flex:1 1 calc(50% - .65rem);justify-content:flex-start}
+ .about-topic-links a{flex:0 0 auto;justify-content:flex-start}
 }
 @media(max-width:30rem){
  .about-hero__lead{font-size:1.05rem}
  .about-story-section{padding-block:3rem}
  .about-youtube__placeholder{gap:.6rem;padding:1rem}
  .about-youtube__play{width:3.6rem;height:2.6rem}
- .about-topic-links{display:grid;grid-template-columns:minmax(0,1fr)}
- .about-topic-links a{width:100%}
+ .about-topic-links{gap:.55rem}
+ .about-topic-links a{width:max-content;max-width:100%;padding:.58rem .72rem;font-size:.81rem}
  .about-closing blockquote{padding-left:1rem}
 }
 @media(prefers-reduced-motion:reduce){.about-topic-links a{transition:none}.about-topic-links a:hover{transform:none}}
+
+/* About page refinement: readable rhythm, compact topic pills, responsive line wrapping. */
+.about-story__copy p{max-width:66ch}
+.about-topic-links{display:flex;flex-wrap:wrap;align-items:center;gap:.55rem}
+.about-topic-links a{white-space:normal}
+.about-topic-links a:hover .about-topic-links__icon,.about-topic-links a:focus-visible .about-topic-links__icon{color:currentColor}
+@media(max-width:30rem){
+  .about-topic-links{gap:.5rem}
+  .about-topic-links a{gap:.45rem}
+}
