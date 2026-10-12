@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const demos = type === "landing" ? availableTemplates.filter(t => t.status === "available").sort((a,b) => Number(Boolean(b.isNew))-Number(Boolean(a.isNew)) || String(b.updated||"").localeCompare(String(a.updated||""))) : [];
     const demoCards = demos.map(t => '<article class="collection-card collection-card--available"><div class="collection-card__top"><span class="collection-card__icon" aria-hidden="true">↗</span><span class="collection-card__status is-ready">' + (t.isNew ? "Terbaru · tersedia" : "Demo tersedia") + '</span></div><h3>' + esc(t.name) + '</h3><p>' + esc(t.description) + '</p><div class="collection-card__meta"><span>' + esc(t.category === "travel" ? "Travel & Rental" : t.category) + '</span><span>·</span><span>' + esc(t.level || "Starter") + '</span></div><div class="collection-card__actions"><a href="' + esc(t.demoUrl) + '">Buka demo ↗</a><a href="' + esc(t.orderUrl) + '">Paket &amp; harga →</a></div></article>').join("");
     const plannedCards = planned.map(x => {
-      const isTattooDemo = slug(x[1]) === "tattoo-studio-website";
+      const isTattooDemo = slug(x[1]) === "tattoo-studio-website" || slug(x[1]).includes("bagus-ink");
       const ready = x[3] === "ready" || isTattooDemo;
       const url = detailBase + "?collection=" + encodeURIComponent(slug(x[1])) + "&industry=" + encodeURIComponent(x[0]) + (type === "website" ? "&tier=" + encodeURIComponent(x[3]) : "");
       const demoUrl = isTattooDemo ? "/bagusin/demos/starter/tattoo-studio/" : url;
