@@ -65,6 +65,8 @@
     const navBase = navProjectBase + (navEnglish ? "/en" : "");
     const desktopList = document.querySelector(".site-nav__list");
     const mobileList = document.querySelector(".mobile-nav__list");
+    // Travel and destinations belong to blog taxonomy, not a separate top-level section.
+    document.querySelectorAll('.site-nav__list a[href$="/destinations/"], .mobile-nav__list a[href$="/destinations/"]').forEach(function (link) { link.closest("li")?.remove(); });
     function addCollectionsLink(list, mobile) {
       if (!list || list.querySelector('a[href$="/collections/"]')) return;
       const item = document.createElement("li");
@@ -170,7 +172,7 @@
       const checkoutBase = (usesProjectBase ? "/bagusin" : "") + "/checkout";
       const t = en ? {
         explore:"Explore", work:"Work", start:"Start", legal:"Legal",
-        blog:"Blog", collections:"Collection", learning:"Courses", destinations:"Destinations", youtube:"YouTube", about:"About",
+        blog:"Blog", collections:"Collection", learning:"Courses", youtube:"YouTube", about:"About",
         workWithMe:"Work With Me", services:"Services", portfolio:"Portfolio",
         startProject:"Start a Project", help:"Help Me Choose", contact:"Contact",
         privacy:"Privacy Policy", terms:"Terms", disclaimer:"Disclaimer", editorial:"Editorial Policy",
@@ -179,7 +181,7 @@
         ctaText:"Start with the problem. If you know what you need, start a project. If not, ask for help choosing the right path."
       } : {
         explore:"Jelajahi", work:"Layanan", start:"Mulai", legal:"Informasi",
-        blog:"Blog", collections:"Koleksi", learning:"Kursus", destinations:"Destinasi", youtube:"YouTube", about:"Tentang",
+        blog:"Blog", collections:"Koleksi", learning:"Kursus", youtube:"YouTube", about:"Tentang",
         workWithMe:"Lihat Layanan", services:"Layanan", portfolio:"Portofolio",
         startProject:"Mulai Proyek", help:"Bantu Pilihkan", contact:"Kontak",
         privacy:"Kebijakan Privasi", terms:"Ketentuan", disclaimer:"Penafian", editorial:"Kebijakan Editorial",
@@ -206,7 +208,7 @@
                 <div class="site-footer__social" aria-label="Social media">${social}</div>
               </div>
               <div class="site-footer__column"><h2 class="site-footer__title">${t.explore}</h2><ul class="site-footer__links">
-                <li><a class="site-footer__link" href="${base}/blog/">${t.blog}</a></li><li><a class="site-footer__link" href="${base}/collections/">${t.collections}</a></li><li><a class="site-footer__link" href="${base}/learning/">${t.learning}</a></li><li><a class="site-footer__link" href="${base}/destinations/">${t.destinations}</a></li><li><a class="site-footer__link" href="${base}/youtube/">${t.youtube}</a></li><li><a class="site-footer__link" href="${base}/about/">${t.about}</a></li>
+                <li><a class="site-footer__link" href="${base}/blog/">${t.blog}</a></li><li><a class="site-footer__link" href="${base}/collections/">${t.collections}</a></li><li><a class="site-footer__link" href="${base}/learning/">${t.learning}</a></li><li><a class="site-footer__link" href="${base}/youtube/">${t.youtube}</a></li><li><a class="site-footer__link" href="${base}/about/">${t.about}</a></li>
               </ul></div>
               <div class="site-footer__column"><h2 class="site-footer__title">${t.work}</h2><ul class="site-footer__links">
                 <li><a class="site-footer__link" href="${base}/work/">${t.workWithMe}</a></li><li><a class="site-footer__link" href="${base}/work/">${t.services}</a></li><li><a class="site-footer__link" href="${base}/portfolio/">${t.portfolio}</a></li>
