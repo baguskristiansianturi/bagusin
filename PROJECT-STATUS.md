@@ -141,3 +141,12 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - Scope: syllabus body copy only. Prices, session counts, registration statuses, links, metadata, and layouts were not intentionally changed.
 - Important: static repository checks are not browser QA. Mobile layout, keyboard interaction, contact form submission, external links, and live GitHub Pages deployment remain unverified. Cloud & DevOps and IoT & Embedded remain planning-only / enrolment not open as previously recorded.
 - Next: verify course price benchmark URLs and registration status, then test the actual user journey from course page to contact form; do not alter commercial terms without approval.
+
+
+## Work log — 13 October 2026 (English contact-form parity)
+
+- Static inspection found the English contact form lacked the service-choice dropdown present on the Indonesian form, despite the shared contact-form script already supporting that control.
+- Added the matching English-language service selector to `en/contact/index.html` and preserved the existing hidden service/mode fields, validation, terms checkbox, and submission script.
+- Commit: `2ce76ea3ede32e6efcdee4ea6d506ed766f432f3`.
+- Verified by fetching the file again: the service selector, all 10 options (including the blank/general option), hidden service field, and project form remain present. This is a static markup check only; no real submission was sent.
+- A direct live-page open through the available web viewer was not accessible, so GitHub Pages deployment and visual rendering remain unverified. Next: verify the form's language-specific terms link behaviour and run a browser-based end-to-end check if an appropriate browser test capability is available.
