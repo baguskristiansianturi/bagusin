@@ -473,8 +473,8 @@ try {
 
   // Copywriting category must survive the entire review-to-email journey.
   await interactionPage.locator('[data-next="3"]').click();
-  const requiredConsents = interactionPage.locator('[data-panel="3"] input[type="checkbox"][required]');
-  for (let i = 0; i < await requiredConsents.count(); i += 1) await requiredConsents.nth(i).check();
+  const requiredConsentsForCopywriting = interactionPage.locator('[data-panel="3"] input[type="checkbox"][required]');
+  for (let i = 0; i < await requiredConsentsForCopywriting.count(); i += 1) await requiredConsentsForCopywriting.nth(i).check();
   await interactionPage.locator('[data-next="4"]').click();
   await interactionPage.locator("#send-order-brief").click();
   await interactionPage.waitForFunction(() => document.querySelector("#checkout-email-status")?.textContent.includes("pengiriman berhasil diterima"), null, { timeout: 5000 });
