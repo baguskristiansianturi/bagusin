@@ -111,6 +111,45 @@
           "excludes": "Perpanjangan domain/hosting tahun berikutnya, biaya iklan, dan fitur berbayar tambahan; final mengikuti provider dan ruang lingkup."
         }
       ]
+    },
+    {
+      "id": "BG-TAT-STR-001",
+      "slug": "bagus-ink-bali-tattoo-studio",
+      "name": "Bagus Ink — Bali Tattoo Studio",
+      "designName": "Monochrome Ink",
+      "category": "business",
+      "businessTypes": [
+        "tattoo studio",
+        "tattoo artist",
+        "tattoo shop",
+        "Bali tattoo studio"
+      ],
+      "level": "starter",
+      "format": "one-page-website",
+      "price": 950000,
+      "currency": "IDR",
+      "status": "available",
+      "isNew": true,
+      "description": "Konsep website premium hitam-putih untuk studio tato di Bali, dengan galeri hingga 10 karya, pilihan gaya tato, informasi studio, alur konsultasi, dan tombol WhatsApp.",
+      "included": [
+        "Desain satu halaman responsif",
+        "Galeri visual hingga 10 karya tato",
+        "Bagian gaya tato dan informasi studio",
+        "CTA konsultasi melalui WhatsApp",
+        "Footer informasi dan tautan sosial"
+      ],
+      "notIncluded": [
+        "Domain dan hosting",
+        "Sistem booking otomatis atau pembayaran online",
+        "Foto profesional dan layanan pemasaran berbayar"
+      ],
+      "demoUrl": "/bagusin/demos/starter/tattoo-studio/",
+      "orderUrl": "/bagusin/templates/detail/?template=BG-TAT-STR-001",
+      "discussionUrl": "/bagusin/contact/?service=websites&mode=consultation&template=BG-TAT-STR-001",
+      "image": "https://images.unsplash.com/photo-1598373182133-52452f7691ef?auto=format&fit=crop&w=1200&q=85",
+      "imageAlt": "Contoh seni tato untuk konsep website Bagus Ink",
+      "updated": "2026-10-12",
+      "folder": "demos/starter/tattoo-studio/"
     }
   ]
 }
