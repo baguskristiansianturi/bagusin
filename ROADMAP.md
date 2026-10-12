@@ -1,6 +1,6 @@
 # Bagusin — Roadmap Pengerjaan Website
 
-Terakhir diperbarui: 11 Oktober 2026
+Terakhir diperbarui: 13 Oktober 2026
 
 ## Catatan perubahan — UX homepage, course, dan footer
 
@@ -88,6 +88,23 @@ Homepage menjelaskan bantuan Bagus dengan cepat, mengutamakan layanan, menyediak
 - Tampilkan status demo, cakupan kustomisasi, tautan demo, dan tindakan berikutnya.
 - Bedakan demo, konsep, eksperimen, dan proyek klien; jangan mengarang bukti atau testimoni.
 
+## Standar editorial wajib — artikel Bagusin (13 Oktober 2026)
+
+**Status: SOP terdokumentasi; inventaris dan peta 50 artikel belum dibuat/diverifikasi.**
+
+Dokumen wajib: [`content/ARTICLE-EDITORIAL-SOP.md`](content/ARTICLE-EDITORIAL-SOP.md).
+
+Sebelum penulisan artikel dimulai:
+- Baca SOP editorial dan audit seluruh artikel, slug, kategori, tag, dan rencana konten yang sudah ada di repository.
+- Buat atau perbarui satu content map untuk rencana 50 artikel. Catat maksud pencarian, pertanyaan utama, batas pembahasan, judul/slug, kategori/tag, sumber yang dibutuhkan, artikel terkait, tautan internal, status, dan alasan artikel berbeda dari konten lain.
+- Periksa tumpang tindih dan risiko keyword cannibalization sebelum menyetujui kerangka. Gabungkan atau batalkan topik yang tidak memiliki tujuan berbeda.
+- Lakukan riset sumber primer/otoritatif untuk klaim eksternal yang perlu diverifikasi. Tautkan sumber yang benar-benar mendukung klaim; jangan membuat sitasi atau tautan sekadar untuk backlink.
+- Tulis dari nol dengan struktur, penjelasan, contoh dan sudut pandang yang dibuat mandiri. Dilarang menyalin, menerjemahkan dekat, atau memparafrasekan tulisan sumber paragraf demi paragraf.
+- Terapkan pemeriksaan editorial, orisinalitas, fakta, SEO, kategori/tag, tautan, dan teknis sebelum publikasi. Jika keaslian atau kebenaran belum bisa dipastikan, tahan artikel.
+- Jangan mengklaim alat pendeteksi plagiarisme, pencarian web, atau AI detector dapat menjamin orisinalitas 100%. Itu hanya sinyal tambahan; standar operasional Bagusin adalah penulisan mandiri, verifikasi sumber, pemeriksaan kemiripan, dan keputusan untuk tidak menerbitkan bila ragu.
+
+Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, atau diterbitkan sebagai bagian dari perubahan dokumentasi ini.
+
 ## Tahap 4 — Blog, artikel, dan kategori
 
 **Status: Belum dimulai.**
@@ -95,7 +112,7 @@ Homepage menjelaskan bantuan Bagus dengan cepat, mengutamakan layanan, menyediak
 - Audit struktur Blog, kategori, tag, metadata, artikel terbaru, dan artikel pilihan.
 - Buat peta topik dan maksud pencarian untuk mencegah artikel yang saling bersaing atau mengulang isi.
 - Hubungkan artikel ke layanan, demo, dan course hanya ketika relevan.
-- Artikel harus ditulis orisinal. Sumber eksternal digunakan untuk verifikasi fakta dan dicantumkan bila diperlukan; jangan menyalin artikel pihak lain.
+- Semua artikel wajib mengikuti `content/ARTICLE-EDITORIAL-SOP.md`, termasuk audit tumpang tindih sebelum outline, peta konten, penulisan mandiri, verifikasi fakta dan sumber, SEO, kategori/tag, internal links, serta gerbang publikasi. Jangan menyalin, menerjemahkan dekat, atau memparafrasekan artikel sumber. Jika ragu, tahan publikasi.
 - Pastikan tampilan artikel dan rekomendasi tetap responsif pada ponsel.
 
 ## Tahap 5 — Course dan jalur pembelajaran
