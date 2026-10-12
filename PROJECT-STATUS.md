@@ -131,3 +131,13 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - Commits: ID `8d30f1314e2b6478f36868c010162aceb567a9e4`; EN `e24b130d5d988cdf95382d9ec53b6470f763e1b9`.
 - Scope intentionally limited to syllabus body copy. Prices, session count, availability, page layout, metadata, links, and shared styling were not changed.
 - Still not verified: browser rendering, keyboard interaction, mobile responsiveness, contact-form submission, or live GitHub Pages deployment. Next: apply the same course-specific syllabus standard to the other seven course pairs, then re-check prices/benchmark sources and registration status without changing commercial terms without approval.
+
+
+## Work log — 13 October 2026 (all eight course syllabi refined, ID + EN)
+
+- Extended the session-specific syllabus format from Web Developer to the other seven course pairs: Digital Marketer, Online Business, UI/UX Design, Cloud & DevOps, Data Analyst, AI & Automation, and IoT & Embedded.
+- Each meeting now has a concept focus, guided practice, a tangible practice output, and review criteria. The English pages have English-specific copy; no Indonesian section labels leaked into the English pages in the static check.
+- Re-fetched all 16 course detail files after updates. Verified module counts remain unchanged and match the current structure: Web Developer 22 per language; Digital Marketer 10; Online Business 10; UI/UX Design 16; Cloud & DevOps 10; Data Analyst 10; AI & Automation 14; IoT & Embedded 10. No previous generic placeholder phrase was found in the checked files.
+- Scope: syllabus body copy only. Prices, session counts, registration statuses, links, metadata, and layouts were not intentionally changed.
+- Important: static repository checks are not browser QA. Mobile layout, keyboard interaction, contact form submission, external links, and live GitHub Pages deployment remain unverified. Cloud & DevOps and IoT & Embedded remain planning-only / enrolment not open as previously recorded.
+- Next: verify course price benchmark URLs and registration status, then test the actual user journey from course page to contact form; do not alter commercial terms without approval.
