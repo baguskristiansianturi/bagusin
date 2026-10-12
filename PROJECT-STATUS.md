@@ -150,3 +150,12 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - Commit: `2ce76ea3ede32e6efcdee4ea6d506ed766f432f3`.
 - Verified by fetching the file again: the service selector, all 10 options (including the blank/general option), hidden service field, and project form remain present. This is a static markup check only; no real submission was sent.
 - A direct live-page open through the available web viewer was not accessible, so GitHub Pages deployment and visual rendering remain unverified. Next: verify the form's language-specific terms link behaviour and run a browser-based end-to-end check if an appropriate browser test capability is available.
+
+
+## Work log — 13 October 2026 (contact terms-link parity audit)
+
+- Re-fetched Indonesian and English contact pages, the shared `js/contact-form.js`, and the Indonesian/English terms pages on `main`.
+- Confirmed the Indonesian contact form uses `/terms/`, whose page contains general and service-specific sections and whose shared script updates the link by selected service.
+- Confirmed the English contact form links to `/en/legal/terms/`, which exists but currently contains only generic terms text. The English form does not expose the `contact-terms-link` ID, so the shared service-specific link updater does not update it. The English page therefore does not currently offer the same service-specific terms journey as the Indonesian form.
+- This is a verified static markup/script finding. No form submission, browser interaction, or live deployment was tested. No production code was changed in this audit.
+- Next safe step: prepare and review a genuinely equivalent English terms page (including translated service-specific sections and stable topic anchors), then wire the English contact form and shared script to the English-localized anchors. Do not merely point the English form at the Indonesian terms page or claim parity before content and behavior are checked.
