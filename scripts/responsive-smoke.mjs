@@ -401,7 +401,8 @@ try {
   if (await interactionPage.locator('[data-panel="3"]').isHidden()) errors.push("Checkout: review did not advance to terms");
   await interactionPage.locator('[data-next="4"]').click();
   if (await interactionPage.locator('[data-panel="4"]').isVisible()) errors.push("Checkout: terms step allowed continuation without consent");
-  await interactionPage.locator('[data-panel="3"] input[type="checkbox"][required]').check({ force: true });
+  const requiredConsents = interactionPage.locator('[data-panel="3"] input[type="checkbox"][required]');
+  for (let i = 0; i < await requiredConsents.count(); i += 1) await requiredConsents.nth(i).check();
   await interactionPage.locator('[data-next="4"]').click();
   if (await interactionPage.locator('[data-panel="4"]').isHidden()) errors.push("Checkout: terms consent did not advance to next steps");
   const checkoutText = await interactionPage.locator("#main-content").innerText();
@@ -472,7 +473,8 @@ try {
 
   // Copywriting category must survive the entire review-to-email journey.
   await interactionPage.locator('[data-next="3"]').click();
-  await interactionPage.locator("#terms-agree").check();
+  const requiredConsents = interactionPage.locator('[data-panel="3"] input[type="checkbox"][required]');
+  for (let i = 0; i < await requiredConsents.count(); i += 1) await requiredConsents.nth(i).check();
   await interactionPage.locator('[data-next="4"]').click();
   await interactionPage.locator("#send-order-brief").click();
   await interactionPage.waitForFunction(() => document.querySelector("#checkout-email-status")?.textContent.includes("pengiriman berhasil diterima"), null, { timeout: 5000 });
