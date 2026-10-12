@@ -333,9 +333,53 @@ try {
   const blogText = await interactionPage.locator("main").innerText();
   const blogStructuredData = await interactionPage.locator('script[type="application/ld+json"]').textContent();
   if (!blogTitle.includes("Blog")) errors.push("Blog page: title metadata is missing");
-  if (!blogText.includes("Cerita dari perjalanan, pekerjaan, dan hal-hal yang saya bangun.") || !blogText.includes("Arsip ini bertambah seiring pengalaman nyata.")) errors.push("Blog page: Indonesian headings are missing");
+  if (!blogText.includes("Cerita, panduan, dan hal yang layak dibagikan.") || !blogText.includes("Temukan pengalaman, ide, dan panduan praktis")) errors.push("Blog page: Indonesian hero copy is missing");
   if (blogText.includes("Stories from the road") || blogText.includes("Read the story") || blogText.includes("The archive grows with real experience.")) errors.push("Blog page: English interface copy remains");
   if (!blogStructuredData || blogStructuredData.includes("software engineering")) errors.push("Blog page: structured data still contains outdated English description");
+
+  // Blog index: verify real search, auto-generated categories, pagination, card destinations, and responsive columns.
+  const blogCards = interactionPage.locator("[data-blog-grid] .blog-card");
+  await blogCards.first().waitFor({ state: "visible", timeout: 5000 });
+  const initialBlogCount = await blogCards.count();
+  if (initialBlogCount < 10 || initialBlogCount > 12) errors.push("Blog page: expected up to 12 first-page article cards, got " + initialBlogCount);
+  const categoryButtons = interactionPage.locator("[data-blog-categories] [data-category]");
+  if (await categoryButtons.count() < 4) errors.push("Blog page: categories were not generated from the article catalogue");
+  const domainCategory = interactionPage.locator('[data-blog-categories] [data-category="Panduan Website"]');
+  if (!(await domainCategory.count())) errors.push("Blog page: existing article category is missing from filters");
+  else {
+    await domainCategory.click();
+    const filteredLabels = await interactionPage.locator("[data-blog-grid] .blog-card__label").allTextContents();
+    if (!filteredLabels.length || filteredLabels.some(label => label.trim() !== "Panduan Website")) errors.push("Blog page: category filter did not show only matching articles");
+  }
+  await interactionPage.locator("[data-blog-reset]").click();
+  const blogSearch = interactionPage.locator("[data-blog-search-input]");
+  await blogSearch.fill("domain");
+  const domainCards = await interactionPage.locator("[data-blog-grid] .blog-card__title").allTextContents();
+  if (!domainCards.some(title => title.toLowerCase().includes("domain"))) errors.push("Blog page: keyword search did not find the domain article");
+  await blogSearch.fill("");
+  await blogSearch.focus();
+  const suggestionButtons = interactionPage.locator("[data-blog-suggestions] [data-suggest]");
+  if (!(await suggestionButtons.count())) errors.push("Blog page: topic suggestions do not appear on search focus");
+  else {
+    await suggestionButtons.first().click();
+    const selectedCategory = await interactionPage.locator("[data-blog-categories] [aria-pressed='true']").innerText();
+    const selectedLabels = await interactionPage.locator("[data-blog-grid] .blog-card__label").allTextContents();
+    if (!selectedLabels.length || selectedLabels.some(label => label.trim() !== selectedCategory.replace(/\\s+\\d+$/, "").trim())) errors.push("Blog page: clicking a suggested topic did not filter matching cards");
+  }
+  await interactionPage.locator("[data-blog-reset]").click();
+  const firstCardLink = interactionPage.locator("[data-blog-grid] .blog-card__link").first();
+  if (!(await firstCardLink.getAttribute("href"))?.startsWith("/bagusin/blog/")) errors.push("Blog page: article cards do not link to article detail pages");
+  const blogGrid = interactionPage.locator("[data-blog-grid]");
+  const mobileCardColumns = await blogGrid.evaluate(el => getComputedStyle(el).gridTemplateColumns.split(" ").filter(Boolean).length);
+  if (mobileCardColumns !== 1) errors.push("Blog page @ 390px: cards should stack in one column, got " + mobileCardColumns);
+  await interactionPage.setViewportSize({ width: 1440, height: 900 });
+  const desktopCardColumns = await blogGrid.evaluate(el => getComputedStyle(el).gridTemplateColumns.split(" ").filter(Boolean).length);
+  if (desktopCardColumns !== 4) errors.push("Blog page @ 1440px: expected four card columns, got " + desktopCardColumns);
+  await interactionPage.setViewportSize({ width: 390, height: 844 });
+  await interactionPage.goto(origin + "/bagusin/blog/memulai-kembali-bagusin/", { waitUntil: "domcontentloaded" });
+  await interactionPage.locator("[data-article-share]").first().waitFor({ state: "visible", timeout: 5000 });
+  if (await interactionPage.locator("[data-article-share]").count() < 5) errors.push("Article page: share controls are incomplete");
+  if (!(await interactionPage.locator(".article-ecosystem--other").count())) errors.push("Article page: separate other-articles recommendations are missing");
 
   // Checkout must be an honest draft flow: validate, review, accept terms, and never expose payment details.
   await interactionPage.goto(origin + "/bagusin/checkout/?service=landing-pages", { waitUntil: "domcontentloaded" });
