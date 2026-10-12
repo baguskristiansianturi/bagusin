@@ -11,6 +11,20 @@ document.addEventListener("DOMContentLoaded",function(){
  if(!article)return;
  const host=document.querySelector(".article-pro-footer")||document.querySelector("article");
  if(!host)return;
+ if(!document.querySelector(".article-share-tools")){
+  const share=document.createElement("section");
+  share.className="article-share-tools";
+  share.setAttribute("aria-label","Bagikan artikel");
+  share.innerHTML='<span class="article-share-tools__label">Bagikan tulisan ini</span><div class="article-share-tools__buttons"><button type="button" data-article-share="whatsapp">◉ WhatsApp</button><button type="button" data-article-share="facebook">f Facebook</button><button type="button" data-article-share="x">𝕏 X</button><button type="button" data-article-share="linkedin">in LinkedIn</button><button type="button" data-article-share="copy">↗ Salin tautan</button></div>';
+  host.parentNode.insertBefore(share,host);
+  share.addEventListener("click",async function(event){
+   const button=event.target.closest("[data-article-share]");if(!button)return;
+   const url=location.href.split("#")[0],title=document.querySelector("h1")?.textContent||document.title,network=button.dataset.articleShare;
+   const links={whatsapp:"https://wa.me/?text="+encodeURIComponent(title+" "+url),facebook:"https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(url),x:"https://x.com/intent/post?text="+encodeURIComponent(title)+"&url="+encodeURIComponent(url),linkedin:"https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(url)};
+   if(network==="copy"){try{await navigator.clipboard.writeText(url);button.textContent="✓ Tautan tersalin";}catch(_){const field=document.createElement("textarea");field.value=url;field.setAttribute("readonly","");field.style.position="fixed";field.style.opacity="0";document.body.appendChild(field);field.select();try{document.execCommand("copy");button.textContent="✓ Tautan tersalin";}catch(__){button.textContent="Salin gagal";}field.remove();}return;}
+   if(links[network])window.open(links[network],"_blank","noopener,noreferrer,width=720,height=640");
+  });
+ }
  const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
  const norm=v=>String(v??"").trim().toLowerCase();
  const values=a=>[a.category,a.subcategory,a.topic,...(a.tags||[])].map(norm).filter(Boolean);
