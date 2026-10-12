@@ -36,15 +36,24 @@ document.addEventListener("DOMContentLoaded",function(){
   .map(a=>({a,score:values(a).reduce((sum,v)=>sum+(current.has(v)?(v===norm(a.category)||v===norm(article.category)?3:1):0),0)}))
   .filter(x=>x.score>0).sort((x,y)=>y.score-x.score||String(x.a.title).localeCompare(String(y.a.title))).map(x=>x.a);
  const related=[...curated,...ranked].slice(0,3);
+ const otherArticles=R.articles.filter(a=>a.status==="PUBLISHED"&&a.id!==article.id&&!related.some(r=>r.id===a.id)&&norm(a.language||"id")===language&&norm(a.category)!==norm(article.category)).slice(0,3);
  const serviceIds=new Set([...(article.services||[]),...(article.relatedServices||[])]);
  const services=R.services.filter(s=>serviceIds.has(s.id));
- if(!related.length&&!services.length)return;
+ if(!related.length&&!services.length&&!otherArticles.length)return;
  const section=document.createElement("section");
  section.className="article-ecosystem";
  section.setAttribute("aria-labelledby","article-ecosystem-title");
  section.innerHTML='<div class="article-ecosystem__header"><span class="section-kicker">Bacaan lanjutan</span><h2 id="article-ecosystem-title">Lanjutkan penjelajahan</h2><p>Artikel dan layanan yang berhubungan dengan topik ini.</p></div>'+
  (related.length?'<div class="article-ecosystem__group"><span class="section-kicker">Artikel terkait</span><div class="article-ecosystem__links">'+related.map(a=>'<a href="'+esc(a.url)+'"><strong>'+esc(a.title)+'</strong><span>'+esc(a.excerpt||a.topic||a.category||"Baca artikel terkait")+'</span></a>').join("")+'</div></div>':"")+
  (services.length?'<div class="article-ecosystem__group"><span class="section-kicker">Layanan terkait</span><div class="article-ecosystem__links">'+services.map(s=>'<a href="'+esc(s.url)+'"><strong>'+esc(s.name)+'</strong><span>'+esc(s.purpose)+'</span></a>').join("")+'</div></div>':"");
+
  host.parentNode.insertBefore(section,host);
+ if(otherArticles.length){
+  const otherSection=document.createElement("section");
+  otherSection.className="article-ecosystem article-ecosystem--other";
+  otherSection.setAttribute("aria-labelledby","article-other-title");
+  otherSection.innerHTML='<div class="article-ecosystem__header"><span class="section-kicker">Bacaan lainnya</span><h2 id="article-other-title">Artikel lainnya</h2><p>Temukan tulisan dari topik yang berbeda.</p></div><div class="article-ecosystem__group"><div class="article-ecosystem__links">'+otherArticles.map(a=>'<a href="'+esc(a.url)+'"><strong>'+esc(a.title)+'</strong><span>'+esc(a.excerpt||a.topic||a.category||"Temukan bacaan lainnya")+'</span></a>').join("")+'</div></div>';
+  section.parentNode.insertBefore(otherSection,host);
+ }
 });
 })();
