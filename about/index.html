@@ -131,7 +131,7 @@
     <div class="container">
       <div class="about-youtube-card">
         <div class="about-youtube-card__video" data-youtube-frame data-video-id="" aria-label="Pratinjau video YouTube">
-          <div class="about-youtube-card__placeholder"><span class="about-youtube-card__play" aria-hidden="true">▶</span><span class="about-youtube-card__video-label">Cerita dari keseharian</span><span class="about-youtube-card__video-note">Video akan ditampilkan di sini saat tersedia.</span></div>
+          <button class="about-youtube-card__placeholder" type="button" data-youtube-play aria-label="Buka video YouTube Bagusin"><span class="about-youtube-card__play" aria-hidden="true">▶</span><span class="about-youtube-card__video-label">Cerita dari keseharian</span><span class="about-youtube-card__video-note">Tekan untuk melihat kanal YouTube</span></button>
         </div>
         <div class="about-youtube-card__copy"><span class="section-kicker">Di luar pekerjaan</span><h2 id="about-youtube-title">Di balik website, ada orang biasa.</h2>
           <p>Saya ingin berbagi cerita tentang keseharian, perjalanan, proses belajar, dan hal-hal kecil di luar pekerjaan. Tidak semuanya harus istimewa—kadang cerita sederhana justru paling dekat dengan kehidupan sehari-hari.</p>
@@ -185,5 +185,27 @@
 </footer>
 </div>
 <script src="../js/main.js" defer></script><script src="../js/navigation.js" defer></script><script src="../js/share.js" defer></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var frame = document.querySelector('[data-youtube-frame]');
+    var trigger = frame && frame.querySelector('[data-youtube-play]');
+    if (!frame || !trigger) return;
+    trigger.addEventListener('click', function () {
+      var videoId = (frame.getAttribute('data-video-id') || '').trim();
+      if (!/^[a-zA-Z0-9_-]{11}$/.test(videoId)) {
+        window.open('https://www.youtube.com/@BagusInOfficial', '_blank', 'noopener,noreferrer');
+        return;
+      }
+      var player = document.createElement('iframe');
+      player.src = 'https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1&rel=0';
+      player.title = 'Video YouTube Bagusin';
+      player.loading = 'lazy';
+      player.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      player.allowFullscreen = true;
+      player.referrerPolicy = 'strict-origin-when-cross-origin';
+      frame.replaceChildren(player);
+    });
+  });
+</script>
 </body>
 </html>
