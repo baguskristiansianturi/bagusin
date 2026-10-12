@@ -112,3 +112,12 @@ Use this single instruction to continue work. The detailed rules live in the rep
 > Aya, baca catatan terbaru di repository Bagusin dan lanjutkan dari tahap terakhir yang benar-benar terverifikasi.
 
 This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant master/checklist files (including `content/ARTICLE-EDITORIAL-SOP.md` for article work), the current branch and recent commits; verify what is complete and unfinished; follow the relevant SOP; make only scoped changes; test what can actually be tested; update the records; commit only when appropriate; and report honestly what was done, what remains, which files changed, the checks performed/not performed, the full commit SHA and deployment status. Never rely only on chat history or claim a test/deployment happened without verification.
+
+
+## Work log — 13 October 2026 (structure and course audit)
+
+- Added `SITE-STRUCTURE-AND-COURSE-PAGE-PLAN.md`: site architecture, page roles, course detail template, and article workflow.
+- Added `STRUCTURE-AUDIT-NOTES.md` and `COURSE-PAGE-AUDIT-2026-10-13.md` / `COURSE-PAGE-AUDIT-DETAILS.md`: initial verified inventory and static findings. All eight Indonesian and eight English course detail files exist. Module titles are specific, but many meeting descriptions use generic templated text and need course-specific exercises/deliverables before pages are treated as fully developed.
+- Added `content/ARTICLE-CONTENT-MAP-50.md`: 50 planned article slots, separating existing pages for audit from new topics. This is a content plan, not a claim that the 50 articles have been researched or written.
+- Added `STRUCTURE-AUDIT-NOTES.md` and course audit docs are static file inspections only. Browser interactions, form submission, responsive UI and live GitHub Pages remain unverified.
+- Next: verify source URLs and course price comparisons; refine each meeting's specific syllabus; test CTAs/contact; compare Learning ID/EN for full curriculum parity; then review and approve article intents/outlines/sources under `content/ARTICLE-EDITORIAL-SOP.md`.
