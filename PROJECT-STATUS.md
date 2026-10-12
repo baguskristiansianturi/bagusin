@@ -121,3 +121,13 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - Added `content/ARTICLE-CONTENT-MAP-50.md`: 50 planned article slots, separating existing pages for audit from new topics. This is a content plan, not a claim that the 50 articles have been researched or written.
 - Added `STRUCTURE-AUDIT-NOTES.md` and course audit docs are static file inspections only. Browser interactions, form submission, responsive UI and live GitHub Pages remain unverified.
 - Next: verify source URLs and course price comparisons; refine each meeting's specific syllabus; test CTAs/contact; compare Learning ID/EN for full curriculum parity; then review and approve article intents/outlines/sources under `content/ARTICLE-EDITORIAL-SOP.md`.
+
+
+## Work log — 13 October 2026 (Web Developer syllabus, ID + EN)
+
+- Replaced generic meeting copy on `learning/web-developer/index.html` with session-specific concept focus, guided practice, tangible output, and review criteria for all 22 meetings.
+- Mirrored the same learning progression in `en/learning/web-developer/index.html` with English copy.
+- Verified after writing by fetching both files again: each contains 22 course modules, 22 specific focus sections, and 22 practice-output labels; the previous generic placeholder sentence no longer appears.
+- Commits: ID `8d30f1314e2b6478f36868c010162aceb567a9e4`; EN `e24b130d5d988cdf95382d9ec53b6470f763e1b9`.
+- Scope intentionally limited to syllabus body copy. Prices, session count, availability, page layout, metadata, links, and shared styling were not changed.
+- Still not verified: browser rendering, keyboard interaction, mobile responsiveness, contact-form submission, or live GitHub Pages deployment. Next: apply the same course-specific syllabus standard to the other seven course pairs, then re-check prices/benchmark sources and registration status without changing commercial terms without approval.
