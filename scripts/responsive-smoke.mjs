@@ -351,7 +351,8 @@ try {
     const filteredLabels = await interactionPage.locator("[data-blog-grid] .blog-card__label").allTextContents();
     if (!filteredLabels.length || filteredLabels.some(label => label.trim() !== "Panduan Website")) errors.push("Blog page: category filter did not show only matching articles");
   }
-  await interactionPage.locator("[data-blog-reset]").click();
+  await interactionPage.locator('[data-blog-categories] [data-category="Semua artikel"]').click();
+  await interactionPage.locator("[data-blog-search-input]").fill("");
   const blogSearch = interactionPage.locator("[data-blog-search-input]");
   await blogSearch.fill("domain");
   const domainCards = await interactionPage.locator("[data-blog-grid] .blog-card__title").allTextContents();
@@ -366,7 +367,8 @@ try {
     const selectedLabels = await interactionPage.locator("[data-blog-grid] .blog-card__label").allTextContents();
     if (!selectedLabels.length || selectedLabels.some(label => label.trim() !== selectedCategory.replace(/\\s+\\d+$/, "").trim())) errors.push("Blog page: clicking a suggested topic did not filter matching cards");
   }
-  await interactionPage.locator("[data-blog-reset]").click();
+  await interactionPage.locator('[data-blog-categories] [data-category="Semua artikel"]').click();
+  await interactionPage.locator("[data-blog-search-input]").fill("");
   const firstCardLink = interactionPage.locator("[data-blog-grid] .blog-card__link").first();
   if (!(await firstCardLink.getAttribute("href"))?.startsWith("/bagusin/blog/")) errors.push("Blog page: article cards do not link to article detail pages");
   const blogGrid = interactionPage.locator("[data-blog-grid]");
