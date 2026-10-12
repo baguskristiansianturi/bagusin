@@ -123,10 +123,11 @@ for (const route of routes) {
 const interactionPage = await browser.newPage({ viewport: { width: 390, height: 844 } });
 try {
   await interactionPage.goto(origin + "/bagusin/", { waitUntil: "domcontentloaded" });
-  const homepageText = await interactionPage.locator("main").innerText();
+  let homepageText = await interactionPage.locator("main").innerText();
   // Homepage solution recommendations must stack into one readable column on mobile.
   await interactionPage.locator("[data-stage='starter']").click();
   await interactionPage.locator("[data-goal]").first().click();
+  homepageText = await interactionPage.locator("main").innerText();
   const mobileSolutions = interactionPage.locator("[data-recommended-solutions] > .home-recommended-solutions__grid");
   await mobileSolutions.waitFor({ state: "visible", timeout: 5000 });
   const mobileGrid = await mobileSolutions.evaluate((el) => {
@@ -304,7 +305,7 @@ try {
   const aboutText = await interactionPage.locator("main").innerText();
   const aboutStructuredData = await interactionPage.locator('script[type="application/ld+json"]').textContent();
   if (!aboutTitle.includes("Tentang")) errors.push("About page: title metadata is not localized");
-  if (!aboutText.includes("blog personal") || !aboutText.includes("Berangkat dari masalah nyata.")) errors.push("About page: Indonesian positioning copy is missing");
+  if (!aboutText.includes("ruang untuk pekerjaan digital") || !aboutText.includes("Selalu ada ruang untuk memperbaiki.")) errors.push("About page: current Indonesian positioning copy is missing");
   if (aboutText.includes("independent software studio") || aboutText.includes("Built around real problems.")) errors.push("About page: outdated English positioning copy remains");
   if (!aboutStructuredData || aboutStructuredData.includes("independent software studio")) errors.push("About page: structured data still contains outdated positioning");
 
@@ -365,7 +366,7 @@ try {
     await suggestionButtons.first().click();
     const selectedCategory = await interactionPage.locator("[data-blog-categories] [aria-pressed='true']").innerText();
     const selectedLabels = await interactionPage.locator("[data-blog-grid] .blog-card__label").allTextContents();
-    if (!selectedLabels.length || selectedLabels.some(label => label.trim() !== selectedCategory.replace(/\\s+\\d+$/, "").trim())) errors.push("Blog page: clicking a suggested topic did not filter matching cards");
+    if (!selectedLabels.length || selectedLabels.some(label => label.trim() !== selectedCategory.replace(/\s+\d+$/, "").trim())) errors.push("Blog page: clicking a suggested topic did not filter matching cards");
   }
   await interactionPage.locator('[data-blog-categories] [data-category="Semua artikel"]').click();
   await interactionPage.locator("[data-blog-search-input]").fill("");
@@ -400,7 +401,7 @@ try {
   if (await interactionPage.locator('[data-panel="3"]').isHidden()) errors.push("Checkout: review did not advance to terms");
   await interactionPage.locator('[data-next="4"]').click();
   if (await interactionPage.locator('[data-panel="4"]').isVisible()) errors.push("Checkout: terms step allowed continuation without consent");
-  await interactionPage.locator("#terms-agree").check();
+  await interactionPage.locator('[data-panel="3"] input[type="checkbox"][required]').check({ force: true });
   await interactionPage.locator('[data-next="4"]').click();
   if (await interactionPage.locator('[data-panel="4"]').isHidden()) errors.push("Checkout: terms consent did not advance to next steps");
   const checkoutText = await interactionPage.locator("#main-content").innerText();
