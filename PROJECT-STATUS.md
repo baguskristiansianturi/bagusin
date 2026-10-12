@@ -20,7 +20,7 @@ This document is the quick handoff for continuing Bagusin in a new ChatGPT conve
 - A service sells implementation, customization, specialist time, or responsibility for execution. A product offers a ready-to-use starting point. Explain the differences without pressure.
 - Affiliate links may be used where useful and disclosed clearly. Recommendations must remain honest and should not imply every visitor must buy through Bagusin.
 - Do not rush into display ads that damage the reading experience. Prioritize helpful content, products, courses when ready, and relevant services.
-- Write original content. Do not copy/paste other publishers' writing. Verify factual claims and cite/link sources when appropriate.
+- **Mandatory article standard:** follow `content/ARTICLE-EDITORIAL-SOP.md` for every article, including the planned 50-article programme. Original writing, source verification, overlap/cannibalization checks, taxonomy consistency, SEO review, and publication gates are required. If originality or factual support is doubtful, do not publish.
 - Avoid overengineering and perfectionism. Prioritize by user benefit, business impact, risk, and effort. Do not polish minor details at the cost of launching useful work.
 
 ## Design decisions to preserve
@@ -72,6 +72,8 @@ This is a content proposal, not yet implemented. Verify every link and the actua
 ## Immediate next steps
 
 - [ ] Review/confirm the homepage section order and hero path-finder audience.
+- [x] Add the mandatory article editorial/SEO SOP at `content/ARTICLE-EDITORIAL-SOP.md`.
+- [ ] Before drafting the 50-article programme, inspect the existing article inventory and build a content map with unique intent, overlap audit, outline, sources, category/tags and internal links.
 - [ ] Inspect the current footer implementation and global navigation dependencies before changing it.
 - [ ] Create a pre-change checkpoint (branch or commit) before code edits.
 - [ ] Make the smallest scoped homepage change first; do not refactor unrelated article, collection, portfolio, or global components.
@@ -103,10 +105,10 @@ This is a content proposal, not yet implemented. Verify every link and the actua
 - **Siap ditinjau:** implementation exists but review/checks remain.
 - **Selesai:** relevant implementation and checks passed; live/deployment checks must be explicitly noted when applicable.
 
-## Reusable prompt for a new ChatGPT conversation
+## One-line prompt for a new ChatGPT conversation
 
-You are continuing the existing Bagusin repository, not starting a new project. First inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant master/checklist files, current default branch and latest commits. Then inspect the exact current files relevant to the next unfinished checklist item. Do not rely only on chat history or prior assistant claims; verify the repository state.
+Use this single instruction to continue work. The detailed rules live in the repository and must be read before acting.
 
-Preserve Bagusin as Bagus's independent personal project, not a large agency. Follow the identity, content, design, and change-safety rules in `PROJECT-STATUS.md`. The user already likes the Blog/article, Collections, and Portfolio visual direction. Do not redesign those pages unless specifically requested. Continue from the latest verified unfinished task, and do not repeat completed work.
+> Aya, baca catatan terbaru di repository Bagusin dan lanjutkan dari tahap terakhir yang benar-benar terverifikasi.
 
-Before editing, report the verified current state, scope, affected files, and rollback point. Make only the smallest scoped changes, test relevant functionality and responsive layouts, review the diff, update `PROJECT-STATUS.md` and `ROADMAP.md`, then commit only after verification. Be explicit about what was and was not tested and whether GitHub Pages deployment was verified. At the end provide a phone-friendly handoff: task completed, pending checklist, changed files, test results, known issues, commit title, full SHA, date, and rollback reference. Never invent test results, commit hashes, or deployment status.
+This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant master/checklist files (including `content/ARTICLE-EDITORIAL-SOP.md` for article work), the current branch and recent commits; verify what is complete and unfinished; follow the relevant SOP; make only scoped changes; test what can actually be tested; update the records; commit only when appropriate; and report honestly what was done, what remains, which files changed, the checks performed/not performed, the full commit SHA and deployment status. Never rely only on chat history or claim a test/deployment happened without verification.
