@@ -45,6 +45,7 @@
       <b:section id='main' class='blogger-posts' maxwidgets='1' showaddelement='no'>
         <b:widget id='Blog1' locked='true' title='Artikel' type='Blog' version='2' visible='true'>
           <b:widget-settings><b:widget-setting name='showDateHeader'>false</b:widget-setting><b:widget-setting name='showShareButtons'>true</b:widget-setting><b:widget-setting name='showCommentLink'>true</b:widget-setting></b:widget-settings>
+          <b:includable id='nextprev'><div class='blog-pager'><b:if cond='data:newerPageUrl'><a expr:href='data:newerPageUrl'>Artikel lebih baru</a></b:if><b:if cond='data:olderPageUrl'><a expr:href='data:olderPageUrl'>Artikel sebelumnya</a></b:if></div></b:includable>
           <b:includable id='main' var='top'>
             <div class='post-grid'>
               <b:loop values='data:posts' var='post'>
