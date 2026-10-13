@@ -34,7 +34,7 @@ This document is the quick handoff for continuing Bagusin in a new ChatGPT conve
 - Courses can be listed before every course is ready, but clearly mark availability. Do not represent a planned course, service, channel, form, payment flow, or feature as live unless verified.
 - Consultation fee currently specified by Bagus: Rp1.000.000 per 60 minutes. Do not silently change this to Rp990.000 or another price.
 
-## Current phase: homepage and footer analysis
+## Current phase: Stage 2 — service catalog and detail pages
 
 ### Inspected in this session
 
@@ -214,3 +214,12 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - Commit: `5eda2c4c3897da44d4f63bb75d757fa4453b5655`. Re-fetched the file from `main`: zero old endpoint references and five references to the corrected endpoint.
 - At the time of this note, the browser smoke test and GitHub Pages deployment workflows for the new commit were queued, not yet completed. Do not treat the fix as test-passed or live-deployed until their results are checked.
 - Still unverified: actual FormSubmit activation/delivery and inbox receipt. The smoke test intercepts the network request and cannot prove real email delivery.
+
+
+## Work log — 13 October 2026 (Stage 2 service catalog audit)
+
+- Started branch `phase-2/service-catalog-audit-20261013` from main commit `417d7e3ca6646b33d013cbe277b3850e93c23eba`; checkout verification PR #125 remains separate and unmerged.
+- Static audit found a real consistency gap: Google Business Profile & Google Maps existed as a detail page but was missing from the shared service registry, service catalog cards, contact-form options/labels, terms-topic mapping, and sitemap. The detail page also contained unrelated landing-page copy and incorrect structured `serviceType`.
+- Implemented registry/catalog/contact/terms/sitemap updates and corrected the detail-page copy/metadata. Updated the generated service CTA to send a project brief before checkout.
+- Current changes are in a review branch only. Automated browser checks are not yet passing; the previous global smoke test reports four failures on collections/destinations, separate from this service-catalog change. Do not claim the full site passed.
+- Still to verify: JavaScript syntax/runtime, service detail CTA behavior, service/contact/terms routing in Indonesian and English, sitemap XML validity, and all PR checks. No real email delivery or live GitHub Pages deployment has been verified.

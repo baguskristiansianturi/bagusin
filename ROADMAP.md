@@ -71,13 +71,21 @@ Homepage menjelaskan bantuan Bagus dengan cepat, mengutamakan layanan, menyediak
 
 ## Tahap 2 — Katalog dan detail layanan
 
-**Status: Belum dimulai.**
+**Status: Dalam pengerjaan — perubahan awal berada di branch `phase-2/service-catalog-audit-20261013`; belum merge dan belum dinyatakan selesai.**
 
 - Audit semua layanan dan status ketersediaannya.
 - Samakan istilah, kategori, deskripsi ringkas, dan CTA.
 - Pastikan setiap layanan memiliki halaman detail yang menjelaskan cakupan, batasan, proses, hasil yang diharapkan, dan cara memulai.
 - Bedakan permintaan konsultasi, brief proyek, kesepakatan ruang lingkup, dan checkout setelah kesepakatan personal.
 - Pastikan tidak ada link kategori atau layanan yang menuju halaman kosong atau salah.
+
+### Audit awal dan perbaikan yang sedang ditinjau (13 Oktober 2026)
+
+- Audit statis menemukan halaman Google Business Profile & Google Maps tidak terdaftar di `js/service-registry.js`, tidak muncul pada katalog layanan utama, tidak tersedia pada pilihan formulir kontak, dan belum memiliki topik ketentuan khusus.
+- Halaman Google Business Profile berisi beberapa kalimat sisa copy landing page, label kategori yang tidak relevan, dan `serviceType` terstruktur yang salah.
+- Menambahkan layanan tersebut ke registry, katalog, pilihan kontak ID/EN, rute topik ketentuan ID/EN, serta sitemap; memperbaiki copy dan metadata halaman.
+- CTA layanan yang dihasilkan oleh `js/service-ecosystem.js` diarahkan ke brief proyek (`mode=project`) terlebih dahulu. Checkout tidak lagi menjadi langkah langsung dari CTA detail layanan; ruang lingkup, ketersediaan, penawaran, dan jadwal perlu disepakati lebih dulu.
+- Validasi statis dan pemeriksaan browser menyusul. Jangan tandai tahap ini selesai sebelum PR dan pemeriksaan terkait selesai.
 
 ## Tahap 3 — Demo, koleksi, dan portofolio
 
