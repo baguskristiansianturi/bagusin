@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded",function(){
  const serviceLabel=id=>R.services.find(x=>x.id===id)?.name||id;
  const statusLabel={AVAILABLE:"Available",COMING_SOON:"Coming soon",PLANNED:"Planned",BY_REQUEST:"By request",NOT_AVAILABLE:"Not available"}[s.status]||s.status;
  const whenNeeded={
+   "google-business-profile":"Ketika bisnis lokal perlu memastikan informasi resmi dan cara kontaknya akurat di Google Search dan Maps.",
    "copywriting":"Ketika offer atau informasi sudah ada, tetapi orang masih sulit memahami nilainya atau langkah berikutnya.",
    "seo-content":"Ketika bisnis ingin menjawab kebutuhan pencarian dengan konten yang relevan, bukan sekadar menambah jumlah artikel.",
    "landing-pages":"Ketika satu offer atau campaign membutuhkan satu halaman dengan tujuan tindakan yang jelas.",
