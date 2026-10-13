@@ -423,7 +423,7 @@ try {
   if (!submittedEmailPayload || submittedEmailPayload.client_email !== "client@example.com") errors.push("Checkout: email submission payload is missing the client's reply address");
   if (!submittedEmailPayload || submittedEmailPayload.service_id !== "landing-pages") errors.push("Checkout: email submission payload is missing the selected service");
   if (!submittedEmailPayload || !submittedEmailPayload.project_brief.includes("responsive campaign page")) errors.push("Checkout: email submission payload is missing the project brief");
-  if (!submittedEmailPayload || !submittedEmailPayload._subject.includes("Landing Pages")) errors.push("Checkout: email subject does not identify the service");
+  if (!submittedEmailPayload || !submittedEmailPayload._subject.includes("Landing Page & Iklan")) errors.push("Checkout: email subject does not identify the service");
   await interactionPage.goto(origin + "/bagusin/checkout/?service=google-ads", { waitUntil: "domcontentloaded" });
   await interactionPage.locator("#name").fill("Test Client");
   await interactionPage.locator("#email").fill("client@example.com");
@@ -462,6 +462,9 @@ try {
     if (await interactionPage.locator("#service").inputValue() !== item.service) errors.push("Checkout: collection CTA did not preselect " + item.service);
     await interactionPage.locator("#name").fill("Collection Test");
     await interactionPage.locator("#email").fill("collection@example.com");
+    await interactionPage.locator("#timeline").fill("Start 20 October, finish 5 November");
+    await interactionPage.locator("#agreed-quote").fill("1500000");
+    await interactionPage.locator("#payment-plan").fill("50% deposit, balance on handover");
     await interactionPage.locator("#brief").fill("Please review the selected collection and discuss scope.");
     await interactionPage.locator('[data-next="2"]').click();
     if (await interactionPage.locator('[data-panel="2"]').isHidden()) errors.push("Checkout: collection brief did not advance to review for " + item.service);
