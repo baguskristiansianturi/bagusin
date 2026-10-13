@@ -205,3 +205,12 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - Re-fetched the script from `main` and verified both destinations. This is static source verification only; it does not prove inbox ownership/activation, actual email receipt, or GitHub Pages deployment.
 - Code commit: `6aaa4858365173d7d3a08082770224cd9087fa49`. Roadmap record commit: `dd0010e2c8674512b9facb0c34aa3a571f28e6e4`.
 - Do not mark the form fully verified until the published page is checked and a safe test submission is confirmed in the intended inbox.
+
+
+## Work log — responsive smoke test recipient correction (13 October 2026)
+
+- Inspected the latest GitHub Actions run for commit `53376fcc53fa8b519f746c5f76937a78970c6794`. The browser smoke workflow failed because `scripts/responsive-smoke.mjs` still intercepted the old FormSubmit endpoint `baguskristian@gmail.com`, while `js/contact-form.js` had already been corrected to `sbaguskristian@gmail.com`.
+- Updated all five stale endpoint references in the smoke test to the specified inbox URL.
+- Commit: `5eda2c4c3897da44d4f63bb75d757fa4453b5655`. Re-fetched the file from `main`: zero old endpoint references and five references to the corrected endpoint.
+- At the time of this note, the browser smoke test and GitHub Pages deployment workflows for the new commit were queued, not yet completed. Do not treat the fix as test-passed or live-deployed until their results are checked.
+- Still unverified: actual FormSubmit activation/delivery and inbox receipt. The smoke test intercepts the network request and cannot prove real email delivery.
