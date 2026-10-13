@@ -222,3 +222,12 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 - Verified 23 unique English terms section IDs and all navigation anchors; checked stylesheet/script references.
 - Verified service mapping targets, language-specific terms routes, consultation/course mappings, balanced delimiters in `js/terms.js`, and both detailed terms URLs in the sitemap.
 - Browser and public deployment verification remains pending; the live URLs were inaccessible through the available web viewer. Do not label the flow fully tested until a real browser check passes.
+
+
+## Legacy terms navigation cleanup — 13 October 2026
+
+- Updated the legacy Indonesian legal terms page navigation/footer links to point to the detailed `/terms/` page rather than linking back to the legacy route. Removed the stale current-page marker from the legacy navigation link.
+- Updated the legacy English legal terms page navigation, footer, and language-switch links to point to `/en/terms/`; aligned its Open Graph URL with the detailed canonical terms URL.
+- Re-fetched both changed files from `main` after commits. Static verification: no remaining navigation hrefs to the legacy terms routes in either changed page; Indonesian page has three links to detailed terms and English page has five. The English Open Graph URL no longer points to the legacy route.
+- Commits: ID [`e7de6fefbd5754346e94e06271856e0a3b4d012a`](https://github.com/baguskristiansianturi/bagusin/commit/e7de6fefbd5754346e94e06271856e0a3b4d012a); EN [`989f335c10d1ce7a9d4337df1a1879f51df09662`](https://github.com/baguskristiansianturi/bagusin/commit/989f335c10d1ce7a9d4337df1a1879f51df09662).
+- Limits: this was a source-level navigation audit only. No browser interaction, live GitHub Pages check, keyboard/mobile visual test, or real form submission was performed. The detailed Terms pages and contact form journey must still pass runtime checks before the feature is considered complete.
