@@ -545,7 +545,7 @@ try {
   if (!collectionTitle.includes("Template")) errors.push("Collections page: title metadata is not localized");
   if (!collectionText.includes("Koleksi terbaru") || !collectionText.includes("Bagus Sewa Mobil Bali 01")) errors.push("Collections page: latest demo is missing");
   if (!collectionText.includes("750.000") || !collectionText.includes("domain/hosting terpisah")) errors.push("Collections page: package price or exclusions are unclear");
-  const templateCard = interactionPage.locator("[data-template-grid] .template-product").first();
+  const templateCard = interactionPage.locator("[data-template-grid] .template-product").filter({ hasText: "Bagus Sewa Mobil Bali 01" }).first();
   if (!(await templateCard.locator(".template-chip").allTextContents()).some(text => text.includes("Satu halaman"))) errors.push("Collections page: one-page format label is incorrect");
   const demoLink = templateCard.locator('a[href="/bagusin/demos/starter/travel-rental/bagus-sewa-mobil-bali-01/"]').first();
   if (!(await demoLink.count())) errors.push("Collections page: canonical demo link is missing");
@@ -579,14 +579,13 @@ try {
   if (portfolioSeparationText.includes("Koleksi terbaru") || portfolioSeparationText.includes("Pilih template")) errors.push("Portfolio page: collection/order content has not been separated");
 
   // Destinations should remain experience-based, without fabricated ratings or itineraries.
-  // Destinations is intentionally consolidated into Blog; verify the redirect notice rather than old standalone-page copy.
+  // Destinations is intentionally consolidated into Blog; verify the final redirect destination.
   await interactionPage.goto(origin + "/bagusin/destinations/", { waitUntil: "domcontentloaded" });
+  await interactionPage.waitForURL(/\/bagusin\/blog\/$/, { timeout: 5000 });
   const destinationsTitle = await interactionPage.title();
-  const destinationsText = await interactionPage.locator("body").innerText();
-  if (!destinationsTitle.includes("Catatan perjalanan") || !destinationsTitle.includes("Bagusin")) errors.push("Destinations redirect: title should explain the localized Blog destination");
-  if (!destinationsText.includes("Catatan perjalanan kini menjadi bagian dari Blog Bagusin") || !destinationsText.includes("Lanjutkan ke Blog")) errors.push("Destinations redirect: localized redirect message or link is missing");
-  if (destinationsText.includes("Places, seen through the experience of being there.") || destinationsText.includes("A growing map of stories.")) errors.push("Destinations redirect: outdated English interface copy remains");
-  if (!(await interactionPage.locator('a[href="/bagusin/blog/"]').count())) errors.push("Destinations redirect: Blog destination link is missing");
+  const destinationsText = await interactionPage.locator("main").innerText();
+  if (!destinationsTitle.includes("Blog") || !destinationsTitle.includes("Bagusin")) errors.push("Destinations redirect: final Blog page title is missing");
+  if (!destinationsText.includes("Blog") || destinationsText.includes("Places, seen through the experience of being there.") || destinationsText.includes("A growing map of stories.")) errors.push("Destinations redirect: final page is not the expected localized Blog experience");
 } catch (error) {
   errors.push("Homepage/article/contact interaction smoke test: " + (error.stack || error.message));
 } finally {
