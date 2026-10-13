@@ -492,13 +492,13 @@ try {
   await interactionPage.goto(origin + "/bagusin/templates/", { waitUntil: "domcontentloaded" });
   const storeCatalogCard = interactionPage.locator(".store-product-card");
   await storeCatalogCard.waitFor({ state: "visible", timeout: 5000 });
-  await interactionPage.locator('[data-platform="wordpress"]').click();
+  await interactionPage.locator('button[data-platform="wordpress"]').click();
   if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: WordPress with no products should show an honest empty state");
   if (await storeCatalogCard.isVisible()) errors.push("Template store: Blogger product remained visible after switching to WordPress");
-  await interactionPage.locator('[data-platform="coded"]').click();
+  await interactionPage.locator('button[data-platform="coded"]').click();
   if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: coded platform should show an honest empty state until a code template is released");
   if (!(await interactionPage.locator("[data-results-title]").innerText()).includes("HTML, CSS")) errors.push("Template store: coded platform heading is incorrect");
-  await interactionPage.locator('[data-platform="blogger"]').click();
+  await interactionPage.locator('button[data-platform="blogger"]').click();
   await interactionPage.locator("[data-template-purpose]").selectOption("landing-page");
   if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: purpose filter should not mislabel an editorial blog as a landing page");
   await interactionPage.locator("[data-template-purpose]").selectOption("blog");
