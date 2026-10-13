@@ -336,5 +336,5 @@ if (errors.length) {
   for (const error of errors) console.error("- " + error);
   process.exitCode = 1;
 } else {
-  console.log("PASS: tested route loading, structural overflow, local resources, JavaScript errors, mobile menu, global search, and contact brief preparation/copy feedback, Indonesian services-page copy, About-page positioning, localized portfolio copy, Indonesian YouTube-page copy, localized Blog-index copy, and Indonesian Destinations-page copy.");
+  console.log("PASS: tested route loading, structural overflow, local resources, JavaScript errors, mobile menu, global search, contact brief preparation/copy feedback, template preview/order links, portfolio separation, and the legacy Destinations-to-Blog redirect.");
 }
