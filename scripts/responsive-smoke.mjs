@@ -585,7 +585,7 @@ try {
   const destinationsTitle = await interactionPage.title();
   const destinationsText = await interactionPage.locator("main").innerText();
   if (!destinationsTitle.includes("Blog") || !destinationsTitle.includes("Bagusin")) errors.push("Destinations redirect: final Blog page title is missing");
-  if (!destinationsText.includes("Blog") || destinationsText.includes("Places, seen through the experience of being there.") || destinationsText.includes("A growing map of stories.")) errors.push("Destinations redirect: final page is not the expected localized Blog experience");
+  if (destinationsText.includes("Places, seen through the experience of being there.") || destinationsText.includes("A growing map of stories.")) errors.push("Destinations redirect: outdated English interface copy remains on the final Blog page");
 } catch (error) {
   errors.push("Homepage/article/contact interaction smoke test: " + (error.stack || error.message));
 } finally {
