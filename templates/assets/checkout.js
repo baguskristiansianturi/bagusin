@@ -16,6 +16,8 @@
   const finalConfirm = document.querySelector("#test-final-confirm");
   const summaryLicense = document.querySelector("[data-summary-license]");
   const summaryPrice = document.querySelector("[data-summary-price]");
+  const requestedLicense = new URLSearchParams(window.location.search).get("license");
+  if (requestedLicense === "premium" || requestedLicense === "free") license.value = requestedLicense;
   let step = 1;
   function licenseName() { return license.value === "premium" ? "Premium (simulasi tanpa kredit)" : "Free (kredit Bagusin tetap ada)"; }
   function price() { return license.value === "premium" ? "Rp49.000 (harga uji)" : "Rp0"; }
