@@ -15,7 +15,7 @@ Sumber yang ditinjau:
 - https://www.soratemplates.com/2017/07/sora-cart-blogger-templates.html
 - https://www.soratemplates.com/p/support.html
 
-Bagusin mengambil pola perjalanan tersebut, bukan desain, teks, atau identitas SoraTemplates. Struktur Bagusin disesuaikan dengan dua platform awal: Blogger dan WordPress, pilihan industri, demo visual, detail teknis ringkas, lisensi yang transparan, dokumentasi, lalu konfirmasi order.
+Bagusin mengambil pola perjalanan tersebut, bukan desain, teks, atau identitas SoraTemplates. Katalog memisahkan tiga dimensi agar tidak tercampur: (1) platform/format distribusi — Blogger, WordPress, dan kode HTML/CSS/JS; (2) kebutuhan/desain — landing page, profil bisnis/perusahaan, blog/editorial, toko/katalog, dan portofolio; (3) industri — blog personal, bisnis jasa, travel/rental, penginapan, kuliner, fashion, teknologi, pendidikan, kreatif, dan toko online. Dimensi ini saling melengkapi, bukan saling menggantikan. Kategori yang belum memiliki produk harus tetap menampilkan empty state yang jujur.
 
 ## Jalur prototipe
 
@@ -52,3 +52,12 @@ Bagusin mengambil pola perjalanan tersebut, bukan desain, teks, atau identitas S
 - [ ] Desktop dan mobile diuji di browser.
 - [ ] XML berhasil diimpor ke Blogger test blog sebelum dinyatakan siap dijual.
 - [ ] Produk/lisensi/harga yang disetujui ditinjau sebelum menghapus noindex atau memasukkan ke sitemap.
+
+
+## Perubahan katalog — 14 Oktober 2026
+
+- Menambahkan pilihan platform ketiga: **HTML, CSS & JS**. Karena belum ada template kode yang dirilis pada katalog ini, pilihan tersebut menampilkan empty state, bukan produk palsu.
+- Menambahkan filter **Jenis kebutuhan** yang terpisah dari platform dan industri: landing page, profil bisnis/perusahaan, blog/editorial, toko online/katalog, dan portofolio.
+- Kartu Bagusin Editorial diberi klasifikasi kebutuhan `blog`; filter landing page tidak boleh menampilkan item blog hanya karena keduanya bisa berupa satu halaman.
+- Jumlah produk di samping industri dihitung dari kartu katalog pada platform yang dipilih; angka tidak boleh menjadi klaim ketersediaan yang direka.
+- Tetap `noindex,nofollow` dan prototipe. Harga, lisensi, checkout, impor Blogger, dan pengiriman belum boleh disebut transaksi aktif.
