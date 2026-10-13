@@ -29,19 +29,8 @@
       href: "https://baguskristiansianturi.github.io/Sewa-Mobil-Bali/",
       image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=85",
       imageAlt: "Mobil sebagai contoh demo website rental",
-      publishedAt: "2026-10-12"
+      publishedAt: "2026-10-11"
     },
-    {
-      id: "template-collection",
-      type: "template",
-      title: "Template dan desain",
-      eyebrow: "Koleksi · Produk digital",
-      description: "Jelajahi contoh desain dan template yang bisa dikembangkan sesuai kebutuhan.",
-      href: "/bagusin/collections/",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab8277c52?auto=format&fit=crop&w=900&q=80",
-      imageAlt: "Tampilan antarmuka produk digital",
-      publishedAt: "2026-10-12"
-    }
   ];
 
   const DAY = 24 * 60 * 60 * 1000;
