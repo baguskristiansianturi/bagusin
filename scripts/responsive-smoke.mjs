@@ -490,11 +490,11 @@ try {
 
   // New self-installable template journey: platform/category → visual demo → license → simulated checkout.
   await interactionPage.goto(origin + "/bagusin/templates/", { waitUntil: "domcontentloaded" });
-  const templateCard = interactionPage.locator(".store-product-card");
-  await templateCard.waitFor({ state: "visible", timeout: 5000 });
+  const storeCatalogCard = interactionPage.locator(".store-product-card");
+  await storeCatalogCard.waitFor({ state: "visible", timeout: 5000 });
   await interactionPage.locator('[data-platform="wordpress"]').click();
   if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: WordPress with no products should show an honest empty state");
-  if (await templateCard.isVisible()) errors.push("Template store: Blogger product remained visible after switching to WordPress");
+  if (await storeCatalogCard.isVisible()) errors.push("Template store: Blogger product remained visible after switching to WordPress");
   await interactionPage.locator('[data-platform="coded"]').click();
   if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: coded platform should show an honest empty state until a code template is released");
   if (!(await interactionPage.locator("[data-results-title]").innerText()).includes("HTML, CSS")) errors.push("Template store: coded platform heading is incorrect");
@@ -502,14 +502,14 @@ try {
   await interactionPage.locator("[data-template-purpose]").selectOption("landing-page");
   if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: purpose filter should not mislabel an editorial blog as a landing page");
   await interactionPage.locator("[data-template-purpose]").selectOption("blog");
-  if (!(await templateCard.isVisible())) errors.push("Template store: blog purpose filter hid the matching editorial template");
+  if (!(await storeCatalogCard.isVisible())) errors.push("Template store: blog purpose filter hid the matching editorial template");
   await interactionPage.locator("[data-template-purpose]").selectOption("all");
-  if (!(await templateCard.isVisible())) errors.push("Template store: Blogger product did not return after switching platforms");
+  if (!(await storeCatalogCard.isVisible())) errors.push("Template store: Blogger product did not return after switching platforms");
   await interactionPage.locator('[data-industry="travel-rental"]').click();
   if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: empty industry should not fabricate a product");
   await interactionPage.locator('[data-industry="all"]').click();
   await interactionPage.locator("[data-template-search]").fill("editorial");
-  if (!(await templateCard.isVisible())) errors.push("Template store: search did not find Bagusin Editorial");
+  if (!(await storeCatalogCard.isVisible())) errors.push("Template store: search did not find Bagusin Editorial");
   await interactionPage.locator("[data-template-search]").fill("hotel");
   if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: unmatched search did not show an empty state");
   await interactionPage.locator("[data-template-search]").fill("");
