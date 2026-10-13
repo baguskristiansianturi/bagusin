@@ -262,3 +262,16 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 - Updated the five test interception references in `scripts/responsive-smoke.mjs` to match the endpoint in `js/contact-form.js`.
 - Fix commit: `5eda2c4c3897da44d4f63bb75d757fa4453b5655`. Source re-fetch confirmed zero stale endpoint references in the test and five references to the intended endpoint.
 - Browser smoke and Pages deployment runs for this commit were queued at the time of writing; result and live deployment must be checked before marking this step complete. Network interception is a simulated test and does not prove real inbox delivery.
+
+
+## Template store buyer journey prototype — 13 October 2026
+
+**Status: implementation committed on PR branch; not merged or deployed. Browser QA and Blogger import test remain outstanding.**
+
+- Added a separate self-installable template catalogue at `/templates/`, distinct from the website-build/service catalogue.
+- Platform choices: Blogger and WordPress. Industry categories stay visible even when empty; no level filter is shown for templates.
+- Added the Bagusin Editorial Blogger prototype, visual demo, product detail, Free/Premium test license choices, and multi-step simulated checkout.
+- Added two Blogger XML prototype variants and a focused flow/acceptance checklist in `docs/TEMPLATE-STORE-FLOW.md`.
+- Checkout is intentionally simulated: no payment, data persistence, email, or file delivery. Test price is not a commercial offer. Prototype pages use `noindex,nofollow`.
+- Research basis: public SoraTemplates product pages separate live demo, version/license choices, features, documentation, purchase, and support. Bagusin adopts the journey pattern, not their visual design or copy.
+- Before marking ready: run browser smoke tests, check mobile/desktop layout and local links, validate form state/escaping, import both XML variants into a dedicated Blogger test blog, define final license/update/support policy, then remove prototype-only labeling/noindex only after approval.
