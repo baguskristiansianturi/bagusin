@@ -153,7 +153,7 @@ try {
   await interactionPage.setViewportSize({ width: 390, height: 844 });
   await interactionPage.locator("[data-reset-pathfinder]").click();
 
-  if (!homepageText.includes("Penulisan Konten & SEO") || !homepageText.includes("Aplikasi Web & Sistem")) errors.push("Homepage: Indonesian service labels are missing");
+  if (!homepageText.includes("Rapikan konten dan visibilitas") || !homepageText.includes("Sistem operasional")) errors.push("Homepage: current Indonesian service/path labels are missing");
   if (homepageText.includes("Content Writing & SEO") || homepageText.includes("Web Applications & Systems")) errors.push("Homepage: outdated English service labels remain");
   const menuToggle = interactionPage.locator("[data-mobile-menu-toggle]").first();
   if (!(await menuToggle.count())) errors.push("Homepage: mobile menu toggle is missing");
@@ -281,7 +281,7 @@ try {
   await interactionPage.locator("#project-form button[type=submit]").click();
   await interactionPage.waitForFunction(() => document.querySelector("#project-form [data-mailto-fallback]") !== null, null, { timeout: 5000 });
   const fallbackLink = interactionPage.locator("#project-form [data-mailto-fallback]");
-  if (!(await fallbackLink.getAttribute("href")).startsWith("mailto:baguskristian@gmail.com")) errors.push("Contact form: failure fallback does not open the configured recipient");
+  if (!(await fallbackLink.getAttribute("href")).startsWith("mailto:sbaguskristian@gmail.com")) errors.push("Contact form: failure fallback does not open the configured recipient");
   if (!(await interactionPage.locator("#form-status").innerText()).includes("belum terkonfirmasi")) errors.push("Contact form: failed delivery is not communicated honestly");
   await interactionPage.unroute("https://formsubmit.co/ajax/sbaguskristian@gmail.com");
 
