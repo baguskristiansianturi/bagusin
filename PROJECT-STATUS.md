@@ -159,3 +159,14 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - Confirmed the English contact form links to `/en/legal/terms/`, which exists but currently contains only generic terms text. The English form does not expose the `contact-terms-link` ID, so the shared service-specific link updater does not update it. The English page therefore does not currently offer the same service-specific terms journey as the Indonesian form.
 - This is a verified static markup/script finding. No form submission, browser interaction, or live deployment was tested. No production code was changed in this audit.
 - Next safe step: prepare and review a genuinely equivalent English terms page (including translated service-specific sections and stable topic anchors), then wire the English contact form and shared script to the English-localized anchors. Do not merely point the English form at the Indonesian terms page or claim parity before content and behavior are checked.
+
+
+## Work log — 13 October 2026 (English terms journey implemented; static verification)
+
+- Added `en/terms/index.html` with 23 anchored sections: general terms, order/payment/scope/revision/cancellation/delivery/rights/privacy/support/law, eight service topics, private courses, and digital products. Reused the site's existing terms layout/styles and topic-filter script.
+- Updated the English contact form to expose `contact-terms-link` and point to the English terms page.
+- Updated `js/contact-form.js` so service-specific terms links use the current language's route and include mappings for general consultation and course inquiries.
+- Updated `js/terms.js` with English topic labels/anchors while retaining the Indonesian topic map and language-aware search normalisation.
+- Updated the legacy English legal terms page to point to the detailed page and added both detailed terms pages to `sitemap.xml`.
+- Static checks: English terms page contains 23 sections; required stylesheet and `js/terms.js` are included; contact form has the dynamic link ID; route mapping is language-aware; sitemap contains both detailed routes. This is source-level inspection only. No browser/keyboard/screen-reader test, real form submission, or live GitHub Pages deployment check has been completed.
+- Next verification gate: run a browser test for each service selection in ID and EN, confirm the link lands on the matching section, inspect mobile layout and keyboard operation, and verify the deployed Pages URL before declaring the flow complete.
