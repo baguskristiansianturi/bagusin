@@ -231,3 +231,15 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 - Re-fetched both changed files from `main` after commits. Static verification: no remaining navigation hrefs to the legacy terms routes in either changed page; Indonesian page has three links to detailed terms and English page has five. The English Open Graph URL no longer points to the legacy route.
 - Commits: ID [`e7de6fefbd5754346e94e06271856e0a3b4d012a`](https://github.com/baguskristiansianturi/bagusin/commit/e7de6fefbd5754346e94e06271856e0a3b4d012a); EN [`989f335c10d1ce7a9d4337df1a1879f51df09662`](https://github.com/baguskristiansianturi/bagusin/commit/989f335c10d1ce7a9d4337df1a1879f51df09662).
 - Limits: this was a source-level navigation audit only. No browser interaction, live GitHub Pages check, keyboard/mobile visual test, or real form submission was performed. The detailed Terms pages and contact form journey must still pass runtime checks before the feature is considered complete.
+
+
+## Contact-form language parity audit — 13 October 2026
+
+**Status: targeted source fixes committed; browser and deployment verification remain pending.**
+
+- A follow-up source review found three Indonesian-only context strings that could appear on the English contact form: the selected-design label, the appended in-person consultation note in a template brief, and the homepage recommendation context label.
+- Localised those strings according to the page language in `js/contact-form.js`; kept the consultation amount at Rp1.000.000 per 60 minutes in Indonesian and Rp1,000,000 per 60 minutes in English.
+- Re-fetched the updated script from `main` and confirmed the three bilingual branches are present and the old hard-coded context labels are absent.
+- Static checks: both contact forms load the shared script and require the terms checkbox; all 10 service-to-terms mappings target an existing anchor in both detailed terms pages; section IDs are unique on both pages.
+- Commit: [`ef23ae36a39fab1917e32c15ed728a60f52f08ba`](https://github.com/baguskristiansianturi/bagusin/commit/ef23ae36a39fab1917e32c15ed728a60f52f08ba).
+- Limits: these are source-level checks, not execution tests. Do not mark the contact/terms journey complete until browser checks cover language switching, service selection, keyboard focus, mobile layout, actual email delivery, and the published GitHub Pages version.
