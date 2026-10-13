@@ -13,7 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
     websites: "Websites & Complex Web",
     "web-applications": "Web Applications & Database Systems",
     "maintenance-uiux": "Maintenance, Improvement & UI/UX",
-    "google-ads": "Google Ads",\n    "google-business-profile": "Google Business Profile & Google Maps",
+    "google-ads": "Google Ads",
+    "google-business-profile": "Google Business Profile & Google Maps",
     "mobile-apps": "Mobile App Development"
   } : {
     consultation: "Konsultasi strategis",
