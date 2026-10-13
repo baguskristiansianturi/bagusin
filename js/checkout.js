@@ -354,7 +354,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .map(([key, value]) => key.replace(/_/g, " ").toUpperCase() + ":\n" + value)
       .join("\n\n");
     const link = document.createElement("a");
-    link.href = "mailto:baguskristian@gmail.com?subject=" + encodeURIComponent(payload._subject) + "&body=" + encodeURIComponent(body);
+    link.href = "mailto:sbaguskristian@gmail.com?subject=" + encodeURIComponent(payload._subject) + "&body=" + encodeURIComponent(body);
     link.className = "button button--secondary";
     link.textContent = "Buka aplikasi email sebagai alternatif";
     emailStatus.replaceChildren();
@@ -382,7 +382,7 @@ document.addEventListener("DOMContentLoaded", () => {
     sendButton.textContent = "Mengirim konfirmasi…";
     emailStatus.textContent = "Mengirim brief ke layanan email. Mohon tunggu dan jangan tutup halaman.";
     try {
-      const response = await fetch("https://formsubmit.co/ajax/baguskristian@gmail.com", {
+      const response = await fetch("https://formsubmit.co/ajax/sbaguskristian@gmail.com", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify(payload)
