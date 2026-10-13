@@ -11,6 +11,15 @@ Terakhir diperbarui: 13 Oktober 2026
 - Cache-buster stylesheet responsif diperbarui agar browser meminta versi terbaru.
 - Status: perubahan kode sudah dicatat pada branch kerja. Pemeriksaan browser lintas ukuran layar dan verifikasi GitHub Pages masih harus dilakukan sebelum merge.
 
+## Catatan perubahan — katalog template lintas platform (14 Oktober 2026)
+
+- Branch: `feat/blogger-template-store-journey` / PR #129.
+- Memisahkan filter katalog menjadi tiga dimensi: platform (Blogger, WordPress, HTML/CSS/JS), jenis kebutuhan (landing page, profil bisnis, blog, toko/katalog, portofolio), dan industri.
+- Menambahkan pilihan HTML/CSS/JS tanpa mengarang produk yang belum tersedia; platform kosong menampilkan empty state yang jelas.
+- Menambahkan hitungan kategori yang mengikuti jumlah produk pada platform terpilih dan pengujian browser untuk filter platform/kebutuhan.
+- Batasan: prototipe masih `noindex,nofollow`; belum ada pembayaran, penyimpanan order, email, pengiriman otomatis, atau uji impor Blogger yang dinyatakan lulus.
+- Gerbang berikutnya: browser smoke test penuh, cek responsif dan tautan; setelah katalog selesai, selaraskan halaman detail dan navigasi homepage.
+
 ## Prinsip kerja
 
 - Bagusin diposisikan sebagai ekosistem personal yang dijalankan secara independen oleh Bagus, bukan perusahaan yang mengklaim memiliki tim besar.
