@@ -222,7 +222,7 @@ try {
   if (!contactOptionsText.includes("Layanan yang dibutuhkan") || !contactOptionsText.includes("ceritakan kebutuhanmu secara singkat")) errors.push("Contact page: concise service selection and brief guidance are missing");
   if (contactOptionsText.includes("software engineering") || contactOptionsText.includes("SEO content")) errors.push("Contact page: English service terms remain in Indonesian copy");
   let contactEmailPayload = null;
-  await interactionPage.route("https://formsubmit.co/ajax/baguskristian@gmail.com", async (route) => {
+  await interactionPage.route("https://formsubmit.co/ajax/sbaguskristian@gmail.com", async (route) => {
     if (route.request().method() === "OPTIONS") {
       await route.fulfill({ status: 204, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" } });
       return;
@@ -265,8 +265,8 @@ try {
   if (!contactEmailPayload || contactEmailPayload.mode !== "consultation") errors.push("English contact form: email payload is missing the inquiry mode");
 
   // If the email service fails, the contact form must provide an honest manual email fallback.
-  await interactionPage.unroute("https://formsubmit.co/ajax/baguskristian@gmail.com");
-  await interactionPage.route("https://formsubmit.co/ajax/baguskristian@gmail.com", async (route) => {
+  await interactionPage.unroute("https://formsubmit.co/ajax/sbaguskristian@gmail.com");
+  await interactionPage.route("https://formsubmit.co/ajax/sbaguskristian@gmail.com", async (route) => {
     if (route.request().method() === "OPTIONS") {
       await route.fulfill({ status: 204, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" } });
       return;
@@ -283,7 +283,7 @@ try {
   const fallbackLink = interactionPage.locator("#project-form [data-mailto-fallback]");
   if (!(await fallbackLink.getAttribute("href")).startsWith("mailto:baguskristian@gmail.com")) errors.push("Contact form: failure fallback does not open the configured recipient");
   if (!(await interactionPage.locator("#form-status").innerText()).includes("belum terkonfirmasi")) errors.push("Contact form: failed delivery is not communicated honestly");
-  await interactionPage.unroute("https://formsubmit.co/ajax/baguskristian@gmail.com");
+  await interactionPage.unroute("https://formsubmit.co/ajax/sbaguskristian@gmail.com");
 
   // The Indonesian services page should use Indonesian metadata and headings.
   await interactionPage.goto(origin + "/bagusin/work/", { waitUntil: "domcontentloaded" });
@@ -410,7 +410,7 @@ try {
   if (!checkoutText.includes("baguskristian@gmail.com")) errors.push("Checkout: destination email is not disclosed");
   if (checkoutText.includes("1460137710")) errors.push("Checkout: bank account details are shown before an agreed quotation");
   let submittedEmailPayload = null;
-  await interactionPage.route("https://formsubmit.co/ajax/baguskristian@gmail.com", async (route) => {
+  await interactionPage.route("https://formsubmit.co/ajax/sbaguskristian@gmail.com", async (route) => {
     if (route.request().method() === "OPTIONS") {
       await route.fulfill({ status: 204, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" } });
       return;
