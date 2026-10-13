@@ -132,3 +132,7 @@ body.menu-open{overflow:hidden}
 @media (prefers-reduced-motion:reduce){
   .site-header,.mobile-menu-toggle__icon span,.nav-dropdown-toggle > span{transition:none}
 }
+
+/* Explicit sticky behavior for the shared site header across desktop and mobile. */
+.site-header{position:sticky !important;top:0;z-index:1000;isolation:isolate}
+.site-header.is-sticky{box-shadow:0 8px 28px rgba(0,0,0,.07)}
