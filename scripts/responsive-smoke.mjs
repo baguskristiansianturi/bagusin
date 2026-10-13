@@ -493,9 +493,9 @@ try {
   if (!collectionText.includes("750.000") || !collectionText.includes("domain/hosting terpisah")) errors.push("Collections page: package price or exclusions are unclear");
   const templateCard = interactionPage.locator("[data-template-grid] .template-product").first();
   if (!(await templateCard.locator(".template-chip").allTextContents()).some(text => text.includes("Satu halaman"))) errors.push("Collections page: one-page format label is incorrect");
-  const previewLink = templateCard.locator('a[href="/bagusin/templates/preview/?template=BG-TRV-STR-001"]').first();
+  const previewLink = interactionPage.locator('[data-template-grid] a[href="/bagusin/templates/preview/?template=BG-TRV-STR-001"]').first();
   if (!(await previewLink.count())) errors.push("Collections page: interactive preview CTA is missing");
-  const packageLink = templateCard.locator('a[href="/bagusin/templates/preview/?template=BG-TRV-STR-001#spec-title"]').first();
+  const packageLink = interactionPage.locator('[data-template-grid] a[href="/bagusin/templates/preview/?template=BG-TRV-STR-001#spec-title"]').first();
   if (!(await packageLink.count())) errors.push("Collections page: package details and pricing CTA is missing");
   if (!(await interactionPage.locator('.site-nav a[href="/bagusin/collections/"]').count())) errors.push("Collections page: collection navigation link is missing");
 
