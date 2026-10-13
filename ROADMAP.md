@@ -11,6 +11,16 @@ Terakhir diperbarui: 13 Oktober 2026
 - Cache-buster stylesheet responsif diperbarui agar browser meminta versi terbaru.
 - Status: perubahan kode sudah dicatat pada branch kerja. Pemeriksaan browser lintas ukuran layar dan verifikasi GitHub Pages masih harus dilakukan sebelum merge.
 
+
+## Catatan perubahan — homepage carousel campuran dan pemangkasan halaman (13 Oktober 2026)
+
+- Branch kerja: `ux/homepage-newest-carousel`.
+- Menyiapkan carousel horizontal “Baru di Bagusin” untuk item lintas jenis: layanan, produk, template, demo, kode, aplikasi, artikel, dan course. Aturan: urut terbaru, maksimal 6 kartu, kedaluwarsa setelah 30 hari dari `publishedAt`, kontrol manual, jeda saat hover/focus, dan menghormati reduced motion.
+- Memindahkan preview course ke sebelum carousel dan mengganti beberapa grid penjelasan/artikel berulang setelah shelf dengan navigasi ringkas ke layanan, koleksi/template, portofolio/kode/aplikasi, Blog, dan course.
+- Menambahkan `docs/HOMEPAGE-CONTENT-REGISTER.md` sebagai aturan kurasi shelf dan `docs/PROJECT-DECISIONS.md` sebagai catatan keputusan/handoff lintas sesi.
+- Penting: tanggal awal item di registry masih harus dibandingkan dengan riwayat rilis publik sebelum merge. Tanggal PR bukan tanggal rilis publik. Browser/responsiveness dan GitHub Pages live belum diverifikasi; belum merge/deploy.
+- Berikutnya: verifikasi tanggal item, jalankan pemeriksaan syntax dan test responsive, audit link, kemudian lanjut ke katalog.
+
 ## Prinsip kerja
 
 - Bagusin diposisikan sebagai ekosistem personal yang dijalankan secara independen oleh Bagus, bukan perusahaan yang mengklaim memiliki tim besar.
