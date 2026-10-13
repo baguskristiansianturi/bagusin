@@ -579,14 +579,14 @@ try {
   if (portfolioSeparationText.includes("Koleksi terbaru") || portfolioSeparationText.includes("Pilih template")) errors.push("Portfolio page: collection/order content has not been separated");
 
   // Destinations should remain experience-based, without fabricated ratings or itineraries.
+  // Destinations is intentionally consolidated into Blog; verify the redirect notice rather than old standalone-page copy.
   await interactionPage.goto(origin + "/bagusin/destinations/", { waitUntil: "domcontentloaded" });
   const destinationsTitle = await interactionPage.title();
-  const destinationsText = await interactionPage.locator("main").innerText();
-  const destinationsStructuredData = await interactionPage.locator('script[type="application/ld+json"]').textContent();
-  if (!destinationsTitle.includes("Destinasi")) errors.push("Destinations page: title metadata is not localized");
-  if (!destinationsText.includes("Tempat, dilihat dari pengalaman saat berada di sana.") || !destinationsText.includes("Tidak ada rencana perjalanan yang sempurna.")) errors.push("Destinations page: Indonesian headings are missing");
-  if (destinationsText.includes("Places, seen through the experience of being there.") || destinationsText.includes("A growing map of stories.")) errors.push("Destinations page: English interface copy remains");
-  if (!destinationsStructuredData || destinationsStructuredData.includes("Destinations BagusIn")) errors.push("Destinations page: structured data still contains outdated English description");
+  const destinationsText = await interactionPage.locator("body").innerText();
+  if (!destinationsTitle.includes("Catatan perjalanan") || !destinationsTitle.includes("Bagusin")) errors.push("Destinations redirect: title should explain the localized Blog destination");
+  if (!destinationsText.includes("Catatan perjalanan kini menjadi bagian dari Blog Bagusin") || !destinationsText.includes("Lanjutkan ke Blog")) errors.push("Destinations redirect: localized redirect message or link is missing");
+  if (destinationsText.includes("Places, seen through the experience of being there.") || destinationsText.includes("A growing map of stories.")) errors.push("Destinations redirect: outdated English interface copy remains");
+  if (!(await interactionPage.locator('a[href="/bagusin/blog/"]').count())) errors.push("Destinations redirect: Blog destination link is missing");
 } catch (error) {
   errors.push("Homepage/article/contact interaction smoke test: " + (error.stack || error.message));
 } finally {
