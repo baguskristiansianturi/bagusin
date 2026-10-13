@@ -188,3 +188,12 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - Verified both changed files were fetched again from `main`. Static checks found zero remaining legacy Terms hrefs in these two files; detailed route links: ID 3, EN 5; stale English Open Graph URL absent.
 - Commits: ID `e7de6fefbd5754346e94e06271856e0a3b4d012a`; EN `989f335c10d1ce7a9d4337df1a1879f51df09662`.
 - Not verified: actual browser navigation, responsive layout, keyboard accessibility, live Pages deployment, or email submission. Do not mark this journey fully complete until those checks pass.
+
+
+## Latest verified work — contact-form language parity (13 October 2026)
+
+- Fixed three Indonesian-only context labels that could appear on the English contact form: selected design, the in-person consultation note appended to a template brief, and homepage recommendation context.
+- Preserved the specified consultation price: Rp1.000.000 per 60 minutes (English display: Rp1,000,000 per 60 minutes).
+- Verified the updated `js/contact-form.js` was re-fetched from `main`; both ID/EN forms load it and require the terms checkbox. All 10 service-to-terms mappings point to existing anchors in both detailed terms pages, and the terms-page section IDs are unique.
+- Code commit: `ef23ae36a39fab1917e32c15ed728a60f52f08ba`. Roadmap record commit: `2379f9d03e253a52a7284714a94c9c7f8279afcf`.
+- Verification boundary: static source checks only. No browser execution, screen-reader/keyboard test, mobile visual inspection, real email delivery, or live GitHub Pages confirmation has been completed. The next gate remains direct browser verification; do not label the contact/terms journey fully tested until that passes.
