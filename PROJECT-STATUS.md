@@ -197,3 +197,11 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - Verified the updated `js/contact-form.js` was re-fetched from `main`; both ID/EN forms load it and require the terms checkbox. All 10 service-to-terms mappings point to existing anchors in both detailed terms pages, and the terms-page section IDs are unique.
 - Code commit: `ef23ae36a39fab1917e32c15ed728a60f52f08ba`. Roadmap record commit: `2379f9d03e253a52a7284714a94c9c7f8279afcf`.
 - Verification boundary: static source checks only. No browser execution, screen-reader/keyboard test, mobile visual inspection, real email delivery, or live GitHub Pages confirmation has been completed. The next gate remains direct browser verification; do not label the contact/terms journey fully tested until that passes.
+
+
+## Latest verified work — contact recipient correction (13 October 2026)
+
+- Corrected the FormSubmit AJAX destination and manual mailto fallback in `js/contact-form.js` from `baguskristian@gmail.com` to the specified contact inbox `sbaguskristian@gmail.com`.
+- Re-fetched the script from `main` and verified both destinations. This is static source verification only; it does not prove inbox ownership/activation, actual email receipt, or GitHub Pages deployment.
+- Code commit: `6aaa4858365173d7d3a08082770224cd9087fa49`. Roadmap record commit: `dd0010e2c8674512b9facb0c34aa3a571f28e6e4`.
+- Do not mark the form fully verified until the published page is checked and a safe test submission is confirmed in the intended inbox.
