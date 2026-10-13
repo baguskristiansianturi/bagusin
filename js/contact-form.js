@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "web-applications": "Aplikasi Web & Sistem Basis Data",
     "maintenance-uiux": "Pemeliharaan, Peningkatan & UI/UX",
     "google-ads": "Google Ads",
+    "google-business-profile": "Google Business Profile & Google Maps",
     "mobile-apps": "Pengembangan Aplikasi Mobile"
   };
   const serviceHeading = document.getElementById("selected-service");
@@ -37,7 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
     websites: "websites",
     "web-applications": "web-applications",
     "maintenance-uiux": "maintenance-uiux",
-    "google-ads": "google-ads",\n    "google-business-profile": "google-business-profile",
+    "google-ads": "google-ads",
+    "google-business-profile": "google-business-profile",
     "mobile-apps": "mobile-apps",
     consultation: "general",
     "course-interest": "courses"
