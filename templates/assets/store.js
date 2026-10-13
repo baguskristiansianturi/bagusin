@@ -4,6 +4,7 @@
   const platformButtons = [...root.querySelectorAll("[data-platform]")];
   const industryButtons = [...root.querySelectorAll("[data-industry]")];
   const search = root.querySelector("[data-template-search]");
+  const purposeFilter = root.querySelector("[data-template-purpose]");
   const cards = [...root.querySelectorAll(".store-product-card")];
   const empty = root.querySelector("[data-store-empty]");
   const count = root.querySelector("[data-result-count]");
@@ -21,17 +22,20 @@
       const platformMatch = card.dataset.platform === platform;
       const industryMatch = industry === "all" || card.dataset.industry === industry;
       const queryMatch = !query || (card.dataset.search || "").includes(query);
-      const show = platformMatch && industryMatch && queryMatch;
+      const purposeMatch = !purposeFilter || purposeFilter.value === "all" || card.dataset.purpose === purposeFilter.value;
+      const show = platformMatch && industryMatch && queryMatch && purposeMatch;
       card.hidden = !show;
       if (show) visible += 1;
     });
-    if (title) title.textContent = platform === "blogger" ? "Template Blogger" : "Tema WordPress";
-    if (kicker) kicker.textContent = platform.toUpperCase();
-    if (description) description.textContent = platform === "blogger" ? "Desain untuk blog personal dan editorial." : "Tema untuk website berbasis WordPress.";
+    const platformLabels = { blogger: "Template Blogger", wordpress: "Tema WordPress", coded: "Template HTML, CSS & JS" };
+    const platformDescriptions = { blogger: "File tema untuk blog berbasis Blogger.", wordpress: "Tema untuk website yang menggunakan WordPress.", coded: "Kode website yang dapat dikembangkan dan dipasang pada hosting pilihan." };
+    if (title) title.textContent = platformLabels[platform];
+    if (kicker) kicker.textContent = platform === "coded" ? "HTML · CSS · JS" : platform.toUpperCase();
+    if (description) description.textContent = platformDescriptions[platform];
     if (empty) empty.hidden = visible > 0;
-    if (count) count.textContent = visible ? visible + (visible === 1 ? " template contoh ditampilkan." : " template contoh ditampilkan.") : "Belum ada template yang cocok.";
+    if (count) count.textContent = visible ? visible + (visible === 1 ? " template tersedia." : " template tersedia.") : "Belum ada template yang cocok dengan pilihan ini.";
     if (!visible && allEmpty && emptyCopy) {
-      const platformLabel = platform === "blogger" ? "Blogger" : "WordPress";
+      const platformLabel = platform === "blogger" ? "Blogger" : platform === "wordpress" ? "WordPress" : "HTML, CSS & JS";
       allEmpty.textContent = industry !== "all" ? "Belum ada template " + platformLabel + " untuk industri ini" : "Koleksi " + platformLabel + " akan ditampilkan di sini";
       emptyCopy.textContent = query ? "Coba kata pencarian lain atau reset filter untuk melihat kategori yang sudah tersedia." : "Kategori ini tetap disiapkan untuk produk mendatang. Tidak ada produk yang ditampilkan sebagai tersedia sebelum benar-benar siap.";
     }
@@ -44,11 +48,17 @@
       const active = button.dataset.industry === industry;
       button.classList.toggle("is-active", active);
       button.setAttribute("aria-pressed", String(active));
+      const badge = button.querySelector("[data-industry-count]");
+      if (badge) {
+        const total = cards.filter(card => card.dataset.platform === platform && (button.dataset.industry === "all" || card.dataset.industry === button.dataset.industry)).length;
+        badge.textContent = total ? String(total).padStart(2, "0") : "—";
+      }
     });
   }
   platformButtons.forEach(button => button.addEventListener("click", () => { platform = button.dataset.platform; render(); }));
   industryButtons.forEach(button => button.addEventListener("click", () => { industry = button.dataset.industry; render(); }));
   search?.addEventListener("input", render);
+  purposeFilter?.addEventListener("change", render);
   root.querySelectorAll("[data-clear-filter],[data-clear-empty]").forEach(button => button.addEventListener("click", () => {
     industry = "all";
     platform = "blogger";
@@ -59,6 +69,7 @@
     card.dataset.platform = "blogger";
     card.dataset.industry = "blog-personal";
     card.dataset.search = "bagusin editorial blogger blog personal lifestyle editorial";
+    card.dataset.purpose = "blog";
   });
   render();
 })();
