@@ -205,3 +205,13 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 - Indonesian contact form has a service-specific terms link that the shared script updates from the selected service.
 - English contact form points to the existing generic English legal terms page, but does not participate in the service-specific link updater. The English terms page does not yet mirror the detailed Indonesian terms sections/anchors.
 - Next: create/review the equivalent English terms content and anchors, wire language-aware link updates, then test selected service → correct terms section in both languages. Browser and live deployment checks remain pending.
+
+
+## English terms journey — 13 October 2026
+
+**Implementation committed; static checks only.**
+
+- Added the English terms page with 23 matching section anchors, including general terms, service-specific conditions, private courses, and digital products.
+- Wired the English contact form and shared script to language-specific terms routes and service anchors. The shared terms script now displays English topic labels and uses English search normalisation on English pages while preserving Indonesian behaviour.
+- Added the detailed ID/EN terms pages to the sitemap and redirected the legacy English legal page's content toward the detailed terms page.
+- Not yet verified: browser interactions, accessibility/keyboard behaviour, mobile rendering, real submission, or public deployment. Do not mark the flow fully complete until these checks pass.
