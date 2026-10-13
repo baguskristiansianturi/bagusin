@@ -384,7 +384,25 @@ try {
   if (await interactionPage.locator("[data-article-share]").count() < 5) errors.push("Article page: share controls are incomplete");
   if (!(await interactionPage.locator(".article-ecosystem--other").count())) errors.push("Article page: separate other-articles recommendations are missing");
 
-  // Checkout must be an honest draft flow: validate, review, accept terms, and never expose payment details.
+  // Checkout must validate, review, accept terms, and reach submit without depending on a live email backend.
+  // The test replaces only the FormSubmit fetch call in the browser; no real email is sent.
+  let submittedEmailPayload = null;
+  await interactionPage.addInitScript(() => {
+    const nativeFetch = window.fetch.bind(window);
+    window.__bagusinTestEmailPayload = null;
+    window.fetch = async (input, init = {}) => {
+      const url = typeof input === "string" ? input : input?.url || "";
+      if (url === "https://formsubmit.co/ajax/sbaguskristian@gmail.com") {
+        try { window.__bagusinTestEmailPayload = JSON.parse(init.body || "{}"); }
+        catch { window.__bagusinTestEmailPayload = null; }
+        return new Response(JSON.stringify({ success: "true", message: "Simulated test acceptance; no email sent" }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" }
+        });
+      }
+      return nativeFetch(input, init);
+    };
+  });
   await interactionPage.goto(origin + "/bagusin/checkout/?service=landing-pages", { waitUntil: "domcontentloaded" });
   if (await interactionPage.locator("#service").inputValue() !== "landing-pages") errors.push("Checkout: incoming service was not preselected");
   await interactionPage.locator("#name").fill("Test Client");
@@ -409,17 +427,9 @@ try {
   if (!checkoutText.includes("follow-up dilakukan secara personal melalui WhatsApp")) errors.push("Checkout: manual WhatsApp follow-up process is not explained");
   if (!checkoutText.includes("sbaguskristian@gmail.com")) errors.push("Checkout: destination email is not disclosed");
   if (checkoutText.includes("1460137710")) errors.push("Checkout: bank account details are shown before an agreed quotation");
-  let submittedEmailPayload = null;
-  await interactionPage.route("https://formsubmit.co/ajax/sbaguskristian@gmail.com", async (route) => {
-    if (route.request().method() === "OPTIONS") {
-      await route.fulfill({ status: 204, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" } });
-      return;
-    }
-    submittedEmailPayload = route.request().postDataJSON();
-    await route.fulfill({ status: 200, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" }, contentType: "application/json", body: JSON.stringify({ success: "true", message: "Test submission accepted" }) });
-  });
   await interactionPage.locator("#send-order-brief").click();
   await interactionPage.waitForFunction(() => document.querySelector("#checkout-email-status")?.textContent.includes("diterima layanan email"), null, { timeout: 5000 });
+  submittedEmailPayload = await interactionPage.evaluate(() => window.__bagusinTestEmailPayload || null);
   if (!submittedEmailPayload || submittedEmailPayload.client_email !== "client@example.com") errors.push("Checkout: email submission payload is missing the client's reply address");
   if (!submittedEmailPayload || submittedEmailPayload.service_id !== "landing-pages") errors.push("Checkout: email submission payload is missing the selected service");
   if (!submittedEmailPayload || !submittedEmailPayload.project_brief.includes("responsive campaign page")) errors.push("Checkout: email submission payload is missing the project brief");
@@ -481,6 +491,7 @@ try {
   await interactionPage.locator('[data-next="4"]').click();
   await interactionPage.locator("#send-order-brief").click();
   await interactionPage.waitForFunction(() => document.querySelector("#checkout-email-status")?.textContent.includes("diterima layanan email"), null, { timeout: 5000 });
+  submittedEmailPayload = await interactionPage.evaluate(() => window.__bagusinTestEmailPayload || null);
   if (!submittedEmailPayload || submittedEmailPayload.category !== "Landing Page") errors.push("Checkout: copywriting category was not included in the email payload");
 
   // Collections and Portfolio have distinct roles and destinations.
