@@ -34,5 +34,5 @@ Layanan yang dikerjakan Bagus tetap punya jalur tersendiri dari katalog website 
 ## Handoff
 
 - Homepage: PR #130, branch `ux/homepage-newest-carousel`. Audit statis lulus; browser smoke masih memiliki assertion yang gagal terkait copy homepage, CTA katalog, dan lokalisasi halaman destinasi. Belum merge/deploy.
-- Katalog: PR #129, branch `feat/blogger-template-store-journey`. Filter platform, kebutuhan, dan industri telah ditambahkan; pemeriksaan browser CI terbaru sedang diverifikasi.
+- Katalog: PR #129, branch `feat/blogger-template-store-journey`. Filter platform, kebutuhan, dan industri telah ditambahkan. Browser smoke test penuh lulus pada commit `83c7c0e38f00758ca48d17b608b47ea1dda2dd79` (51 rute, 306 pemeriksaan viewport; CI audit rute/SEO juga lulus).
 - Berikutnya: selesaikan browser smoke katalog, periksa tampilan mobile/desktop, lanjutkan penyelarasan halaman detail dan navigasi. Setelah fase roadmap selesai, lakukan audit gabungan atas PR tertunda sebelum memulai proyek baru.
