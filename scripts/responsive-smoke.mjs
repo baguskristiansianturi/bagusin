@@ -493,11 +493,22 @@ try {
   if (!collectionText.includes("750.000") || !collectionText.includes("domain/hosting terpisah")) errors.push("Collections page: package price or exclusions are unclear");
   const templateCard = interactionPage.locator("[data-template-grid] .template-product").first();
   if (!(await templateCard.locator(".template-chip").allTextContents()).some(text => text.includes("Satu halaman"))) errors.push("Collections page: one-page format label is incorrect");
-  const demoLink = templateCard.locator('a[href="/bagusin/demos/starter/travel-rental/bagus-sewa-mobil-bali-01/"]').first();
-  if (!(await demoLink.count())) errors.push("Collections page: canonical demo link is missing");
-  const detailLink = templateCard.locator('a[href*="/templates/detail/?template=BG-TRV-STR-001"]').first();
-  if (!(await detailLink.count())) errors.push("Collections page: package detail CTA is missing");
+  const previewLink = interactionPage.locator('[data-template-grid] a[href="/bagusin/templates/preview/?template=BG-TRV-STR-001"]').first();
+  if (!(await previewLink.count())) errors.push("Collections page: interactive preview CTA is missing");
+  const packageLink = interactionPage.locator('[data-template-grid] a[href="/bagusin/templates/preview/?template=BG-TRV-STR-001#spec-title"]').first();
+  if (!(await packageLink.count())) errors.push("Collections page: package details and pricing CTA is missing");
   if (!(await interactionPage.locator('.site-nav a[href="/bagusin/collections/"]').count())) errors.push("Collections page: collection navigation link is missing");
+
+  // Category filters should prioritize relevant demos without hiding other available demos.
+  const categoryFilter = interactionPage.locator("[data-template-category]");
+  await categoryFilter.selectOption("business");
+  const cardsAfterBusinessFilter = interactionPage.locator("[data-template-grid] .template-product");
+  await interactionPage.waitForFunction(() => document.querySelectorAll("[data-template-grid] .template-product").length === 2);
+  if (await cardsAfterBusinessFilter.count() !== 2) errors.push("Collections page: selecting a category hid other available demos");
+  if (!(await cardsAfterBusinessFilter.first().innerText()).includes("Bagus Ink")) errors.push("Collections page: matching category was not prioritized");
+  await categoryFilter.selectOption("campaign");
+  if (await interactionPage.locator("[data-template-grid] .template-product").count() !== 2) errors.push("Collections page: category with no matching demo hid available designs");
+  await categoryFilter.selectOption("");
 
   // Verify the complete template journey: catalog → demo → package details → correct contact intent.
   await interactionPage.goto(origin + "/bagusin/templates/detail/?template=BG-TRV-STR-001", { waitUntil: "domcontentloaded" });
@@ -524,15 +535,11 @@ try {
   if (!portfolioSeparationText.includes("hanya akan ditampilkan jika ada izin")) errors.push("Portfolio page: client permission boundary is missing");
   if (portfolioSeparationText.includes("Koleksi terbaru") || portfolioSeparationText.includes("Pilih template")) errors.push("Portfolio page: collection/order content has not been separated");
 
-  // Destinations should remain experience-based, without fabricated ratings or itineraries.
+  // The former destinations route is intentionally retired and redirects to the Blog.
   await interactionPage.goto(origin + "/bagusin/destinations/", { waitUntil: "domcontentloaded" });
-  const destinationsTitle = await interactionPage.title();
-  const destinationsText = await interactionPage.locator("main").innerText();
-  const destinationsStructuredData = await interactionPage.locator('script[type="application/ld+json"]').textContent();
-  if (!destinationsTitle.includes("Destinasi")) errors.push("Destinations page: title metadata is not localized");
-  if (!destinationsText.includes("Tempat, dilihat dari pengalaman saat berada di sana.") || !destinationsText.includes("Tidak ada rencana perjalanan yang sempurna.")) errors.push("Destinations page: Indonesian headings are missing");
-  if (destinationsText.includes("Places, seen through the experience of being there.") || destinationsText.includes("A growing map of stories.")) errors.push("Destinations page: English interface copy remains");
-  if (!destinationsStructuredData || destinationsStructuredData.includes("Destinations BagusIn")) errors.push("Destinations page: structured data still contains outdated English description");
+  await interactionPage.waitForURL("**/bagusin/blog/", { timeout: 5000 });
+  if (!interactionPage.url().endsWith("/bagusin/blog/")) errors.push("Destinations route: legacy URL did not redirect to the Blog");
+  if (!(await interactionPage.title()).includes("Blog")) errors.push("Destinations route: redirect did not land on the localized Blog page");
 } catch (error) {
   errors.push("Homepage/article/contact interaction smoke test: " + (error.stack || error.message));
 } finally {
