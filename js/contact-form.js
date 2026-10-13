@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (template && modeDisplay) {
     const tag = document.createElement("p");
     tag.className = "form-template-context";
-    tag.textContent = "Desain dipilih: " + selectedTemplateName;
+    tag.textContent = (isEnglish ? "Selected design: " : "Desain dipilih: ") + selectedTemplateName;
     modeDisplay.appendChild(tag);
   }
 
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (template) briefField.value = (isEnglish ? "Selected website design: " : "Desain website dipilih: ") + selectedTemplateName + "\n\n" +
       (isEnglish ? "Business name / brand:\nMain goal for this website:\nServices / products:\nContact / WhatsApp number:\nAddress and business hours:\nDomain / hosting status:\nPreferred launch date:\nChanges or extra features:\n\nPlease confirm scope, final price, timeline, and delivery method before work begins." :
       "Nama bisnis / brand:\nTujuan utama website:\nLayanan / produk:\nNomor kontak / WhatsApp:\nAlamat dan jam operasional:\nStatus domain / hosting:\nTarget publikasi:\nPerubahan atau fitur tambahan:\n\nMohon konfirmasi ruang lingkup, harga final, jadwal, dan cara serah terima sebelum pengerjaan dimulai.");
-    if (meeting === "in-person") briefField.value += "\n\nPermintaan konsultasi tatap muka: Rp1.000.000 per 60 menit. Mohon konfirmasi jadwal, lokasi, dan biaya sebelum pertemuan.";
+    if (meeting === "in-person") briefField.value += "\n\n" + (isEnglish ? "In-person consultation: Rp1,000,000 per 60 minutes. Please confirm the date, location, and fee before the meeting." : "Permintaan konsultasi tatap muka: Rp1.000.000 per 60 menit. Mohon konfirmasi jadwal, lokasi, dan biaya sebelum pertemuan.");
   }
   if (template === "sewa-mobil-bali" && briefField && !briefField.value.trim()) {
     briefField.value = isEnglish
@@ -257,7 +257,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const tag = document.createElement("p");
       tag.className = "form-template-context";
       tag.dataset.recommendationContext = "";
-      tag.textContent = "Jalur rekomendasi: " + (recommendationLabels[recommendationPath] || recommendationPath) + " · " + (goalLabels[recommendationGoal] || recommendationGoal);
+      tag.textContent = (isEnglish ? "Recommended path: " : "Jalur rekomendasi: ") + (recommendationLabels[recommendationPath] || recommendationPath) + " · " + (goalLabels[recommendationGoal] || recommendationGoal);
       context.appendChild(tag);
     }
   }
