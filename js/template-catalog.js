@@ -9,15 +9,22 @@
   const base = root.dataset.catalogUrl || "/bagusin/templates/catalog.json";
   const money = value => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(value);
   const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, char => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[char]));
-  let catalog;\n  let showAll = false;\n  const showAllButton = document.createElement("button");\n  showAllButton.type = "button";\n  showAllButton.className = "button button--secondary template-catalog-show-all";\n  showAllButton.textContent = "Lihat semua koleksi";\n  showAllButton.hidden = true;\n  grid.insertAdjacentElement("afterend", showAllButton);\n  showAllButton.addEventListener("click", () => { showAll = true; render(); });
+  let catalog;
+  let showAll = false;
+  const showAllButton = document.createElement("button");
+  showAllButton.type = "button";
+  showAllButton.className = "button button--secondary template-catalog-show-all";
+  showAllButton.textContent = "Lihat semua koleksi";
+  showAllButton.hidden = true;
+  grid.insertAdjacentElement("afterend", showAllButton);
+  showAllButton.addEventListener("click", () => { showAll = true; render(); });
   function render() {
     if (!catalog) return;
     const q = search.value.trim().toLocaleLowerCase("id");
     const selectedCategory = category.value;
     const selectedLevel = level.value;
 
-    // Categories guide discovery, but must never hide a demo that is already available.
-    // Matching designs appear first; the rest of the available catalogue remains visible.
+    // Show only available designs that match the active filters.
     const items = catalog.templates
       .filter(item => item.status === "available")
       .filter(item => {
@@ -31,7 +38,10 @@
         String(a.name || "").localeCompare(String(b.name || ""), "id")
       );
 
-    const categoryName = catalog.categories.find(item => item.id === selectedCategory)?.name;\n    const visibleItems = showAll ? items : items.slice(0, 15);\n    showAllButton.hidden = items.length <= 15 || showAll;\n    showAllButton.textContent = `Lihat semua koleksi (${items.length})`;
+    const categoryName = catalog.categories.find(item => item.id === selectedCategory)?.name;
+    const visibleItems = showAll ? items : items.slice(0, 15);
+    showAllButton.hidden = items.length <= 15 || showAll;
+    showAllButton.textContent = `Lihat semua koleksi (${items.length})`;
     status.textContent = items.length
       ? (selectedCategory
           ? `${items.length} koleksi tersedia · ${categoryName || selectedCategory}`
