@@ -179,3 +179,12 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - Verified English contact form has the dynamic terms-link ID, shared routing selects `/en/terms/` or `/terms/` by page language, and mappings exist for consultation → `general` and course inquiry → `courses`. Every mapped topic exists in the relevant terms page.
 - Checked balanced delimiters in `js/terms.js` and confirmed both detailed terms routes are in the sitemap.
 - Live page URLs could not be opened through the available web viewer, and no browser runner is available in this session. Therefore runtime behaviour, mobile appearance, actual form submission, and deployment remain unverified.
+
+
+## Work log — 13 October 2026 (legacy Terms navigation cleanup)
+
+- Fixed navigation paths in `legal/terms/index.html` so its Terms links lead to the detailed Indonesian `/terms/` page. Removed the incorrect current-page marker from the legacy-page link.
+- Fixed navigation and language-switch paths in `en/legal/terms/index.html` so they lead to the detailed English `/en/terms/` page; aligned the Open Graph URL with the detailed canonical URL.
+- Verified both changed files were fetched again from `main`. Static checks found zero remaining legacy Terms hrefs in these two files; detailed route links: ID 3, EN 5; stale English Open Graph URL absent.
+- Commits: ID `e7de6fefbd5754346e94e06271856e0a3b4d012a`; EN `989f335c10d1ce7a9d4337df1a1879f51df09662`.
+- Not verified: actual browser navigation, responsive layout, keyboard accessibility, live Pages deployment, or email submission. Do not mark this journey fully complete until those checks pass.
