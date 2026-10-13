@@ -42,9 +42,10 @@ document.addEventListener("DOMContentLoaded", function () {
   function updateTermsLink(selectedService) {
     if (!termsLink) return;
     const topic = termsTopics[selectedService];
+    const termsBase = isEnglish ? "/bagusin/en/terms/" : "/bagusin/terms/";
     termsLink.href = topic
-      ? "/bagusin/terms/?topic=" + encodeURIComponent(topic) + "#" + encodeURIComponent(topic)
-      : "/bagusin/terms/#general";
+      ? termsBase + "?topic=" + encodeURIComponent(topic) + "#" + encodeURIComponent(topic)
+      : termsBase + "#general";
     termsLink.textContent = topic
       ? (isEnglish ? "Read general and " + (labels[selectedService] || "service") + " terms" : "Baca ketentuan umum dan khusus " + (labels[selectedService] || "layanan"))
       : (isEnglish ? "Read general terms" : "Baca ketentuan umum");
