@@ -254,3 +254,11 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 - Re-fetched the updated script from `main` and verified the AJAX endpoint and mailto fallback both use the specified inbox. This is source verification only; it does not prove FormSubmit activation, email receipt, or public deployment.
 - Commit: [`6aaa4858365173d7d3a08082770224cd9087fa49`](https://github.com/baguskristiansianturi/bagusin/commit/6aaa4858365173d7d3a08082770224cd9087fa49).
 - Next gate: verify published code, then perform an explicitly safe test submission and confirm receipt at the intended inbox before closing this flow.
+
+
+## Contact recipient smoke-test regression — 13 October 2026
+
+- The browser smoke test failed on commit `53376fcc53fa8b519f746c5f76937a78970c6794` because its network interception still targeted the old contact recipient, while the production script used the corrected address.
+- Updated the five test interception references in `scripts/responsive-smoke.mjs` to match the endpoint in `js/contact-form.js`.
+- Fix commit: `5eda2c4c3897da44d4f63bb75d757fa4453b5655`. Source re-fetch confirmed zero stale endpoint references in the test and five references to the intended endpoint.
+- Browser smoke and Pages deployment runs for this commit were queued at the time of writing; result and live deployment must be checked before marking this step complete. Network interception is a simulated test and does not prove real inbox delivery.
