@@ -215,3 +215,10 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 - Wired the English contact form and shared script to language-specific terms routes and service anchors. The shared terms script now displays English topic labels and uses English search normalisation on English pages while preserving Indonesian behaviour.
 - Added the detailed ID/EN terms pages to the sitemap and redirected the legacy English legal page's content toward the detailed terms page.
 - Not yet verified: browser interactions, accessibility/keyboard behaviour, mobile rendering, real submission, or public deployment. Do not mark the flow fully complete until these checks pass.
+
+
+### Final source-level audit — 13 October 2026
+
+- Verified 23 unique English terms section IDs and all navigation anchors; checked stylesheet/script references.
+- Verified service mapping targets, language-specific terms routes, consultation/course mappings, balanced delimiters in `js/terms.js`, and both detailed terms URLs in the sitemap.
+- Browser and public deployment verification remains pending; the live URLs were inaccessible through the available web viewer. Do not label the flow fully tested until a real browser check passes.
