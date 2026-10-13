@@ -499,6 +499,17 @@ try {
   if (!(await packageLink.count())) errors.push("Collections page: package details and pricing CTA is missing");
   if (!(await interactionPage.locator('.site-nav a[href="/bagusin/collections/"]').count())) errors.push("Collections page: collection navigation link is missing");
 
+  // Category filters should prioritize relevant demos without hiding other available demos.
+  const categoryFilter = interactionPage.locator("[data-template-category]");
+  await categoryFilter.selectOption("business");
+  const cardsAfterBusinessFilter = interactionPage.locator("[data-template-grid] .template-product");
+  await interactionPage.waitForFunction(() => document.querySelectorAll("[data-template-grid] .template-product").length === 2);
+  if (await cardsAfterBusinessFilter.count() !== 2) errors.push("Collections page: selecting a category hid other available demos");
+  if (!(await cardsAfterBusinessFilter.first().innerText()).includes("Bagus Ink")) errors.push("Collections page: matching category was not prioritized");
+  await categoryFilter.selectOption("campaign");
+  if (await interactionPage.locator("[data-template-grid] .template-product").count() !== 2) errors.push("Collections page: category with no matching demo hid available designs");
+  await categoryFilter.selectOption("");
+
   // Verify the complete template journey: catalog → demo → package details → correct contact intent.
   await interactionPage.goto(origin + "/bagusin/templates/detail/?template=BG-TRV-STR-001", { waitUntil: "domcontentloaded" });
   await interactionPage.locator("[data-detail-name]").filter({ hasText: "Bagus Sewa Mobil Bali 01" }).waitFor({ timeout: 10000 });
