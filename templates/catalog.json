@@ -71,7 +71,7 @@
       "price": 750000,
       "currency": "IDR",
       "status": "available",
-      "isNew": true,
+      "isNew": false,
       "description": "Desain satu halaman untuk bisnis rental mobil: hero dengan copy yang berorientasi pelanggan, layanan, pilihan armada, tentang, cara pemesanan, FAQ, dan kontak. Struktur konten disusun agar dapat dikembangkan untuk SEO lokal menggunakan informasi bisnis yang benar.",
       "included": [
         "Desain satu halaman responsif dengan beberapa section yang terstruktur",
