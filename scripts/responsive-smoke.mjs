@@ -407,7 +407,7 @@ try {
   if (await interactionPage.locator('[data-panel="4"]').isHidden()) errors.push("Checkout: terms consent did not advance to next steps");
   const checkoutText = await interactionPage.locator("#main-content").innerText();
   if (!checkoutText.includes("follow-up dilakukan secara personal melalui WhatsApp")) errors.push("Checkout: manual WhatsApp follow-up process is not explained");
-  if (!checkoutText.includes("baguskristian@gmail.com")) errors.push("Checkout: destination email is not disclosed");
+  if (!checkoutText.includes("sbaguskristian@gmail.com")) errors.push("Checkout: destination email is not disclosed");
   if (checkoutText.includes("1460137710")) errors.push("Checkout: bank account details are shown before an agreed quotation");
   let submittedEmailPayload = null;
   await interactionPage.route("https://formsubmit.co/ajax/sbaguskristian@gmail.com", async (route) => {
