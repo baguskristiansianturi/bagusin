@@ -37,7 +37,9 @@ document.addEventListener("DOMContentLoaded", function () {
     "web-applications": "web-applications",
     "maintenance-uiux": "maintenance-uiux",
     "google-ads": "google-ads",
-    "mobile-apps": "mobile-apps"
+    "mobile-apps": "mobile-apps",
+    consultation: "general",
+    "course-interest": "courses"
   };
   function updateTermsLink(selectedService) {
     if (!termsLink) return;
