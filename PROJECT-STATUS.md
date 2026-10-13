@@ -170,3 +170,12 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - Updated the legacy English legal terms page to point to the detailed page and added both detailed terms pages to `sitemap.xml`.
 - Static checks: English terms page contains 23 sections; required stylesheet and `js/terms.js` are included; contact form has the dynamic link ID; route mapping is language-aware; sitemap contains both detailed routes. This is source-level inspection only. No browser/keyboard/screen-reader test, real form submission, or live GitHub Pages deployment check has been completed.
 - Next verification gate: run a browser test for each service selection in ID and EN, confirm the link lands on the matching section, inspect mobile layout and keyboard operation, and verify the deployed Pages URL before declaring the flow complete.
+
+
+### Follow-up static audit — 13 October 2026
+
+- Re-fetched the final files from `main` after the topic-map correction.
+- Verified 23 unique section IDs in the English terms page, no broken in-page navigation anchors, and that the page includes `terms.css` and `terms.js`.
+- Verified English contact form has the dynamic terms-link ID, shared routing selects `/en/terms/` or `/terms/` by page language, and mappings exist for consultation → `general` and course inquiry → `courses`. Every mapped topic exists in the relevant terms page.
+- Checked balanced delimiters in `js/terms.js` and confirmed both detailed terms routes are in the sitemap.
+- Live page URLs could not be opened through the available web viewer, and no browser runner is available in this session. Therefore runtime behaviour, mobile appearance, actual form submission, and deployment remain unverified.
