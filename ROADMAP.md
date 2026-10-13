@@ -243,3 +243,14 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 - Static checks: both contact forms load the shared script and require the terms checkbox; all 10 service-to-terms mappings target an existing anchor in both detailed terms pages; section IDs are unique on both pages.
 - Commit: [`ef23ae36a39fab1917e32c15ed728a60f52f08ba`](https://github.com/baguskristiansianturi/bagusin/commit/ef23ae36a39fab1917e32c15ed728a60f52f08ba).
 - Limits: these are source-level checks, not execution tests. Do not mark the contact/terms journey complete until browser checks cover language switching, service selection, keyboard focus, mobile layout, actual email delivery, and the published GitHub Pages version.
+
+
+## Contact recipient correction — 13 October 2026
+
+**Status: code and commit verified; delivery remains untested.**
+
+- During the next contact-flow audit, found the shared contact script pointed both the FormSubmit AJAX request and the manual mailto fallback at `baguskristian@gmail.com`, while the project's specified contact inbox is `sbaguskristian@gmail.com`.
+- Corrected both destinations in `js/contact-form.js` to `sbaguskristian@gmail.com`; did not change payload fields or the submission-success wording.
+- Re-fetched the updated script from `main` and verified the AJAX endpoint and mailto fallback both use the specified inbox. This is source verification only; it does not prove FormSubmit activation, email receipt, or public deployment.
+- Commit: [`6aaa4858365173d7d3a08082770224cd9087fa49`](https://github.com/baguskristiansianturi/bagusin/commit/6aaa4858365173d7d3a08082770224cd9087fa49).
+- Next gate: verify published code, then perform an explicitly safe test submission and confirm receipt at the intended inbox before closing this flow.
