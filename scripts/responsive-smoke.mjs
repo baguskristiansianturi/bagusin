@@ -16,6 +16,11 @@ const routes = [
   "/bagusin/work/web-applications/",
   "/bagusin/work/maintenance-uiux/",
   "/bagusin/collections/",
+  "/bagusin/templates/",
+  "/bagusin/templates/blogger-editorial/",
+  "/bagusin/templates/demos/editorial-blogger/",
+  "/bagusin/templates/checkout/?license=free",
+  "/bagusin/templates/checkout/?license=premium",
   "/bagusin/templates/detail/?template=BG-TRV-STR-001",
   "/bagusin/demos/starter/travel-rental/bagus-sewa-mobil-bali-01/",
   "/bagusin/portfolio/",
@@ -482,6 +487,47 @@ try {
   await interactionPage.locator("#send-order-brief").click();
   await interactionPage.waitForFunction(() => document.querySelector("#checkout-email-status")?.textContent.includes("diterima layanan email"), null, { timeout: 5000 });
   if (!submittedEmailPayload || submittedEmailPayload.category !== "Landing Page") errors.push("Checkout: copywriting category was not included in the email payload");
+
+  // New self-installable template journey: platform/category → visual demo → license → simulated checkout.
+  await interactionPage.goto(origin + "/bagusin/templates/", { waitUntil: "domcontentloaded" });
+  const templateCard = interactionPage.locator(".store-product-card");
+  await templateCard.waitFor({ state: "visible", timeout: 5000 });
+  await interactionPage.locator('[data-platform="wordpress"]').click();
+  if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: WordPress with no products should show an honest empty state");
+  if (await templateCard.isVisible()) errors.push("Template store: Blogger product remained visible after switching to WordPress");
+  await interactionPage.locator('[data-platform="blogger"]').click();
+  if (!(await templateCard.isVisible())) errors.push("Template store: Blogger product did not return after switching platforms");
+  await interactionPage.locator('[data-industry="travel-rental"]').click();
+  if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: empty industry should not fabricate a product");
+  await interactionPage.locator('[data-industry="all"]').click();
+  await interactionPage.locator("[data-template-search]").fill("editorial");
+  if (!(await templateCard.isVisible())) errors.push("Template store: search did not find Bagusin Editorial");
+  await interactionPage.locator("[data-template-search]").fill("hotel");
+  if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: unmatched search did not show an empty state");
+  await interactionPage.locator("[data-template-search]").fill("");
+  await interactionPage.goto(origin + "/bagusin/templates/blogger-editorial/", { waitUntil: "domcontentloaded" });
+  if (!(await interactionPage.locator(".product-copy h1").innerText()).includes("Bagusin Editorial")) errors.push("Template detail: product title is missing");
+  if (!(await interactionPage.locator(".product-demo iframe").getAttribute("src")).includes("/bagusin/templates/demos/editorial-blogger/")) errors.push("Template detail: live demo frame is not connected to the sample demo");
+  if (!(await interactionPage.locator('a[href="/bagusin/templates/files/bagusin-editorial-free-v0.1.xml"]').count())) errors.push("Template detail: free Blogger XML download link is missing");
+  await interactionPage.goto(origin + "/bagusin/templates/checkout/?license=premium", { waitUntil: "domcontentloaded" });
+  if (await interactionPage.locator("#test-license").inputValue() !== "premium") errors.push("Template checkout: premium choice was not preserved from product detail");
+  if (!(await interactionPage.locator("[data-summary-price]").innerText()).includes("49.000")) errors.push("Template checkout: simulated premium price is not reflected in summary");
+  await interactionPage.locator('[data-test-next="2"]').click();
+  if (!(await interactionPage.locator("#test-error").innerText()).includes("nama")) errors.push("Template checkout: missing required name was not validated");
+  await interactionPage.locator("#test-name").fill("Template Test User");
+  await interactionPage.locator("#test-email").fill("template@example.com");
+  await interactionPage.locator("#test-blog").fill("https://contoh.blogspot.com");
+  await interactionPage.locator("#test-note").fill("Test template checkout journey");
+  await interactionPage.locator("#test-agree").check();
+  await interactionPage.locator('[data-test-next="2"]').click();
+  if (await interactionPage.locator('[data-test-panel="2"]').isHidden()) errors.push("Template checkout: valid form did not advance to review");
+  const templateReview = await interactionPage.locator("#test-review").innerText();
+  if (!templateReview.includes("Template Test User") || !templateReview.includes("Premium")) errors.push("Template checkout: review summary lost name or selected license");
+  await interactionPage.locator('[data-test-next="3"]').click();
+  await interactionPage.locator("#test-submit").click();
+  if (!(await interactionPage.locator("#test-success").isVisible())) errors.push("Template checkout: submit did not complete the simulated journey");
+  const templateSuccess = await interactionPage.locator("#test-success").innerText();
+  if (!templateSuccess.includes("bukan transaksi nyata") || !templateSuccess.includes("tidak ada pembayaran")) errors.push("Template checkout: success state does not explain the simulation boundary");
 
   // Collections and Portfolio have distinct roles and destinations.
   await interactionPage.goto(origin + "/bagusin/collections/", { waitUntil: "domcontentloaded" });
