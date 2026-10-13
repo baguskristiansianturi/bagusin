@@ -17,8 +17,9 @@ Terakhir diperbarui: 13 Oktober 2026
 - Memisahkan filter katalog menjadi tiga dimensi: platform (Blogger, WordPress, HTML/CSS/JS), jenis kebutuhan (landing page, profil bisnis, blog, toko/katalog, portofolio), dan industri.
 - Menambahkan pilihan HTML/CSS/JS tanpa mengarang produk yang belum tersedia; platform kosong menampilkan empty state yang jelas.
 - Menambahkan hitungan kategori yang mengikuti jumlah produk pada platform terpilih dan pengujian browser untuk filter platform/kebutuhan.
+- Verifikasi pada commit `83c7c0e38f00758ca48d17b608b47ea1dda2dd79`: browser smoke test lulus (51 rute, 306 pemeriksaan viewport) dan audit rute/SEO lulus. Assertion katalog kini memeriksa tautan demo dan detail paket pada kartu rental yang tepat; redirect destinasi ke Blog juga diuji sesuai perilaku aktual.
 - Batasan: prototipe masih `noindex,nofollow`; belum ada pembayaran, penyimpanan order, email, pengiriman otomatis, atau uji impor Blogger yang dinyatakan lulus.
-- Gerbang berikutnya: browser smoke test penuh, cek responsif dan tautan; setelah katalog selesai, selaraskan halaman detail dan navigasi homepage.
+- Gerbang berikutnya: selaraskan halaman detail dan navigasi homepage; audit PR homepage #130 yang masih punya empat assertion gagal pada CTA koleksi dan metadata/copy halaman lain sebelum merge.
 
 ## Prinsip kerja
 
