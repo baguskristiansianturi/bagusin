@@ -153,6 +153,19 @@ try {
   await interactionPage.setViewportSize({ width: 390, height: 844 });
   await interactionPage.locator("[data-reset-pathfinder]").click();
 
+  // The homepage "what's new" shelf must render mixed cards, stay capped, and expose controls.
+  const whatsNew = interactionPage.locator("[data-whats-new]");
+  if (!(await whatsNew.count())) errors.push("Homepage: mixed latest-content shelf is missing");
+  else {
+    await whatsNew.waitFor({ state: "visible", timeout: 5000 });
+    const shelfCards = whatsNew.locator(".whats-new-card");
+    const shelfCount = await shelfCards.count();
+    if (shelfCount < 1 || shelfCount > 6) errors.push("Homepage: latest-content shelf must show 1–6 eligible cards, got " + shelfCount);
+    if (!(await whatsNew.locator("[data-whats-new-prev]").count()) || !(await whatsNew.locator("[data-whats-new-next]").count())) errors.push("Homepage: carousel controls are missing");
+    if (!(await whatsNew.locator("[data-whats-new-track]").count())) errors.push("Homepage: carousel track is missing");
+    if (homepageText.includes("Tempat, karya, dan perjalanan") || homepageText.includes("Solusi untuk kebutuhan umum")) errors.push("Homepage: repeated long-form discovery sections should remain removed");
+  }
+
   if (!homepageText.includes("Rapikan konten dan visibilitas") || !homepageText.includes("Sistem operasional")) errors.push("Homepage: current Indonesian service/path labels are missing");
   if (homepageText.includes("Content Writing & SEO") || homepageText.includes("Web Applications & Systems")) errors.push("Homepage: outdated English service labels remain");
   const menuToggle = interactionPage.locator("[data-mobile-menu-toggle]").first();
