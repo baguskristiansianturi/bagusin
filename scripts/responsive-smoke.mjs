@@ -531,7 +531,7 @@ try {
   if (destinationsText.includes("Places, seen through the experience of being there.") || destinationsText.includes("A growing map of stories.")) errors.push("Destinations page: English interface copy remains");
   if (!destinationsStructuredData || destinationsStructuredData.includes("Destinations BagusIn")) errors.push("Destinations page: structured data still contains outdated English description");
 } catch (error) {
-  errors.push("Homepage/article/contact interaction smoke test: " + error.message);
+  errors.push("Homepage/article/contact interaction smoke test: " + (error.stack || error.message));
 } finally {
   await interactionPage.close();
   await browser.close();
