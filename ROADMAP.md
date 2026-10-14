@@ -304,3 +304,15 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 - Komentar bot Cloudflare pada PR #130 menunjukkan build preview gagal untuk commit `567ac2a` dan `815300e`. Ini terpisah dari GitHub Actions static audit dan browser smoke yang sukses.
 - Log build Cloudflare belum dapat diverifikasi dari data yang tersedia pada audit ini; penyebab build gagal belum diketahui. Jangan menyimpulkan bahwa situs live atau preview berhasil hanya karena CI otomatis hijau.
 - Langkah berikutnya: buka log build Cloudflare untuk commit terbaru, catat error pertama yang relevan, perbaiki penyebabnya dalam PR terpisah/commit yang teruji, lalu pastikan preview URL terbit. Jika log membutuhkan akses dashboard yang tidak tersedia, tandai sebagai blocker eksternal dan jangan menebak penyebabnya.
+
+
+## Audit kenapa katalog Blogger/WordPress belum terlihat di GitHub Pages (14 Oktober 2026)
+
+**Akar masalah terverifikasi: fitur katalog berada di branch PR #129, belum masuk ke `main`.**
+
+- PR #129 `feat(blogger-template-store-journey` masih berstatus open dan `merged: false`; karena itu perubahan katalog belum menjadi bagian dari branch publik utama.
+- File `templates/index.html` berhasil ditemukan pada branch PR #129, tetapi permintaan file yang sama pada `main` menghasilkan 404. Ini konsisten dengan katalog belum tersedia pada source yang dipakai GitHub Pages.
+- Homepage `main` memiliki kartu generik “Template dan desain”, tetapi tautan yang terverifikasi mengarah ke `/bagusin/collections/`, bukan ke `/bagusin/templates/`. Jadi pengunjung juga belum mendapat jalur langsung ke toko template dari homepage.
+- CI browser/static PR #129 yang lulus hanya memverifikasi branch PR, bukan publikasi ke GitHub Pages. Lulusnya CI tidak otomatis menggabungkan PR atau menerbitkan file branch.
+- PR #130 yang membawa perubahan homepage juga masih open dan draft, jadi perubahan homepage di branch itu pun belum menjadi bagian dari `main`.
+- Tindakan berikutnya: audit produk/UX dan visual katalog, cek lisensi/harga/CTA serta status `noindex,nofollow`; setelah siap, gabungkan PR #129 dan perbaiki tautan homepage secara terkontrol (dapat melalui PR #130 atau perubahan yang terkoordinasi). Setelah merge, verifikasi workflow Pages dan buka URL publik `https://baguskristiansianturi.github.io/bagusin/templates/`. Jangan mengklaim live sebelum pemeriksaan URL berhasil.
