@@ -153,7 +153,20 @@ try {
   await interactionPage.setViewportSize({ width: 390, height: 844 });
   await interactionPage.locator("[data-reset-pathfinder]").click();
 
-  if (!homepageText.includes("Rapikan konten dan visibilitas") || !homepageText.includes("Sistem operasional")) errors.push("Homepage: current Indonesian service/path labels are missing");
+  // The homepage "what's new" shelf must render mixed cards, stay capped, and expose controls.
+  const whatsNew = interactionPage.locator("[data-whats-new]");
+  if (!(await whatsNew.count())) errors.push("Homepage: mixed latest-content shelf is missing");
+  else {
+    await whatsNew.waitFor({ state: "visible", timeout: 5000 });
+    const shelfCards = whatsNew.locator(".whats-new-card");
+    const shelfCount = await shelfCards.count();
+    if (shelfCount < 1 || shelfCount > 6) errors.push("Homepage: latest-content shelf must show 1–6 eligible cards, got " + shelfCount);
+    if (!(await whatsNew.locator("[data-whats-new-prev]").count()) || !(await whatsNew.locator("[data-whats-new-next]").count())) errors.push("Homepage: carousel controls are missing");
+    if (!(await whatsNew.locator("[data-whats-new-track]").count())) errors.push("Homepage: carousel track is missing");
+    if (homepageText.includes("Tempat, karya, dan perjalanan") || homepageText.includes("Solusi untuk kebutuhan umum")) errors.push("Homepage: repeated long-form discovery sections should remain removed");
+  }
+
+  if (!homepageText.includes("Rapikan konten dan visibilitas") || !homepageText.includes("Bangun solusi baru")) errors.push("Homepage: current Indonesian service labels are missing");
   if (homepageText.includes("Content Writing & SEO") || homepageText.includes("Web Applications & Systems")) errors.push("Homepage: outdated English service labels remain");
   const menuToggle = interactionPage.locator("[data-mobile-menu-toggle]").first();
   if (!(await menuToggle.count())) errors.push("Homepage: mobile menu toggle is missing");
@@ -491,15 +504,25 @@ try {
   if (!collectionTitle.includes("Template")) errors.push("Collections page: title metadata is not localized");
   if (!collectionText.includes("Koleksi terbaru") || !collectionText.includes("Bagus Sewa Mobil Bali 01")) errors.push("Collections page: latest demo is missing");
   if (!collectionText.includes("750.000") || !collectionText.includes("domain/hosting terpisah")) errors.push("Collections page: package price or exclusions are unclear");
-  const templateCard = interactionPage.locator("[data-template-grid] .template-product").first();
+  const templateCard = interactionPage.locator("[data-template-grid] .template-product").filter({ hasText: "Bagus Sewa Mobil Bali 01" }).first();
   if (!(await templateCard.locator(".template-chip").allTextContents()).some(text => text.includes("Satu halaman"))) errors.push("Collections page: one-page format label is incorrect");
-  const demoLink = templateCard.locator('a[href="/bagusin/demos/starter/travel-rental/bagus-sewa-mobil-bali-01/"]').first();
-  if (!(await demoLink.count())) errors.push("Collections page: canonical demo link is missing");
-  const detailLink = templateCard.locator('a[href*="/templates/detail/?template=BG-TRV-STR-001"]').first();
-  if (!(await detailLink.count())) errors.push("Collections page: package detail CTA is missing");
+  const previewLink = templateCard.locator('a[href="/bagusin/templates/preview/?template=BG-TRV-STR-001"]').first();
+  if (!(await previewLink.count())) errors.push("Collections page: interactive preview link is missing");
+  const packageLink = templateCard.locator('a[href="/bagusin/templates/preview/?template=BG-TRV-STR-001#spec-title"]').first();
+  if (!(await packageLink.count())) errors.push("Collections page: package and price CTA is missing");
   if (!(await interactionPage.locator('.site-nav a[href="/bagusin/collections/"]').count())) errors.push("Collections page: collection navigation link is missing");
 
-  // Verify the complete template journey: catalog → demo → package details → correct contact intent.
+  // Verify the current template journey: catalog → interactive preview → canonical demo/package details → contact intent.
+  await interactionPage.goto(origin + "/bagusin/templates/preview/?template=BG-TRV-STR-001", { waitUntil: "domcontentloaded" });
+  await interactionPage.locator("[data-preview-title]").filter({ hasText: "Bagus Sewa Mobil Bali 01" }).waitFor({ timeout: 10000 });
+  const canonicalDemoHref = await interactionPage.locator("[data-preview-open]").getAttribute("href");
+  if (!canonicalDemoHref?.includes("/demos/starter/travel-rental/bagus-sewa-mobil-bali-01/")) errors.push("Template preview: open-demo link does not target the canonical demo");
+  const previewDetailHref = await interactionPage.locator("[data-preview-detail]").getAttribute("href");
+  if (previewDetailHref !== "#spec-title") errors.push("Template preview: package CTA should jump to the package details section");
+  if (!(await interactionPage.locator("[data-preview-price]").innerText()).includes("750.000")) errors.push("Template preview: package price is missing or incorrect");
+  await interactionPage.locator('[data-preview-mode="mobile"]').click();
+  if (await interactionPage.locator("[data-preview-workspace]").getAttribute("data-mode") !== "mobile") errors.push("Template preview: mobile preview control did not switch modes");
+
   await interactionPage.goto(origin + "/bagusin/templates/detail/?template=BG-TRV-STR-001", { waitUntil: "domcontentloaded" });
   await interactionPage.locator("[data-detail-name]").filter({ hasText: "Bagus Sewa Mobil Bali 01" }).waitFor({ timeout: 10000 });
   if (!(await interactionPage.locator("[data-detail-base-price]").innerText()).includes("750.000")) errors.push("Template detail: base package price is missing or incorrect");
@@ -524,15 +547,10 @@ try {
   if (!portfolioSeparationText.includes("hanya akan ditampilkan jika ada izin")) errors.push("Portfolio page: client permission boundary is missing");
   if (portfolioSeparationText.includes("Koleksi terbaru") || portfolioSeparationText.includes("Pilih template")) errors.push("Portfolio page: collection/order content has not been separated");
 
-  // Destinations should remain experience-based, without fabricated ratings or itineraries.
+  // /destinations/ is an intentional legacy route that redirects to the current Blog.
   await interactionPage.goto(origin + "/bagusin/destinations/", { waitUntil: "domcontentloaded" });
-  const destinationsTitle = await interactionPage.title();
-  const destinationsText = await interactionPage.locator("main").innerText();
-  const destinationsStructuredData = await interactionPage.locator('script[type="application/ld+json"]').textContent();
-  if (!destinationsTitle.includes("Destinasi")) errors.push("Destinations page: title metadata is not localized");
-  if (!destinationsText.includes("Tempat, dilihat dari pengalaman saat berada di sana.") || !destinationsText.includes("Tidak ada rencana perjalanan yang sempurna.")) errors.push("Destinations page: Indonesian headings are missing");
-  if (destinationsText.includes("Places, seen through the experience of being there.") || destinationsText.includes("A growing map of stories.")) errors.push("Destinations page: English interface copy remains");
-  if (!destinationsStructuredData || destinationsStructuredData.includes("Destinations BagusIn")) errors.push("Destinations page: structured data still contains outdated English description");
+  await interactionPage.waitForURL(/\/bagusin\/blog\//, { timeout: 5000 });
+  if (!interactionPage.url().includes("/bagusin/blog/")) errors.push("Legacy destinations route: did not redirect to the Blog");
 } catch (error) {
   errors.push("Homepage/article/contact interaction smoke test: " + (error.stack || error.message));
 } finally {

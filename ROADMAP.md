@@ -11,6 +11,16 @@ Terakhir diperbarui: 13 Oktober 2026
 - Cache-buster stylesheet responsif diperbarui agar browser meminta versi terbaru.
 - Status: perubahan kode sudah dicatat pada branch kerja. Pemeriksaan browser lintas ukuran layar dan verifikasi GitHub Pages masih harus dilakukan sebelum merge.
 
+
+## Catatan perubahan — homepage carousel campuran dan pemangkasan halaman (13 Oktober 2026)
+
+- Branch kerja: `ux/homepage-newest-carousel`.
+- Menyiapkan carousel horizontal “Baru di Bagusin” untuk item lintas jenis: layanan, produk, template, demo, kode, aplikasi, artikel, dan course. Aturan: urut terbaru, maksimal 6 kartu, kedaluwarsa setelah 30 hari dari `publishedAt`, kontrol manual, jeda saat hover/focus, dan menghormati reduced motion.
+- Memindahkan preview course ke sebelum carousel dan mengganti beberapa grid penjelasan/artikel berulang setelah shelf dengan navigasi ringkas ke layanan, koleksi/template, portofolio/kode/aplikasi, Blog, dan course.
+- Menambahkan `docs/HOMEPAGE-CONTENT-REGISTER.md` sebagai aturan kurasi shelf dan `docs/PROJECT-DECISIONS.md` sebagai catatan keputusan/handoff lintas sesi.
+- Penting: tanggal awal item di registry masih harus dibandingkan dengan riwayat rilis publik sebelum merge. Tanggal PR bukan tanggal rilis publik. Browser/responsiveness dan GitHub Pages live belum diverifikasi; belum merge/deploy.
+- Berikutnya: verifikasi tanggal item, jalankan pemeriksaan syntax dan test responsive, audit link, kemudian lanjut ke katalog.
+
 ## Prinsip kerja
 
 - Bagusin diposisikan sebagai ekosistem personal yang dijalankan secara independen oleh Bagus, bukan perusahaan yang mengklaim memiliki tim besar.
@@ -262,3 +272,30 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 - Updated the five test interception references in `scripts/responsive-smoke.mjs` to match the endpoint in `js/contact-form.js`.
 - Fix commit: `5eda2c4c3897da44d4f63bb75d757fa4453b5655`. Source re-fetch confirmed zero stale endpoint references in the test and five references to the intended endpoint.
 - Browser smoke and Pages deployment runs for this commit were queued at the time of writing; result and live deployment must be checked before marking this step complete. Network interception is a simulated test and does not prove real inbox delivery.
+
+
+## QA follow-up — PR #130 smoke-test expectation alignment (14 October 2026)
+
+**Status: test corrections committed; rerun CI is required before treating the fixes as verified.**
+
+- Rechecked PR #130 head commit `5b574fbfd25e02d7050ead467106f9e4bc32aa24` and its failed GitHub Actions run. Static site audit passed; responsive browser smoke failed on five assertions.
+- Failure causes identified from the workflow log and source: the homepage assertion expected an obsolete label (`Sistem operasional`); the collections assertions expected direct/detail links that the current catalogue does not render (the current journey uses the interactive preview and its package section); and the legacy `/destinations/` route intentionally redirects to `/blog/`, so asserting destination-page copy on that route was incorrect.
+- Updated `scripts/responsive-smoke.mjs` to assert current Indonesian service labels, current preview/package CTA routes, the preview's canonical demo link, package-detail link, price and mobile preview switch, and the intentional Destinations-to-Blog redirect.
+- Test correction commit: [`75fb89c41647ede7dcac7d369515e12d55bb53b7`](https://github.com/baguskristiansianturi/bagusin/commit/75fb89c41647ede7dcac7d369515e12d55bb53b7) on `ux/homepage-newest-carousel`.
+- **Not yet verified:** CI results for the new commit, local browser execution, manual visual QA, and GitHub Pages live output. Do not merge PR #130 until the new workflow passes and the visual/deployment checks are explicitly recorded.
+- Next step: inspect the new CI run and its logs; fix genuine failures rather than weakening assertions, then verify PR #129's latest commit status and keep PR #128's failed Cloudflare preview build/browser QA as separate tracked work.
+
+
+## Follow-up correction — preview package anchor (14 October 2026)
+
+- Reviewing the newly added preview assertions against `js/template-preview.js` revealed that the package CTA intentionally targets the on-page anchor `#spec-title`, not the legacy `/templates/detail/` route. Corrected the smoke test to assert the implemented anchor rather than force a different navigation model.
+- Test correction commit: [`da1b52a5ec632202fc58ae412e31fc6ffaa84cc2`](https://github.com/baguskristiansianturi/bagusin/commit/da1b52a5ec632202fc58ae412e31fc6ffaa84cc2).
+- CI is still the verification gate; no passing result is claimed until the workflow for the newest branch commit completes. Continue to fix only source/test mismatches grounded in the implementation and preserve assertions for actual user-visible behaviour.
+
+
+### QA follow-up — mixed-content homepage PR #130 (14 October 2026)
+
+- Rechecked the completed browser smoke run for source commit `da1b52a5ec632202fc58ae412e31fc6ffaa84cc2`: the remaining two failures were assertions looking for the rental template's preview/package links inside the first catalog card. The page contains multiple available cards and the target rental demo is not guaranteed to be first; this was a brittle test selector, not evidence that the links were absent.
+- Updated the smoke test to locate the specific `Bagus Sewa Mobil Bali 01` card by its visible title before checking its preview and package links.
+- Test correction commit: `ae17a0d4bf1a1c89ce82d23cff27bf53e193625e`.
+- CI must be checked on this correction before declaring the suite green. Manual visual QA and GitHub Pages live verification remain pending.
