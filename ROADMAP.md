@@ -285,3 +285,17 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 - Checkout is intentionally simulated: no payment, data persistence, email, or file delivery. Test price is not a commercial offer. Prototype pages use `noindex,nofollow`.
 - Research basis: public SoraTemplates product pages separate live demo, version/license choices, features, documentation, purchase, and support. Bagusin adopts the journey pattern, not their visual design or copy.
 - Before marking ready: run browser smoke tests, check mobile/desktop layout and local links, validate form state/escaping, import both XML variants into a dedicated Blogger test blog, define final license/update/support policy, then remove prototype-only labeling/noindex only after approval.
+
+## Katalog template — penyelarasan smoke test (14 Oktober 2026)
+
+**Status: perubahan tes dicatat pada branch PR #129; hasil CI setelah commit ini masih harus diverifikasi.**
+
+- Temuan: smoke test sebelumnya masih mencari tautan demo langsung dan detail paket di kartu katalog, sedangkan UI katalog terbaru dengan sengaja mengarahkan kedua tindakan melalui halaman preview template.
+- Perbaikan: assertion kini memeriksa CTA preview dan CTA paket/harga untuk template **Bagus Sewa Mobil Bali 01** yang spesifik, bukan mengandalkan kartu pertama. Ini juga mencegah tes menjadi rapuh saat katalog menambah template baru atau mengurutkan item berdasarkan tanggal terbaru.
+- Batas verifikasi: penyesuaian assertion bukan bukti bahwa semua rute preview, demo kanonis, detail harga, atau deployment GitHub Pages telah lulus. CI harus dijalankan ulang pada commit terbaru.
+- Peluang peningkatan berikutnya:
+  - Tambahkan assertion untuk setiap platform yang benar-benar tersedia (Blogger, WordPress, HTML/CSS/JS), dan tampilkan status ketersediaan per platform secara jujur.
+  - Tambahkan pengujian keyboard/fokus dan reduced-motion pada navigasi katalog, preview, dan carousel.
+  - Validasi semua URL demo/preview/detail di data katalog secara otomatis; tautan internal harus relatif terhadap prefix GitHub Pages dan tidak boleh menghasilkan item palsu.
+  - Pisahkan status pemeriksaan source, browser CI, preview Cloudflare, dan situs publik menjadi gerbang verifikasi yang berbeda.
+- Langkah selanjutnya: cek ulang hasil CI commit `7d11e2df5473813e5fd83e343c2351bcdfe0a1b6`; bila ada kegagalan lain, perbaiki sumber masalahnya atau buat PR tindak lanjut yang terukur sebelum merge.
