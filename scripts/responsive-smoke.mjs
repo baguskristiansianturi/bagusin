@@ -259,6 +259,19 @@ try {
   if (footerState.columns !== 4 || !footerState.hasCta || !footerState.hasBottom) {
     errors.push("Contact page: shared footer structure is incomplete: " + JSON.stringify(footerState));
   }
+  const footerLinks = await interactionPage.locator(".site-footer__links a").evaluateAll(links => links.map(link => ({
+    text: (link.textContent || "").trim(),
+    href: link.getAttribute("href") || ""
+  })));
+  const requiredFooterPaths = ["/bagusin/collections/", "/bagusin/learning/", "/bagusin/work/", "/bagusin/templates/", "/bagusin/checkout/", "/bagusin/contact/", "/bagusin/legal/privacy/", "/bagusin/legal/terms/", "/bagusin/legal/disclaimer/", "/bagusin/legal/editorial-policy/"];
+  for (const path of requiredFooterPaths) {
+    if (!footerLinks.some(link => link.href === path || link.href.startsWith(path + "?"))) {
+      errors.push("Contact page: shared footer is missing expected destination " + path);
+    }
+  }
+  if (footerLinks.some(link => /search|author|portfolio|destinations/i.test(link.href))) {
+    errors.push("Contact page: footer still exposes a legacy Search, Author, Portfolio, or Destinations link");
+  }
   await interactionPage.evaluate(() => window.scrollTo(0, 0));
 
   const contactOptionsText = await interactionPage.locator("main").innerText();
@@ -306,6 +319,20 @@ try {
 
   // English contact form uses the same email workflow with localized status.
   await interactionPage.goto(origin + "/bagusin/en/contact/?service=copywriting&mode=consultation", { waitUntil: "domcontentloaded" });
+  await interactionPage.locator(".site-footer__column").first().waitFor({ state: "attached", timeout: 5000 });
+  const englishFooterLinks = await interactionPage.locator(".site-footer__links a").evaluateAll(links => links.map(link => ({
+    text: (link.textContent || "").trim(),
+    href: link.getAttribute("href") || ""
+  })));
+  const requiredEnglishFooterPaths = ["/bagusin/en/collections/", "/bagusin/en/learning/", "/bagusin/en/work/", "/bagusin/en/templates/", "/bagusin/checkout/", "/bagusin/en/contact/", "/bagusin/en/legal/privacy/", "/bagusin/en/legal/terms/", "/bagusin/en/legal/disclaimer/", "/bagusin/en/legal/editorial-policy/"];
+  for (const path of requiredEnglishFooterPaths) {
+    if (!englishFooterLinks.some(link => link.href === path || link.href.startsWith(path + "?"))) {
+      errors.push("English contact page: shared footer is missing expected destination " + path);
+    }
+  }
+  if (englishFooterLinks.some(link => /search|author|portfolio|destinations/i.test(link.href))) {
+    errors.push("English contact page: footer still exposes a legacy Search, Author, Portfolio, or Destinations link");
+  }
   await interactionPage.locator("#project-form input[name=name]").fill("English Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("english@example.com");
   await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the English contact email flow.");
