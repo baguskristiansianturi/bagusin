@@ -10,19 +10,26 @@
   const money = value => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(value);
   const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, char => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[char]));
   let catalog;
+  let showAll = false;
+  const showAllButton = document.createElement("button");
+  showAllButton.type = "button";
+  showAllButton.className = "button button--secondary template-catalog-show-all";
+  showAllButton.textContent = "Lihat semua koleksi";
+  showAllButton.hidden = true;
+  grid.insertAdjacentElement("afterend", showAllButton);
+  showAllButton.addEventListener("click", () => { showAll = true; render(); });
   function render() {
     if (!catalog) return;
     const q = search.value.trim().toLocaleLowerCase("id");
     const selectedCategory = category.value;
     const selectedLevel = level.value;
 
-    // Categories guide discovery, but must never hide a demo that is already available.
-    // Matching designs appear first; the rest of the available catalogue remains visible.
+    // Show only available designs that match the active filters.
     const items = catalog.templates
       .filter(item => item.status === "available")
       .filter(item => {
         const haystack = [item.name, item.designName, item.description, ...(item.businessTypes || [])].join(" ").toLocaleLowerCase("id");
-        return (!q || haystack.includes(q)) && (!selectedLevel || item.level === selectedLevel);
+        return (!q || haystack.includes(q)) && (!selectedCategory || item.category === selectedCategory) && (!selectedLevel || item.level === selectedLevel);
       })
       .sort((a, b) =>
         Number(Boolean(b.category === selectedCategory)) - Number(Boolean(a.category === selectedCategory)) ||
@@ -32,12 +39,15 @@
       );
 
     const categoryName = catalog.categories.find(item => item.id === selectedCategory)?.name;
+    const visibleItems = showAll ? items : items.slice(0, 15);
+    showAllButton.hidden = items.length <= 15 || showAll;
+    showAllButton.textContent = `Lihat semua koleksi (${items.length})`;
     status.textContent = items.length
       ? (selectedCategory
-          ? `${items.length} demo tersedia · desain kategori ${categoryName || selectedCategory} ditampilkan lebih dahulu`
-          : `${items.length} demo tersedia · koleksi terbaru ditampilkan lebih dahulu`)
+          ? `${items.length} koleksi tersedia · ${categoryName || selectedCategory}`
+          : `${items.length} koleksi tersedia${items.length > 15 && !showAll ? " · menampilkan 15 pertama" : ""}`)
       : "Belum ada desain tersedia yang cocok dengan pencarian atau level ini.";
-    grid.innerHTML = items.length ? items.map(item => {
+    grid.innerHTML = visibleItems.length ? visibleItems.map(item => {
       const cat = catalog.categories.find(c => c.id === item.category);
       const tier = catalog.levels.find(l => l.id === item.level);
       const features = (item.included || []).slice(0,3).map(feature => `<li>${escapeHtml(feature)}</li>`).join("");
@@ -59,5 +69,5 @@
     level.innerHTML = '<option value="">Semua level</option>' + data.levels.map(item => `<option value="${escapeHtml(item.id)}">${escapeHtml(item.name)}</option>`).join("");
     render();
   }).catch(() => { status.textContent = "Katalog belum dapat dimuat. Silakan hubungi Bagus untuk melihat pilihan yang tersedia."; grid.innerHTML = '<div class="template-empty"><p>Maaf, katalog sedang tidak tersedia.</p><a class="button button--accent" href="/bagusin/contact/?service=websites&mode=consultation">Tanya pilihan template</a></div>'; });
-  [search, category, level].forEach(control => control.addEventListener(control === search ? "input" : "change", render));
+  [search, category, level].forEach(control => control.addEventListener(control === search ? "input" : "change", () => { showAll = false; render(); }));
 })();

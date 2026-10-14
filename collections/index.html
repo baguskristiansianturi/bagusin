@@ -57,13 +57,20 @@
       <span class="section-kicker">Katalog yang terus bertambah</span>
       <h2 class="section-title">Temukan desain untuk bisnismu</h2>
       <p class="section-description">Koleksi terbaru ditampilkan lebih dahulu. Setiap desain dapat menjadi titik awal; pilihan halaman, isi, dan fitur akan disesuaikan dengan paket.</p>
-      <div class="template-catalog-filters" role="search" aria-label="Filter template">
-        <label class="template-catalog-field">Cari bisnis atau desain<input type="search" data-template-search placeholder="Contoh: rental mobil, travel..." autocomplete="off"></label>
-        <label class="template-catalog-field">Kategori bisnis<select data-template-category><option value="">Memuat kategori…</option></select></label>
-        <label class="template-catalog-field">Level kebutuhan<select data-template-level><option value="">Memuat level…</option></select></label>
+      <div class="template-catalog-layout">
+        <aside class="template-catalog-filter-panel" aria-label="Filter koleksi">
+          <h3 class="template-catalog-filter-title">Kategori &amp; level</h3>
+          <div class="template-catalog-filters" role="search" aria-label="Filter template">
+            <label class="template-catalog-field">Cari bisnis atau desain<input type="search" data-template-search placeholder="Contoh: rental mobil, travel..." autocomplete="off"></label>
+            <label class="template-catalog-field">Kategori bisnis<select data-template-category><option value="">Memuat kategori…</option></select></label>
+            <label class="template-catalog-field">Level kebutuhan<select data-template-level><option value="">Memuat level…</option></select></label>
+          </div>
+        </aside>
+        <div class="template-catalog-listing">
+          <p class="template-catalog-status" data-template-status aria-live="polite">Memuat pilihan template…</p>
+          <div class="template-catalog-results" data-template-grid><div class="template-empty"><p>Memuat koleksi desain…</p></div></div>
+        </div>
       </div>
-      <p class="template-catalog-status" data-template-status aria-live="polite">Memuat pilihan template…</p>
-      <div class="template-catalog-results" data-template-grid><div class="template-empty"><p>Memuat koleksi desain…</p></div></div>
     </div>
   </section>
 
