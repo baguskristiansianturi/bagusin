@@ -129,6 +129,7 @@ const interactionPage = await browser.newPage({ viewport: { width: 390, height: 
 try {
   await interactionPage.goto(origin + "/bagusin/", { waitUntil: "domcontentloaded" });
   let homepageText = await interactionPage.locator("main").innerText();
+  if (homepageText.includes("Cerita dan panduan pilihan") || homepageText.includes("Memulai kembali Bagusin")) errors.push("Homepage: article cards should be temporarily removed from the primary customer journey");
   // Homepage solution recommendations must stack into one readable column on mobile.
   await interactionPage.locator("[data-stage='starter']").click();
   await interactionPage.locator("[data-goal]").first().click();
@@ -234,7 +235,15 @@ try {
   }
   if (!contactTitle.includes("Kontak")) errors.push("Contact page: title metadata is not localized");
   const contactOptionsText = await interactionPage.locator("main").innerText();
-  if (!contactOptionsText.includes("Layanan yang dibutuhkan") || !contactOptionsText.includes("ceritakan kebutuhanmu secara singkat")) errors.push("Contact page: concise service selection and brief guidance are missing");
+  if (!contactOptionsText.includes("Ceritakan kebutuhanmu secara singkat")) errors.push("Contact page: concise guidance is missing");
+  const selectedServiceText = await interactionPage.locator("#selected-service").innerText();
+  if (!selectedServiceText.includes("Landing Page & Iklan")) errors.push("Contact page: service from the incoming URL was not preselected");
+  const serviceChoiceLabel = interactionPage.locator("[data-service-choice-label]");
+  if (await serviceChoiceLabel.isVisible()) errors.push("Contact page: redundant service selector should be hidden when context is known");
+  if (!(await interactionPage.locator("[data-service-change]").isVisible())) errors.push("Contact page: option to change the preselected service is missing");
+  await interactionPage.locator("[data-service-change]").click();
+  if (!(await serviceChoiceLabel.isVisible())) errors.push("Contact page: service selector did not open after choosing to change it");
+  if (await interactionPage.locator("#service-choice").inputValue() !== "landing-pages") errors.push("Contact page: revealed selector lost the preselected service");
   if (contactOptionsText.includes("software engineering") || contactOptionsText.includes("SEO content")) errors.push("Contact page: English service terms remain in Indonesian copy");
   let contactEmailPayload = null;
   await interactionPage.route("https://formsubmit.co/ajax/sbaguskristian@gmail.com", async (route) => {
@@ -502,22 +511,30 @@ try {
   await interactionPage.goto(origin + "/bagusin/templates/", { waitUntil: "domcontentloaded" });
   const storeCatalogCard = interactionPage.locator(".store-product-card");
   await storeCatalogCard.waitFor({ state: "visible", timeout: 5000 });
-  await interactionPage.locator('button[data-platform="wordpress"]').click();
+  const mobileFilterbar = interactionPage.locator(".store-mobile-filterbar");
+  if (!(await mobileFilterbar.isVisible())) errors.push("Template store: sticky mobile filter bar is not visible at phone width");
+  const filterPosition = await mobileFilterbar.evaluate(el => getComputedStyle(el).position);
+  if (filterPosition !== "sticky") errors.push("Template store: mobile filter bar is not sticky");
+  const platformTrack = mobileFilterbar.locator(".store-platforms");
+  const trackMetrics = await platformTrack.evaluate(el => ({scrollWidth: el.scrollWidth, clientWidth: el.clientWidth}));
+  if (trackMetrics.scrollWidth <= trackMetrics.clientWidth) errors.push("Template store: platform controls should form a horizontal carousel on mobile");
+  if (!(await interactionPage.locator("footer.site-footer").count()) || await interactionPage.locator("footer.store-footer").count()) errors.push("Template store: footer should use the shared site footer");
+  await interactionPage.locator('.store-mobile-filterbar button[data-platform="wordpress"]').click();
   if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: WordPress with no products should show an honest empty state");
   if (await storeCatalogCard.isVisible()) errors.push("Template store: Blogger product remained visible after switching to WordPress");
-  await interactionPage.locator('button[data-platform="coded"]').click();
+  await interactionPage.locator('.store-mobile-filterbar button[data-platform="coded"]').click();
   if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: coded platform should show an honest empty state until a code template is released");
   if (!(await interactionPage.locator("[data-results-title]").innerText()).includes("HTML, CSS")) errors.push("Template store: coded platform heading is incorrect");
-  await interactionPage.locator('button[data-platform="blogger"]').click();
+  await interactionPage.locator('.store-mobile-filterbar button[data-platform="blogger"]').click();
   await interactionPage.locator("[data-template-purpose]").selectOption("landing-page");
   if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: purpose filter should not mislabel an editorial blog as a landing page");
   await interactionPage.locator("[data-template-purpose]").selectOption("blog");
   if (!(await storeCatalogCard.isVisible())) errors.push("Template store: blog purpose filter hid the matching editorial template");
   await interactionPage.locator("[data-template-purpose]").selectOption("all");
   if (!(await storeCatalogCard.isVisible())) errors.push("Template store: Blogger product did not return after switching platforms");
-  await interactionPage.locator('[data-industry="travel-rental"]').click();
+  await interactionPage.locator('.store-mobile-filterbar [data-industry="travel-rental"]').click();
   if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: empty industry should not fabricate a product");
-  await interactionPage.locator('[data-industry="all"]').click();
+  await interactionPage.locator('.store-mobile-filterbar [data-industry="all"]').click();
   await interactionPage.locator("[data-template-search]").fill("editorial");
   if (!(await storeCatalogCard.isVisible())) errors.push("Template store: search did not find Bagusin Editorial");
   await interactionPage.locator("[data-template-search]").fill("hotel");
