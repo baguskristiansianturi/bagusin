@@ -518,7 +518,7 @@ try {
   const canonicalDemoHref = await interactionPage.locator("[data-preview-open]").getAttribute("href");
   if (!canonicalDemoHref?.includes("/demos/starter/travel-rental/bagus-sewa-mobil-bali-01/")) errors.push("Template preview: open-demo link does not target the canonical demo");
   const previewDetailHref = await interactionPage.locator("[data-preview-detail]").getAttribute("href");
-  if (!previewDetailHref?.includes("/templates/detail/?template=BG-TRV-STR-001")) errors.push("Template preview: package details link is missing or incorrect");
+  if (previewDetailHref !== "#spec-title") errors.push("Template preview: package CTA should jump to the package details section");
   if (!(await interactionPage.locator("[data-preview-price]").innerText()).includes("750.000")) errors.push("Template preview: package price is missing or incorrect");
   await interactionPage.locator('[data-preview-mode="mobile"]').click();
   if (await interactionPage.locator("[data-preview-workspace]").getAttribute("data-mode") !== "mobile") errors.push("Template preview: mobile preview control did not switch modes");
