@@ -222,3 +222,10 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - Updated the smoke suite to check the current collection → preview → canonical demo/package anchor journey and the intentional Destinations → Blog redirect. Added checks for package price, contact intent, and switching the preview workspace to mobile.
 - Test commit: `8c30e571435917cce3f0fdf6facf3c21e365452c`.
 - Roadmap record is updated in the same branch. The corrected suite has not yet been confirmed green. Do not merge or claim visual/deployment verification until CI and manual responsive checks are complete.
+
+
+## QA handoff — PR #128 catalog selector correction (14 October 2026)
+
+- The previous smoke run still reported two collection-link failures because the test inspected only the first card. The rental demo is not guaranteed to be the first available item.
+- Changed the selector to locate the card by its exact visible title, `Bagus Sewa Mobil Bali 01`, then verify its preview and package links. Test correction commit: `65a6358d7af2b6e0175fccf2d614b3da2b7a4e34`.
+- Await CI for the corrected source commit before treating the branch as verified; manual responsive/sticky and live deployment checks remain open.
