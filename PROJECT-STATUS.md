@@ -234,3 +234,12 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - PR #130 belum bisa digabung: GitHub melaporkan `mergeable=false`, dan perbandingan branch menunjukkan branch homepage tertinggal 3 commit dari `main` serta memiliki 19 commit unik. Perubahan katalog dan catatan roadmap di `main` terjadi setelah branch homepage dibuat.
 - Jangan menganggap workflow sukses pada branch yang tertinggal sebagai bukti bahwa versi gabungan sudah lolos. Langkah aman berikutnya adalah menyelaraskan branch homepage dengan `main`, meninjau ulang konflik/hasil gabungan, lalu menjalankan tes sekali lagi sebelum merge.
 - Jalur yang dipertahankan untuk menghindari pilihan berlebihan: homepage → koleksi/layanan website → detail solusi. Dari halaman koleksi, tautan kontekstual terpisah membawa orang yang ingin memasang template sendiri ke katalog template. Blog/panduan dipakai sebagai jalur lanjutan bagi yang masih mempertimbangkan; konsultasi bukan CTA utama.
+
+
+## Work log — pemisahan pintasan homepage dan katalog template (14 Oktober 2026)
+
+- Atas evaluasi UX terbaru, jalur ringkas homepage di branch PR #130 tidak lagi menampilkan Portofolio sebagai pintasan. Label “Koleksi & template” diubah menjadi “Koleksi & demo website” agar fungsinya tidak tumpang tindih dengan katalog template.
+- Tautan katalog “Template Blogger & WordPress” tetap disediakan secara eksplisit menuju `/bagusin/templates/`. Portofolio masih tersedia melalui navigasi/halaman tersendiri; source code sebagai karya tidak otomatis berarti produk yang dapat dibeli.
+- Commit branch PR #130: `79fc841d7ffd24fa7d94cdf87fe2447d00de48bb` (homepage), `f1d0081744222f96f5e353e2ecee885f992bd679` (catatan keputusan). Roadmap utama diperbarui di commit terpisah.
+- Pemeriksaan sumber setelah perubahan: pintasan Portofolio tidak ditemukan pada jalur ringkas homepage; label Koleksi & demo website dan tautan katalog template ditemukan. Ini hanya pemeriksaan source, bukan browser QA.
+- Belum selesai: PR #130 belum merged, branch divergen dari `main`, dan tidak ada workflow/status check terdeteksi pada head terbaru. GitHub Pages live serta tampilan visual mobile/desktop belum terverifikasi. Jangan menyatakan perubahan sudah tampil di situs publik.
