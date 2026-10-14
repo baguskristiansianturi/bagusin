@@ -262,3 +262,25 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 - Updated the five test interception references in `scripts/responsive-smoke.mjs` to match the endpoint in `js/contact-form.js`.
 - Fix commit: `5eda2c4c3897da44d4f63bb75d757fa4453b5655`. Source re-fetch confirmed zero stale endpoint references in the test and five references to the intended endpoint.
 - Browser smoke and Pages deployment runs for this commit were queued at the time of writing; result and live deployment must be checked before marking this step complete. Network interception is a simulated test and does not prove real inbox delivery.
+
+
+## Audit lanjutan PR #130 — browser test dibatalkan (14 Oktober 2026)
+
+**Status: temuan log terverifikasi; penyebab akhir pembatalan belum terverifikasi; PR #130 tetap belum lulus.**
+
+- Run browser smoke #890 berhasil melewati checkout repository, instalasi Playwright/Chromium, dan startup server lokal.
+- Log menunjukkan `node scripts/responsive-smoke.mjs` mulai pada 01:08:31 UTC lalu dihentikan pada 01:09:35 UTC dengan `The operation was canceled.`; tidak ada daftar assertion gagal yang tercetak sebelum proses dihentikan.
+- Suite memeriksa 46 rute × 6 viewport (276 kombinasi) dengan membuat halaman browser baru per kombinasi, kemudian menjalankan banyak alur interaksi dalam satu proses. Ini berpotensi membuat umpan balik lambat dan diagnosis sulit, tetapi tidak membuktikan penyebab pembatalan.
+- Workflow `.github/workflows/responsive-smoke.yml` memakai `concurrency.cancel-in-progress: true`. Perlu periksa urutan run yang tumpang tindih sebelum menyimpulkan pembatalan disebabkan concurrency. Waktu log yang terlihat sekitar 64 detik bukan bukti timeout job 25 menit.
+- Audit statis pada commit PR yang diperiksa berhasil; dua browser runs terkait yang diperiksa berstatus cancelled. Karena itu status browser adalah **belum terverifikasi**, bukan lulus dan bukan pula bukti assertion tertentu gagal pada run tersebut.
+- Blocker yang sebelumnya dicatat pada deskripsi PR #130 tetap perlu diselesaikan berdasarkan hasil run lengkap: label jalur homepage, dua CTA Collections, dan lokalisasi Destinations.
+- Pengembangan yang direkomendasikan: pisahkan suite route/overflow, interaksi inti, dan regresi form/katalog; keluarkan progres per kelompok/rute; gunakan timeout navigasi eksplisit; optimalkan pemakaian ulang browser/page jika aman; pertahankan cakupan dengan pelaporan jelas; evaluasi kebijakan concurrency supaya run bukti tidak saling membatalkan.
+- Gerbang berikutnya: dapatkan satu run browser lengkap yang berakhir sukses atau menghasilkan assertion failures yang bisa ditindaklanjuti; perbaiki temuan nyata; jalankan ulang; kemudian lakukan visual QA dan cek GitHub Pages publik. Jangan merge/menyatakan selesai sebelum gerbang yang relevan lolos.
+
+### Pengembangan lanjutan yang perlu masuk audit akhir
+
+- Aksesibilitas carousel: keyboard, focus, reduced motion, dan kontrol yang memiliki label jelas.
+- Ketepatan kurasi: hanya konten yang benar-benar tersedia dan tanggal rilis yang bisa ditelusuri; perilaku empty state dan batas enam kartu.
+- Ketahanan performa: hindari auto-advance mengganggu pengguna, hentikan saat reduced motion, dan pastikan kontrol manual tetap bekerja.
+- Konsistensi bahasa ID/EN untuk CTA, metadata, kategori, dan halaman legacy.
+- Integritas katalog: jangan tampilkan produk/course yang belum siap seolah dapat langsung dibeli; checkout prototipe harus tetap jelas sebagai simulasi.
