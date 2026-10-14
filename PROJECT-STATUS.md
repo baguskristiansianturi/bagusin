@@ -230,3 +230,10 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - Compared the new preview smoke assertion against `js/template-preview.js`: the “Lihat detail paket dan harga” control is designed to jump to `#spec-title` on the preview page. The test was corrected to check that exact anchor instead of incorrectly requiring a separate URL.
 - Test commit: `da1b52a5ec632202fc58ae412e31fc6ffaa84cc2`; roadmap record commit: `6fd98817bffa38844b221c47f597dafbcf9b9c9f`.
 - Latest CI must be checked after the newest commit; the suite is not yet declared green. PR #130 remains draft and must not merge until browser tests pass and manual visual/deployment checks are recorded.
+
+
+## QA handoff — PR #130 catalog assertion follow-up (14 October 2026)
+
+- Browser CI completed with two failures, both caused by the smoke test selecting the first catalog card instead of locating `Bagus Sewa Mobil Bali 01` by title.
+- Updated the test selector to target the named rental demo card before checking preview/package links. Test correction commit: `ae17a0d4bf1a1c89ce82d23cff27bf53e193625e`.
+- This correction is not yet confirmed green. No merge or deployment is claimed; await the new workflow and complete visual/live verification separately.
