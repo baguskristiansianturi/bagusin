@@ -226,3 +226,11 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - Aturan koneksi konten: halaman layanan/produk menghubungkan ke panduan yang menjawab pertanyaan pengunjung; artikel menghubungkan kembali ke solusi yang dibahas; sesudah demo/artikel, sarankan langkah berikutnya yang relevan dan jangan selalu mengembalikan pengunjung ke homepage.
 - PR #130 homepage masih terbuka dan status mergeability terakhir `false`. Langkah berikutnya: audit penyebab status tersebut, periksa ulang browser assertions, lalu perbarui homepage dengan jalur katalog yang jelas tanpa menambah pilihan setara secara berlebihan.
 - Periksa deployment dan uji alur di desktop/mobile setelah perubahan homepage digabung. Jangan menyatakan produk atau checkout siap dijual sebelum lisensi, harga, pembayaran, pengiriman, dan uji impor Blogger selesai.
+
+
+## Evaluasi lanjutan — status homepage PR #130 setelah katalog digabung (14 Oktober 2026)
+
+- Pemeriksaan ulang branch PR #130 pada head `567ac2af47f401dc96bc8c9c61afb6556de6af6a` menunjukkan kedua workflow terkait pull request telah selesai dengan hasil sukses: `Responsive browser smoke test` dan `Static site audit`. Catatan kegagalan lima assertion dalam deskripsi PR tampaknya belum diperbarui; status hasil CI terbaru harus menjadi acuan, sambil tetap memeriksa cakupan tes.
+- PR #130 belum bisa digabung: GitHub melaporkan `mergeable=false`, dan perbandingan branch menunjukkan branch homepage tertinggal 3 commit dari `main` serta memiliki 19 commit unik. Perubahan katalog dan catatan roadmap di `main` terjadi setelah branch homepage dibuat.
+- Jangan menganggap workflow sukses pada branch yang tertinggal sebagai bukti bahwa versi gabungan sudah lolos. Langkah aman berikutnya adalah menyelaraskan branch homepage dengan `main`, meninjau ulang konflik/hasil gabungan, lalu menjalankan tes sekali lagi sebelum merge.
+- Jalur yang dipertahankan untuk menghindari pilihan berlebihan: homepage → koleksi/layanan website → detail solusi. Dari halaman koleksi, tautan kontekstual terpisah membawa orang yang ingin memasang template sendiri ke katalog template. Blog/panduan dipakai sebagai jalur lanjutan bagi yang masih mempertimbangkan; konsultasi bukan CTA utama.
