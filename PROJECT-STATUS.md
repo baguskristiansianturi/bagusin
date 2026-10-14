@@ -243,3 +243,13 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - Commit branch PR #130: `79fc841d7ffd24fa7d94cdf87fe2447d00de48bb` (homepage), `f1d0081744222f96f5e353e2ecee885f992bd679` (catatan keputusan). Roadmap utama diperbarui di commit terpisah.
 - Pemeriksaan sumber setelah perubahan: pintasan Portofolio tidak ditemukan pada jalur ringkas homepage; label Koleksi & demo website dan tautan katalog template ditemukan. Ini hanya pemeriksaan source, bukan browser QA.
 - Belum selesai: PR #130 belum merged, branch divergen dari `main`, dan tidak ada workflow/status check terdeteksi pada head terbaru. GitHub Pages live serta tampilan visual mobile/desktop belum terverifikasi. Jangan menyatakan perubahan sudah tampil di situs publik.
+
+
+## Verified handoff — 14 October 2026 (repository review)
+
+- Confirmed merged: PR #129 (cross-platform template catalog) and PR #132 (homepage discovery/catalog entry). Their merge status does not by itself prove the public GitHub Pages output is current or visually correct.
+- PR #130 (`ux/homepage-newest-carousel`) remains a draft and unmerged. Latest inspected head: `f1d0081744222f96f5e353e2ecee885f992bd679`. A compare against current `main` (`493c70f430fa4ecb4cec98eb6e07b6640b699a4d`) reports 22 commits ahead and 10 behind; `mergeable=false`. No workflow run or combined status was returned for that head, so its latest CI is unverified.
+- Do not merge PR #130 yet. First reconcile its homepage and test changes with the merged catalog/discovery work, preserving the current design and user-facing routes. Then run the responsive browser smoke test and static audit on the reconciled head.
+- PR #133 (`docs/frontend-go-cloud-domain-plan-20261014`) is documentation-only, draft, and unmerged at the time of this handoff. It records the intended Go backend and future Google Cloud direction; it does not activate either.
+- GitHub Pages visual QA and confirmation of the deployed commit remain unverified. Do not describe the catalog or homepage as live-tested until the public pages and their mobile behavior are actually checked.
+- Architecture constraint: keep the frontend static HTML/CSS/JavaScript; Go is the planned backend. Google Cloud setup remains pending, so do not introduce CodeIgniter/PHP or assume a production API exists.
