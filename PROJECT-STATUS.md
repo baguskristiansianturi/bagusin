@@ -223,3 +223,10 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - Test commit: `75fb89c41647ede7dcac7d369515e12d55bb53b7`. Roadmap follow-up commit: `0adff9af67b120a5ec2994408748e6e1bf55cd8c`.
 - The updated browser suite has **not yet been confirmed green**; CI must be inspected after this documentation commit as well. No merge or deployment is claimed.
 - Next action: verify the latest PR #130 workflow, fix any remaining product/test regressions, then check PR #129's latest CI and keep PR #128's preview-build/browser verification issue in the final audit queue.
+
+
+### Additional QA correction — 14 October 2026
+
+- Compared the new preview smoke assertion against `js/template-preview.js`: the “Lihat detail paket dan harga” control is designed to jump to `#spec-title` on the preview page. The test was corrected to check that exact anchor instead of incorrectly requiring a separate URL.
+- Test commit: `da1b52a5ec632202fc58ae412e31fc6ffaa84cc2`; roadmap record commit: `6fd98817bffa38844b221c47f597dafbcf9b9c9f`.
+- Latest CI must be checked after the newest commit; the suite is not yet declared green. PR #130 remains draft and must not merge until browser tests pass and manual visual/deployment checks are recorded.
