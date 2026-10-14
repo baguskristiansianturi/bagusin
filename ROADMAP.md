@@ -299,3 +299,13 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
   - Validasi semua URL demo/preview/detail di data katalog secara otomatis; tautan internal harus relatif terhadap prefix GitHub Pages dan tidak boleh menghasilkan item palsu.
   - Pisahkan status pemeriksaan source, browser CI, preview Cloudflare, dan situs publik menjadi gerbang verifikasi yang berbeda.
 - Langkah selanjutnya: cek ulang hasil CI commit `7d11e2df5473813e5fd83e343c2351bcdfe0a1b6`; bila ada kegagalan lain, perbaiki sumber masalahnya atau buat PR tindak lanjut yang terukur sebelum merge.
+
+## Temuan penting — katalog Blogger/WordPress belum ada di main (14 Oktober 2026)
+
+**Status: diverifikasi pada sumber repository; deployment publik belum diuji langsung.**
+
+- Pada branch `feat/blogger-template-store-journey`, halaman katalog lintas platform berada di `templates/index.html`, disertai halaman produk/demo dan aset katalog.
+- Pengambilan file yang sama dari branch default `main` sebelumnya menghasilkan `404 Not Found`. Artinya, pada saat pemeriksaan ini, jalur `/templates/` belum dapat dianggap tersedia pada situs GitHub Pages yang dibangun dari `main`, walaupun file katalog data website di `templates/catalog.json` sudah ada.
+- Ini menjelaskan perbedaan antara kode prototipe di PR dan apa yang kemungkinan terlihat oleh pengunjung situs publik. Kehadiran file di branch PR bukan deployment.
+- Gerbang sebelum menyatakan katalog siap: pastikan PR #129 memuat halaman indeks, aset, halaman detail, demo, dan semua rute pendukung; jalankan CI pada head terbaru; review batasan transaksi; lalu merge hanya setelah pemeriksaan selesai. Setelah merge, buka URL GitHub Pages `/bagusin/templates/` dan uji alur katalog Blogger/WordPress sampai demo dan lisensi.
+- Status produk tetap prototipe: checkout simulasi, XML Blogger belum dinyatakan lolos impor, dan belum ada klaim bahwa pembayaran atau pemrosesan pesanan aktif.
