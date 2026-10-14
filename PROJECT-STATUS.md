@@ -214,3 +214,15 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - Commit: `5eda2c4c3897da44d4f63bb75d757fa4453b5655`. Re-fetched the file from `main`: zero old endpoint references and five references to the corrected endpoint.
 - At the time of this note, the browser smoke test and GitHub Pages deployment workflows for the new commit were queued, not yet completed. Do not treat the fix as test-passed or live-deployed until their results are checked.
 - Still unverified: actual FormSubmit activation/delivery and inbox receipt. The smoke test intercepts the network request and cannot prove real email delivery.
+
+
+## Work log — katalog lintas platform dan evaluasi perjalanan pengunjung (14 Oktober 2026)
+
+- PR #129 katalog template lintas platform berhasil digabung ke `main` pada merge commit `482990211e6975a64b977e92723fb2367f066b4e`. Sebelum merge, browser smoke test dan audit statis pada head terbaru berstatus sukses.
+- Sumber `main` kini berisi `templates/index.html`; katalog masih prototipe `noindex,nofollow`. Checkout masih simulasi dan file XML Blogger belum dinyatakan lolos impor.
+- Audit homepage `index.html` pada `main` setelah merge menunjukkan belum ada tautan eksplisit ke `/bagusin/templates/`. Artinya, keberadaan halaman di repository belum cukup untuk membuktikan pengunjung dapat menemukannya dari homepage.
+- Verifikasi situs GitHub Pages secara langsung belum berhasil pada sesi ini karena akses jaringan/DNS dari lingkungan pemeriksaan gagal. Status publik/deployment karena itu tetap **belum terverifikasi**; jangan mengklaim katalog sudah tampil live sebelum URL diuji.
+- Keputusan UX: satu halaman = satu CTA primer dan satu jalur lanjutan kontekstual. Pengunjung yang belum siap membeli diarahkan ke panduan/blog yang relevan, demo, dokumentasi, atau halaman layanan terkait. Konsultasi menjadi bantuan sekunder/terakhir, bukan CTA default.
+- Aturan koneksi konten: halaman layanan/produk menghubungkan ke panduan yang menjawab pertanyaan pengunjung; artikel menghubungkan kembali ke solusi yang dibahas; sesudah demo/artikel, sarankan langkah berikutnya yang relevan dan jangan selalu mengembalikan pengunjung ke homepage.
+- PR #130 homepage masih terbuka dan status mergeability terakhir `false`. Langkah berikutnya: audit penyebab status tersebut, periksa ulang browser assertions, lalu perbarui homepage dengan jalur katalog yang jelas tanpa menambah pilihan setara secara berlebihan.
+- Periksa deployment dan uji alur di desktop/mobile setelah perubahan homepage digabung. Jangan menyatakan produk atau checkout siap dijual sebelum lisensi, harga, pembayaran, pengiriman, dan uji impor Blogger selesai.
