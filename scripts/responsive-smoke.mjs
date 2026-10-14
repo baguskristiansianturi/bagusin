@@ -129,6 +129,7 @@ const interactionPage = await browser.newPage({ viewport: { width: 390, height: 
 try {
   await interactionPage.goto(origin + "/bagusin/", { waitUntil: "domcontentloaded" });
   let homepageText = await interactionPage.locator("main").innerText();
+  if (await interactionPage.locator("[data-site-breadcrumbs]").count()) errors.push("Homepage: breadcrumb should stay hidden on the homepage");
   if (homepageText.includes("Cerita dan panduan pilihan") || homepageText.includes("Memulai kembali Bagusin")) errors.push("Homepage: article cards should be temporarily removed from the primary customer journey");
   // Homepage solution recommendations must stack into one readable column on mobile.
   await interactionPage.locator("[data-stage='starter']").click();
@@ -234,6 +235,32 @@ try {
     errors.push("Contact page: concise Indonesian hero copy is missing");
   }
   if (!contactTitle.includes("Kontak")) errors.push("Contact page: title metadata is not localized");
+
+  // Shared site chrome must stay consistent across interior pages and mobile scrolling.
+  const breadcrumb = interactionPage.locator("[data-site-breadcrumbs]");
+  if (!(await breadcrumb.count())) errors.push("Contact page: shared breadcrumb navigation is missing");
+  else {
+    const breadcrumbText = await breadcrumb.innerText();
+    if (!breadcrumbText.includes("Beranda") || !breadcrumbText.includes("Mari mulai dari kebutuhanmu")) {
+      errors.push("Contact page: breadcrumb labels or current-page label are incorrect: " + breadcrumbText);
+    }
+  }
+  const headerPosition = await interactionPage.locator(".site-header").evaluate((el) => getComputedStyle(el).position);
+  if (headerPosition !== "sticky") errors.push("Contact page: global navbar should use sticky positioning, got " + headerPosition);
+  await interactionPage.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  await interactionPage.waitForTimeout(100);
+  const headerTop = await interactionPage.locator(".site-header").evaluate((el) => Math.round(el.getBoundingClientRect().top));
+  if (headerTop < -1 || headerTop > 2) errors.push("Contact page: navbar did not remain at the top while scrolling, top=" + headerTop);
+  const footerState = await interactionPage.locator(".site-footer").evaluate((el) => ({
+    columns: el.querySelectorAll(".site-footer__column").length,
+    hasCta: Boolean(el.querySelector(".site-footer__cta")),
+    hasBottom: Boolean(el.querySelector(".site-footer__bottom"))
+  }));
+  if (footerState.columns !== 4 || !footerState.hasCta || !footerState.hasBottom) {
+    errors.push("Contact page: shared footer structure is incomplete: " + JSON.stringify(footerState));
+  }
+  await interactionPage.evaluate(() => window.scrollTo(0, 0));
+
   const contactOptionsText = await interactionPage.locator("main").innerText();
   if (!contactOptionsText.includes("Ceritakan kebutuhanmu secara singkat")) errors.push("Contact page: concise guidance is missing");
   const selectedServiceText = await interactionPage.locator("#selected-service").innerText();
