@@ -414,3 +414,11 @@ CI statis, browser smoke, preview hosting, dan GitHub Pages live adalah gerbang 
 - Simulasi alur pengguna menunjukkan katalog masih berada setelah dua kartu demo pada section contoh. Untuk orang yang khusus mencari template, ini membuat tujuan utama kurang terlihat.
 - Kartu Katalog template dipindah menjadi pilihan pertama pada section penemuan, dan copy section diubah agar membedakan tiga tujuan: katalog template, demo website, dan koleksi desain.
 - Tidak menambah pilihan baru; hanya mengurutkan ulang dan memperjelas copy. Perlu cek ulang browser smoke pada head terbaru serta uji langsung di ponsel setelah deployment.
+
+
+### Penyederhanaan pilihan pathfinder
+
+- Temuan simulasi: “Bisnis saya sudah berjalan” dan “Saya sudah punya brand atau website” berpotensi tumpang tindih. Pilihan ketiga kini lebih spesifik: “Saya sudah punya website”, dengan penjelasan yang lebih singkat.
+- Pilihan tahap awal dipadatkan. Pada jalur website yang sudah ada, opsi perbaikan tampilan dan opsi peningkatan hasil digabung menjadi satu pilihan, sehingga jumlah opsi turun dari lima menjadi empat tanpa menghapus tujuan utama.
+- Label pilihan diperpendek agar lebih mudah dipindai di ponsel; deskripsi rekomendasi tetap menjelaskan konteks setelah pengguna memilih.
+- Ini perubahan copy dan logika pemilihan, bukan perubahan desain visual besar. Validasi otomatis dan pengujian browser pada head terbaru tetap wajib sebelum merge.
