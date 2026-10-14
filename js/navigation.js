@@ -281,10 +281,10 @@
     (function renderBreadcrumbs() {
       const main = document.querySelector("main#main-content, main");
       if (!main || main.querySelector("[data-site-breadcrumbs]") || document.querySelector("[data-site-breadcrumbs]")) return;
-      const rawPath = window.location.pathname.replace(/\\/+/g, "/");
+      const rawPath = window.location.pathname;
       const projectBase = rawPath === "/bagusin" || rawPath.startsWith("/bagusin/") ? "/bagusin" : "";
       let route = projectBase ? rawPath.slice(projectBase.length) : rawPath;
-      route = route.replace(/index\\.html$/i, "").replace(/^\\/+|\\/+$/g, "");
+      route = route.split("/").filter(Boolean).join("/");\n      if (route.toLowerCase().endsWith("index.html")) route = route.slice(0, -10).replace(/\/$/, "");
       if (!route) return;
       const parts = route.split("/").filter(Boolean);
       const english = parts[0] === "en";
