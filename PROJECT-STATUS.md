@@ -214,3 +214,11 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - Commit: `5eda2c4c3897da44d4f63bb75d757fa4453b5655`. Re-fetched the file from `main`: zero old endpoint references and five references to the corrected endpoint.
 - At the time of this note, the browser smoke test and GitHub Pages deployment workflows for the new commit were queued, not yet completed. Do not treat the fix as test-passed or live-deployed until their results are checked.
 - Still unverified: actual FormSubmit activation/delivery and inbox receipt. The smoke test intercepts the network request and cannot prove real email delivery.
+
+
+## QA handoff — PR #128 browser smoke correction (14 October 2026)
+
+- Previous browser smoke run on PR #128 failed on collection demo/package-link assertions and outdated expectations for the legacy Destinations page.
+- Updated the smoke suite to check the current collection → preview → canonical demo/package anchor journey and the intentional Destinations → Blog redirect. Added checks for package price, contact intent, and switching the preview workspace to mobile.
+- Test commit: `8c30e571435917cce3f0fdf6facf3c21e365452c`.
+- Roadmap record is updated in the same branch. The corrected suite has not yet been confirmed green. Do not merge or claim visual/deployment verification until CI and manual responsive checks are complete.
