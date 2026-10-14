@@ -407,3 +407,10 @@ CI statis, browser smoke, preview hosting, dan GitHub Pages live adalah gerbang 
 - Perbaikan tes: assertion homepage disesuaikan dengan label layanan yang benar-benar terlihat, lalu ditambah skenario terpisah untuk pengguna yang sudah punya brand dan ingin menambah sistem operasional. Skenario ini memeriksa rekomendasi “Aplikasi dan sistem khusus”, penjelasan bahwa tidak semua proses membutuhkan aplikasi khusus, serta tautan menuju layanan terkait.
 - Temuan UX untuk evaluasi visual berikutnya: pathfinder saat ini meminta dua keputusan (kondisi bisnis, lalu kebutuhan utama). Ini perlu diuji di perangkat mobile untuk memastikan pertanyaan kedua mudah dipahami, rekomendasi tidak terlalu panjang, dan CTA konsultasi tetap opsional. Jika pengguna harus membaca terlalu banyak sebelum menemukan langkah yang tepat, sederhanakan opsi dan ringkas copy; jangan menambah kartu/CTA tanpa alasan.
 - Status: pembaruan test ada pada branch PR #132; CI harus dijalankan ulang dan lulus sebelum merge. GitHub Pages live dan pengujian langsung oleh Bagus di ponsel tetap gerbang terpisah.
+
+
+### Urutan pilihan di homepage — penyederhanaan UX
+
+- Simulasi alur pengguna menunjukkan katalog masih berada setelah dua kartu demo pada section contoh. Untuk orang yang khusus mencari template, ini membuat tujuan utama kurang terlihat.
+- Kartu Katalog template dipindah menjadi pilihan pertama pada section penemuan, dan copy section diubah agar membedakan tiga tujuan: katalog template, demo website, dan koleksi desain.
+- Tidak menambah pilihan baru; hanya mengurutkan ulang dan memperjelas copy. Perlu cek ulang browser smoke pada head terbaru serta uji langsung di ponsel setelah deployment.
