@@ -2,6 +2,28 @@ document.addEventListener("DOMContentLoaded", function () {
   const params = new URLSearchParams(window.location.search);
   let service = params.get("service") || "";
   if (!service && params.get("mode") === "course-interest") service = "course-interest";
+  if (!service && params.get("template")) service = "websites";
+  if (!service && document.referrer) {
+    try {
+      const referrer = new URL(document.referrer);
+      if (referrer.origin === window.location.origin) {
+        const serviceByPath = {
+          "copywriting": "copywriting",
+          "seo-content": "seo-content",
+          "landing-pages": "landing-pages",
+          "websites": "websites",
+          "web-applications": "web-applications",
+          "maintenance-uiux": "maintenance-uiux",
+          "google-ads": "google-ads",
+          "mobile-apps": "mobile-apps",
+          "google-business-profile": "google-business-profile"
+        };
+        const match = referrer.pathname.match(/\/work\/([^/]+)\/?$/);
+        if (match) service = serviceByPath[match[1]] || "";
+        if (!service && /\/collections\//.test(referrer.pathname)) service = "websites";
+      }
+    } catch (_) {}
+  }
   const mode = params.get("mode") || "consultation";
   const isEnglish = document.documentElement.lang === "en";
   const labels = isEnglish ? {
@@ -54,6 +76,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   const serviceInput = document.getElementById("service-value");
   const serviceSelect = document.getElementById("service-choice");
+  const serviceChoiceLabel = serviceSelect ? serviceSelect.closest("[data-service-choice-label]") : null;
+  const serviceChangeButton = form.querySelector("[data-service-change]");
   const modeInput = document.getElementById("mode-value");
   const form = document.getElementById("project-form");
   const status = document.getElementById("form-status");
@@ -63,6 +87,15 @@ document.addEventListener("DOMContentLoaded", function () {
   if (serviceInput) serviceInput.value = service;
   if (serviceSelect) {
     serviceSelect.value = service;
+    if (serviceChoiceLabel && service) serviceChoiceLabel.hidden = true;
+    if (serviceChangeButton) {
+      serviceChangeButton.hidden = !service;
+      serviceChangeButton.addEventListener("click", function () {
+        if (serviceChoiceLabel) serviceChoiceLabel.hidden = false;
+        serviceChangeButton.hidden = true;
+        serviceSelect.focus();
+      });
+    }
     serviceSelect.addEventListener("change", function () {
       service = serviceSelect.value;
       if (serviceInput) serviceInput.value = service;
@@ -89,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
       context.appendChild(fee);
     }
   }
-  const templateNames = { "BG-TRV-STR-001": "Bagus Sewa Mobil Bali 01 (ID: BG-TRV-STR-001)" };
+  const templateNames = { "BG-TRV-STR-001": "Bagus Sewa Mobil Bali 01" };
   const selectedTemplateName = templateNames[template] || template;
   const modeDisplay = document.querySelector(".form-context");
   if (template && modeDisplay) {
