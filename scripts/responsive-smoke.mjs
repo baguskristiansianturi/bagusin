@@ -547,10 +547,12 @@ try {
   if (!collectionText.includes("750.000") || !collectionText.includes("domain/hosting terpisah")) errors.push("Collections page: package price or exclusions are unclear");
   const templateCard = interactionPage.locator("[data-template-grid] .template-product").filter({ hasText: "Bagus Sewa Mobil Bali 01" }).first();
   if (!(await templateCard.locator(".template-chip").allTextContents()).some(text => text.includes("Satu halaman"))) errors.push("Collections page: one-page format label is incorrect");
-  const demoLink = templateCard.locator('a[href="/bagusin/demos/starter/travel-rental/bagus-sewa-mobil-bali-01/"]').first();
-  if (!(await demoLink.count())) errors.push("Collections page: canonical demo link is missing");
-  const detailLink = templateCard.locator('a[href*="/templates/detail/?template=BG-TRV-STR-001"]').first();
-  if (!(await detailLink.count())) errors.push("Collections page: package detail CTA is missing");
+  // The catalog intentionally routes actions through the template preview, where
+  // the canonical demo and package specification are presented together.
+  const previewLink = templateCard.locator('a[href*="/templates/preview/?template=BG-TRV-STR-001"]').first();
+  if (!(await previewLink.count())) errors.push("Collections page: template preview link is missing");
+  const packageLink = templateCard.locator('a[href*="/templates/preview/?template=BG-TRV-STR-001#spec-title"]').first();
+  if (!(await packageLink.count()) || !(await packageLink.innerText()).includes("Paket")) errors.push("Collections page: package and pricing CTA is missing");
   if (!(await interactionPage.locator('.site-nav a[href="/bagusin/collections/"]').count())) errors.push("Collections page: collection navigation link is missing");
 
   // Verify the complete template journey: catalog → demo → package details → correct contact intent.
