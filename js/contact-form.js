@@ -80,9 +80,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const serviceInput = document.getElementById("service-value");
   const serviceSelect = document.getElementById("service-choice");
   const serviceChoiceLabel = serviceSelect ? serviceSelect.closest("[data-service-choice-label]") : null;
-  const serviceChangeButton = form.querySelector("[data-service-change]");
   const modeInput = document.getElementById("mode-value");
   const form = document.getElementById("project-form");
+  const serviceChangeButton = form ? form.querySelector("[data-service-change]") : null;
   const status = document.getElementById("form-status");
   if (!form || !status) return;
 
