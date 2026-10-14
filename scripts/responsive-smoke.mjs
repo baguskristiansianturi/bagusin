@@ -158,8 +158,18 @@ try {
   await interactionPage.setViewportSize({ width: 390, height: 844 });
   await interactionPage.locator("[data-reset-pathfinder]").click();
 
-  if (!homepageText.includes("Rapikan konten dan visibilitas") || !homepageText.includes("Sistem operasional")) errors.push("Homepage: current Indonesian service/path labels are missing");
+  if (!homepageText.includes("Rapikan konten dan visibilitas") || !homepageText.includes("Bangun solusi baru")) errors.push("Homepage: current Indonesian service labels are missing");
   if (homepageText.includes("Content Writing & SEO") || homepageText.includes("Web Applications & Systems")) errors.push("Homepage: outdated English service labels remain");
+
+  // Check a second path from the visitor's perspective: an existing brand needs an operational system.
+  await interactionPage.locator("[data-stage='existing']").click();
+  await interactionPage.locator("[data-goal='system']").click();
+  const systemPathText = await interactionPage.locator("main").innerText();
+  if (!systemPathText.includes("Aplikasi dan sistem khusus")) errors.push("Homepage pathfinder: operational-system recommendation is missing");
+  if (!systemPathText.includes("Tidak semua proses membutuhkan aplikasi khusus.")) errors.push("Homepage pathfinder: system recommendation lacks a plain-language caveat");
+  if (!(await interactionPage.locator("[data-recommended-solutions] a[href='/bagusin/work/web-applications/']").count())) errors.push("Homepage pathfinder: system recommendation does not link to the relevant service");
+  await interactionPage.locator("[data-reset-pathfinder]").click();
+
   const menuToggle = interactionPage.locator("[data-mobile-menu-toggle]").first();
   if (!(await menuToggle.count())) errors.push("Homepage: mobile menu toggle is missing");
   else {
