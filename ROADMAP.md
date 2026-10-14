@@ -374,3 +374,11 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 
 ### Aturan status
 CI statis, browser smoke, preview hosting, dan GitHub Pages live adalah gerbang yang berbeda. Tandai setiap gerbang secara terpisah; jangan menandai tahap selesai hanya karena salah satunya lulus.
+
+
+## UX follow-up — tautan langsung katalog dari homepage (14 Oktober 2026)
+
+- Temuan dari audit `main`: kartu “Template dan desain” pada section “Demo dan koleksi” masih menuju `/bagusin/collections/`, sehingga pengunjung tidak punya jalur yang jelas menuju toko template yang baru masuk melalui PR #129.
+- Perubahan terisolasi pada branch `fix/homepage-template-catalog-entry`: kartu tersebut kini menuju `/bagusin/templates/`, dengan label “Katalog template”, judul “Template siap disesuaikan”, dan keterangan bahwa pengunjung dapat memeriksa demo serta detail paket sebelum memilih.
+- Koleksi/demo tetap terpisah pada kartu dan halaman koleksi; Portofolio tidak ditambahkan sebagai pintasan pada jalur penemuan homepage.
+- Status: perubahan sumber sudah dibuat pada branch dan perlu pemeriksaan CI serta verifikasi tampilan di GitHub Pages sebelum dianggap live. Tidak ada perubahan harga, checkout, atau status kesiapan produk.
