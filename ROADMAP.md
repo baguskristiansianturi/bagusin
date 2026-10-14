@@ -1,6 +1,6 @@
 # Bagusin — Roadmap Pengerjaan Website
 
-Terakhir diperbarui: 13 Oktober 2026
+Terakhir diperbarui: 14 Oktober 2026
 
 ## Catatan perubahan — UX homepage, course, dan footer
 
@@ -348,3 +348,29 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 - PR #130 homepage masih terbuka, draft, dan `mergeable=false`. Head terbaru `f1d0081744222f96f5e353e2ecee885f992bd679` belum memiliki workflow/status checks yang terdeteksi. Perbandingan terakhir menunjukkan branch divergen: 22 commit ahead dan 6 commit behind dari `main`. Sinkronkan perubahan terbaru, tinjau hasil integrasi, lalu jalankan tes ulang pada head gabungan sebelum merge.
 - GitHub Pages publik belum dapat diverifikasi langsung pada pemeriksaan ini. Jangan menandai fitur live hanya karena file sudah ada di `main`; setelah workflow/deployment selesai, buka katalog dan uji alur pada browser desktop dan mobile.
 - Berikutnya: audit PR #130 dan konsolidasikan satu jalur homepage → katalog/layanan → detail → demo atau panduan → pemesanan/kontak. Pastikan setiap halaman punya fallback non-pembelian yang kontekstual.
+
+
+## Handoff terverifikasi — 14 Oktober 2026 (pembaruan setelah merge PR #129)
+
+### Katalog template dan status publik
+- PR #129 `feat(blogger-template-store-journey` telah **merged** ke `main` pada 14 Oktober 2026; merge commit `482990211e6975a64b977e92723fb2367f066b4e`.
+- Pemeriksaan isi `main` mengonfirmasi `templates/index.html` dan struktur katalog kini tersedia di branch utama. Ini membetulkan catatan historis di atas yang menyatakan file tersebut belum ada di `main`.
+- URL publik yang harus diverifikasi setelah deployment: https://baguskristiansianturi.github.io/bagusin/templates/ . Pemeriksaan langsung melalui alat yang tersedia tidak berhasil mengakses halaman; deployment GitHub Pages dan tampilan live **belum terverifikasi**. Jangan menyatakan katalog sudah tampil di browser pengguna hanya berdasarkan merge.
+- Katalog masih prototipe `noindex,nofollow`; checkout simulasi, pembayaran/order/email nyata, dan impor XML Blogger belum dinyatakan lolos.
+
+### Homepage dan gerbang berikutnya
+- PR #130 `ux/homepage-newest-carousel` masih draft dan belum merged pada pemeriksaan ini. Tujuannya merapikan homepage mobile-first, menambahkan carousel “Baru di Bagusin”, serta menyediakan jalur langsung ke layanan, Koleksi & demo website, Katalog Template, Blog, dan Course.
+- Catatan CI terbaru di PR #130 menyebut static audit #941 dan responsive browser smoke #893 sukses untuk head `567ac2af47f401dc96bc8c9c61afb6556de6af6a` (46 rute, 276 pemeriksaan viewport). Hasil tersebut berlaku untuk commit yang diuji; tidak otomatis membuktikan head terbaru, preview Cloudflare, atau GitHub Pages live berhasil.
+- Komentar bot Cloudflare melaporkan build preview gagal untuk commit `567ac2a` dan `815300e`. Akar penyebab belum diverifikasi. Catat ini sebagai blocker terpisah dari CI GitHub Actions; periksa log build terbaru dan jangan menebak penyebab.
+- PR #131 adalah dokumentasi audit/roadmap dan masih draft; jangan menganggap isinya sudah masuk `main` sebelum merge.
+
+### Urutan kerja yang wajib dilanjutkan
+1. Periksa workflow/status deployment GitHub Pages untuk `main` setelah merge PR #129; buka URL katalog publik dan pastikan isi serta aset tampil.
+2. Periksa tautan homepage pada `main` menuju `/bagusin/templates/`. Jangan menambahkan portofolio sebagai pintasan pada jalur penemuan ringkas homepage; portofolio tetap di navigasi khusus. Koleksi/demo dan template berbayar adalah tujuan yang berbeda.
+3. Tinjau PR #130 terhadap `main` terkini karena PR #129 telah merge setelah branch homepage dibuat. Sinkronkan branch dengan aman, selesaikan konflik/divergensi tanpa menghapus perubahan pengguna, lalu jalankan ulang CI pada head final.
+4. Periksa log Cloudflare preview untuk commit terbaru. Jika gagal dan penyebab belum bisa diakses, catat blocker eksternal dengan tautan log; jangan menyatakan preview/live sukses.
+5. Lakukan visual QA manual desktop dan ponsel, termasuk overflow, carousel (keyboard/focus/reduced motion), CTA katalog, menu mobile, dan konsistensi ID/EN. Setelah itu cocokkan commit yang diuji dengan URL GitHub Pages.
+6. Pertahankan batas prototipe: tidak ada klaim checkout/pembayaran, email/order tersimpan, atau impor Blogger yang belum dibuktikan.
+
+### Aturan status
+CI statis, browser smoke, preview hosting, dan GitHub Pages live adalah gerbang yang berbeda. Tandai setiap gerbang secara terpisah; jangan menandai tahap selesai hanya karena salah satunya lulus.
