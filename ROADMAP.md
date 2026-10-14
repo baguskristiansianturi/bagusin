@@ -309,3 +309,32 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 - Ini menjelaskan perbedaan antara kode prototipe di PR dan apa yang kemungkinan terlihat oleh pengunjung situs publik. Kehadiran file di branch PR bukan deployment.
 - Gerbang sebelum menyatakan katalog siap: pastikan PR #129 memuat halaman indeks, aset, halaman detail, demo, dan semua rute pendukung; jalankan CI pada head terbaru; review batasan transaksi; lalu merge hanya setelah pemeriksaan selesai. Setelah merge, buka URL GitHub Pages `/bagusin/templates/` dan uji alur katalog Blogger/WordPress sampai demo dan lisensi.
 - Status produk tetap prototipe: checkout simulasi, XML Blogger belum dinyatakan lolos impor, dan belum ada klaim bahwa pembayaran atau pemrosesan pesanan aktif.
+
+
+## Keputusan UX — alur pengunjung dan langkah berikutnya (14 Oktober 2026)
+
+**Prinsip:** satu halaman punya satu tindakan utama dan satu jalur lanjutan yang relevan. Jangan memberi terlalu banyak CTA setara, dan jangan mengarahkan semua pengunjung ke konsultasi.
+
+### Peta perjalanan yang disarankan
+1. **Pintu masuk** — homepage membantu pengunjung mengenali kebutuhan: mulai dari nol, memperbaiki website/bisnis digital, mencari template, atau belajar. Pilihan ini adalah pintu masuk; bukan daftar semua layanan sekaligus.
+2. **Halaman solusi** — halaman layanan, koleksi, kursus, atau produk menjelaskan hasil yang akan didapat, siapa yang cocok, contoh/demo, harga atau cara mendapat estimasi, batasan, dan langkah berikutnya.
+3. **Siap memesan** — arahkan ke pemesanan/checkout hanya jika produk dan alur transaksi memang sudah siap. Checkout simulasi tidak boleh ditampilkan seolah transaksi nyata.
+4. **Belum siap** — jangan otomatis kembali ke homepage. Berikan satu panduan/blog yang menjawab keberatan atau pertanyaan paling dekat dengan halaman itu, lalu tautkan kembali ke layanan/produk terkait.
+5. **Butuh bantuan memilih** — tawarkan kontak atau konsultasi sebagai jalur sekunder, khususnya untuk kebutuhan yang belum jelas atau proyek custom. Konsultasi bukan CTA default pada setiap halaman dan berada setelah pengunjung memperoleh informasi dasar.
+
+### Aturan CTA dan tautan kontekstual
+- Setiap halaman memilih satu CTA primer; CTA sekunder dibatasi pada tindakan pendukung yang benar-benar berbeda.
+- Artikel blog harus punya hubungan dua arah: dari layanan/produk ke panduan relevan, dan dari panduan ke layanan/produk yang dibahas. Hindari CTA generik yang tidak cocok dengan isi artikel.
+- Detail template mengarah ke demo, lisensi/batasan, dan cara pemasangan; jika belum siap membeli, arahkan ke dokumentasi/panduan pemasangan atau bantuan memilih.
+- Halaman layanan yang memerlukan diskusi menjelaskan lingkup dan proses terlebih dahulu; konsultasi baru ditawarkan jika memang membantu keputusan.
+- Setelah aksi selesai (misalnya membaca artikel, melihat demo, atau mengirim permintaan), tampilkan langkah berikutnya yang sesuai konteks, bukan memaksa pengguna kembali ke homepage.
+- Jangan membuat tautan ke produk, artikel, pembayaran, dukungan, atau fitur yang belum tersedia. Kategori kosong harus tetap jujur dan tidak memunculkan produk palsu.
+- Ukur kualitas alur berdasarkan apakah pengunjung bisa menjawab “ini cocok untuk saya?”, “apa yang saya dapat?”, “berapa/ bagaimana biayanya?”, dan “apa langkah berikutnya?” tanpa perlu bertanya dulu.
+
+### Status implementasi dan gerbang verifikasi
+- PR #129 katalog lintas platform digabung ke `main` melalui merge commit `482990211e6975a64b977e92723fb2367f066b4e`; browser smoke dan audit statis pada head sebelum merge lulus.
+- File `templates/index.html` kini terverifikasi ada pada `main`; halaman katalog tetap prototipe `noindex,nofollow`, checkout simulasi, dan impor XML Blogger belum tervalidasi.
+- Pemeriksaan sumber `index.html` pada `main` menunjukkan belum ada tautan eksplisit `/bagusin/templates/` di homepage. Katalog harus dihubungkan melalui navigasi yang jelas, tetapi jangan menambah CTA berlebihan.
+- PR #130 homepage masih terbuka dan saat pemeriksaan terakhir `mergeable=false`; evaluasi konflik dan assertion gagal sebelum perubahan homepage digabung.
+- GitHub Pages publik belum dapat diverifikasi langsung pada pemeriksaan ini. Jangan menandai fitur live hanya karena file sudah ada di `main`; setelah workflow/deployment selesai, buka katalog dan uji alur pada browser desktop dan mobile.
+- Berikutnya: audit PR #130 dan konsolidasikan satu jalur homepage → katalog/layanan → detail → demo atau panduan → pemesanan/kontak. Pastikan setiap halaman punya fallback non-pembelian yang kontekstual.
