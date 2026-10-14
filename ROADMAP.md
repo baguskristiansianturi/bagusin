@@ -272,3 +272,15 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 - Updated the five test interception references in `scripts/responsive-smoke.mjs` to match the endpoint in `js/contact-form.js`.
 - Fix commit: `5eda2c4c3897da44d4f63bb75d757fa4453b5655`. Source re-fetch confirmed zero stale endpoint references in the test and five references to the intended endpoint.
 - Browser smoke and Pages deployment runs for this commit were queued at the time of writing; result and live deployment must be checked before marking this step complete. Network interception is a simulated test and does not prove real inbox delivery.
+
+
+## QA follow-up — PR #130 smoke-test expectation alignment (14 October 2026)
+
+**Status: test corrections committed; rerun CI is required before treating the fixes as verified.**
+
+- Rechecked PR #130 head commit `5b574fbfd25e02d7050ead467106f9e4bc32aa24` and its failed GitHub Actions run. Static site audit passed; responsive browser smoke failed on five assertions.
+- Failure causes identified from the workflow log and source: the homepage assertion expected an obsolete label (`Sistem operasional`); the collections assertions expected direct/detail links that the current catalogue does not render (the current journey uses the interactive preview and its package section); and the legacy `/destinations/` route intentionally redirects to `/blog/`, so asserting destination-page copy on that route was incorrect.
+- Updated `scripts/responsive-smoke.mjs` to assert current Indonesian service labels, current preview/package CTA routes, the preview's canonical demo link, package-detail link, price and mobile preview switch, and the intentional Destinations-to-Blog redirect.
+- Test correction commit: [`75fb89c41647ede7dcac7d369515e12d55bb53b7`](https://github.com/baguskristiansianturi/bagusin/commit/75fb89c41647ede7dcac7d369515e12d55bb53b7) on `ux/homepage-newest-carousel`.
+- **Not yet verified:** CI results for the new commit, local browser execution, manual visual QA, and GitHub Pages live output. Do not merge PR #130 until the new workflow passes and the visual/deployment checks are explicitly recorded.
+- Next step: inspect the new CI run and its logs; fix genuine failures rather than weakening assertions, then verify PR #129's latest commit status and keep PR #128's failed Cloudflare preview build/browser QA as separate tracked work.
