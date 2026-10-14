@@ -17,13 +17,13 @@
   const options = {
     starter: [["customers","Mendapatkan pelanggan pertama dalam waktu dekat"],["organic","Membangun kehadiran online jangka panjang"],["allin","Dibantu menyusun dan mengurus semuanya sesuai anggaran"]],
     business: [["customers","Menambah calon pelanggan dan penjualan"],["organic","Membangun visibilitas organik jangka panjang"],["conversion","Memperbaiki hasil dari website yang sudah ada"],["allin","Menyusun strategi menyeluruh sesuai kondisi bisnis"]],
-    existing: [["conversion","Website belum menghasilkan kontak atau penjualan"],["website","Memperbaiki tampilan, copy, struktur, atau menambah halaman"],["system","Menambah fitur, integrasi, atau sistem operasional"],["marketing","Menilai apakah SEO atau iklan layak dijalankan"],["allin","Menganalisis dan mengelola perbaikan secara menyeluruh"]]
+    existing: [["conversion","Memperbaiki website atau meningkatkan hasilnya"],["system","Menambah fitur atau menyederhanakan proses kerja"],["marketing","Menilai apakah SEO atau iklan layak dijalankan"],["allin","Menganalisis dan merencanakan perbaikan menyeluruh"]]
   };
   const isEnglish = window.location.pathname.split("/").includes("en");
   const optionsEn = {
     starter: [["customers","Get your first customers soon"],["organic","Build long-term online visibility"],["allin","Get help planning and managing the whole process"]],
     business: [["customers","Attract more leads and sales"],["organic","Grow long-term organic visibility"],["conversion","Improve results from my current website"],["allin","Plan a broader strategy for my business"]],
-    existing: [["conversion","My website is not generating leads or sales"],["website","Improve design, copy, structure, or add pages"],["system","Add features, integrations, or an operational system"],["marketing","Assess whether SEO or ads make sense"],["allin","Review and manage improvements end to end"]]
+    existing: [["conversion","Improve my website or get better results"],["system","Add features or simplify operations"],["marketing","Assess whether SEO or ads make sense"],["allin","Plan broader improvements"]]
   };
   const plansEn = {
     "starter:customers": {title:"Start with a practical customer-acquisition path",summary:"Clarify the offer and make it easy to contact you before spending heavily on promotion.",steps:["Define your main customers, core offer, service area, and why people should choose you.","Set up a Google Business Profile if your local business is eligible.","Create a focused landing page with one clear offer and action.","Test customer response and measure results before increasing ad spend."],caveat:"Check margins, competition, operational readiness, and follow-up capacity before advertising."},

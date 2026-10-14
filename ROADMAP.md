@@ -374,3 +374,51 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 
 ### Aturan status
 CI statis, browser smoke, preview hosting, dan GitHub Pages live adalah gerbang yang berbeda. Tandai setiap gerbang secara terpisah; jangan menandai tahap selesai hanya karena salah satunya lulus.
+
+
+## UX follow-up — tautan langsung katalog dari homepage (14 Oktober 2026)
+
+- Temuan dari audit `main`: kartu “Template dan desain” pada section “Demo dan koleksi” masih menuju `/bagusin/collections/`, sehingga pengunjung tidak punya jalur yang jelas menuju toko template yang baru masuk melalui PR #129.
+- Perubahan terisolasi pada branch `fix/homepage-template-catalog-entry`: kartu tersebut kini menuju `/bagusin/templates/`, dengan label “Katalog template”, judul “Template siap disesuaikan”, dan keterangan bahwa pengunjung dapat memeriksa demo serta detail paket sebelum memilih.
+- Koleksi/demo tetap terpisah pada kartu dan halaman koleksi; Portofolio tidak ditambahkan sebagai pintasan pada jalur penemuan homepage.
+- Status: perubahan sumber sudah dibuat pada branch dan perlu pemeriksaan CI serta verifikasi tampilan di GitHub Pages sebelum dianggap live. Tidak ada perubahan harga, checkout, atau status kesiapan produk.
+
+
+## UX restructuring — homepage and footer (14 Oktober 2026)
+
+- Masukan Bagus: homepage harus menjawab “saya ingin melakukan apa?” sejak awal; pengunjung tidak boleh menebak apakah template ada di Layanan, Koleksi, atau Portofolio.
+- Pada branch `fix/homepage-template-catalog-entry`, jalur desktop dan mobile dibuat eksplisit: Layanan dan Katalog template sebagai tujuan berbeda; mobile juga menampilkan Koleksi & demo. Portofolio dihilangkan dari navigasi dan jalur homepage untuk sementara, tanpa menghapus halaman arsipnya.
+- Homepage dipangkas dari 10 section berlabel menjadi 6: hero/pencari jalur, layanan, contoh (demo + katalog template + koleksi), artikel pilihan, course, dan CTA penutup. Bagian artikel panduan berulang, solusi umum yang menduplikasi layanan, bagian karya/portofolio, dan CTA penjelasan tambahan dihapus dari beranda agar detail tetap berada pada halaman masing-masing.
+- Footer dinamis di `js/navigation.js` sebelumnya menampilkan dua tautan ke `/work/` (“Lihat Layanan” dan “Layanan”) dan satu tautan Portofolio. Kini hanya ada satu tautan Layanan dan satu tautan Katalog template di kolom Work; tautan Portofolio dihapus. Markup footer statis pada homepage diselaraskan, dan tautan Pencarian yang tidak diperlukan dihapus dari kolom Jelajahi.
+- Verifikasi sumber sebelum merge: homepage memiliki tautan katalog di navigasi desktop, navigasi mobile, bagian contoh, dan footer; tautan Portofolio tidak lagi muncul di `index.html` atau footer dinamis. Ini adalah verifikasi sumber, bukan bukti CI, browser smoke, atau GitHub Pages live.
+- Gerbang berikutnya: cek syntax/HTML dan workflow pada head terbaru; uji menu mobile, tautan katalog/koleksi, serta footer yang dirender JavaScript; pastikan halaman GitHub Pages sudah memuat commit ini sebelum menyatakan selesai.
+
+
+### Navigasi global — katalog dan portofolio sementara
+
+- Navigasi bersama kini menambahkan tautan langsung ke Katalog template pada halaman yang belum memilikinya, sehingga katalog tidak hanya dapat ditemukan dari homepage.
+- Tautan Portofolio di menu desktop/mobile disembunyikan secara global untuk sementara; arsip Portofolio tidak dihapus agar data lama tidak rusak. Dropdown Layanan lama diubah menjadi tautan langsung ketika hanya tersisa satu tujuan.
+- Status: perubahan sumber di branch PR #132; CI sedang berjalan pada head sebelumnya dan perlu dicek ulang untuk commit terbaru. Belum menyatakan merge atau live.
+
+
+### Evaluasi UX berbasis skenario pengguna — hasil putaran pertama
+
+- Pengujian Playwright memeriksa 51 rute dan 306 kombinasi viewport. Tidak ditemukan isu overflow/rute pada log ringkas, tetapi dua workflow gagal pada assertion lama: smoke test masih meminta teks “Sistem operasional” di hasil jalur pertama (starter + pelanggan pertama), padahal rekomendasi itu hanya relevan pada jalur brand/website yang membutuhkan sistem. Audit rute/SEO lulus; job browser interaksi gagal karena assertion teks yang tidak sesuai dengan skenario yang dipilih.
+- Perbaikan tes: assertion homepage disesuaikan dengan label layanan yang benar-benar terlihat, lalu ditambah skenario terpisah untuk pengguna yang sudah punya brand dan ingin menambah sistem operasional. Skenario ini memeriksa rekomendasi “Aplikasi dan sistem khusus”, penjelasan bahwa tidak semua proses membutuhkan aplikasi khusus, serta tautan menuju layanan terkait.
+- Temuan UX untuk evaluasi visual berikutnya: pathfinder saat ini meminta dua keputusan (kondisi bisnis, lalu kebutuhan utama). Ini perlu diuji di perangkat mobile untuk memastikan pertanyaan kedua mudah dipahami, rekomendasi tidak terlalu panjang, dan CTA konsultasi tetap opsional. Jika pengguna harus membaca terlalu banyak sebelum menemukan langkah yang tepat, sederhanakan opsi dan ringkas copy; jangan menambah kartu/CTA tanpa alasan.
+- Status: pembaruan test ada pada branch PR #132; CI harus dijalankan ulang dan lulus sebelum merge. GitHub Pages live dan pengujian langsung oleh Bagus di ponsel tetap gerbang terpisah.
+
+
+### Urutan pilihan di homepage — penyederhanaan UX
+
+- Simulasi alur pengguna menunjukkan katalog masih berada setelah dua kartu demo pada section contoh. Untuk orang yang khusus mencari template, ini membuat tujuan utama kurang terlihat.
+- Kartu Katalog template dipindah menjadi pilihan pertama pada section penemuan, dan copy section diubah agar membedakan tiga tujuan: katalog template, demo website, dan koleksi desain.
+- Tidak menambah pilihan baru; hanya mengurutkan ulang dan memperjelas copy. Perlu cek ulang browser smoke pada head terbaru serta uji langsung di ponsel setelah deployment.
+
+
+### Penyederhanaan pilihan pathfinder
+
+- Temuan simulasi: “Bisnis saya sudah berjalan” dan “Saya sudah punya brand atau website” berpotensi tumpang tindih. Pilihan ketiga kini lebih spesifik: “Saya sudah punya website”, dengan penjelasan yang lebih singkat.
+- Pilihan tahap awal dipadatkan. Pada jalur website yang sudah ada, opsi perbaikan tampilan dan opsi peningkatan hasil digabung menjadi satu pilihan, sehingga jumlah opsi turun dari lima menjadi empat tanpa menghapus tujuan utama.
+- Label pilihan diperpendek agar lebih mudah dipindai di ponsel; deskripsi rekomendasi tetap menjelaskan konteks setelah pengguna memilih.
+- Ini perubahan copy dan logika pemilihan, bukan perubahan desain visual besar. Validasi otomatis dan pengujian browser pada head terbaru tetap wajib sebelum merge.

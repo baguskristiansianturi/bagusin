@@ -93,6 +93,51 @@
     addCollectionsLink(desktopList, false);
     addCollectionsLink(mobileList, true);
 
+    function addTemplateCatalogLink(list, mobile) {
+      if (!list || list.querySelector('a[href$="/templates/"]')) return;
+      const item = document.createElement("li");
+      const link = document.createElement("a");
+      link.className = mobile ? "mobile-nav__link" : "site-nav__link";
+      link.href = navBase + "/templates/";
+      link.textContent = navEnglish ? "Template Catalog" : "Katalog template";
+      item.className = mobile ? "" : "site-nav__item";
+      item.appendChild(link);
+      const collectionItem = Array.from(list.children).find(function (li) {
+        return li.querySelector('a[href$="/collections/"]');
+      });
+      const blogItem = Array.from(list.children).find(function (li) {
+        return li.querySelector('a[href$="/blog/"]');
+      });
+      const reference = collectionItem || blogItem;
+      if (reference && reference.nextSibling) list.insertBefore(item, reference.nextSibling);
+      else list.appendChild(item);
+    }
+    addTemplateCatalogLink(desktopList, false);
+    addTemplateCatalogLink(mobileList, true);
+
+    // Portfolio discovery is paused for now. Keep the archive intact but remove
+    // its navigation links; convert the old one-item Work dropdown into a direct link.
+    document.querySelectorAll('.site-nav__list a[href$="/portfolio/"], .mobile-nav__list a[href$="/portfolio/"]').forEach(function (link) {
+      link.remove();
+    });
+    document.querySelectorAll(".site-nav__list .nav-dropdown-toggle").forEach(function (toggle) {
+      const id = toggle.getAttribute("aria-controls");
+      const dropdown = id ? document.getElementById(id) : null;
+      const links = dropdown ? Array.from(dropdown.querySelectorAll("a")) : [];
+      if (links.length !== 1 || !/\/work\/$/.test(links[0].getAttribute("href") || "")) return;
+      const directLink = document.createElement("a");
+      directLink.className = "site-nav__link";
+      directLink.href = links[0].getAttribute("href");
+      directLink.textContent = navEnglish ? "Services" : "Layanan";
+      toggle.replaceWith(directLink);
+      dropdown.remove();
+    });
+    document.querySelectorAll(".mobile-nav__group").forEach(function (group) {
+      const label = group.querySelector(".mobile-nav__label");
+      if (label && /karya|portfolio|work/i.test(label.textContent)) label.textContent = navEnglish ? "Services" : "Layanan";
+      if (!group.querySelector("a")) group.remove();
+    });
+
     function addLearningLink(list, mobile) {
       if (!list || list.querySelector('a[href$="/learning/"]')) return;
       const item = document.createElement("li");
@@ -172,8 +217,8 @@
       const checkoutBase = (usesProjectBase ? "/bagusin" : "") + "/checkout";
       const t = en ? {
         explore:"Explore", work:"Work", start:"Start", legal:"Legal",
-        blog:"Blog", collections:"Collection", learning:"Courses", youtube:"YouTube", about:"About",
-        workWithMe:"Work With Me", services:"Services", portfolio:"Portfolio",
+        blog:"Blog", collections:"Collection", learning:"Courses", youtube:"YouTube", about:"About", templates:"Template Catalog",
+        services:"Services",
         startProject:"Start a Project", help:"Help Me Choose", contact:"Contact",
         privacy:"Privacy Policy", terms:"Terms", disclaimer:"Disclaimer", editorial:"Editorial Policy",
         description:"Stories, journeys, work, and things being built along the way.",
@@ -181,8 +226,8 @@
         ctaText:"Start with the problem. If you know what you need, start a project. If not, ask for help choosing the right path."
       } : {
         explore:"Jelajahi", work:"Layanan", start:"Mulai", legal:"Informasi",
-        blog:"Blog", collections:"Koleksi", learning:"Kursus", youtube:"YouTube", about:"Tentang",
-        workWithMe:"Lihat Layanan", services:"Layanan", portfolio:"Portofolio",
+        blog:"Blog", collections:"Koleksi", learning:"Kursus", youtube:"YouTube", about:"Tentang", templates:"Katalog template",
+        services:"Layanan",
         startProject:"Mulai Proyek", help:"Bantu Pilihkan", contact:"Kontak",
         privacy:"Kebijakan Privasi", terms:"Ketentuan", disclaimer:"Penafian", editorial:"Kebijakan Editorial",
         description:"Ruang pribadi untuk cerita, perjalanan, pekerjaan, panduan, dan karya yang sedang dibangun.",
@@ -211,7 +256,7 @@
                 <li><a class="site-footer__link" href="${base}/blog/">${t.blog}</a></li><li><a class="site-footer__link" href="${base}/collections/">${t.collections}</a></li><li><a class="site-footer__link" href="${base}/learning/">${t.learning}</a></li><li><a class="site-footer__link" href="${base}/youtube/">${t.youtube}</a></li><li><a class="site-footer__link" href="${base}/about/">${t.about}</a></li>
               </ul></div>
               <div class="site-footer__column"><h2 class="site-footer__title">${t.work}</h2><ul class="site-footer__links">
-                <li><a class="site-footer__link" href="${base}/work/">${t.workWithMe}</a></li><li><a class="site-footer__link" href="${base}/work/">${t.services}</a></li><li><a class="site-footer__link" href="${base}/portfolio/">${t.portfolio}</a></li>
+                <li><a class="site-footer__link" href="${base}/work/">${t.services}</a></li><li><a class="site-footer__link" href="${base}/templates/">${t.templates}</a></li>
               </ul></div>
               <div class="site-footer__column"><h2 class="site-footer__title">${t.start}</h2><ul class="site-footer__links">
                 <li><a class="site-footer__link" href="${checkoutBase}/">${t.startProject}</a></li><li><a class="site-footer__link" href="${base}/contact/?mode=consultation">${t.help}</a></li><li><a class="site-footer__link" href="${base}/contact/">${t.contact}</a></li>
