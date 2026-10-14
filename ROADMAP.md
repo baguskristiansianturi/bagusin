@@ -392,3 +392,10 @@ CI statis, browser smoke, preview hosting, dan GitHub Pages live adalah gerbang 
 - Footer dinamis di `js/navigation.js` sebelumnya menampilkan dua tautan ke `/work/` (“Lihat Layanan” dan “Layanan”) dan satu tautan Portofolio. Kini hanya ada satu tautan Layanan dan satu tautan Katalog template di kolom Work; tautan Portofolio dihapus. Markup footer statis pada homepage diselaraskan, dan tautan Pencarian yang tidak diperlukan dihapus dari kolom Jelajahi.
 - Verifikasi sumber sebelum merge: homepage memiliki tautan katalog di navigasi desktop, navigasi mobile, bagian contoh, dan footer; tautan Portofolio tidak lagi muncul di `index.html` atau footer dinamis. Ini adalah verifikasi sumber, bukan bukti CI, browser smoke, atau GitHub Pages live.
 - Gerbang berikutnya: cek syntax/HTML dan workflow pada head terbaru; uji menu mobile, tautan katalog/koleksi, serta footer yang dirender JavaScript; pastikan halaman GitHub Pages sudah memuat commit ini sebelum menyatakan selesai.
+
+
+### Navigasi global — katalog dan portofolio sementara
+
+- Navigasi bersama kini menambahkan tautan langsung ke Katalog template pada halaman yang belum memilikinya, sehingga katalog tidak hanya dapat ditemukan dari homepage.
+- Tautan Portofolio di menu desktop/mobile disembunyikan secara global untuk sementara; arsip Portofolio tidak dihapus agar data lama tidak rusak. Dropdown Layanan lama diubah menjadi tautan langsung ketika hanya tersisa satu tujuan.
+- Status: perubahan sumber di branch PR #132; CI sedang berjalan pada head sebelumnya dan perlu dicek ulang untuk commit terbaru. Belum menyatakan merge atau live.
