@@ -270,3 +270,11 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 - Updated `scripts/responsive-smoke.mjs` to assert the actual catalog → preview → demo/package flow, including price, canonical demo action, the `#spec-title` anchor, website-project/consultation intent, and mobile preview mode. Updated the Destinations assertion to verify the intended redirect.
 - Test commit: `8c30e571435917cce3f0fdf6facf3c21e365452c`.
 - This is a test-alignment correction, not evidence that the browser suite passes. CI must run against this commit before PR #128 can be considered verified. Visual sticky/sidebar QA and live GitHub Pages remain unverified.
+
+
+### QA follow-up — collection sticky-navigation PR #128 (14 October 2026)
+
+- The latest completed browser smoke run on the earlier test correction still failed two catalog link assertions. Inspection confirmed the test selected the first available card, while the rental demo can appear later in the list; the assertion must target the card by its visible title.
+- Updated `scripts/responsive-smoke.mjs` to locate `Bagus Sewa Mobil Bali 01` explicitly before checking its preview and package links.
+- Test correction commit: `65a6358d7af2b6e0175fccf2d614b3da2b7a4e34`.
+- Corrected CI has not yet been confirmed green. Visual sticky/sidebar QA and live GitHub Pages remain unverified.
