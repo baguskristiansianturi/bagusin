@@ -422,3 +422,20 @@ CI statis, browser smoke, preview hosting, dan GitHub Pages live adalah gerbang 
 - Pilihan tahap awal dipadatkan. Pada jalur website yang sudah ada, opsi perbaikan tampilan dan opsi peningkatan hasil digabung menjadi satu pilihan, sehingga jumlah opsi turun dari lima menjadi empat tanpa menghapus tujuan utama.
 - Label pilihan diperpendek agar lebih mudah dipindai di ponsel; deskripsi rekomendasi tetap menjelaskan konteks setelah pengguna memilih.
 - Ini perubahan copy dan logika pemilihan, bukan perubahan desain visual besar. Validasi otomatis dan pengujian browser pada head terbaru tetap wajib sebelum merge.
+
+
+## Verified handoff — homepage integration gate (14 October 2026)
+
+**Current decision: continue verification; do not merge PR #130 yet.**
+
+- PR #129 (template catalog) and PR #132 (homepage discovery/catalog entry) are merged.
+- PR #130 (`ux/homepage-newest-carousel`) head inspected: `f1d0081744222f96f5e353e2ecee885f992bd679`. Comparing it with `main` reports 22 commits ahead and 10 behind, and GitHub reports the PR is not mergeable. The latest head has no workflow run/combined status returned by the available checks; CI must not be presumed green.
+- Required sequence:
+  1. Review the PR #130 changes against the latest `main`, especially `index.html`, the new homepage carousel CSS/JS, and `scripts/responsive-smoke.mjs`.
+  2. Reconcile conflicts without reverting the merged catalog entry or changing the established visual direction. Keep catalog, collections/demo, and services distinct.
+  3. Run static audit and responsive browser smoke on the reconciled commit; investigate real regressions instead of weakening valid assertions.
+  4. Perform manual mobile/desktop visual and interaction QA, then verify the exact deployed commit on GitHub Pages.
+  5. Only after those gates pass, request review and consider merging.
+- Public GitHub Pages visual/deployment verification remains pending. CI success alone is not live-site proof.
+- Backend/deployment boundary remains unchanged: frontend stays static; Go is the future backend; Google Cloud is not yet active. No backend runtime or payment/order handling should be represented as live.
+- PR #133 remains a separate documentation-only draft at this checkpoint. Do not mix architecture documentation changes into the homepage implementation branch without review.
