@@ -1,5 +1,6 @@
 (function(){if(!document.querySelector('link[data-ux-polish]')){const base=window.location.pathname.startsWith("/bagusin/")||window.location.pathname==="/bagusin"?"/bagusin":"";const l=document.createElement("link");l.rel="stylesheet";l.href=base+"/css/ux-polish.css?v=20261011-1";l.dataset.uxPolish="";document.head.appendChild(l)}})();
 (function(){if(!document.querySelector('link[data-final-responsive]')){const base=window.location.pathname.startsWith("/bagusin/")||window.location.pathname==="/bagusin"?"/bagusin":"";const l=document.createElement("link");l.rel="stylesheet";l.href=base+"/css/final-responsive.css?v=20261011-6";l.dataset.finalResponsive="";document.head.appendChild(l)}})();
+(function(){if(!document.querySelector('link[data-site-consistency]')){const base=window.location.pathname.startsWith("/bagusin/")||window.location.pathname==="/bagusin"?"/bagusin":"";const l=document.createElement("link");l.rel="stylesheet";l.href=base+"/css/site-consistency.css?v=20261014-1";l.dataset.siteConsistency="";document.head.appendChild(l)}})();
 /* =========================================================
    BAGUSIN — GLOBAL NAVIGATION
    Integrated mobile / search / dropdown / language
@@ -274,6 +275,76 @@
     }
 
     renderSiteFooter();
+
+    // Add one consistent, accessible breadcrumb trail to interior pages.
+    // The homepage stays clean; existing breadcrumbs are preserved rather than duplicated.
+    (function renderBreadcrumbs() {
+      const main = document.querySelector("main#main-content, main");
+      if (!main || main.querySelector("[data-site-breadcrumbs]") || document.querySelector("[data-site-breadcrumbs]")) return;
+      const rawPath = window.location.pathname.replace(/\\/+/g, "/");
+      const projectBase = rawPath === "/bagusin" || rawPath.startsWith("/bagusin/") ? "/bagusin" : "";
+      let route = projectBase ? rawPath.slice(projectBase.length) : rawPath;
+      route = route.replace(/index\\.html$/i, "").replace(/^\\/+|\\/+$/g, "");
+      if (!route) return;
+      const parts = route.split("/").filter(Boolean);
+      const english = parts[0] === "en";
+      if (english) parts.shift();
+      if (!parts.length) return;
+
+      const labels = english ? {
+        blog:"Blog", collections:"Collections", templates:"Template Catalog", work:"Services",
+        learning:"Courses", about:"About", contact:"Contact", destinations:"Destinations",
+        terms:"Terms & Conditions", legal:"Legal", privacy:"Privacy Policy", disclaimer:"Disclaimer",
+        "editorial-policy":"Editorial Policy", checkout:"Checkout", portfolio:"Portfolio",
+        youtube:"YouTube", search:"Search", guides:"Guides", services:"Services", demos:"Demos",
+        "blogger-editorial":"Blogger Editorial Template", categories:"Categories", tags:"Tags"
+      } : {
+        blog:"Blog", collections:"Koleksi", templates:"Katalog template", work:"Layanan",
+        learning:"Kursus", about:"Tentang", contact:"Kontak", destinations:"Destinasi",
+        terms:"Syarat dan ketentuan", legal:"Informasi legal", privacy:"Kebijakan privasi",
+        disclaimer:"Penafian", "editorial-policy":"Kebijakan editorial", checkout:"Pemesanan",
+        portfolio:"Portofolio", youtube:"YouTube", search:"Pencarian", guides:"Panduan",
+        services:"Layanan", demos:"Demo", "blogger-editorial":"Template editorial Blogger",
+        categories:"Kategori", tags:"Tag"
+      };
+      const prettify = function(value) {
+        if (labels[value]) return labels[value];
+        return value.split("-").map(function(word){return word ? word.charAt(0).toUpperCase()+word.slice(1) : word;}).join(" ");
+      };
+      const nav = document.createElement("nav");
+      nav.className = "site-breadcrumbs container";
+      nav.dataset.siteBreadcrumbs = "";
+      nav.setAttribute("aria-label", english ? "Breadcrumb" : "Jejak navigasi");
+      const list = document.createElement("ol");
+      list.className = "site-breadcrumbs__list";
+      const home = document.createElement("li");
+      const homeLink = document.createElement("a");
+      homeLink.href = projectBase + (english ? "/en/" : "/");
+      homeLink.textContent = english ? "Home" : "Beranda";
+      home.appendChild(homeLink);
+      list.appendChild(home);
+
+      let accumulated = projectBase + (english ? "/en" : "");
+      parts.forEach(function(part, index) {
+        accumulated += "/" + part;
+        const item = document.createElement("li");
+        const current = index === parts.length - 1;
+        if (current) {
+          const label = document.createElement("span");
+          label.textContent = (main.querySelector("h1")?.textContent || "").trim() || prettify(part);
+          label.setAttribute("aria-current", "page");
+          item.appendChild(label);
+        } else {
+          const link = document.createElement("a");
+          link.href = accumulated + "/";
+          link.textContent = prettify(part);
+          item.appendChild(link);
+        }
+        list.appendChild(item);
+      });
+      nav.appendChild(list);
+      main.parentNode.insertBefore(nav, main);
+    })();
 
     function openSearch() {
       if (!searchPanel) return;
