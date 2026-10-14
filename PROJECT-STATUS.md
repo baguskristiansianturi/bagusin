@@ -214,3 +214,12 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - Commit: `5eda2c4c3897da44d4f63bb75d757fa4453b5655`. Re-fetched the file from `main`: zero old endpoint references and five references to the corrected endpoint.
 - At the time of this note, the browser smoke test and GitHub Pages deployment workflows for the new commit were queued, not yet completed. Do not treat the fix as test-passed or live-deployed until their results are checked.
 - Still unverified: actual FormSubmit activation/delivery and inbox receipt. The smoke test intercepts the network request and cannot prove real email delivery.
+
+
+## Handoff update — 14 October 2026 (PR #130)
+
+- Rechecked PR #130 (`ux/homepage-newest-carousel`); head before correction was `5b574fbfd25e02d7050ead467106f9e4bc32aa24`. Static site audit passed, but browser smoke failed on five stale assertions.
+- Corrected the smoke suite to match the actual homepage service copy, the current collections → preview → canonical demo/package-details flow, and the intentional legacy `/destinations/` → `/blog/` redirect.
+- Test commit: `75fb89c41647ede7dcac7d369515e12d55bb53b7`. Roadmap follow-up commit: `0adff9af67b120a5ec2994408748e6e1bf55cd8c`.
+- The updated browser suite has **not yet been confirmed green**; CI must be inspected after this documentation commit as well. No merge or deployment is claimed.
+- Next action: verify the latest PR #130 workflow, fix any remaining product/test regressions, then check PR #129's latest CI and keep PR #128's preview-build/browser verification issue in the final audit queue.
