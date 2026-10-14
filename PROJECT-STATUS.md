@@ -250,3 +250,5 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - Implemented in a separate review branch: sticky mobile catalog controls, horizontally swipeable platform and industry filters, shared catalog footer, removal of homepage article cards, and shorter context-aware contact form copy.
 - Service selection now uses explicit query parameters first, then a same-origin service/collection referrer when available. When context is known, the selector is hidden by default but can be revealed; the template's internal SKU is not shown in the human-facing label.
 - This is a proposal branch, not a production deployment. CI and GitHub Pages visual verification must be checked before merge. No Go backend, payment integration, or Google Cloud activation is included.
+
+- Latest follow-up: corrected contact-form JavaScript initialization, brought the English contact page into parity, removed featured article cards from both homepages while preserving course content, and ensured a prefilled service selector is actually hidden. Final CI is still required before any merge/deployment.
