@@ -504,7 +504,7 @@ try {
   if (!collectionTitle.includes("Template")) errors.push("Collections page: title metadata is not localized");
   if (!collectionText.includes("Koleksi terbaru") || !collectionText.includes("Bagus Sewa Mobil Bali 01")) errors.push("Collections page: latest demo is missing");
   if (!collectionText.includes("750.000") || !collectionText.includes("domain/hosting terpisah")) errors.push("Collections page: package price or exclusions are unclear");
-  const templateCard = interactionPage.locator("[data-template-grid] .template-product").first();
+  const templateCard = interactionPage.locator("[data-template-grid] .template-product").filter({ hasText: "Bagus Sewa Mobil Bali 01" }).first();
   if (!(await templateCard.locator(".template-chip").allTextContents()).some(text => text.includes("Satu halaman"))) errors.push("Collections page: one-page format label is incorrect");
   const previewLink = templateCard.locator('a[href="/bagusin/templates/preview/?template=BG-TRV-STR-001"]').first();
   if (!(await previewLink.count())) errors.push("Collections page: interactive preview link is missing");
