@@ -71,7 +71,7 @@
       "price": 750000,
       "currency": "IDR",
       "status": "available",
-      "isNew": true,
+      "isNew": false,
       "description": "Desain satu halaman untuk bisnis rental mobil: hero dengan copy yang berorientasi pelanggan, layanan, pilihan armada, tentang, cara pemesanan, FAQ, dan kontak. Struktur konten disusun agar dapat dikembangkan untuk SEO lokal menggunakan informasi bisnis yang benar.",
       "included": [
         "Desain satu halaman responsif dengan beberapa section yang terstruktur",
@@ -150,6 +150,57 @@
       "imageAlt": "Contoh seni tato untuk konsep website Bagus Ink",
       "updated": "2026-10-12",
       "folder": "demos/starter/tattoo-studio/"
+    },
+    {
+      "id": "BG-TRV-STR-002",
+      "slug": "bagus-rental-mobil-002",
+      "name": "Bagus Rental Mobil #002",
+      "designName": "Blue Canvas",
+      "category": "travel",
+      "businessTypes": [
+        "rental mobil Bali",
+        "rental mobil",
+        "transportasi",
+        "antar jemput bandara",
+        "UMKM"
+      ],
+      "level": "starter",
+      "format": "one-page-website",
+      "price": 750000,
+      "currency": "IDR",
+      "status": "available",
+      "isNew": true,
+      "description": "Landing page satu halaman bergaya premium dengan latar putih hangat, aksen biru, copywriting promosi, mockup desktop dan mobile, layanan, cakupan paket, FAQ, dan CTA. Demo konsep; nama bisnis dan informasi rental pada visual masih simulasi.",
+      "included": [
+        "Desain satu halaman responsif untuk mobile dan desktop",
+        "Copywriting yang disesuaikan dengan bisnis",
+        "Struktur SEO dasar dan heading yang teratur",
+        "Bagian layanan, manfaat, FAQ, dan CTA kontak",
+        "Setup tombol WhatsApp atau form kontak sesuai kesepakatan"
+      ],
+      "notIncluded": [
+        "Domain dan hosting",
+        "Biaya perpanjangan domain dan hosting",
+        "Biaya iklan atau jaminan peringkat Google",
+        "Booking otomatis, database, dashboard, dan integrasi pembayaran"
+      ],
+      "demoUrl": "/bagusin/demos/starter/travel-rental/bagus-rental-mobil-002/",
+      "orderUrl": "/bagusin/templates/detail/?template=BG-TRV-STR-002",
+      "discussionUrl": "/bagusin/contact/?service=websites&mode=consultation&template=BG-TRV-STR-002",
+      "image": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=85",
+      "imageAlt": "Visual mobil untuk konsep landing page Bagus Rental Mobil #002",
+      "updated": "2026-10-15",
+      "folder": "demos/starter/travel-rental/bagus-rental-mobil-002/",
+      "pricingOptions": [
+        {
+          "id": "design-copy-seo",
+          "name": "Desain + Copy + Struktur SEO",
+          "price": 750000,
+          "billing": "one-time",
+          "includes": "Desain satu halaman, copywriting, struktur SEO dasar, responsif, dan CTA kontak.",
+          "excludes": "Domain, hosting, perpanjangan, iklan, dan fitur tambahan."
+        }
+      ]
     }
   ]
 }
