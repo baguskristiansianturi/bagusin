@@ -16,6 +16,11 @@ const routes = [
   "/bagusin/work/web-applications/",
   "/bagusin/work/maintenance-uiux/",
   "/bagusin/collections/",
+  "/bagusin/templates/",
+  "/bagusin/templates/blogger-editorial/",
+  "/bagusin/templates/demos/editorial-blogger/",
+  "/bagusin/templates/checkout/?license=free",
+  "/bagusin/templates/checkout/?license=premium",
   "/bagusin/templates/detail/?template=BG-TRV-STR-001",
   "/bagusin/demos/starter/travel-rental/bagus-sewa-mobil-bali-01/",
   "/bagusin/portfolio/",
@@ -483,6 +488,55 @@ try {
   await interactionPage.waitForFunction(() => document.querySelector("#checkout-email-status")?.textContent.includes("diterima layanan email"), null, { timeout: 5000 });
   if (!submittedEmailPayload || submittedEmailPayload.category !== "Landing Page") errors.push("Checkout: copywriting category was not included in the email payload");
 
+  // New self-installable template journey: platform/category → visual demo → license → simulated checkout.
+  await interactionPage.goto(origin + "/bagusin/templates/", { waitUntil: "domcontentloaded" });
+  const storeCatalogCard = interactionPage.locator(".store-product-card");
+  await storeCatalogCard.waitFor({ state: "visible", timeout: 5000 });
+  await interactionPage.locator('button[data-platform="wordpress"]').click();
+  if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: WordPress with no products should show an honest empty state");
+  if (await storeCatalogCard.isVisible()) errors.push("Template store: Blogger product remained visible after switching to WordPress");
+  await interactionPage.locator('button[data-platform="coded"]').click();
+  if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: coded platform should show an honest empty state until a code template is released");
+  if (!(await interactionPage.locator("[data-results-title]").innerText()).includes("HTML, CSS")) errors.push("Template store: coded platform heading is incorrect");
+  await interactionPage.locator('button[data-platform="blogger"]').click();
+  await interactionPage.locator("[data-template-purpose]").selectOption("landing-page");
+  if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: purpose filter should not mislabel an editorial blog as a landing page");
+  await interactionPage.locator("[data-template-purpose]").selectOption("blog");
+  if (!(await storeCatalogCard.isVisible())) errors.push("Template store: blog purpose filter hid the matching editorial template");
+  await interactionPage.locator("[data-template-purpose]").selectOption("all");
+  if (!(await storeCatalogCard.isVisible())) errors.push("Template store: Blogger product did not return after switching platforms");
+  await interactionPage.locator('[data-industry="travel-rental"]').click();
+  if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: empty industry should not fabricate a product");
+  await interactionPage.locator('[data-industry="all"]').click();
+  await interactionPage.locator("[data-template-search]").fill("editorial");
+  if (!(await storeCatalogCard.isVisible())) errors.push("Template store: search did not find Bagusin Editorial");
+  await interactionPage.locator("[data-template-search]").fill("hotel");
+  if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: unmatched search did not show an empty state");
+  await interactionPage.locator("[data-template-search]").fill("");
+  await interactionPage.goto(origin + "/bagusin/templates/blogger-editorial/", { waitUntil: "domcontentloaded" });
+  if (!(await interactionPage.locator(".product-copy h1").innerText()).includes("Bagusin Editorial")) errors.push("Template detail: product title is missing");
+  if (!(await interactionPage.locator(".product-demo iframe").getAttribute("src")).includes("/bagusin/templates/demos/editorial-blogger/")) errors.push("Template detail: live demo frame is not connected to the sample demo");
+  if (!(await interactionPage.locator('a[href="/bagusin/templates/files/bagusin-editorial-free-v0.1.xml"]').count())) errors.push("Template detail: free Blogger XML download link is missing");
+  await interactionPage.goto(origin + "/bagusin/templates/checkout/?license=premium", { waitUntil: "domcontentloaded" });
+  if (await interactionPage.locator("#test-license").inputValue() !== "premium") errors.push("Template checkout: premium choice was not preserved from product detail");
+  if (!(await interactionPage.locator("[data-summary-price]").innerText()).includes("49.000")) errors.push("Template checkout: simulated premium price is not reflected in summary");
+  await interactionPage.locator('[data-test-next="2"]').click();
+  if (!(await interactionPage.locator("#test-error").innerText()).includes("nama")) errors.push("Template checkout: missing required name was not validated");
+  await interactionPage.locator("#test-name").fill("Template Test User");
+  await interactionPage.locator("#test-email").fill("template@example.com");
+  await interactionPage.locator("#test-blog").fill("https://contoh.blogspot.com");
+  await interactionPage.locator("#test-note").fill("Test template checkout journey");
+  await interactionPage.locator("#test-agree").check();
+  await interactionPage.locator('[data-test-next="2"]').click();
+  if (await interactionPage.locator('[data-test-panel="2"]').isHidden()) errors.push("Template checkout: valid form did not advance to review");
+  const templateReview = await interactionPage.locator("#test-review").innerText();
+  if (!templateReview.includes("Template Test User") || !templateReview.includes("Premium")) errors.push("Template checkout: review summary lost name or selected license");
+  await interactionPage.locator('[data-test-next="3"]').click();
+  await interactionPage.locator("#test-submit").click();
+  if (!(await interactionPage.locator("#test-success").isVisible())) errors.push("Template checkout: submit did not complete the simulated journey");
+  const templateSuccess = await interactionPage.locator("#test-success").innerText();
+  if (!templateSuccess.includes("bukan transaksi nyata") || !templateSuccess.includes("tidak ada pembayaran")) errors.push("Template checkout: success state does not explain the simulation boundary");
+
   // Collections and Portfolio have distinct roles and destinations.
   await interactionPage.goto(origin + "/bagusin/collections/", { waitUntil: "domcontentloaded" });
   await interactionPage.locator("[data-template-grid] .template-product").first().waitFor({ timeout: 10000 });
@@ -491,12 +545,15 @@ try {
   if (!collectionTitle.includes("Template")) errors.push("Collections page: title metadata is not localized");
   if (!collectionText.includes("Koleksi terbaru") || !collectionText.includes("Bagus Sewa Mobil Bali 01")) errors.push("Collections page: latest demo is missing");
   if (!collectionText.includes("750.000") || !collectionText.includes("domain/hosting terpisah")) errors.push("Collections page: package price or exclusions are unclear");
-  const templateCard = interactionPage.locator("[data-template-grid] .template-product").first();
+  const templateCard = interactionPage.locator("[data-template-grid] .template-product").filter({ hasText: "Bagus Sewa Mobil Bali 01" }).first();
   if (!(await templateCard.locator(".template-chip").allTextContents()).some(text => text.includes("Satu halaman"))) errors.push("Collections page: one-page format label is incorrect");
+  // The collection card intentionally links directly to the canonical demo and
+  // product detail page. Assert the current, user-facing destinations rather than
+  // an obsolete preview route that is not used by the catalog data.
   const demoLink = templateCard.locator('a[href="/bagusin/demos/starter/travel-rental/bagus-sewa-mobil-bali-01/"]').first();
-  if (!(await demoLink.count())) errors.push("Collections page: canonical demo link is missing");
-  const detailLink = templateCard.locator('a[href*="/templates/detail/?template=BG-TRV-STR-001"]').first();
-  if (!(await detailLink.count())) errors.push("Collections page: package detail CTA is missing");
+  if (!(await demoLink.count()) || !(await demoLink.innerText()).includes("demo")) errors.push("Collections page: canonical demo link is missing");
+  const packageLink = templateCard.locator('a[href="/bagusin/templates/detail/?template=BG-TRV-STR-001"]').first();
+  if (!(await packageLink.count()) || !(await packageLink.innerText()).includes("Paket")) errors.push("Collections page: package and pricing CTA is missing");
   if (!(await interactionPage.locator('.site-nav a[href="/bagusin/collections/"]').count())) errors.push("Collections page: collection navigation link is missing");
 
   // Verify the complete template journey: catalog → demo → package details → correct contact intent.
@@ -525,14 +582,13 @@ try {
   if (portfolioSeparationText.includes("Koleksi terbaru") || portfolioSeparationText.includes("Pilih template")) errors.push("Portfolio page: collection/order content has not been separated");
 
   // Destinations should remain experience-based, without fabricated ratings or itineraries.
+  // Destinations is intentionally consolidated into Blog; verify the final redirect destination.
   await interactionPage.goto(origin + "/bagusin/destinations/", { waitUntil: "domcontentloaded" });
+  await interactionPage.waitForURL(/\/bagusin\/blog\/$/, { timeout: 5000 });
   const destinationsTitle = await interactionPage.title();
   const destinationsText = await interactionPage.locator("main").innerText();
-  const destinationsStructuredData = await interactionPage.locator('script[type="application/ld+json"]').textContent();
-  if (!destinationsTitle.includes("Destinasi")) errors.push("Destinations page: title metadata is not localized");
-  if (!destinationsText.includes("Tempat, dilihat dari pengalaman saat berada di sana.") || !destinationsText.includes("Tidak ada rencana perjalanan yang sempurna.")) errors.push("Destinations page: Indonesian headings are missing");
-  if (destinationsText.includes("Places, seen through the experience of being there.") || destinationsText.includes("A growing map of stories.")) errors.push("Destinations page: English interface copy remains");
-  if (!destinationsStructuredData || destinationsStructuredData.includes("Destinations BagusIn")) errors.push("Destinations page: structured data still contains outdated English description");
+  if (!destinationsTitle.includes("Blog") || !destinationsTitle.includes("Bagusin")) errors.push("Destinations redirect: final Blog page title is missing");
+  if (destinationsText.includes("Places, seen through the experience of being there.") || destinationsText.includes("A growing map of stories.")) errors.push("Destinations redirect: outdated English interface copy remains on the final Blog page");
 } catch (error) {
   errors.push("Homepage/article/contact interaction smoke test: " + (error.stack || error.message));
 } finally {
