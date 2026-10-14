@@ -399,3 +399,11 @@ CI statis, browser smoke, preview hosting, dan GitHub Pages live adalah gerbang 
 - Navigasi bersama kini menambahkan tautan langsung ke Katalog template pada halaman yang belum memilikinya, sehingga katalog tidak hanya dapat ditemukan dari homepage.
 - Tautan Portofolio di menu desktop/mobile disembunyikan secara global untuk sementara; arsip Portofolio tidak dihapus agar data lama tidak rusak. Dropdown Layanan lama diubah menjadi tautan langsung ketika hanya tersisa satu tujuan.
 - Status: perubahan sumber di branch PR #132; CI sedang berjalan pada head sebelumnya dan perlu dicek ulang untuk commit terbaru. Belum menyatakan merge atau live.
+
+
+### Evaluasi UX berbasis skenario pengguna — hasil putaran pertama
+
+- Pengujian Playwright memeriksa 51 rute dan 306 kombinasi viewport. Tidak ditemukan isu overflow/rute pada log ringkas, tetapi dua workflow gagal pada assertion lama: smoke test masih meminta teks “Sistem operasional” di hasil jalur pertama (starter + pelanggan pertama), padahal rekomendasi itu hanya relevan pada jalur brand/website yang membutuhkan sistem. Audit rute/SEO lulus; job browser interaksi gagal karena assertion teks yang tidak sesuai dengan skenario yang dipilih.
+- Perbaikan tes: assertion homepage disesuaikan dengan label layanan yang benar-benar terlihat, lalu ditambah skenario terpisah untuk pengguna yang sudah punya brand dan ingin menambah sistem operasional. Skenario ini memeriksa rekomendasi “Aplikasi dan sistem khusus”, penjelasan bahwa tidak semua proses membutuhkan aplikasi khusus, serta tautan menuju layanan terkait.
+- Temuan UX untuk evaluasi visual berikutnya: pathfinder saat ini meminta dua keputusan (kondisi bisnis, lalu kebutuhan utama). Ini perlu diuji di perangkat mobile untuk memastikan pertanyaan kedua mudah dipahami, rekomendasi tidak terlalu panjang, dan CTA konsultasi tetap opsional. Jika pengguna harus membaca terlalu banyak sebelum menemukan langkah yang tepat, sederhanakan opsi dan ringkas copy; jangan menambah kartu/CTA tanpa alasan.
+- Status: pembaruan test ada pada branch PR #132; CI harus dijalankan ulang dan lulus sebelum merge. GitHub Pages live dan pengujian langsung oleh Bagus di ponsel tetap gerbang terpisah.
