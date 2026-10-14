@@ -284,7 +284,8 @@
       const rawPath = window.location.pathname;
       const projectBase = rawPath === "/bagusin" || rawPath.startsWith("/bagusin/") ? "/bagusin" : "";
       let route = projectBase ? rawPath.slice(projectBase.length) : rawPath;
-      route = route.split("/").filter(Boolean).join("/");\n      if (route.toLowerCase().endsWith("index.html")) route = route.slice(0, -10).replace(/\/$/, "");
+      route = route.split("/").filter(Boolean).join("/");
+      if (route.toLowerCase().endsWith("index.html")) route = route.slice(0, -10).split("/").filter(Boolean).join("/");
       if (!route) return;
       const parts = route.split("/").filter(Boolean);
       const english = parts[0] === "en";
