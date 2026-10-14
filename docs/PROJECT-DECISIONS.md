@@ -45,3 +45,12 @@ The homepage carousel registry lives in `js/home-whats-new.js`. Before launch/me
 - Seed dates checked against repository history: Bagus Ink was added to the homepage/catalog on 12 October 2026; the named Sewa Mobil Bali Starter demo was created on 11 October 2026. These are source-history dates; live deployment timing still needs verification.
 - Next: finish CI/browser responsive tests, audit homepage links and visuals, then proceed to the catalog.
 - No merge or deployment is implied by this branch.
+
+
+## Homepage: bedakan Koleksi, Katalog Template, dan Portofolio — 14 Oktober 2026
+
+- Homepage tidak perlu menempatkan Portofolio sebagai pintasan sejajar dengan layanan, koleksi/demo, dan katalog template.
+- Koleksi berfungsi untuk melihat demo website; Katalog Template berfungsi untuk menemukan template berdasarkan platform dan penawaran yang benar-benar tersedia.
+- Portofolio tetap menjadi halaman tersendiri untuk pekerjaan nyata, konsep, dan eksperimen yang diberi label secara jujur. Source code dapat menjadi bagian dari karya, tetapi tidak otomatis berarti tersedia untuk dibeli.
+- Jalur penemuan utama homepage: Layanan, Koleksi & demo website, Katalog Template, Blog, dan Course. Navigasi global tetap dapat menyediakan akses ke Portofolio tanpa menjadikannya CTA utama homepage.
+- Perubahan saat ini hanya dicatat pada branch PR #130; jangan mengklaim tampil di situs publik sebelum PR terintegrasi, tes lulus, dan deployment diverifikasi.
