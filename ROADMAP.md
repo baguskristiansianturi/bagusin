@@ -382,3 +382,13 @@ CI statis, browser smoke, preview hosting, dan GitHub Pages live adalah gerbang 
 - Perubahan terisolasi pada branch `fix/homepage-template-catalog-entry`: kartu tersebut kini menuju `/bagusin/templates/`, dengan label “Katalog template”, judul “Template siap disesuaikan”, dan keterangan bahwa pengunjung dapat memeriksa demo serta detail paket sebelum memilih.
 - Koleksi/demo tetap terpisah pada kartu dan halaman koleksi; Portofolio tidak ditambahkan sebagai pintasan pada jalur penemuan homepage.
 - Status: perubahan sumber sudah dibuat pada branch dan perlu pemeriksaan CI serta verifikasi tampilan di GitHub Pages sebelum dianggap live. Tidak ada perubahan harga, checkout, atau status kesiapan produk.
+
+
+## UX restructuring — homepage and footer (14 Oktober 2026)
+
+- Masukan Bagus: homepage harus menjawab “saya ingin melakukan apa?” sejak awal; pengunjung tidak boleh menebak apakah template ada di Layanan, Koleksi, atau Portofolio.
+- Pada branch `fix/homepage-template-catalog-entry`, jalur desktop dan mobile dibuat eksplisit: Layanan dan Katalog template sebagai tujuan berbeda; mobile juga menampilkan Koleksi & demo. Portofolio dihilangkan dari navigasi dan jalur homepage untuk sementara, tanpa menghapus halaman arsipnya.
+- Homepage dipangkas dari 10 section berlabel menjadi 6: hero/pencari jalur, layanan, contoh (demo + katalog template + koleksi), artikel pilihan, course, dan CTA penutup. Bagian artikel panduan berulang, solusi umum yang menduplikasi layanan, bagian karya/portofolio, dan CTA penjelasan tambahan dihapus dari beranda agar detail tetap berada pada halaman masing-masing.
+- Footer dinamis di `js/navigation.js` sebelumnya menampilkan dua tautan ke `/work/` (“Lihat Layanan” dan “Layanan”) dan satu tautan Portofolio. Kini hanya ada satu tautan Layanan dan satu tautan Katalog template di kolom Work; tautan Portofolio dihapus. Markup footer statis pada homepage diselaraskan, dan tautan Pencarian yang tidak diperlukan dihapus dari kolom Jelajahi.
+- Verifikasi sumber sebelum merge: homepage memiliki tautan katalog di navigasi desktop, navigasi mobile, bagian contoh, dan footer; tautan Portofolio tidak lagi muncul di `index.html` atau footer dinamis. Ini adalah verifikasi sumber, bukan bukti CI, browser smoke, atau GitHub Pages live.
+- Gerbang berikutnya: cek syntax/HTML dan workflow pada head terbaru; uji menu mobile, tautan katalog/koleksi, serta footer yang dirender JavaScript; pastikan halaman GitHub Pages sudah memuat commit ini sebelum menyatakan selesai.
