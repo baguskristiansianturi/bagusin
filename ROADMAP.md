@@ -297,3 +297,10 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 - Run PR #130 yang sebelumnya cancelled (#890/#891) tetap dicatat sebagai riwayat; hasil terbaru yang sukses menjadi bukti CI terkini, bukan alasan untuk menghapus riwayat pembatalan.
 - PR #130 masih draft. Jangan merge hanya karena CI hijau: tahap berikutnya adalah audit visual responsif carousel dan jalur katalog pada preview/halaman publik, cek aksesibilitas keyboard/focus/reduced-motion, dan pastikan URL live cocok dengan commit yang diuji.
 - PR #128 dan #129 juga belum boleh dianggap sepenuhnya selesai sebelum visual/sticky behavior, alur demo/detail paket, serta batasan prototipe katalog dikonfirmasi. Checkout masih simulasi; impor Blogger dan alur order/email nyata belum terverifikasi.
+
+
+### Catatan deployment preview PR #130 — blocker terpisah (14 Oktober 2026)
+
+- Komentar bot Cloudflare pada PR #130 menunjukkan build preview gagal untuk commit `567ac2a` dan `815300e`. Ini terpisah dari GitHub Actions static audit dan browser smoke yang sukses.
+- Log build Cloudflare belum dapat diverifikasi dari data yang tersedia pada audit ini; penyebab build gagal belum diketahui. Jangan menyimpulkan bahwa situs live atau preview berhasil hanya karena CI otomatis hijau.
+- Langkah berikutnya: buka log build Cloudflare untuk commit terbaru, catat error pertama yang relevan, perbaiki penyebabnya dalam PR terpisah/commit yang teruji, lalu pastikan preview URL terbit. Jika log membutuhkan akses dashboard yang tidak tersedia, tandai sebagai blocker eksternal dan jangan menebak penyebabnya.
