@@ -262,3 +262,11 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 - Updated the five test interception references in `scripts/responsive-smoke.mjs` to match the endpoint in `js/contact-form.js`.
 - Fix commit: `5eda2c4c3897da44d4f63bb75d757fa4453b5655`. Source re-fetch confirmed zero stale endpoint references in the test and five references to the intended endpoint.
 - Browser smoke and Pages deployment runs for this commit were queued at the time of writing; result and live deployment must be checked before marking this step complete. Network interception is a simulated test and does not prove real inbox delivery.
+
+
+## QA follow-up — PR #128 collection browser smoke (14 October 2026)
+
+- Inspected the failed browser smoke run for PR #128 (head `a648a9a47d63da35a199f69fab7c8fc650c568d6`): the collection assertions still expected the legacy detail URL, while the current catalog links to the responsive preview and package section; the Destinations checks expected a full localized page although the legacy route intentionally redirects to Blog.
+- Updated `scripts/responsive-smoke.mjs` to assert the actual catalog → preview → demo/package flow, including price, canonical demo action, the `#spec-title` anchor, website-project/consultation intent, and mobile preview mode. Updated the Destinations assertion to verify the intended redirect.
+- Test commit: `8c30e571435917cce3f0fdf6facf3c21e365452c`.
+- This is a test-alignment correction, not evidence that the browser suite passes. CI must run against this commit before PR #128 can be considered verified. Visual sticky/sidebar QA and live GitHub Pages remain unverified.
