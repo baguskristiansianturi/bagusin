@@ -284,3 +284,16 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 - Ketahanan performa: hindari auto-advance mengganggu pengguna, hentikan saat reduced motion, dan pastikan kontrol manual tetap bekerja.
 - Konsistensi bahasa ID/EN untuk CTA, metadata, kategori, dan halaman legacy.
 - Integritas katalog: jangan tampilkan produk/course yang belum siap seolah dapat langsung dibeli; checkout prototipe harus tetap jelas sebagai simulasi.
+
+
+## Hasil verifikasi lanjutan — PR #128–#130 (14 Oktober 2026)
+
+**Status CI terbaru yang berhasil diperiksa; QA visual dan deployment publik tetap terpisah.**
+
+- PR #130, head `567ac2af47f401dc96bc8c9c61afb6556de6af6a`: Static site audit run #941 **success**; Responsive browser smoke run #893 **success**. Log test menyatakan 46 rute dan 276 pemeriksaan viewport; assertion yang tercakup termasuk route loading, overflow struktural, resource lokal, JavaScript errors, menu mobile, pencarian global, persiapan/copy brief kontak, dan pemeriksaan copy lokal.
+- PR #128, head `e6502d1ff61d161169d46a345ded44926bf20fa0`: Responsive browser smoke run #895 **success**; Static site audit run #943 **success**.
+- PR #129, head `c66adaec5d6410d26cf7d21e0796fc86b86d874f`: Responsive browser smoke run #881 **success**; Static site audit run #929 **success**.
+- Hasil ini menyelesaikan gerbang CI otomatis yang sebelumnya tertunda untuk head tersebut. Ini bukan bukti visual QA manual, bukan bukti GitHub Pages telah menyajikan commit yang sama, dan bukan bukti transaksi atau pengiriman email nyata.
+- Run PR #130 yang sebelumnya cancelled (#890/#891) tetap dicatat sebagai riwayat; hasil terbaru yang sukses menjadi bukti CI terkini, bukan alasan untuk menghapus riwayat pembatalan.
+- PR #130 masih draft. Jangan merge hanya karena CI hijau: tahap berikutnya adalah audit visual responsif carousel dan jalur katalog pada preview/halaman publik, cek aksesibilitas keyboard/focus/reduced-motion, dan pastikan URL live cocok dengan commit yang diuji.
+- PR #128 dan #129 juga belum boleh dianggap sepenuhnya selesai sebelum visual/sticky behavior, alur demo/detail paket, serta batasan prototipe katalog dikonfirmasi. Checkout masih simulasi; impor Blogger dan alur order/email nyata belum terverifikasi.
