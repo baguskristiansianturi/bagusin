@@ -243,3 +243,14 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - Commit branch PR #130: `79fc841d7ffd24fa7d94cdf87fe2447d00de48bb` (homepage), `f1d0081744222f96f5e353e2ecee885f992bd679` (catatan keputusan). Roadmap utama diperbarui di commit terpisah.
 - Pemeriksaan sumber setelah perubahan: pintasan Portofolio tidak ditemukan pada jalur ringkas homepage; label Koleksi & demo website dan tautan katalog template ditemukan. Ini hanya pemeriksaan source, bukan browser QA.
 - Belum selesai: PR #130 belum merged, branch divergen dari `main`, dan tidak ada workflow/status check terdeteksi pada head terbaru. GitHub Pages live serta tampilan visual mobile/desktop belum terverifikasi. Jangan menyatakan perubahan sudah tampil di situs publik.
+
+
+## Update handoff — keputusan stack dan domain (14 Oktober 2026)
+
+- Stack: frontend tetap statis (HTML/CSS/JS); backend masa depan menggunakan Go, bukan CodeIgniter.
+- Hosting: GitHub Pages tetap dipakai untuk frontend selama persiapan. Google Cloud/Cloud Run baru dievaluasi setelah billing dapat diaktifkan; jangan mengklaim API/backend sudah live.
+- Audit file: pada Git tree main commit 493c70f430fa4ecb4cec98eb6e07b6640b699a4d, tidak ditemukan file PHP/CodeIgniter, Go module, atau worker/API. Dockerfile memakai Nginx untuk frontend statis. Jangan menghapus aset frontend sebagai pembersihan CodeIgniter. Periksa deployment eksternal secara terpisah.
+- Desain: pertahankan desain saat ini. Perubahan arsitektur tidak boleh menjadi alasan untuk redesign atau perubahan visual tanpa review terpisah.
+- Domain/brand: pertahankan nama Bagusin sementara; jangan ganti Bagusdev sebelum evaluasi brand dan domain selesai. Jangan memilih .co.id tanpa memastikan persyaratan kelayakan dan dokumen.
+- Perubahan sesi ini: dokumentasi keputusan dan roadmap; belum ada perubahan kode produksi atau deployment.
+- Tugas berikutnya: review dan sinkronisasi PR homepage #130 dengan main tanpa kehilangan desain; periksa konfigurasi nginx.conf; verifikasi status CI dan tampilan GitHub Pages. Setelah itu inventarisasi URL/deployment CodeIgniter eksternal yang memang perlu dimatikan.
