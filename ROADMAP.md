@@ -291,3 +291,11 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 - Reviewing the newly added preview assertions against `js/template-preview.js` revealed that the package CTA intentionally targets the on-page anchor `#spec-title`, not the legacy `/templates/detail/` route. Corrected the smoke test to assert the implemented anchor rather than force a different navigation model.
 - Test correction commit: [`da1b52a5ec632202fc58ae412e31fc6ffaa84cc2`](https://github.com/baguskristiansianturi/bagusin/commit/da1b52a5ec632202fc58ae412e31fc6ffaa84cc2).
 - CI is still the verification gate; no passing result is claimed until the workflow for the newest branch commit completes. Continue to fix only source/test mismatches grounded in the implementation and preserve assertions for actual user-visible behaviour.
+
+
+### QA follow-up — mixed-content homepage PR #130 (14 October 2026)
+
+- Rechecked the completed browser smoke run for source commit `da1b52a5ec632202fc58ae412e31fc6ffaa84cc2`: the remaining two failures were assertions looking for the rental template's preview/package links inside the first catalog card. The page contains multiple available cards and the target rental demo is not guaranteed to be first; this was a brittle test selector, not evidence that the links were absent.
+- Updated the smoke test to locate the specific `Bagus Sewa Mobil Bali 01` card by its visible title before checking its preview and package links.
+- Test correction commit: `ae17a0d4bf1a1c89ce82d23cff27bf53e193625e`.
+- CI must be checked on this correction before declaring the suite green. Manual visual QA and GitHub Pages live verification remain pending.
