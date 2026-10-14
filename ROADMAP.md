@@ -284,3 +284,10 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 - Test correction commit: [`75fb89c41647ede7dcac7d369515e12d55bb53b7`](https://github.com/baguskristiansianturi/bagusin/commit/75fb89c41647ede7dcac7d369515e12d55bb53b7) on `ux/homepage-newest-carousel`.
 - **Not yet verified:** CI results for the new commit, local browser execution, manual visual QA, and GitHub Pages live output. Do not merge PR #130 until the new workflow passes and the visual/deployment checks are explicitly recorded.
 - Next step: inspect the new CI run and its logs; fix genuine failures rather than weakening assertions, then verify PR #129's latest commit status and keep PR #128's failed Cloudflare preview build/browser QA as separate tracked work.
+
+
+## Follow-up correction — preview package anchor (14 October 2026)
+
+- Reviewing the newly added preview assertions against `js/template-preview.js` revealed that the package CTA intentionally targets the on-page anchor `#spec-title`, not the legacy `/templates/detail/` route. Corrected the smoke test to assert the implemented anchor rather than force a different navigation model.
+- Test correction commit: [`da1b52a5ec632202fc58ae412e31fc6ffaa84cc2`](https://github.com/baguskristiansianturi/bagusin/commit/da1b52a5ec632202fc58ae412e31fc6ffaa84cc2).
+- CI is still the verification gate; no passing result is claimed until the workflow for the newest branch commit completes. Continue to fix only source/test mismatches grounded in the implementation and preserve assertions for actual user-visible behaviour.
