@@ -422,3 +422,15 @@ CI statis, browser smoke, preview hosting, dan GitHub Pages live adalah gerbang 
 - Pilihan tahap awal dipadatkan. Pada jalur website yang sudah ada, opsi perbaikan tampilan dan opsi peningkatan hasil digabung menjadi satu pilihan, sehingga jumlah opsi turun dari lima menjadi empat tanpa menghapus tujuan utama.
 - Label pilihan diperpendek agar lebih mudah dipindai di ponsel; deskripsi rekomendasi tetap menjelaskan konteks setelah pengguna memilih.
 - Ini perubahan copy dan logika pemilihan, bukan perubahan desain visual besar. Validasi otomatis dan pengujian browser pada head terbaru tetap wajib sebelum merge.
+
+
+## Catatan perubahan — arah arsitektur frontend statis dan backend Go (14 Oktober 2026)
+
+- Bagus memutuskan tidak menggunakan CodeIgniter; backend ke depan direncanakan memakai Go (Golang).
+- Google Cloud baru menjadi target setelah kendala billing/kartu pembayaran selesai. Tidak ada asumsi bahwa backend Google Cloud sudah berjalan.
+- Audit Git tree main pada 493c70f430fa4ecb4cec98eb6e07b6640b699a4d: tidak ditemukan file PHP/CodeIgniter, Go module, atau worker/API. Dockerfile yang ada memakai Nginx untuk menyajikan file statis.
+- Karena itu, jangan menghapus aset frontend dengan dugaan sebagai skrip CodeIgniter. Deployment eksternal yang terlanjur memakai CodeIgniter harus diinventarisasi dan dibersihkan terpisah setelah sumber deploy dipastikan.
+- Frontend tetap fokus pada desain, konten, UX, dan verifikasi GitHub Pages. Backend Go dibuat kemudian sebagai layanan terpisah jika kebutuhan dan hosting siap.
+- Identitas Bagusin dipertahankan untuk sementara; jangan mengganti menjadi Bagusdev hanya karena domain Bagusin tertentu tidak tersedia. .co.id bukan pilihan awal karena persyaratan domainnya ditujukan kepada entitas bisnis/organisasi yang memenuhi ketentuan. Ketersediaan nama dan domain harus diverifikasi di registrar sebelum keputusan final.
+- Dokumen keputusan lengkap: docs/TECH-STACK-AND-DOMAIN-DECISION.md.
+- Perubahan tahap ini bersifat dokumentasi saja; tidak mengubah desain, aset frontend, canonical URL, maupun deployment.
