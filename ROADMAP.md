@@ -311,6 +311,16 @@ Tahap ini baru menetapkan aturan. Belum ada 50 artikel yang ditulis, diaudit, at
 - Status produk tetap prototipe: checkout simulasi, XML Blogger belum dinyatakan lolos impor, dan belum ada klaim bahwa pembayaran atau pemrosesan pesanan aktif.
 
 
+## Koreksi struktur homepage — koleksi, template, dan portofolio (14 Oktober 2026)
+
+**Status: perubahan homepage dicatat pada branch PR #130; belum merged atau terverifikasi di GitHub Pages.**
+
+- Jalur ringkas homepage memprioritaskan Layanan, Koleksi & demo website, Katalog Template, Blog, dan Course.
+- Portofolio tetap tersedia melalui navigasi/halaman khusus, tetapi dihapus dari daftar pintasan penemuan homepage agar tidak bersaing dengan jalur pengunjung yang ingin memilih layanan, melihat demo, atau mencari template.
+- Template source code boleh menjadi bagian dari karya/portofolio secara konsep, tetapi katalog produk tetap terpisah agar pengunjung dapat membedakan karya nyata, demo, dan item yang memang ditawarkan untuk dibeli.
+- Jangan menyebut Koleksi sebagai katalog template; Koleksi menampilkan demo website, sedangkan /templates/ adalah jalur untuk menelusuri template per platform.
+- Pemeriksaan berikutnya: audit seluruh tautan homepage/navigasi untuk label yang tumpang tindih, jalankan smoke test dan tes viewport pada head terbaru, sinkronkan branch dengan main, lalu verifikasi GitHub Pages setelah workflow/deployment benar-benar sukses.
+
 ## Keputusan UX — alur pengunjung dan langkah berikutnya (14 Oktober 2026)
 
 **Prinsip:** satu halaman punya satu tindakan utama dan satu jalur lanjutan yang relevan. Jangan memberi terlalu banyak CTA setara, dan jangan mengarahkan semua pengunjung ke konsultasi.
