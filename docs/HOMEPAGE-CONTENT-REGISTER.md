@@ -47,3 +47,9 @@ Do not treat a static source check as a browser test, and do not claim a GitHub 
 - `Bagus Rental Mobil #002` is the newest confirmed demo for the mixed homepage shelf. Its public route is `/bagusin/demos/starter/travel-rental/bagus-rental-mobil-002/`.
 - Use `publishedAt: "2026-10-15"` only because the demo was present on `main` and the GitHub Pages deployment workflow for that main head completed successfully on 15 October 2026. Do not infer future release dates from PR creation time.
 - The shelf uses manual previous/next controls only. Do not reintroduce autoplay without an accessible pause control and fresh keyboard/touch QA.
+
+
+## Mixed shelf article entry — verified metadata (15 October 2026)
+
+- Added `Apa Itu Hosting? Panduan Website untuk Pemula` as one practical article card, not an article-only section. Its current page metadata records `datePublished: 2026-10-10`; its destination, description, and image alt text were checked against the article source.
+- The smoke test checks this card only during its 30-day eligibility window. It does not require an expired article or demo to remain in the homepage shelf forever.
