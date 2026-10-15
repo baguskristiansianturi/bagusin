@@ -38,7 +38,8 @@
     root.querySelector("[data-detail-image]").src = item.image;
     root.querySelector("[data-detail-image]").alt = item.imageAlt || item.name;
     root.querySelector("[data-detail-tags]").innerHTML = [category, level, item.id, item.format === "one-page-company-profile" ? "Company profile satu halaman" : item.format === "one-page-website" ? "Website satu halaman" : "Landing page"].map(value => '<span class="detail-tag">'+escapeHtml(value)+'</span>').join("");
-    root.querySelector("[data-detail-base-price]").textContent = money(item.price);
+    const basePrice = root.querySelector("[data-detail-base-price]");
+    if (basePrice) basePrice.textContent = money(item.price);
     setList("[data-detail-included]", item.included);
     setList("[data-detail-excluded]", item.notIncluded);
     const pricingRoot = root.querySelector("[data-detail-pricing-options]");
