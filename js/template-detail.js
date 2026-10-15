@@ -8,6 +8,15 @@
   const money = value => new Intl.NumberFormat("id-ID", {style:"currency",currency:"IDR",maximumFractionDigits:0}).format(value);
   const setList = (selector, items) => { const el = root.querySelector(selector); if (el) el.innerHTML = (items || []).map(item => "<li>"+escapeHtml(item)+"</li>").join(""); };
   const contactUrl = (mode, meeting = "") => "/bagusin/contact/?service="+encodeURIComponent(meeting === "in-person" ? "consultation" : "websites")+"&mode="+encodeURIComponent(mode)+"&template="+encodeURIComponent(id)+(meeting ? "&meeting="+encodeURIComponent(meeting) : "");
+
+  const previewStage = root.querySelector("[data-preview-stage]");
+  const previewFrame = root.querySelector("[data-template-demo]");
+  root.querySelectorAll("[data-preview-mode]").forEach(button => button.addEventListener("click", () => {
+    const mode = button.dataset.previewMode;
+    previewStage.dataset.mode = mode;
+    root.querySelectorAll("[data-preview-mode]").forEach(item => item.setAttribute("aria-pressed", String(item === button)));
+  }));
+
   fetch(base).then(response => { if (!response.ok) throw new Error("Catalog unavailable"); return response.json(); }).then(data => {
     const item = data.templates.find(entry => entry.id === id);
     if (!item) throw new Error("Template not found");
@@ -15,9 +24,20 @@
     const level = data.levels.find(entry => entry.id === item.level)?.name || item.level;
     root.querySelector("[data-detail-name]").textContent = item.name;
     root.querySelector("[data-detail-description]").textContent = item.description;
+    if (previewFrame && item.demoUrl) { previewFrame.src = item.demoUrl; previewFrame.title = "Pratinjau " + item.name; }
+    const descriptionMeta = document.querySelector('meta[name="description"]');
+    if (descriptionMeta) descriptionMeta.content = item.description;
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.href = window.location.origin + window.location.pathname + "?template=" + encodeURIComponent(id);
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.content = item.name + " — Bagusin";
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogDescription) ogDescription.content = item.description;
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    if (ogImage) ogImage.content = item.image;
     root.querySelector("[data-detail-image]").src = item.image;
     root.querySelector("[data-detail-image]").alt = item.imageAlt || item.name;
-    root.querySelector("[data-detail-tags]").innerHTML = [category, level, item.id, item.format === "one-page-website" ? "Website satu halaman" : "Landing page"].map(value => '<span class="detail-tag">'+escapeHtml(value)+'</span>').join("");
+    root.querySelector("[data-detail-tags]").innerHTML = [category, level, item.id, item.format === "one-page-company-profile" ? "Company profile satu halaman" : item.format === "one-page-website" ? "Website satu halaman" : "Landing page"].map(value => '<span class="detail-tag">'+escapeHtml(value)+'</span>').join("");
     root.querySelector("[data-detail-base-price]").textContent = money(item.price);
     setList("[data-detail-included]", item.included);
     setList("[data-detail-excluded]", item.notIncluded);
