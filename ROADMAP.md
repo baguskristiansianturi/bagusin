@@ -433,3 +433,35 @@ CI statis, browser smoke, preview hosting, dan GitHub Pages live adalah gerbang 
 - Gate: run static audit and responsive browser tests on this branch, inspect the results, then manually verify the GitHub Pages page on a phone. These source changes are not yet live-verified; do not merge before the checks and visual review.
 
 - Follow-up verification fix (14 October 2026): fixed initialization order in the shared contact-form script (the contextual selector had referenced the form before initialization), applied the same concise/context-aware form to the English contact page, removed featured article cards from both language homepages while preserving the course section, and corrected the hidden-selector CSS. Browser smoke tests must be rerun on the final branch head after these fixes.
+
+
+## Handoff verifikasi dan urutan kerja — 15 Oktober 2026
+
+### Status yang benar-benar terverifikasi
+- PR #136 (`ux: improve mobile catalog navigation and shorten customer journey`) telah digabung ke `main` melalui squash commit `b18dbe9cc821cd599a8cc66220c33c82682ea106`.
+- Pada head PR #136, Responsive browser smoke test run #947 dan Static site audit run #995 lulus. Setelah merge, workflow pada commit `b18dbe9` juga lulus: [browser smoke #948](https://github.com/baguskristiansianturi/bagusin/actions/runs/38691245198), [static audit #996](https://github.com/baguskristiansianturi/bagusin/actions/runs/38691245287), dan [GitHub Pages deployment #1490](https://github.com/baguskristiansianturi/bagusin/actions/runs/38691244026).
+- Demo `Bagus Rental Mobil #002` dan entri terkait di `templates/catalog.json` tetap ada setelah integrasi.
+- Pemeriksaan browser eksternal tidak dapat membuka URL GitHub Pages dari lingkungan ini. Keberhasilan workflow deployment bukan pengganti pemeriksaan visual di ponsel; QA visual Bagus masih diperlukan.
+- PR #135 ditutup sebagai branch lama yang divergen; perubahan UX-nya digabung melalui PR #136. PR #125 ditutup karena pengujian checkout yang relevan sudah masuk ke suite smoke test yang digabung.
+
+### Hasil triase PR tertunda
+- **PR #130 homepage:** tetap draft. Branch lama divergen (22 ahead / 12 behind) dan head terakhir belum punya hasil CI terkonfirmasi; Cloudflare preview bot melaporkan build gagal, tetapi akar penyebab belum dapat diperiksa. Jangan merge branch lama; port perubahan homepage ke branch baru dari main setelah pemeriksaan visual.
+- **PR #126 layanan Google Business Profile:** tetap draft; branch lama dan bertumpang tindih dengan kontak/navigasi. Port ulang setelah homepage diselesaikan, pertahankan alur brief sebelum penawaran/checkout.
+- **PR #128 katalog koleksi:** tetap draft. Jangan memakai batas awal 15 item; aturan aktif adalah All Category + All Level menampilkan semua item nyata yang tersedia. Filter hanya mempersempit hasil dan kombinasi tanpa hasil harus menunjukkan empty state yang jujur.
+- **PR #127 test alignment:** tetap draft. Beberapa ekspektasi rute preview/kategori sudah usang; jangan menghidupkan kembali ekspektasi yang menampilkan item tidak cocok saat filter tidak memiliki hasil.
+- **PR #102, #106, #108, #109, #116:** tetap draft untuk audit terpilah; semua branch lama harus dinilai per file dan tidak boleh digabung wholesale.
+- **PR #131, #133, #134:** catatan dokumentasi lama perlu digabungkan ke handoff terkini ini; jangan merge terpisah jika menyebabkan status roadmap ganda atau bertentangan.
+- PR #34, #37, #85, #86, #87, #91, dan #107 ditutup karena pekerjaan lama/arsitektur/renderer yang usang atau bertentangan dengan keputusan terkini. Lihat catatan penutupan pada masing-masing PR.
+
+### Urutan berikutnya
+1. **QA visual live di ponsel:** periksa navbar sticky saat scroll, filter katalog mobile, posisi judul hasil di bawah header/filter, breadcrumbs, footer, dan form kontak ID/EN. Catat masalah spesifik sebelum menambah perubahan.
+2. **Homepage (port ulang PR #130):** mulai dari `main` terbaru; pertahankan alur service-first, koleksi/demo terbaru, course yang statusnya jujur, dan jangan mengembalikan homepage menjadi arsip artikel. Uji carousel, keyboard, reduced motion, dan semua tautan.
+3. **Detail layanan (port ulang PR #126):** audit registry, halaman detail, opsi kontak, ketentuan layanan, sitemap, dan CTA; pastikan brief/proposal mendahului checkout jika proyek perlu kesepakatan personal.
+4. **Koleksi dan filter (port ulang PR #128):** pertahankan semua demo tersedia di tampilan awal All Category + All Level; sticky filter tidak boleh mengubah aturan inventory; uji kategori/level yang cocok dan empty state.
+5. **Konsolidasi tes dan dokumen:** pilih assertion yang masih sesuai dari PR #102/#127; port checklist AI dari PR #109 hanya jika tidak menduplikasi `ROADMAP.md`, `PROJECT-STATUS.md`, dan SOP editorial.
+6. **Backend:** tidak ada pekerjaan backend dalam tahap UX ini. Tetap gunakan frontend statis; backend masa depan direncanakan dengan Go, dan Google Cloud baru dibahas setelah akses billing tersedia.
+
+### Batas klaim
+- CI otomatis lulus tidak berarti visual QA ponsel lulus.
+- Pages workflow sukses berarti pipeline deployment selesai; pemeriksaan tampilan URL publik dari browser eksternal masih tidak tersedia.
+- Cloudflare preview failure pada branch lama tidak otomatis berarti GitHub Pages gagal, tetapi penyebabnya tetap belum diketahui.

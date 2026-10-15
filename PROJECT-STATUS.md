@@ -252,3 +252,15 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - This is a proposal branch, not a production deployment. CI and GitHub Pages visual verification must be checked before merge. No Go backend, payment integration, or Google Cloud activation is included.
 
 - Latest follow-up: corrected contact-form JavaScript initialization, brought the English contact page into parity, removed featured article cards from both homepages while preserving course content, and ensured a prefilled service selector is actually hidden. Final CI is still required before any merge/deployment.
+
+
+## Status terkini — 15 October 2026
+
+- Main head setelah integrasi UX mobile: `b18dbe9cc821cd599a8cc66220c33c82682ea106` (PR #136).
+- Verifikasi PR head: browser smoke #947 **success**, static audit #995 **success**.
+- Verifikasi main head: [browser smoke #948](https://github.com/baguskristiansianturi/bagusin/actions/runs/38691245198) **success**, [static audit #996](https://github.com/baguskristiansianturi/bagusin/actions/runs/38691245287) **success**, [GitHub Pages deployment #1490](https://github.com/baguskristiansianturi/bagusin/actions/runs/38691244026) **success**.
+- Rental Mobil #002 dan entri `templates/catalog.json` terjaga.
+- Visual QA langsung di ponsel belum dilakukan/terverifikasi oleh assistant. URL GitHub Pages tidak dapat dibuka melalui alat browser yang tersedia; Bagus perlu memeriksa versi terbit pada perangkatnya dan melaporkan masalah spesifik.
+- PR #136 merged; PR #135 dan #125 ditutup sebagai superseded. PR #130/#126/#128 tetap menjadi pekerjaan lanjutan, tetapi harus di-port ke branch baru dari main, bukan merge dari branch lama.
+- Prioritas kerja: (1) QA visual live, (2) port homepage #130, (3) service journey #126, (4) koleksi/filter #128 tanpa cap awal 15 item, (5) konsolidasi test/docs #102/#127/#109/#131/#133/#134.
+- Backend tetap belum aktif. Rencana backend masa depan adalah Go; Google Cloud belum diaktifkan. Tidak ada klaim tentang email sungguhan, pembayaran, checkout transaksi, atau impor Blogger yang telah diverifikasi.
