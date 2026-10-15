@@ -575,6 +575,22 @@ try {
   if (!(await interactionPage.locator("footer.site-footer").count()) || await interactionPage.locator("footer.store-footer").count()) errors.push("Template store: footer should use the shared site footer");
   await interactionPage.locator('.store-mobile-filterbar button[data-platform="wordpress"]').click();
   if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: WordPress with no products should show an honest empty state");
+  // Mobile filter choice should reveal the results without placing them beneath sticky chrome.
+  try {
+    await interactionPage.waitForFunction(() => {
+      const target = document.querySelector(".store-results__top");
+      const header = document.querySelector(".site-header");
+      const filterbar = document.querySelector(".store-mobile-filterbar");
+      if (!target || !header || !filterbar) return false;
+      const targetRect = target.getBoundingClientRect();
+      const headerRect = header.getBoundingClientRect();
+      const filterRect = filterbar.getBoundingClientRect();
+      return targetRect.top >= Math.max(headerRect.bottom, filterRect.bottom) - 2
+        && targetRect.top < window.innerHeight;
+    }, null, { timeout: 6000 });
+  } catch {
+    errors.push("Template store: mobile filter selection did not reveal results below the sticky header and filter bar");
+  }
   if (await storeCatalogCard.isVisible()) errors.push("Template store: Blogger product remained visible after switching to WordPress");
   await interactionPage.locator('.store-mobile-filterbar button[data-platform="coded"]').click();
   if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: coded platform should show an honest empty state until a code template is released");
