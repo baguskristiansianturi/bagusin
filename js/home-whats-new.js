@@ -21,6 +21,17 @@
       publishedAt: "2026-10-15"
     },
     {
+      id: "hosting-guide-article",
+      type: "article",
+      title: "Apa Itu Hosting? Panduan Website untuk Pemula",
+      eyebrow: "Panduan website · Pemula",
+      description: "Pahami fungsi hosting, perbedaan domain dan hosting, pilihan untuk landing page sederhana, serta biaya yang perlu diperiksa.",
+      href: "/bagusin/blog/apa-itu-hosting/",
+      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=900&q=85",
+      imageAlt: "Perangkat server yang mewakili layanan hosting website",
+      publishedAt: "2026-10-10"
+    },
+    {
       id: "bagus-ink-demo",
       type: "demo",
       title: "Website studio tato",
