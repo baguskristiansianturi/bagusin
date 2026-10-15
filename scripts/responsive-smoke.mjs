@@ -172,7 +172,7 @@ try {
   const whatsNew = interactionPage.locator("[data-whats-new]");
   const latestReleaseStart = Date.parse("2026-10-15T00:00:00");
   const latestReleaseActive = Date.now() >= latestReleaseStart && Date.now() < latestReleaseStart + 30 * 24 * 60 * 60 * 1000;
-  const articleReleaseStart = Date.parse("2026-10-10T00:00:00");
+  const articleReleaseStart = Date.parse("2026-10-11T00:00:00");
   const articleReleaseActive = Date.now() >= articleReleaseStart && Date.now() < articleReleaseStart + 30 * 24 * 60 * 60 * 1000;
   const shelfVisible = await whatsNew.isVisible().catch(() => false);
   if (latestReleaseActive && !shelfVisible) errors.push("Homepage: newest shelf should be visible during Bagus Rental Mobil #002's 30-day release window");
