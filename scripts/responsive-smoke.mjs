@@ -22,7 +22,7 @@ const routes = [
   "/bagusin/templates/checkout/?license=free",
   "/bagusin/templates/checkout/?license=premium",
   "/bagusin/templates/detail/?template=BG-TRV-STR-001",
-  "/bagusin/demos/starter/travel-rental/bagus-sewa-mobil-bali-01/",
+  "/bagusin/demos/starter/travel-rental/bagus-sewa-mobil-bali-01/", "/bagusin/demos/starter/travel-rental/bagus-rental-mobil-002/",
   "/bagusin/portfolio/",
   "/bagusin/youtube/",
   "/bagusin/about/",
@@ -159,6 +159,26 @@ try {
   if (narrowGrid.scrollWidth > narrowGrid.width + 2) errors.push("Homepage solutions @ 320px: horizontal overflow " + JSON.stringify(narrowGrid));
   await interactionPage.setViewportSize({ width: 390, height: 844 });
   await interactionPage.locator("[data-reset-pathfinder]").click();
+  homepageText = await interactionPage.locator("main").innerText();
+
+  // The mixed latest-content shelf should show the newest real release and work with touch/mobile scrolling.
+  const whatsNew = interactionPage.locator("[data-whats-new]");
+  await whatsNew.waitFor({ state: "visible", timeout: 5000 });
+  const shelfCards = whatsNew.locator(".whats-new-card");
+  const shelfCount = await shelfCards.count();
+  if (shelfCount < 1 || shelfCount > 6) errors.push("Homepage: latest-content shelf must show 1–6 eligible cards, got " + shelfCount);
+  if (!(await shelfCards.first().innerText()).includes("Bagus Rental Mobil #002")) errors.push("Homepage: newest shelf item is not Bagus Rental Mobil #002");
+  const newestHref = await shelfCards.first().locator("a").getAttribute("href");
+  if (newestHref !== "/bagusin/demos/starter/travel-rental/bagus-rental-mobil-002/") errors.push("Homepage: newest shelf item does not link to the Bagus Rental Mobil #002 demo");
+  const shelfTrack = whatsNew.locator("[data-whats-new-track]");
+  await shelfTrack.evaluate(el => el.scrollTo({ left: 0, behavior: "auto" }));
+  await whatsNew.locator("[data-whats-new-next]").click();
+  await interactionPage.waitForFunction(() => {
+    const track = document.querySelector("[data-whats-new-track]");
+    return track && track.scrollLeft > 0;
+  }, null, { timeout: 5000 });
+  await interactionPage.waitForFunction(() => document.querySelector("[data-whats-new-status]")?.textContent.includes("2 dari"), null, { timeout: 5000 });
+  if (homepageText.includes("Tempat, karya, dan perjalanan") || homepageText.includes("Solusi untuk kebutuhan umum")) errors.push("Homepage: repeated long-form discovery sections should remain removed");
 
   if (!homepageText.includes("Rapikan konten dan visibilitas") || !homepageText.includes("Bangun solusi baru")) errors.push("Homepage: current Indonesian service labels are missing");
   if (homepageText.includes("Content Writing & SEO") || homepageText.includes("Web Applications & Systems")) errors.push("Homepage: outdated English service labels remain");
