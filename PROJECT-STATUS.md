@@ -243,3 +243,12 @@ This means: inspect the latest `PROJECT-STATUS.md`, `ROADMAP.md`, relevant maste
 - Commit branch PR #130: `79fc841d7ffd24fa7d94cdf87fe2447d00de48bb` (homepage), `f1d0081744222f96f5e353e2ecee885f992bd679` (catatan keputusan). Roadmap utama diperbarui di commit terpisah.
 - Pemeriksaan sumber setelah perubahan: pintasan Portofolio tidak ditemukan pada jalur ringkas homepage; label Koleksi & demo website dan tautan katalog template ditemukan. Ini hanya pemeriksaan source, bukan browser QA.
 - Belum selesai: PR #130 belum merged, branch divergen dari `main`, dan tidak ada workflow/status check terdeteksi pada head terbaru. GitHub Pages live serta tampilan visual mobile/desktop belum terverifikasi. Jangan menyatakan perubahan sudah tampil di situs publik.
+
+
+## UX review handoff — mobile thumb reach and shorter homepage (14 October 2026)
+
+- Implemented in a separate review branch: sticky mobile catalog controls, horizontally swipeable platform and industry filters, shared catalog footer, removal of homepage article cards, and shorter context-aware contact form copy.
+- Service selection now uses explicit query parameters first, then a same-origin service/collection referrer when available. When context is known, the selector is hidden by default but can be revealed; the template's internal SKU is not shown in the human-facing label.
+- This is a proposal branch, not a production deployment. CI and GitHub Pages visual verification must be checked before merge. No Go backend, payment integration, or Google Cloud activation is included.
+
+- Latest follow-up: corrected contact-form JavaScript initialization, brought the English contact page into parity, removed featured article cards from both homepages while preserving course content, and ensured a prefilled service selector is actually hidden. Final CI is still required before any merge/deployment.

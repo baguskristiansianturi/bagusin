@@ -422,3 +422,14 @@ CI statis, browser smoke, preview hosting, dan GitHub Pages live adalah gerbang 
 - Pilihan tahap awal dipadatkan. Pada jalur website yang sudah ada, opsi perbaikan tampilan dan opsi peningkatan hasil digabung menjadi satu pilihan, sehingga jumlah opsi turun dari lima menjadi empat tanpa menghapus tujuan utama.
 - Label pilihan diperpendek agar lebih mudah dipindai di ponsel; deskripsi rekomendasi tetap menjelaskan konteks setelah pengguna memilih.
 - Ini perubahan copy dan logika pemilihan, bukan perubahan desain visual besar. Validasi otomatis dan pengujian browser pada head terbaru tetap wajib sebelum merge.
+
+
+## UX follow-up — mobile catalog, homepage focus, and contextual inquiry form (14 October 2026)
+
+- Mobile catalog: add a sticky, horizontally swipeable platform carousel for Blogger, WordPress, and HTML/CSS/JS, plus a sticky horizontal industry row. Selecting a platform or industry updates the results and brings the result heading into view without requiring a manual hunt down the page.
+- Catalog footer: replace the one-off mini footer with the shared site footer markup and stylesheet so spacing, navigation groups, and closing details match the rest of Bagusin.
+- Homepage: temporarily remove the article-card section from the Indonesian homepage. Blog remains accessible from navigation and its own archive; homepage priority stays on the guided path and actionable solutions.
+- Contact form: shorten the introductory copy, prefill service context from a query parameter or same-site service/collection referrer, hide the redundant service selector when context is known, and let visitors reveal it only if they want to change their selection. Show the rental template's human-readable name without exposing its internal ID.
+- Gate: run static audit and responsive browser tests on this branch, inspect the results, then manually verify the GitHub Pages page on a phone. These source changes are not yet live-verified; do not merge before the checks and visual review.
+
+- Follow-up verification fix (14 October 2026): fixed initialization order in the shared contact-form script (the contextual selector had referenced the form before initialization), applied the same concise/context-aware form to the English contact page, removed featured article cards from both language homepages while preserving the course section, and corrected the hidden-selector CSS. Browser smoke tests must be rerun on the final branch head after these fixes.

@@ -1,0 +1,111 @@
+/* Bagusin shared navigation consistency — 14 October 2026 */
+
+/* Keep the shared site navigation sticky even when legacy responsive rules load later. */
+.site-header,
+header.site-header,
+[data-site-header] {
+  position: sticky !important;
+  inset-block-start: 0 !important;
+  z-index: 1000 !important;
+  width: 100%;
+  background: rgba(255,255,255,.96);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+.site-header.is-sticky,
+header.site-header.is-sticky,
+[data-site-header].is-sticky {
+  background: rgba(255,255,255,.94);
+  border-bottom-color: rgba(0,0,0,.1);
+  box-shadow: 0 6px 22px rgba(0,0,0,.065);
+}
+
+/* Shared breadcrumbs are deliberately quiet and consistent with the editorial design. */
+.site-breadcrumbs {
+  box-sizing: border-box;
+  width: min(calc(100% - (var(--page-padding,1.25rem) * 2)), var(--content-width,68rem));
+  margin: 0 auto;
+  padding-block: .9rem .65rem;
+  color: var(--color-text-muted,#777);
+  font-size: .78rem;
+  line-height: 1.5;
+}
+.site-breadcrumbs__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .35rem .55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.site-breadcrumbs__list li {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  max-width: 100%;
+}
+.site-breadcrumbs__list li + li::before {
+  content: "/";
+  margin-inline-end: .55rem;
+  color: #a0a0a0;
+}
+.site-breadcrumbs__list a {
+  color: var(--color-accent-dark,#477f73);
+  text-decoration: none;
+  text-underline-offset: .18em;
+}
+.site-breadcrumbs__list a:hover,
+.site-breadcrumbs__list a:focus-visible {
+  color: var(--color-text,#111);
+  text-decoration: underline;
+}
+.site-breadcrumbs__list [aria-current="page"] {
+  display: inline-block;
+  overflow: hidden;
+  color: var(--color-text-soft,#444);
+  font-weight: 600;
+  text-overflow: ellipsis;
+}
+.site-breadcrumbs + main,
+.site-breadcrumbs + #main-content {
+  scroll-margin-top: calc(var(--header-height,4.5rem) + 1rem);
+}
+@media (max-width: 40rem) {
+  .site-breadcrumbs {
+    padding-block: .75rem .55rem;
+    font-size: .74rem;
+  }
+  .site-breadcrumbs__list {
+    gap: .25rem .35rem;
+  }
+  .site-breadcrumbs__list li + li::before {
+    margin-inline-end: .35rem;
+  }
+}
+
+/* Standardize common footer spacing without overriding the shared footer's content. */
+.site-footer {
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: auto;
+}
+.site-footer__inner,
+.site-footer__bottom-inner {
+  box-sizing: border-box;
+  min-width: 0;
+}
+.site-footer a {
+  text-decoration: none;
+}
+.site-footer a:hover,
+.site-footer a:focus-visible {
+  text-decoration: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header,
+  .site-footer a {
+    scroll-behavior: auto;
+    transition: none !important;
+  }
+}

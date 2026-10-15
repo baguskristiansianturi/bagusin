@@ -129,6 +129,8 @@ const interactionPage = await browser.newPage({ viewport: { width: 390, height: 
 try {
   await interactionPage.goto(origin + "/bagusin/", { waitUntil: "domcontentloaded" });
   let homepageText = await interactionPage.locator("main").innerText();
+  if (await interactionPage.locator("[data-site-breadcrumbs]").count()) errors.push("Homepage: breadcrumb should stay hidden on the homepage");
+  if (homepageText.includes("Cerita dan panduan pilihan") || homepageText.includes("Memulai kembali Bagusin")) errors.push("Homepage: article cards should be temporarily removed from the primary customer journey");
   // Homepage solution recommendations must stack into one readable column on mobile.
   await interactionPage.locator("[data-stage='starter']").click();
   await interactionPage.locator("[data-goal]").first().click();
@@ -233,8 +235,55 @@ try {
     errors.push("Contact page: concise Indonesian hero copy is missing");
   }
   if (!contactTitle.includes("Kontak")) errors.push("Contact page: title metadata is not localized");
+
+  // Shared site chrome must stay consistent across interior pages and mobile scrolling.
+  const breadcrumb = interactionPage.locator("[data-site-breadcrumbs]");
+  if (!(await breadcrumb.count())) errors.push("Contact page: shared breadcrumb navigation is missing");
+  else {
+    const breadcrumbText = await breadcrumb.innerText();
+    if (!breadcrumbText.includes("Beranda") || !breadcrumbText.includes("Mari mulai dari kebutuhanmu")) {
+      errors.push("Contact page: breadcrumb labels or current-page label are incorrect: " + breadcrumbText);
+    }
+  }
+  const headerPosition = await interactionPage.locator(".site-header").evaluate((el) => getComputedStyle(el).position);
+  if (headerPosition !== "sticky") errors.push("Contact page: global navbar should use sticky positioning, got " + headerPosition);
+  await interactionPage.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  await interactionPage.waitForTimeout(100);
+  const headerTop = await interactionPage.locator(".site-header").evaluate((el) => Math.round(el.getBoundingClientRect().top));
+  if (headerTop < -1 || headerTop > 2) errors.push("Contact page: navbar did not remain at the top while scrolling, top=" + headerTop);
+  const footerState = await interactionPage.locator(".site-footer").evaluate((el) => ({
+    columns: el.querySelectorAll(".site-footer__column").length,
+    hasCta: Boolean(el.querySelector(".site-footer__cta")),
+    hasBottom: Boolean(el.querySelector(".site-footer__bottom"))
+  }));
+  if (footerState.columns !== 4 || !footerState.hasCta || !footerState.hasBottom) {
+    errors.push("Contact page: shared footer structure is incomplete: " + JSON.stringify(footerState));
+  }
+  const footerLinks = await interactionPage.locator(".site-footer__links a").evaluateAll(links => links.map(link => ({
+    text: (link.textContent || "").trim(),
+    href: link.getAttribute("href") || ""
+  })));
+  const requiredFooterPaths = ["/bagusin/collections/", "/bagusin/learning/", "/bagusin/work/", "/bagusin/templates/", "/bagusin/checkout/", "/bagusin/contact/", "/bagusin/legal/privacy/", "/bagusin/legal/terms/", "/bagusin/legal/disclaimer/", "/bagusin/legal/editorial-policy/"];
+  for (const path of requiredFooterPaths) {
+    if (!footerLinks.some(link => link.href === path || link.href.startsWith(path + "?"))) {
+      errors.push("Contact page: shared footer is missing expected destination " + path);
+    }
+  }
+  if (footerLinks.some(link => /search|author|portfolio|destinations/i.test(link.href))) {
+    errors.push("Contact page: footer still exposes a legacy Search, Author, Portfolio, or Destinations link");
+  }
+  await interactionPage.evaluate(() => window.scrollTo(0, 0));
+
   const contactOptionsText = await interactionPage.locator("main").innerText();
-  if (!contactOptionsText.includes("Layanan yang dibutuhkan") || !contactOptionsText.includes("ceritakan kebutuhanmu secara singkat")) errors.push("Contact page: concise service selection and brief guidance are missing");
+  if (!contactOptionsText.includes("Ceritakan kebutuhanmu secara singkat")) errors.push("Contact page: concise guidance is missing");
+  const selectedServiceText = await interactionPage.locator("#selected-service").innerText();
+  if (!selectedServiceText.includes("Landing Page & Iklan")) errors.push("Contact page: service from the incoming URL was not preselected");
+  const serviceChoiceLabel = interactionPage.locator("[data-service-choice-label]");
+  if (await serviceChoiceLabel.isVisible()) errors.push("Contact page: redundant service selector should be hidden when context is known");
+  if (!(await interactionPage.locator("[data-service-change]").isVisible())) errors.push("Contact page: option to change the preselected service is missing");
+  await interactionPage.locator("[data-service-change]").click();
+  if (!(await serviceChoiceLabel.isVisible())) errors.push("Contact page: service selector did not open after choosing to change it");
+  if (await interactionPage.locator("#service-choice").inputValue() !== "landing-pages") errors.push("Contact page: revealed selector lost the preselected service");
   if (contactOptionsText.includes("software engineering") || contactOptionsText.includes("SEO content")) errors.push("Contact page: English service terms remain in Indonesian copy");
   let contactEmailPayload = null;
   await interactionPage.route("https://formsubmit.co/ajax/sbaguskristian@gmail.com", async (route) => {
@@ -270,6 +319,20 @@ try {
 
   // English contact form uses the same email workflow with localized status.
   await interactionPage.goto(origin + "/bagusin/en/contact/?service=copywriting&mode=consultation", { waitUntil: "domcontentloaded" });
+  await interactionPage.locator(".site-footer__column").first().waitFor({ state: "attached", timeout: 5000 });
+  const englishFooterLinks = await interactionPage.locator(".site-footer__links a").evaluateAll(links => links.map(link => ({
+    text: (link.textContent || "").trim(),
+    href: link.getAttribute("href") || ""
+  })));
+  const requiredEnglishFooterPaths = ["/bagusin/en/collections/", "/bagusin/en/learning/", "/bagusin/en/work/", "/bagusin/en/templates/", "/bagusin/checkout/", "/bagusin/en/contact/", "/bagusin/en/legal/privacy/", "/bagusin/en/legal/terms/", "/bagusin/en/legal/disclaimer/", "/bagusin/en/legal/editorial-policy/"];
+  for (const path of requiredEnglishFooterPaths) {
+    if (!englishFooterLinks.some(link => link.href === path || link.href.startsWith(path + "?"))) {
+      errors.push("English contact page: shared footer is missing expected destination " + path);
+    }
+  }
+  if (englishFooterLinks.some(link => /search|author|portfolio|destinations/i.test(link.href))) {
+    errors.push("English contact page: footer still exposes a legacy Search, Author, Portfolio, or Destinations link");
+  }
   await interactionPage.locator("#project-form input[name=name]").fill("English Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("english@example.com");
   await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the English contact email flow.");
@@ -502,22 +565,46 @@ try {
   await interactionPage.goto(origin + "/bagusin/templates/", { waitUntil: "domcontentloaded" });
   const storeCatalogCard = interactionPage.locator(".store-product-card");
   await storeCatalogCard.waitFor({ state: "visible", timeout: 5000 });
-  await interactionPage.locator('button[data-platform="wordpress"]').click();
+  const mobileFilterbar = interactionPage.locator(".store-mobile-filterbar");
+  if (!(await mobileFilterbar.isVisible())) errors.push("Template store: sticky mobile filter bar is not visible at phone width");
+  const filterPosition = await mobileFilterbar.evaluate(el => getComputedStyle(el).position);
+  if (filterPosition !== "sticky") errors.push("Template store: mobile filter bar is not sticky");
+  const platformTrack = mobileFilterbar.locator(".store-platforms");
+  const trackMetrics = await platformTrack.evaluate(el => ({scrollWidth: el.scrollWidth, clientWidth: el.clientWidth}));
+  if (trackMetrics.scrollWidth <= trackMetrics.clientWidth) errors.push("Template store: platform controls should form a horizontal carousel on mobile");
+  if (!(await interactionPage.locator("footer.site-footer").count()) || await interactionPage.locator("footer.store-footer").count()) errors.push("Template store: footer should use the shared site footer");
+  await interactionPage.locator('.store-mobile-filterbar button[data-platform="wordpress"]').click();
   if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: WordPress with no products should show an honest empty state");
+  // Mobile filter choice should reveal the results without placing them beneath sticky chrome.
+  try {
+    await interactionPage.waitForFunction(() => {
+      const target = document.querySelector(".store-results__top");
+      const header = document.querySelector(".site-header");
+      const filterbar = document.querySelector(".store-mobile-filterbar");
+      if (!target || !header || !filterbar) return false;
+      const targetRect = target.getBoundingClientRect();
+      const headerRect = header.getBoundingClientRect();
+      const filterRect = filterbar.getBoundingClientRect();
+      return targetRect.top >= Math.max(headerRect.bottom, filterRect.bottom) - 2
+        && targetRect.top < window.innerHeight;
+    }, null, { timeout: 6000 });
+  } catch {
+    errors.push("Template store: mobile filter selection did not reveal results below the sticky header and filter bar");
+  }
   if (await storeCatalogCard.isVisible()) errors.push("Template store: Blogger product remained visible after switching to WordPress");
-  await interactionPage.locator('button[data-platform="coded"]').click();
+  await interactionPage.locator('.store-mobile-filterbar button[data-platform="coded"]').click();
   if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: coded platform should show an honest empty state until a code template is released");
   if (!(await interactionPage.locator("[data-results-title]").innerText()).includes("HTML, CSS")) errors.push("Template store: coded platform heading is incorrect");
-  await interactionPage.locator('button[data-platform="blogger"]').click();
+  await interactionPage.locator('.store-mobile-filterbar button[data-platform="blogger"]').click();
   await interactionPage.locator("[data-template-purpose]").selectOption("landing-page");
   if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: purpose filter should not mislabel an editorial blog as a landing page");
   await interactionPage.locator("[data-template-purpose]").selectOption("blog");
   if (!(await storeCatalogCard.isVisible())) errors.push("Template store: blog purpose filter hid the matching editorial template");
   await interactionPage.locator("[data-template-purpose]").selectOption("all");
   if (!(await storeCatalogCard.isVisible())) errors.push("Template store: Blogger product did not return after switching platforms");
-  await interactionPage.locator('[data-industry="travel-rental"]').click();
+  await interactionPage.locator('.store-mobile-filterbar [data-industry="travel-rental"]').click();
   if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: empty industry should not fabricate a product");
-  await interactionPage.locator('[data-industry="all"]').click();
+  await interactionPage.locator('.store-mobile-filterbar [data-industry="all"]').click();
   await interactionPage.locator("[data-template-search]").fill("editorial");
   if (!(await storeCatalogCard.isVisible())) errors.push("Template store: search did not find Bagusin Editorial");
   await interactionPage.locator("[data-template-search]").fill("hotel");
