@@ -154,7 +154,7 @@
     {
       "id": "BG-TRV-STR-002",
       "slug": "bagus-rental-mobil-002",
-      "name": "Bagus Rental Mobil #002",
+      "name": "Bagus Rentcar #002",
       "designName": "Blue Canvas",
       "category": "travel",
       "businessTypes": [
@@ -170,7 +170,7 @@
       "currency": "IDR",
       "status": "available",
       "isNew": true,
-      "description": "Landing page satu halaman bergaya premium dengan latar putih hangat, aksen biru, copywriting promosi, mockup desktop dan mobile, layanan, cakupan paket, FAQ, dan CTA. Demo konsep; nama bisnis dan informasi rental pada visual masih simulasi.",
+      "description": "Landing page satu halaman bergaya premium dengan latar putih hangat, aksen biru, copywriting promosi, mockup desktop dan mobile, layanan, cakupan paket, FAQ, dan CTA. Demo konsep; nama bisnis dan informasi rentcar pada visual masih simulasi.",
       "included": [
         "Desain satu halaman responsif untuk mobile dan desktop",
         "Copywriting yang disesuaikan dengan bisnis",
@@ -188,7 +188,7 @@
       "orderUrl": "/bagusin/templates/detail/?template=BG-TRV-STR-002",
       "discussionUrl": "/bagusin/contact/?service=websites&mode=consultation&template=BG-TRV-STR-002",
       "image": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=85",
-      "imageAlt": "Visual mobil untuk konsep landing page Bagus Rental Mobil #002",
+      "imageAlt": "Visual mobil untuk konsep landing page Bagus Rentcar #002",
       "updated": "2026-10-15",
       "folder": "demos/starter/travel-rental/bagus-rental-mobil-002/",
       "pricingOptions": [
@@ -199,6 +199,68 @@
           "billing": "one-time",
           "includes": "Desain satu halaman, copywriting, struktur SEO dasar, responsif, dan CTA kontak.",
           "excludes": "Domain, hosting, perpanjangan, iklan, dan fitur tambahan."
+        }
+      ]
+    },
+    {
+      "id": "BG-TRV-CP-001",
+      "slug": "bagus-rentcar-company-profile-001",
+      "name": "Bagus Rentcar #001 — Company Profile",
+      "designName": "Island Signature",
+      "category": "travel",
+      "businessTypes": [
+        "rental mobil",
+        "car rental",
+        "Bali car rental",
+        "airport transfer",
+        "chauffeur service",
+        "travel company"
+      ],
+      "level": "starter",
+      "format": "one-page-company-profile",
+      "price": 750000,
+      "currency": "IDR",
+      "status": "available",
+      "isNew": true,
+      "description": "Template company profile satu halaman untuk bisnis rental mobil, dengan profil bisnis, layanan, pilihan armada, alur pemesanan, FAQ, dan kontak. Demo mendukung Bahasa Indonesia dan English serta pilihan tampilan mata uang indikatif. Konten, harga contoh, dan kurs perlu disesuaikan sebelum dipublikasikan.",
+      "included": [
+        "Desain company profile satu halaman responsif untuk ponsel, tablet, dan desktop",
+        "Pilihan bahasa Bahasa Indonesia dan English",
+        "Pemilih tampilan mata uang IDR, USD, AUD, dan EUR dengan kurs contoh yang tidak diperbarui secara langsung",
+        "Bagian profil bisnis, layanan, armada, alur pemesanan, FAQ, dan kontak",
+        "Struktur SEO dasar: title, meta description, heading semantik, alt text, dan struktur konten yang jelas",
+        "Opsi Rp750.000 jika pelanggan menyediakan teks dan foto; opsi Rp1.250.000 termasuk penulisan copy untuk Home, About, dan bagian pendukung"
+      ],
+      "notIncluded": [
+        "Domain dan hosting",
+        "Biaya perpanjangan domain atau hosting",
+        "Foto profesional, terjemahan profesional, dan peninjauan legal",
+        "Kurs mata uang real-time, sistem reservasi, database, dashboard, atau pembayaran online",
+        "Jaminan peringkat Google, jumlah pengunjung, atau jumlah pemesanan"
+      ],
+      "demoUrl": "/bagusin/demos/business/travel-rental/bagus-rentcar-001/",
+      "orderUrl": "/bagusin/templates/detail/?template=BG-TRV-CP-001",
+      "discussionUrl": "/bagusin/contact/?service=websites&mode=consultation&template=BG-TRV-CP-001",
+      "image": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=85",
+      "imageAlt": "Contoh mobil untuk template company profile Bagus Rentcar #001",
+      "updated": "2026-10-15",
+      "folder": "demos/business/travel-rental/bagus-rentcar-001/",
+      "pricingOptions": [
+        {
+          "id": "customer-provides-content",
+          "name": "Company Profile — materi dari pelanggan",
+          "price": 750000,
+          "billing": "one-time",
+          "includes": "Desain company profile satu halaman responsif, implementasi dengan teks dan foto yang disediakan pelanggan, struktur SEO dasar, Bahasa Indonesia dan English, pilihan tampilan mata uang indikatif.",
+          "excludes": "Penulisan copy, domain, hosting, kurs live, foto profesional, booking otomatis, dan fitur khusus."
+        },
+        {
+          "id": "copywriting-included",
+          "name": "Company Profile + copywriting",
+          "price": 1250000,
+          "billing": "one-time",
+          "includes": "Semua yang ada pada paket dasar ditambah penulisan copy original untuk Home, About, dan bagian pendukung serta penataan konten dari atas ke bawah.",
+          "excludes": "Domain, hosting, biaya perpanjangan, foto profesional, kurs live, booking otomatis, dan fitur khusus."
         }
       ]
     }
