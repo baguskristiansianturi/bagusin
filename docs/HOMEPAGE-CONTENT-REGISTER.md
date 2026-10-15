@@ -51,5 +51,5 @@ Do not treat a static source check as a browser test, and do not claim a GitHub 
 
 ## Mixed shelf article entry — verified metadata (15 October 2026)
 
-- Added `Apa Itu Hosting? Panduan Website untuk Pemula` as one practical article card, not an article-only section. Its current page metadata records `datePublished: 2026-10-10`; its destination, description, and image alt text were checked against the article source.
+- Added `Apa Itu Hosting? Panduan Website untuk Pemula` as one practical article card, not an article-only section. The article metadata records `datePublished: 2026-10-10`, and the first successful GitHub Pages deployment found containing its publication commit was run #1267 on 11 October 2026; therefore the shelf uses `publishedAt: 2026-10-11`. Its destination, description, and image alt text were checked against the article source.
 - The smoke test checks this card only during its 30-day eligibility window. It does not require an expired article or demo to remain in the homepage shelf forever.
