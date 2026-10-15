@@ -141,6 +141,26 @@ a:focus-visible,button:focus-visible,select:focus-visible,summary:focus-visible{
 @media(max-width:720px){.hero-grid{grid-template-columns:1fr;padding:46px 0 54px}.hero h1{font-size:clamp(43px,10vw,62px)}.hero-photo{padding-left:14px}.hero-photo:before{inset:14px 14px 0 0}.hero-photo img{height:330px}.photo-note{left:-3px}.trust-row{background:#14283d}.service-card{padding:22px}.fleet-card img{height:205px}.contact-panel:after{right:10px;top:2px}}
 @media(max-width:440px){.hero h1{font-size:43px}.hero-photo img{height:275px}.trust-item strong{font-size:20px}.service-grid,.fleet-grid{grid-template-columns:1fr}.fleet-card img{height:225px}.contact-panel:after{display:none}}
 
+
+/* Composition pass: asymmetric hero instead of the familiar equal split-card template. */
+@media(min-width:721px){
+ .hero-grid{display:block;min-height:590px;padding-top:88px;padding-bottom:82px;position:relative}
+ .hero-grid>div:first-child{position:relative;z-index:2;width:57%;padding-top:12px}
+ .hero h1{max-width:620px}
+ .hero-copy{max-width:470px}
+ .hero-photo{position:absolute;z-index:1;right:0;top:50%;transform:translateY(-50%);width:47%;padding:0}
+ .hero-photo:before{inset:18px -14px -14px 18px}
+ .hero-photo img{height:460px;width:100%;object-fit:cover}
+ .photo-note{left:-30px;bottom:22px;max-width:220px}
+}
+@media(min-width:721px) and (max-width:900px){
+ .hero-grid{min-height:550px;padding-top:70px;padding-bottom:70px}
+ .hero-grid>div:first-child{width:59%}
+ .hero-photo{width:45%}
+ .hero-photo img{height:410px}
+ .hero h1{font-size:clamp(39px,5.2vw,54px)}
+}
+
 </style>
 </head>
 <body>
