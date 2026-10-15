@@ -21,7 +21,7 @@
 
 /* Mobile thumb-first catalog navigation: platform and industry filters stay in reach. */
 .store-mobile-filterbar{display:none}
-.store-results__top{scroll-margin-top:12rem}
+.store-results__top{scroll-margin-top:calc(var(--header-height,4.5rem) + 12rem)}
 @media(max-width:42rem){
   .store-hero .store-platforms{display:none}
   .store-mobile-filterbar{display:block;position:sticky;top:var(--header-height,4.5rem);z-index:45;margin:0 -.75rem 1rem;padding:.6rem .75rem .7rem;border-block:1px solid var(--store-line);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);box-shadow:0 8px 18px rgba(24,43,33,.07)}
