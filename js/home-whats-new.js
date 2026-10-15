@@ -123,4 +123,4 @@
   track.addEventListener("scroll", updateStatus, { passive: true });
   window.addEventListener("resize", updateStatus);
   updateStatus();
-})();;
+})();
