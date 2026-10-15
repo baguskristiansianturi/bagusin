@@ -55,8 +55,23 @@
       }
     });
   }
-  platformButtons.forEach(button => button.addEventListener("click", () => { platform = button.dataset.platform; render(); }));
-  industryButtons.forEach(button => button.addEventListener("click", () => { industry = button.dataset.industry; render(); }));
+  function revealResultsAfterMobileChoice(button) {
+    if (!button.closest(".store-mobile-filterbar") || !window.matchMedia("(max-width: 42rem)").matches) return;
+    const target = root.querySelector(".store-results__top");
+    if (!target) return;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    target.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" });
+  }
+  platformButtons.forEach(button => button.addEventListener("click", () => {
+    platform = button.dataset.platform;
+    render();
+    revealResultsAfterMobileChoice(button);
+  }));
+  industryButtons.forEach(button => button.addEventListener("click", () => {
+    industry = button.dataset.industry;
+    render();
+    revealResultsAfterMobileChoice(button);
+  }));
   search?.addEventListener("input", render);
   purposeFilter?.addEventListener("change", render);
   root.querySelectorAll("[data-clear-filter],[data-clear-empty]").forEach(button => button.addEventListener("click", () => {
