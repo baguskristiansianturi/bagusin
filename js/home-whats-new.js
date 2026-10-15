@@ -29,7 +29,7 @@
       href: "/bagusin/blog/apa-itu-hosting/",
       image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=900&q=85",
       imageAlt: "Perangkat server yang mewakili layanan hosting website",
-      publishedAt: "2026-10-10"
+      publishedAt: "2026-10-11"
     },
     {
       id: "bagus-ink-demo",
