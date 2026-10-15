@@ -161,6 +161,12 @@ try {
   await interactionPage.locator("[data-reset-pathfinder]").click();
   homepageText = await interactionPage.locator("main").innerText();
 
+  const heroHeading = interactionPage.locator(".home-pathfinder__intro h1");
+  const heroHeadingSize = await heroHeading.evaluate(el => parseFloat(getComputedStyle(el).fontSize));
+  if (heroHeadingSize < 43) errors.push("Homepage hero @ 390px: heading should be at least 43px, got " + heroHeadingSize);
+  const heroLeadText = await interactionPage.locator(".home-pathfinder__intro .home-hero__lead").innerText();
+  if (heroLeadText.length > 145) errors.push("Homepage hero: lead copy should stay concise, got " + heroLeadText.length + " characters");
+
   // The mixed latest-content shelf should show the newest real release and work with touch/mobile scrolling.
   const whatsNew = interactionPage.locator("[data-whats-new]");
   await whatsNew.waitFor({ state: "visible", timeout: 5000 });
