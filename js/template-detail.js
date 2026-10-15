@@ -41,6 +41,33 @@
     root.querySelector("[data-detail-base-price]").textContent = money(item.price);
     setList("[data-detail-included]", item.included);
     setList("[data-detail-excluded]", item.notIncluded);
+    const pricingRoot = root.querySelector("[data-detail-pricing-options]");
+    if (pricingRoot) {
+      const options = item.pricingOptions || [];
+      options.forEach((option, index) => {
+        const block = document.createElement("div");
+        block.className = "detail-option";
+        const heading = document.createElement("h3");
+        heading.textContent = (index + 1) + ". " + option.name;
+        const price = document.createElement("p");
+        price.className = "detail-price";
+        price.textContent = money(option.price);
+        const includes = document.createElement("p");
+        includes.className = "detail-muted";
+        includes.textContent = option.includes || "";
+        const excludes = document.createElement("p");
+        excludes.className = "detail-small";
+        excludes.textContent = "Belum termasuk: " + (option.excludes || "Fitur di luar cakupan yang disepakati.");
+        block.append(heading, price, includes, excludes);
+        pricingRoot.append(block);
+      });
+      if (!options.length) {
+        const fallback = document.createElement("p");
+        fallback.className = "detail-price";
+        fallback.textContent = money(item.price);
+        pricingRoot.append(fallback);
+      }
+    }
     root.querySelectorAll("[data-detail-order]").forEach(link => link.href = contactUrl("project"));
     root.querySelectorAll("[data-detail-discuss]").forEach(link => link.href = contactUrl("consultation"));
     root.querySelectorAll("[data-detail-meeting]").forEach(link => link.href = contactUrl("consultation","in-person"));
