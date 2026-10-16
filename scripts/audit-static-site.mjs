@@ -104,6 +104,21 @@ for (const file of htmlFiles) {
     if (!target) reportError(rel + ": broken internal URL " + href);
   }
 
+  const navigationScript = extractTags(html, "script").some((tag) => /(?:^|\\/)navigation\\.js(?:[?#][^"' ]*)?["']?\\s*>?$/i.test(attr(tag, "src") || ""));
+  if (navigationScript) {
+    const sharedHeaders = extractTags(html, "header").filter((tag) => (attr(tag, "class") || "").split(/\\s+/).includes("site-header"));
+    const sharedFooters = extractTags(html, "footer").filter((tag) => (attr(tag, "class") || "").split(/\\s+/).includes("site-footer"));
+    const mainTags = extractTags(html, "main");
+    const h1Tags = extractTags(html, "h1");
+    if (sharedHeaders.length !== 1) reportError(rel + ": shared navigation page must contain exactly one site-header, found " + sharedHeaders.length);
+    if (sharedFooters.length !== 1) reportError(rel + ": shared navigation page must contain exactly one site-footer, found " + sharedFooters.length);
+    if (mainTags.length !== 1) reportError(rel + ": shared navigation page must contain exactly one main landmark, found " + mainTags.length);
+    if (h1Tags.length !== 1) reportError(rel + ": shared navigation page must contain exactly one H1, found " + h1Tags.length);
+    const stylesheetHrefs = extractTags(html, "link").filter((tag) => (attr(tag, "rel") || "").toLowerCase().includes("stylesheet")).map((tag) => attr(tag, "href") || "");
+    if (!stylesheetHrefs.some((href) => /(?:^|\\/)header\\.css(?:[?#]|$)/i.test(href))) reportError(rel + ": shared navigation page is missing header.css");
+    if (!stylesheetHrefs.some((href) => /(?:^|\\/)footer\\.css(?:[?#]|$)/i.test(href))) reportError(rel + ": shared navigation page is missing footer.css");
+  }
+
   const assetRefs = [
     ...extractTags(html, "script").map((tag) => attr(tag, "src")),
     ...extractTags(html, "img").map((tag) => attr(tag, "src")),
