@@ -41,6 +41,7 @@ const routes = [
   "/bagusin/en/destinations/",
   "/bagusin/en/work/",
   "/bagusin/en/collections/",
+  "/bagusin/en/templates/",
   "/bagusin/en/portfolio/",
   "/bagusin/en/youtube/",
   "/bagusin/en/about/",
@@ -69,7 +70,7 @@ const errors = [];
 const sharedChromeRoutes = new Set([
   "/bagusin/", "/bagusin/work/", "/bagusin/collections/", "/bagusin/templates/",
   "/bagusin/blog/", "/bagusin/blog/apa-itu-hosting/", "/bagusin/templates/blogger-editorial/", "/bagusin/contact/",
-  "/bagusin/about/", "/bagusin/learning/", "/bagusin/en/", "/bagusin/en/blog/",
+  "/bagusin/about/", "/bagusin/learning/", "/bagusin/en/", "/bagusin/en/blog/", "/bagusin/en/templates/",
   "/bagusin/en/contact/", "/bagusin/en/about/"
 ]);
 const browser = await chromium.launch({ headless: true });
