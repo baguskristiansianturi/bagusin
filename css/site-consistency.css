@@ -125,3 +125,8 @@ main :is(.section-header, .page-heading, .page-intro, [class$="__heading"], [cla
 main :is(.section-header, .page-heading, .page-intro) {
   margin-block-end: var(--site-section-heading-gap);
 }
+
+/* The homepage hero had a more specific legacy margin; bring it into the shared rhythm. */
+main .home-brand-hero__content h1 + .home-hero__lead {
+  margin-block-start: var(--site-heading-copy-gap);
+}
