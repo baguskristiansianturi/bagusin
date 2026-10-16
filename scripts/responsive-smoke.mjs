@@ -7,6 +7,8 @@ const routes = [
   "/bagusin/blog/bekerja-dari-mana-saja/",
   "/bagusin/blog/pantai-kuta-bali/",
   "/bagusin/blog/remote-work/",
+  "/bagusin/blog/apa-itu-hosting/",
+  "/bagusin/learning/",
   "/bagusin/destinations/",
   "/bagusin/work/",
   "/bagusin/work/copywriting/",
@@ -64,6 +66,12 @@ const viewports = [
   { width: 1440, height: 900 }
 ];
 const errors = [];
+const sharedChromeRoutes = new Set([
+  "/bagusin/", "/bagusin/work/", "/bagusin/collections/", "/bagusin/templates/",
+  "/bagusin/blog/", "/bagusin/blog/apa-itu-hosting/", "/bagusin/contact/",
+  "/bagusin/about/", "/bagusin/learning/", "/bagusin/en/", "/bagusin/en/blog/",
+  "/bagusin/en/contact/", "/bagusin/en/about/"
+]);
 const browser = await chromium.launch({ headless: true });
 
 for (const route of routes) {
@@ -86,6 +94,50 @@ for (const route of routes) {
         errors.push(route + " @ " + viewport.width + "px: page response " + (response?.status() ?? "none"));
       }
       await page.waitForTimeout(150);
+      if (viewport.width === 390 && sharedChromeRoutes.has(route)) {
+        const chrome = await page.evaluate(() => {
+          const labels = (selector) => [...document.querySelectorAll(selector)].map(el => (el.textContent || "").replace(/\\s+/g, " ").trim()).filter(Boolean);
+          const breadcrumbSelector = "[data-site-breadcrumbs], .site-breadcrumbs, nav.breadcrumb, nav.breadcrumbs, .breadcrumb, .breadcrumbs, nav[aria-label='Breadcrumb'], nav[aria-label='Jejak navigasi']";
+          const footer = document.querySelector("footer.site-footer");
+          return {
+            headerCount: document.querySelectorAll("header.site-header").length,
+            footerCount: document.querySelectorAll("footer.site-footer").length,
+            mainCount: document.querySelectorAll("main").length,
+            desktopLabels: labels(".site-nav__list .site-nav__link"),
+            mobileLabels: labels("#mobile-navigation .mobile-nav__list .mobile-nav__link"),
+            hasMobileToggle: Boolean(document.querySelector("[data-mobile-menu-toggle]")),
+            hasMobileNav: Boolean(document.querySelector("#mobile-navigation")),
+            breadcrumbCount: document.querySelectorAll(breadcrumbSelector).length,
+            footerColumns: footer ? footer.querySelectorAll(".site-footer__column").length : 0,
+            footerHasCta: Boolean(footer && footer.querySelector(".site-footer__cta")),
+            footerHasBottom: Boolean(footer && footer.querySelector(".site-footer__bottom"))
+          };
+        });
+        const english = /\\/en(?:\\/|$)/.test(route);
+        const expectedDesktop = english
+          ? ["Blog", "Collections", "Courses", "Template catalog", "Services", "YouTube", "About"]
+          : ["Blog", "Koleksi", "Kursus", "Katalog template", "Layanan", "YouTube", "Tentang"];
+        const expectedMobile = english
+          ? ["Blog", "Collections", "Courses", "Template catalog", "Services", "YouTube", "About", "Contact"]
+          : ["Blog", "Koleksi", "Kursus", "Katalog template", "Layanan", "YouTube", "Tentang", "Kontak"];
+        const mobileLabels = chrome.mobileLabels.filter(label => label !== (english ? "Home" : "Beranda"));
+        if (chrome.headerCount !== 1 || chrome.footerCount !== 1 || chrome.mainCount !== 1) {
+          errors.push(route + ": shared page shell must have exactly one header, main, and footer: " + JSON.stringify(chrome));
+        }
+        if (JSON.stringify(chrome.desktopLabels) !== JSON.stringify(expectedDesktop)) {
+          errors.push(route + ": desktop navigation labels/order differ from the shared standard: " + JSON.stringify(chrome.desktopLabels));
+        }
+        if (JSON.stringify(mobileLabels) !== JSON.stringify(expectedMobile)) {
+          errors.push(route + ": mobile navigation labels/order differ from the shared standard: " + JSON.stringify(mobileLabels));
+        }
+        if (!chrome.hasMobileToggle || !chrome.hasMobileNav) errors.push(route + ": shared mobile navigation controls are incomplete");
+        if (chrome.breadcrumbCount !== (route === "/bagusin/" ? 0 : 1)) {
+          errors.push(route + ": expected " + (route === "/bagusin/" ? 0 : 1) + " visible breadcrumb trail, got " + chrome.breadcrumbCount);
+        }
+        if (chrome.footerColumns !== 4 || !chrome.footerHasCta || !chrome.footerHasBottom) {
+          errors.push(route + ": shared footer structure differs from the standard: " + JSON.stringify(chrome));
+        }
+      }
       const metrics = await page.evaluate(() => {
         const width = window.innerWidth;
         const selector = "main, main > section, .container, .container--narrow, .container--article, .article-pro-layout, .article-layout, .contact-form, .site-header__inner, .site-footer__inner, .checkout-main, .checkout-aside";
