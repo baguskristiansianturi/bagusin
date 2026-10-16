@@ -108,6 +108,8 @@ for (const route of routes) {
             desktopPaths: [...document.querySelectorAll(".site-nav__list .site-nav__link")].map(el => new URL(el.href).pathname),
             mobileLabels: labels("#mobile-navigation .mobile-nav__list .mobile-nav__link"),
             mobilePaths: [...document.querySelectorAll("#mobile-navigation .mobile-nav__list .mobile-nav__link")].map(el => new URL(el.href).pathname),
+            searchAction: document.querySelector("#header-search form") ? new URL(document.querySelector("#header-search form").action).pathname : "",
+            headerContactPaths: [...document.querySelectorAll(".site-header__actions a[href]")].map(el => new URL(el.href).pathname).filter(path => path.endsWith("/contact")),
             hasMobileToggle: Boolean(document.querySelector("[data-mobile-menu-toggle]")),
             hasMobileNav: Boolean(document.querySelector("#mobile-navigation")),
             breadcrumbCount: document.querySelectorAll(breadcrumbSelector).length,
@@ -143,6 +145,8 @@ for (const route of routes) {
         if (JSON.stringify(mobilePaths) !== JSON.stringify(expectedMobilePaths)) {
           errors.push(route + ": mobile navigation destinations do not preserve the current language/base path: " + JSON.stringify(mobilePaths));
         }
+        if (chrome.searchAction !== base + "/search/") errors.push(route + ": header search action does not preserve the current language/base path: " + chrome.searchAction);
+        if (chrome.headerContactPaths.some(path => path !== base + "/contact/")) errors.push(route + ": header contact action does not preserve the current language/base path: " + JSON.stringify(chrome.headerContactPaths));
         if (!chrome.hasMobileToggle || !chrome.hasMobileNav) errors.push(route + ": shared mobile navigation controls are incomplete");
         if (chrome.breadcrumbCount !== (route === "/bagusin/" ? 0 : 1)) {
           errors.push(route + ": expected " + (route === "/bagusin/" ? 0 : 1) + " visible breadcrumb trail, got " + chrome.breadcrumbCount);
