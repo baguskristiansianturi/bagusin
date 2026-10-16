@@ -68,7 +68,7 @@ const viewports = [
 const errors = [];
 const sharedChromeRoutes = new Set([
   "/bagusin/", "/bagusin/work/", "/bagusin/collections/", "/bagusin/templates/",
-  "/bagusin/blog/", "/bagusin/blog/apa-itu-hosting/", "/bagusin/contact/",
+  "/bagusin/blog/", "/bagusin/blog/apa-itu-hosting/", "/bagusin/templates/blogger-editorial/", "/bagusin/contact/",
   "/bagusin/about/", "/bagusin/learning/", "/bagusin/en/", "/bagusin/en/blog/",
   "/bagusin/en/contact/", "/bagusin/en/about/"
 ]);
