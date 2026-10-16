@@ -116,7 +116,7 @@ for (const file of htmlFiles) {
     if (h1Tags.length !== 1) reportError(rel + ": shared navigation page must contain exactly one H1, found " + h1Tags.length);
     const stylesheetHrefs = extractTags(html, "link").filter((tag) => (attr(tag, "rel") || "").toLowerCase().includes("stylesheet")).map((tag) => attr(tag, "href") || "");
     if (!stylesheetHrefs.some((href) => /(?:^|\/)header\.css(?:[?#]|$)/i.test(href))) reportError(rel + ": shared navigation page is missing header.css");
-    if (!stylesheetHrefs.some((href) => /(?:^|\/)header\.css(?:[?#]|$)/i.test(href))) reportError(rel + ": shared navigation page is missing header.css");
+    if (!stylesheetHrefs.some((href) => /(?:^|\/)footer\.css(?:[?#]|$)/i.test(href))) reportError(rel + ": shared navigation page is missing footer.css");
   }
 
   const assetRefs = [
