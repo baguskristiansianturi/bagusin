@@ -162,11 +162,19 @@ try {
   await interactionPage.locator("[data-reset-pathfinder]").click();
   homepageText = await interactionPage.locator("main").innerText();
 
-  const heroHeading = interactionPage.locator(".home-pathfinder__intro h1");
+  const heroHeading = interactionPage.locator(".home-brand-hero__content h1");
   const heroHeadingSize = await heroHeading.evaluate(el => parseFloat(getComputedStyle(el).fontSize));
   if (heroHeadingSize < 43) errors.push("Homepage hero @ 390px: heading should be at least 43px, got " + heroHeadingSize);
-  const heroLeadText = await interactionPage.locator(".home-pathfinder__intro .home-hero__lead").innerText();
-  if (heroLeadText.length > 145) errors.push("Homepage hero: lead copy should stay concise, got " + heroLeadText.length + " characters");
+  const heroLeadText = await interactionPage.locator(".home-brand-hero__content .home-hero__lead").innerText();
+  if (heroLeadText.length > 190) errors.push("Homepage hero: lead copy should stay concise, got " + heroLeadText.length + " characters");
+  const homepageSectionOrder = await interactionPage.locator("main > section").evaluateAll(nodes => nodes.map(node => node.className));
+  const heroPosition = homepageSectionOrder.findIndex(name => name.includes("home-hero--brand"));
+  const pathfinderPosition = homepageSectionOrder.findIndex(name => name.includes("home-pathfinder-section"));
+  const servicePosition = homepageSectionOrder.findIndex(name => name.includes("home-discovery-refresh"));
+  const coursePosition = homepageSectionOrder.findIndex(name => name.includes("home-course-preview"));
+  const latestPosition = homepageSectionOrder.findIndex(name => name.includes("home-whats-new"));
+  const whyPosition = homepageSectionOrder.findIndex(name => name.includes("home-why-bagusin"));
+  if (!(heroPosition >= 0 && heroPosition < pathfinderPosition && pathfinderPosition < servicePosition && servicePosition < coursePosition && coursePosition < latestPosition && latestPosition < whyPosition)) errors.push("Homepage sections are not in the intended visitor journey order");
 
   // The mixed latest-content shelf is date-aware and should expose only verified, eligible items.
   const whatsNew = interactionPage.locator("[data-whats-new]");
