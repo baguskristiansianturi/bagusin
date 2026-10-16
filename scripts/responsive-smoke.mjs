@@ -148,8 +148,9 @@ for (const route of routes) {
         if (chrome.searchAction !== base + "/search/") errors.push(route + ": header search action does not preserve the current language/base path: " + chrome.searchAction);
         if (chrome.headerContactPaths.some(path => path !== base + "/contact")) errors.push(route + ": header contact action does not preserve the current language/base path: " + JSON.stringify(chrome.headerContactPaths));
         if (!chrome.hasMobileToggle || !chrome.hasMobileNav) errors.push(route + ": shared mobile navigation controls are incomplete");
-        if (chrome.breadcrumbCount !== (route === "/bagusin/" ? 0 : 1)) {
-          errors.push(route + ": expected " + (route === "/bagusin/" ? 0 : 1) + " visible breadcrumb trail, got " + chrome.breadcrumbCount);
+        const isHomepageRoute = route === "/bagusin/" || route === "/bagusin/en/";
+        if (chrome.breadcrumbCount !== (isHomepageRoute ? 0 : 1)) {
+          errors.push(route + ": expected " + (isHomepageRoute ? 0 : 1) + " visible breadcrumb trail, got " + chrome.breadcrumbCount);
         }
         if (chrome.footerColumns !== 4 || !chrome.footerHasCta || !chrome.footerHasBottom) {
           errors.push(route + ": shared footer structure differs from the standard: " + JSON.stringify(chrome));
