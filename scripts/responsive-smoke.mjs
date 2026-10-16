@@ -96,7 +96,7 @@ for (const route of routes) {
       await page.waitForTimeout(150);
       if (viewport.width === 390 && sharedChromeRoutes.has(route)) {
         const chrome = await page.evaluate(() => {
-          const labels = (selector) => [...document.querySelectorAll(selector)].map(el => (el.textContent || "").replace(/\\s+/g, " ").trim()).filter(Boolean);
+          const labels = (selector) => [...document.querySelectorAll(selector)].map(el => (el.textContent || "").replace(/\s+/g, " ").trim()).filter(Boolean);
           const breadcrumbSelector = "[data-site-breadcrumbs], .site-breadcrumbs, nav.breadcrumb, nav.breadcrumbs, .breadcrumb, .breadcrumbs, nav[aria-label='Breadcrumb'], nav[aria-label='Jejak navigasi']";
           const footer = document.querySelector("footer.site-footer");
           return {
@@ -113,7 +113,7 @@ for (const route of routes) {
             footerHasBottom: Boolean(footer && footer.querySelector(".site-footer__bottom"))
           };
         });
-        const english = /\\/en(?:\\/|$)/.test(route);
+        const english = /\/en(?:\/|$)/.test(route);
         const expectedDesktop = english
           ? ["Blog", "Collections", "Courses", "Template catalog", "Services", "YouTube", "About"]
           : ["Blog", "Koleksi", "Kursus", "Katalog template", "Layanan", "YouTube", "Tentang"];
