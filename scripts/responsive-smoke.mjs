@@ -104,7 +104,9 @@ for (const route of routes) {
             footerCount: document.querySelectorAll("footer.site-footer").length,
             mainCount: document.querySelectorAll("main").length,
             desktopLabels: labels(".site-nav__list .site-nav__link"),
+            desktopPaths: [...document.querySelectorAll(".site-nav__list .site-nav__link")].map(el => new URL(el.href).pathname),
             mobileLabels: labels("#mobile-navigation .mobile-nav__list .mobile-nav__link"),
+            mobilePaths: [...document.querySelectorAll("#mobile-navigation .mobile-nav__list .mobile-nav__link")].map(el => new URL(el.href).pathname),
             hasMobileToggle: Boolean(document.querySelector("[data-mobile-menu-toggle]")),
             hasMobileNav: Boolean(document.querySelector("#mobile-navigation")),
             breadcrumbCount: document.querySelectorAll(breadcrumbSelector).length,
@@ -120,7 +122,11 @@ for (const route of routes) {
         const expectedMobile = english
           ? ["Blog", "Collections", "Courses", "Template catalog", "Services", "YouTube", "About", "Contact"]
           : ["Blog", "Koleksi", "Kursus", "Katalog template", "Layanan", "YouTube", "Tentang", "Kontak"];
+        const base = english ? "/bagusin/en" : "/bagusin";
+        const expectedPaths = ["/blog/", "/collections/", "/learning/", "/templates/", "/work/", "/youtube/", "/about/"].map(path => base + path);
+        const expectedMobilePaths = [...expectedPaths, base + "/contact/"];
         const mobileLabels = chrome.mobileLabels.filter(label => label !== (english ? "Home" : "Beranda"));
+        const mobilePaths = chrome.mobilePaths.filter(path => path !== base + "/");
         if (chrome.headerCount !== 1 || chrome.footerCount !== 1 || chrome.mainCount !== 1) {
           errors.push(route + ": shared page shell must have exactly one header, main, and footer: " + JSON.stringify(chrome));
         }
@@ -129,6 +135,12 @@ for (const route of routes) {
         }
         if (JSON.stringify(mobileLabels) !== JSON.stringify(expectedMobile)) {
           errors.push(route + ": mobile navigation labels/order differ from the shared standard: " + JSON.stringify(mobileLabels));
+        }
+        if (JSON.stringify(chrome.desktopPaths) !== JSON.stringify(expectedPaths)) {
+          errors.push(route + ": desktop navigation destinations do not preserve the current language/base path: " + JSON.stringify(chrome.desktopPaths));
+        }
+        if (JSON.stringify(mobilePaths) !== JSON.stringify(expectedMobilePaths)) {
+          errors.push(route + ": mobile navigation destinations do not preserve the current language/base path: " + JSON.stringify(mobilePaths));
         }
         if (!chrome.hasMobileToggle || !chrome.hasMobileNav) errors.push(route + ": shared mobile navigation controls are incomplete");
         if (chrome.breadcrumbCount !== (route === "/bagusin/" ? 0 : 1)) {
