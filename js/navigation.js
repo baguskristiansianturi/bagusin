@@ -245,6 +245,16 @@
     normalizeNavList(desktopList, false);
     normalizeNavList(mobileList, true);
 
+    // Keep utility actions in the header language-aware as well as the menu links.
+    const sharedSearchForm = document.querySelector("#header-search form");
+    if (sharedSearchForm) sharedSearchForm.setAttribute("action", navBase + "/search/");
+    document.querySelectorAll(".site-header__actions a[href]").forEach(function (link) {
+      if (canonicalRoute(link.getAttribute("href")) !== "/contact/") return;
+      const currentUrl = new URL(link.href, window.location.origin);
+      link.setAttribute("href", navBase + "/contact/" + currentUrl.search + currentUrl.hash);
+      setNavLabel(link, navEnglish ? "Contact" : "Kontak");
+    });
+
     const mobileToggle = document.querySelector("[data-mobile-menu-toggle]");
     const mobileNav = document.getElementById("mobile-navigation");
     const mobileOverlay = document.querySelector("[data-mobile-overlay]");
