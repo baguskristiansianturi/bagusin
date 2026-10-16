@@ -109,3 +109,19 @@ header.site-header.is-sticky,
     transition: none !important;
   }
 }
+
+
+/* Shared heading rhythm: align title-to-description spacing across page families. */
+:root {
+  --site-heading-copy-gap: clamp(.65rem, 1.3vw, .9rem);
+  --site-section-heading-gap: clamp(1.5rem, 3vw, 2.25rem);
+}
+main :is(.section-header, .page-heading, .page-intro, [class$="__heading"], [class$="__header"], [class$="__copy"]) > :is(h1, h2, h3) + :is(p, .section-description, .home-section__description, .lead, [class$="__lead"]) {
+  margin-block-start: var(--site-heading-copy-gap);
+}
+main :is(.section-header, .page-heading, .page-intro, [class$="__heading"], [class$="__header"], [class$="__copy"]) > :is(.section-kicker, .eyebrow, .kicker) + :is(h1, h2, h3) {
+  margin-block-start: .3rem;
+}
+main :is(.section-header, .page-heading, .page-intro) {
+  margin-block-end: var(--site-section-heading-gap);
+}
