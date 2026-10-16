@@ -1,6 +1,6 @@
 (function(){if(!document.querySelector('link[data-ux-polish]')){const base=window.location.pathname.startsWith("/bagusin/")||window.location.pathname==="/bagusin"?"/bagusin":"";const l=document.createElement("link");l.rel="stylesheet";l.href=base+"/css/ux-polish.css?v=20261011-1";l.dataset.uxPolish="";document.head.appendChild(l)}})();
 (function(){if(!document.querySelector('link[data-final-responsive]')){const base=window.location.pathname.startsWith("/bagusin/")||window.location.pathname==="/bagusin"?"/bagusin":"";const l=document.createElement("link");l.rel="stylesheet";l.href=base+"/css/final-responsive.css?v=20261011-6";l.dataset.finalResponsive="";document.head.appendChild(l)}})();
-(function(){if(!document.querySelector('link[data-site-consistency]')){const base=window.location.pathname.startsWith("/bagusin/")||window.location.pathname==="/bagusin"?"/bagusin":"";const l=document.createElement("link");l.rel="stylesheet";l.href=base+"/css/site-consistency.css?v=20261014-1";l.dataset.siteConsistency="";document.head.appendChild(l)}})();
+(function(){if(!document.querySelector('link[data-site-consistency]')){const base=window.location.pathname.startsWith("/bagusin/")||window.location.pathname==="/bagusin"?"/bagusin":"";const l=document.createElement("link");l.rel="stylesheet";l.href=base+"/css/site-consistency.css?v=20261016-3";l.dataset.siteConsistency="";document.head.appendChild(l)}})();
 /* =========================================================
    BAGUSIN — GLOBAL NAVIGATION
    Integrated mobile / search / dropdown / language
@@ -161,6 +161,115 @@
     addLearningLink(desktopList, false);
     addLearningLink(mobileList, true);
 
+    // Normalize the shared navigation across older page templates. Keep labels
+    // localized and use one predictable destination order regardless of the
+    // original page's legacy header markup.
+    const canonicalNavItems = [
+      { path: "/blog/", id: "Blog", en: "Blog" },
+      { path: "/collections/", id: "Koleksi", en: "Collections" },
+      { path: "/learning/", id: "Kursus", en: "Courses" },
+      { path: "/templates/", id: "Katalog template", en: "Template catalog" },
+      { path: "/work/", id: "Layanan", en: "Services" },
+      { path: "/youtube/", id: "YouTube", en: "YouTube" },
+      { path: "/about/", id: "Tentang", en: "About" },
+      { path: "/contact/", id: "Kontak", en: "Contact" }
+    ];
+    const navOrder = ["/", ...canonicalNavItems.map(function (item) { return item.path; })];
+
+    function canonicalRoute(href) {
+      if (!href) return "";
+      let pathname = href;
+      try { pathname = new URL(href, window.location.origin).pathname; } catch (_) {}
+      pathname = pathname.replace(/\/+$/, "") || "/";
+      return navOrder.find(function (route) { return route !== "/" && pathname.endsWith(route.replace(/\/$/, "")); }) || (pathname === navBase || pathname === "/" ? "/" : "");
+    }
+
+    function setNavLabel(link, label) {
+      if (!link || !label) return;
+      const target = link.matches(".nav-dropdown__link") ? (link.querySelector("strong") || link) : link;
+      const directTextNodes = Array.from(target.childNodes).filter(function (node) {
+        return node.nodeType === 3 && node.textContent.trim();
+      });
+      if (directTextNodes.length) {
+        directTextNodes[0].textContent = label;
+        directTextNodes.slice(1).forEach(function (node) { node.remove(); });
+        return;
+      }
+      const labelElement = Array.from(target.children).find(function (child) {
+        return !child.matches("svg,[aria-hidden='true'],.nav-dropdown__icon");
+      });
+      if (labelElement && labelElement.tagName === "SPAN") labelElement.textContent = label;
+      else if (!target.children.length) target.textContent = label;
+      else target.insertBefore(document.createTextNode(label + " "), target.firstChild);
+    }
+
+    function ensureNavLink(list, item, mobile) {
+      if (!list || list.querySelector('a[href$="' + item.path + '"]')) return;
+      const li = document.createElement("li");
+      if (!mobile) li.className = "site-nav__item";
+      const link = document.createElement("a");
+      link.className = mobile ? "mobile-nav__link" : "site-nav__link";
+      link.href = navBase + item.path;
+      link.textContent = navEnglish ? item.en : item.id;
+      li.appendChild(link);
+      list.appendChild(li);
+    }
+
+    function normalizeNavList(list, mobile) {
+      if (!list) return;
+      // Legacy mobile headers grouped several destinations into one list item,
+      // which made the displayed order differ from desktop. Flatten that group
+      // into individual items before sorting the shared destinations.
+      if (mobile) {
+        list.querySelectorAll(".mobile-nav__group").forEach(function (group) {
+          const links = Array.from(group.querySelectorAll("a.mobile-nav__link"));
+          if (!links.length) return;
+          links.forEach(function (link) {
+            const item = document.createElement("li");
+            item.appendChild(link);
+            group.parentNode.insertBefore(item, group);
+          });
+          group.remove();
+        });
+      }
+      canonicalNavItems.forEach(function (item) {
+        if (mobile || item.path !== "/contact/") ensureNavLink(list, item, mobile);
+      });
+      if (mobile) {
+        const homeLink = list.querySelector('a[href="' + navBase + '/"], a[href="/bagusin/"], a[href="/"]');
+        if (homeLink) { homeLink.setAttribute("href", navBase + "/"); setNavLabel(homeLink, navEnglish ? "Home" : "Beranda"); }
+      }
+      list.querySelectorAll("a.site-nav__link, a.mobile-nav__link, a.nav-dropdown__link").forEach(function (link) {
+        const route = canonicalRoute(link.getAttribute("href"));
+        const item = canonicalNavItems.find(function (candidate) { return candidate.path === route; });
+        if (item) {
+          link.setAttribute("href", navBase + item.path);
+          setNavLabel(link, navEnglish ? item.en : item.id);
+        }
+      });
+      const rank = function (li) {
+        const link = li.querySelector("a[href]");
+        const route = link ? canonicalRoute(link.getAttribute("href")) : "";
+        const index = navOrder.indexOf(route);
+        return index < 0 ? 999 : index;
+      };
+      Array.from(list.children).sort(function (a, b) { return rank(a) - rank(b); }).forEach(function (item) {
+        list.appendChild(item);
+      });
+    }
+    normalizeNavList(desktopList, false);
+    normalizeNavList(mobileList, true);
+
+    // Keep utility actions in the header language-aware as well as the menu links.
+    const sharedSearchForm = document.querySelector("#header-search form");
+    if (sharedSearchForm) sharedSearchForm.setAttribute("action", navBase + "/search/");
+    document.querySelectorAll(".site-header__actions a[href]").forEach(function (link) {
+      if (canonicalRoute(link.getAttribute("href")) !== "/contact/") return;
+      const currentUrl = new URL(link.href, window.location.origin);
+      link.setAttribute("href", navBase + "/contact/" + currentUrl.search + currentUrl.hash);
+      setNavLabel(link, navEnglish ? "Contact" : "Kontak");
+    });
+
     const mobileToggle = document.querySelector("[data-mobile-menu-toggle]");
     const mobileNav = document.getElementById("mobile-navigation");
     const mobileOverlay = document.querySelector("[data-mobile-overlay]");
@@ -280,7 +389,7 @@
     // The homepage stays clean; existing breadcrumbs are preserved rather than duplicated.
     (function renderBreadcrumbs() {
       const main = document.querySelector("main#main-content, main");
-      if (!main || main.querySelector("[data-site-breadcrumbs]") || document.querySelector("[data-site-breadcrumbs]")) return;
+      if (!main || document.querySelector("[data-site-breadcrumbs], .site-breadcrumbs, nav.breadcrumb, nav.breadcrumbs, .breadcrumb, .breadcrumbs, nav[aria-label=\"Breadcrumb\"], nav[aria-label=\"Jejak navigasi\"]")) return;
       const rawPath = window.location.pathname;
       const projectBase = rawPath === "/bagusin" || rawPath.startsWith("/bagusin/") ? "/bagusin" : "";
       let route = projectBase ? rawPath.slice(projectBase.length) : rawPath;

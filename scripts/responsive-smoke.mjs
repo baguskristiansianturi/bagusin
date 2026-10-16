@@ -7,6 +7,8 @@ const routes = [
   "/bagusin/blog/bekerja-dari-mana-saja/",
   "/bagusin/blog/pantai-kuta-bali/",
   "/bagusin/blog/remote-work/",
+  "/bagusin/blog/apa-itu-hosting/",
+  "/bagusin/learning/",
   "/bagusin/destinations/",
   "/bagusin/work/",
   "/bagusin/work/copywriting/",
@@ -23,6 +25,7 @@ const routes = [
   "/bagusin/templates/checkout/?license=premium",
   "/bagusin/templates/detail/?template=BG-TRV-STR-001",
   "/bagusin/demos/starter/travel-rental/bagus-sewa-mobil-bali-01/",
+  "/bagusin/demos/starter/travel-rental/bagus-rental-mobil-002/",
   "/bagusin/portfolio/",
   "/bagusin/youtube/",
   "/bagusin/about/",
@@ -38,6 +41,7 @@ const routes = [
   "/bagusin/en/destinations/",
   "/bagusin/en/work/",
   "/bagusin/en/collections/",
+  "/bagusin/en/templates/",
   "/bagusin/en/portfolio/",
   "/bagusin/en/youtube/",
   "/bagusin/en/about/",
@@ -63,6 +67,12 @@ const viewports = [
   { width: 1440, height: 900 }
 ];
 const errors = [];
+const sharedChromeRoutes = new Set([
+  "/bagusin/", "/bagusin/work/", "/bagusin/collections/", "/bagusin/templates/",
+  "/bagusin/blog/", "/bagusin/blog/apa-itu-hosting/", "/bagusin/templates/blogger-editorial/", "/bagusin/contact/",
+  "/bagusin/about/", "/bagusin/learning/", "/bagusin/en/", "/bagusin/en/blog/", "/bagusin/en/templates/",
+  "/bagusin/en/contact/", "/bagusin/en/about/"
+]);
 const browser = await chromium.launch({ headless: true });
 
 for (const route of routes) {
@@ -85,6 +95,67 @@ for (const route of routes) {
         errors.push(route + " @ " + viewport.width + "px: page response " + (response?.status() ?? "none"));
       }
       await page.waitForTimeout(150);
+      if (viewport.width === 390 && sharedChromeRoutes.has(route)) {
+        const chrome = await page.evaluate(() => {
+          const labels = (selector) => [...document.querySelectorAll(selector)].map(el => (el.textContent || "").replace(/\s+/g, " ").trim()).filter(Boolean);
+          const breadcrumbSelector = "[data-site-breadcrumbs], .site-breadcrumbs, nav.breadcrumb, nav.breadcrumbs, .breadcrumb, .breadcrumbs, nav[aria-label='Breadcrumb'], nav[aria-label='Jejak navigasi']";
+          const footer = document.querySelector("footer.site-footer");
+          return {
+            headerCount: document.querySelectorAll("header.site-header").length,
+            footerCount: document.querySelectorAll("footer.site-footer").length,
+            mainCount: document.querySelectorAll("main").length,
+            desktopLabels: labels(".site-nav__list .site-nav__link"),
+            desktopPaths: [...document.querySelectorAll(".site-nav__list .site-nav__link")].map(el => new URL(el.href).pathname),
+            mobileLabels: labels("#mobile-navigation .mobile-nav__list .mobile-nav__link"),
+            mobilePaths: [...document.querySelectorAll("#mobile-navigation .mobile-nav__list .mobile-nav__link")].map(el => new URL(el.href).pathname),
+            searchAction: document.querySelector("#header-search form") ? new URL(document.querySelector("#header-search form").action).pathname : "",
+            headerContactPaths: [...document.querySelectorAll(".site-header__actions a[href]")].map(el => new URL(el.href).pathname.replace(/\/+$/, "")).filter(path => path.endsWith("/contact")),
+            hasMobileToggle: Boolean(document.querySelector("[data-mobile-menu-toggle]")),
+            hasMobileNav: Boolean(document.querySelector("#mobile-navigation")),
+            breadcrumbCount: document.querySelectorAll(breadcrumbSelector).length,
+            footerColumns: footer ? footer.querySelectorAll(".site-footer__column").length : 0,
+            footerHasCta: Boolean(footer && footer.querySelector(".site-footer__cta")),
+            footerHasBottom: Boolean(footer && footer.querySelector(".site-footer__bottom"))
+          };
+        });
+        const english = /\/en(?:\/|$)/.test(route);
+        const expectedDesktop = english
+          ? ["Blog", "Collections", "Courses", "Template catalog", "Services", "YouTube", "About"]
+          : ["Blog", "Koleksi", "Kursus", "Katalog template", "Layanan", "YouTube", "Tentang"];
+        const expectedMobile = english
+          ? ["Blog", "Collections", "Courses", "Template catalog", "Services", "YouTube", "About", "Contact"]
+          : ["Blog", "Koleksi", "Kursus", "Katalog template", "Layanan", "YouTube", "Tentang", "Kontak"];
+        const base = english ? "/bagusin/en" : "/bagusin";
+        const expectedPaths = ["/blog/", "/collections/", "/learning/", "/templates/", "/work/", "/youtube/", "/about/"].map(path => base + path);
+        const expectedMobilePaths = [...expectedPaths, base + "/contact/"];
+        const mobileLabels = chrome.mobileLabels.filter(label => label !== (english ? "Home" : "Beranda"));
+        const mobilePaths = chrome.mobilePaths.filter(path => path !== base + "/");
+        if (chrome.headerCount !== 1 || chrome.footerCount !== 1 || chrome.mainCount !== 1) {
+          errors.push(route + ": shared page shell must have exactly one header, main, and footer: " + JSON.stringify(chrome));
+        }
+        if (JSON.stringify(chrome.desktopLabels) !== JSON.stringify(expectedDesktop)) {
+          errors.push(route + ": desktop navigation labels/order differ from the shared standard: " + JSON.stringify(chrome.desktopLabels));
+        }
+        if (JSON.stringify(mobileLabels) !== JSON.stringify(expectedMobile)) {
+          errors.push(route + ": mobile navigation labels/order differ from the shared standard: " + JSON.stringify(mobileLabels));
+        }
+        if (JSON.stringify(chrome.desktopPaths) !== JSON.stringify(expectedPaths)) {
+          errors.push(route + ": desktop navigation destinations do not preserve the current language/base path: " + JSON.stringify(chrome.desktopPaths));
+        }
+        if (JSON.stringify(mobilePaths) !== JSON.stringify(expectedMobilePaths)) {
+          errors.push(route + ": mobile navigation destinations do not preserve the current language/base path: " + JSON.stringify(mobilePaths));
+        }
+        if (chrome.searchAction !== base + "/search/") errors.push(route + ": header search action does not preserve the current language/base path: " + chrome.searchAction);
+        if (chrome.headerContactPaths.some(path => path !== base + "/contact")) errors.push(route + ": header contact action does not preserve the current language/base path: " + JSON.stringify(chrome.headerContactPaths));
+        if (!chrome.hasMobileToggle || !chrome.hasMobileNav) errors.push(route + ": shared mobile navigation controls are incomplete");
+        const isHomepageRoute = route === "/bagusin/" || route === "/bagusin/en/";
+        if (chrome.breadcrumbCount !== (isHomepageRoute ? 0 : 1)) {
+          errors.push(route + ": expected " + (isHomepageRoute ? 0 : 1) + " visible breadcrumb trail, got " + chrome.breadcrumbCount);
+        }
+        if (chrome.footerColumns !== 4 || !chrome.footerHasCta || !chrome.footerHasBottom) {
+          errors.push(route + ": shared footer structure differs from the standard: " + JSON.stringify(chrome));
+        }
+      }
       const metrics = await page.evaluate(() => {
         const width = window.innerWidth;
         const selector = "main, main > section, .container, .container--narrow, .container--article, .article-pro-layout, .article-layout, .contact-form, .site-header__inner, .site-footer__inner, .checkout-main, .checkout-aside";
@@ -159,6 +230,57 @@ try {
   if (narrowGrid.scrollWidth > narrowGrid.width + 2) errors.push("Homepage solutions @ 320px: horizontal overflow " + JSON.stringify(narrowGrid));
   await interactionPage.setViewportSize({ width: 390, height: 844 });
   await interactionPage.locator("[data-reset-pathfinder]").click();
+  homepageText = await interactionPage.locator("main").innerText();
+
+  const heroHeading = interactionPage.locator(".home-brand-hero__content h1");
+  const heroHeadingSize = await heroHeading.evaluate(el => parseFloat(getComputedStyle(el).fontSize));
+  if (heroHeadingSize < 43) errors.push("Homepage hero @ 390px: heading should be at least 43px, got " + heroHeadingSize);
+  const heroLeadText = await interactionPage.locator(".home-brand-hero__content .home-hero__lead").innerText();
+  if (heroLeadText.length > 190) errors.push("Homepage hero: lead copy should stay concise, got " + heroLeadText.length + " characters");
+  const homepageSectionOrder = await interactionPage.locator("main > section").evaluateAll(nodes => nodes.map(node => node.className));
+  const heroPosition = homepageSectionOrder.findIndex(name => name.includes("home-hero--brand"));
+  const pathfinderPosition = homepageSectionOrder.findIndex(name => name.includes("home-pathfinder-section"));
+  const servicePosition = homepageSectionOrder.findIndex(name => name.includes("home-discovery-refresh"));
+  const coursePosition = homepageSectionOrder.findIndex(name => name.includes("home-course-preview"));
+  const latestPosition = homepageSectionOrder.findIndex(name => name.includes("home-whats-new"));
+  const whyPosition = homepageSectionOrder.findIndex(name => name.includes("home-why-bagusin"));
+  if (!(heroPosition >= 0 && heroPosition < pathfinderPosition && pathfinderPosition < servicePosition && servicePosition < coursePosition && coursePosition < latestPosition && latestPosition < whyPosition)) errors.push("Homepage sections are not in the intended visitor journey order");
+
+  // The mixed latest-content shelf is date-aware and should expose only verified, eligible items.
+  const whatsNew = interactionPage.locator("[data-whats-new]");
+  const latestReleaseStart = Date.parse("2026-10-15T00:00:00");
+  const latestReleaseActive = Date.now() >= latestReleaseStart && Date.now() < latestReleaseStart + 30 * 24 * 60 * 60 * 1000;
+  const articleReleaseStart = Date.parse("2026-10-11T00:00:00");
+  const articleReleaseActive = Date.now() >= articleReleaseStart && Date.now() < articleReleaseStart + 30 * 24 * 60 * 60 * 1000;
+  const shelfVisible = await whatsNew.isVisible().catch(() => false);
+  if (latestReleaseActive && !shelfVisible) errors.push("Homepage: newest shelf should be visible during Bagus Rental Mobil #002's 30-day release window");
+  if (shelfVisible) {
+    await whatsNew.waitFor({ state: "visible", timeout: 5000 });
+    const shelfCards = whatsNew.locator(".whats-new-card");
+    const shelfCount = await shelfCards.count();
+    if (shelfCount < 1 || shelfCount > 6) errors.push("Homepage: latest-content shelf must show 1–6 eligible cards, got " + shelfCount);
+    const shelfTexts = await shelfCards.allTextContents();
+    if (articleReleaseActive && !shelfTexts.some(text => text.includes("Apa Itu Hosting?"))) errors.push("Homepage: current practical hosting guide is missing from the mixed shelf");
+    if (latestReleaseActive) {
+      if (!(await shelfCards.first().innerText()).includes("Bagus Rental Mobil #002")) errors.push("Homepage: newest shelf item is not Bagus Rental Mobil #002");
+      const newestHref = await shelfCards.first().locator("a").getAttribute("href");
+      if (newestHref !== "/bagusin/demos/starter/travel-rental/bagus-rental-mobil-002/") errors.push("Homepage: newest shelf item does not link to the Bagus Rental Mobil #002 demo");
+    }
+    const shelfTrack = whatsNew.locator("[data-whats-new-track]");
+    const canScroll = await shelfTrack.evaluate(el => el.scrollWidth > el.clientWidth + 2);
+    if (shelfCount > 1 && canScroll) {
+      await shelfTrack.evaluate(el => el.scrollTo({ left: 0, behavior: "auto" }));
+      await whatsNew.locator("[data-whats-new-next]").click();
+      await interactionPage.waitForFunction(() => {
+        const track = document.querySelector("[data-whats-new-track]");
+        return track && track.scrollLeft > 0;
+      }, null, { timeout: 5000 });
+      await interactionPage.waitForFunction(() => document.querySelector("[data-whats-new-status]")?.textContent.includes("2 dari"), null, { timeout: 5000 });
+    } else if (latestReleaseActive && shelfCount > 1) {
+      errors.push("Homepage: mobile carousel should allow horizontal scrolling when multiple eligible items exist");
+    }
+  }
+  if (homepageText.includes("Tempat, karya, dan perjalanan") || homepageText.includes("Solusi untuk kebutuhan umum")) errors.push("Homepage: repeated long-form discovery sections should remain removed");
 
   if (!homepageText.includes("Rapikan konten dan visibilitas") || !homepageText.includes("Bangun solusi baru")) errors.push("Homepage: current Indonesian service labels are missing");
   if (homepageText.includes("Content Writing & SEO") || homepageText.includes("Web Applications & Systems")) errors.push("Homepage: outdated English service labels remain");

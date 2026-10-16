@@ -25,27 +25,27 @@
 - [ ] **Phase 10 — Release:** CI green; review diff; merge approved PR; verify Pages/production deployment and smoke-test live URLs.
 
 ## Current state — update first on every session
-**Last updated:** 2026-10-15
+**Last updated:** 2026-10-16
 
-**Active phase:** finish live mobile UX review and re-port the homepage changes onto the current main. PR #136 has been merged; do not assume older PR branches are safe to merge.
+**Active phase:** homepage refinement plus cross-page UI consistency audit on draft PR #138. Keep `main` protected; the active branch is `ux/homepage-newest-carousel-20261015-main`.
 
 **Latest verified main head:** `b18dbe9cc821cd599a8cc66220c33c82682ea106`.
-- Responsive browser smoke test run #948: success.
-- Static site audit run #996: success.
-- GitHub Pages deployment run #1490: success.
-- PR #136 pre-merge browser smoke #947 and static audit #995 also passed.
-- Demo **Bagus Rental Mobil #002** and its `templates/catalog.json` entry remain present after integration.
-- Browser tooling could not open the public GitHub Pages URLs. The deployment workflow passed, but visual QA on Bagus's phone is still pending.
-- PR #135 and PR #125 are closed as superseded by PR #136. PR #127 and #128 are drafts because their older test/filter expectations need correction. PR #130 and #126 remain draft and must be re-ported from current main.
-- Future backend remains Go; Google Cloud is not active. No live email delivery, payment processing, or real checkout transaction has been verified.
+- Existing main checks remain: responsive browser smoke #948, static site audit #996, and GitHub Pages deployment #1490 succeeded for that older main commit.
+- Those results do **not** validate the current PR branch. The latest PR head must pass both workflows before review/merge.
+- Demo **Bagus Rental Mobil #002** and its `templates/catalog.json` entry remain part of the integrated baseline.
+- Visual QA on Bagus's phone is still pending; a successful CI run does not prove the deployed page looks correct.
+- The current audit sampled the homepage, services, collections, template store/detail, blog/article, contact, about, learning, legal, and English routes. The repository currently contains about 96–97 HTML pages and 41 CSS files.
+- Root cause candidates confirmed in source: legacy page templates contain different navigation labels/order; the template store/detail pages had custom headers without the shared mobile menu; the template detail used a custom footer; and the shared title/subtitle rhythm was split across many page-specific selectors and global override layers.
+- Shared navigation now normalizes localized labels/order, the breadcrumb guard recognizes legacy breadcrumb markup, and template store/detail pages use the shared header/footer. New static/browser assertions cover the common page shell.
+- No live email delivery, payment processing, or real checkout transaction has been verified.
 
 **Immediate next actions:**
-1. Check GitHub Pages on a real phone: sticky navbar while scrolling; mobile platform/industry filter reach; result heading below sticky chrome; breadcrumbs; shared footer links; ID/EN contact forms and contextual service prefill. Record specific failures rather than redesigning by intuition.
-2. Re-port homepage PR #130 onto current main after that review. Preserve the service-first homepage, the current pathfinder behavior, clear access to the catalog and demo, honest course status, and avoid returning to an article-first homepage. Test carousel keyboard and reduced-motion behavior.
-3. Re-port service PR #126 after the homepage; verify service registry, ID/EN selectors, terms topics, sitemap, detail copy, and brief-first CTA.
-4. Rework the useful sticky collection/filter parts of PR #128 without an initial 15-item cap. All Category + All Level must show every real available item by default; filters narrow the set; zero matches must show an honest empty state.
-5. Audit PR #102 tests for still-valid recommender keyboard/reset, consultation handoff, and contact-prefill coverage. Do not copy stale homepage label assertions.
-6. Consolidate docs and close superseded PRs only after unique useful content has been preserved. Use small branches based on current main, rerun CI, and verify Pages after merge.
+1. Finish static audit and responsive browser smoke on the latest PR #138 head. Fix every new failure rather than weakening assertions without evidence.
+2. Continue the shared UI pass by page family: services/details; collections/catalog/template detail; blog/article; learning/course; legal/contact; Indonesian/English parity. Standardize title/subtitle and paragraph spacing without flattening each page's purpose.
+3. Consolidate conflicting global CSS overrides only after identifying which selectors are still needed. Avoid adding another blanket `!important` layer.
+4. Manually check the deployed GitHub Pages on a real phone: sticky navbar, mobile menu, breadcrumbs, result headings below sticky UI, footer, and 320–390px spacing. Browser tooling could not open the public Pages URLs directly.
+5. Keep PR #138 draft until its latest CI is green and mobile visual QA is addressed; do not merge or claim production deployment prematurely.
+6. Preserve the service-first homepage and remove consultation from the homepage only; consultation may remain on relevant contact/service flows.
 
 ## Homepage acceptance checklist
 - [ ] Clear, original H1 and concise explanation of what Bagusin can help with.
