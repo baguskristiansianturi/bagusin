@@ -16,11 +16,102 @@
 </head>
 <body class="template-store-page">
 <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
-<header class="site-header"><div class="site-header__inner container">
-<a class="site-brand" href="/bagusin/" aria-label="Bagusin — Beranda"><span class="site-brand__mark">B</span><span class="site-brand__text"><span class="site-brand__name">Bagusin</span><span class="site-brand__tagline">Work. Travel. Build.</span></span></a>
-<nav class="site-nav" aria-label="Navigasi utama"><ul class="site-nav__list"><li><a class="site-nav__link" href="/bagusin/collections/">Website siap dikerjakan</a></li><li><a class="site-nav__link" href="/bagusin/blog/">Blog & panduan</a></li></ul></nav>
-<div class="site-header__actions"><a class="button button--secondary button--small" href="/bagusin/contact/">Kontak</a></div>
-</div></header>
+<header class="site-header" id="site-header" data-site-header>
+  <div class="site-header__inner container">
+    <a class="site-brand" href="/bagusin/" aria-label="Bagusin — Beranda">
+      <span class="site-brand__mark" aria-hidden="true">B</span>
+      <span class="site-brand__text">
+        <span class="site-brand__name">Bagusin</span>
+        <span class="site-brand__tagline">Work. Travel. Build.</span>
+      </span>
+    </a>
+
+    <nav class="site-nav" aria-label="Navigasi utama">
+      <ul class="site-nav__list">
+        <li class="site-nav__item"><a class="site-nav__link" href="/bagusin/blog/">Blog</a></li>
+        <li class="site-nav__item"><a class="site-nav__link" href="/bagusin/destinations/">Destinasi</a></li>
+        <li class="site-nav__item">
+          <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-controls="work-dropdown">Layanan <span aria-hidden="true">⌄</span></button>
+          <div class="nav-dropdown" id="work-dropdown" hidden>
+            <a class="nav-dropdown__link" href="/bagusin/work/"><strong>Layanan</strong><small>Layanan berbasis proyek</small></a>
+            <a class="nav-dropdown__link" href="/bagusin/portfolio/"><strong>Portofolio</strong><small>Proyek, konsep, dan eksperimen</small></a>
+          </div>
+        </li>
+        <li class="site-nav__item"><a class="site-nav__link" href="/bagusin/youtube/">YouTube</a></li>
+        <li class="site-nav__item"><a class="site-nav__link" href="/bagusin/about/">Tentang</a></li>
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <button class="header-action" type="button" data-search-toggle aria-label="Buka pencarian" aria-expanded="false" aria-controls="header-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.2 4.2"></path></svg>
+        <span class="sr-only">Search</span>
+      </button>
+
+      <div class="language-switcher">
+        <button class="header-action" type="button" data-language-toggle aria-expanded="false" aria-controls="language-menu" aria-label="Pilih bahasa">
+          <span>ID</span>
+          <span aria-hidden="true">⌄</span>
+        </button>
+        <div class="language-switcher__menu" id="language-menu" hidden>
+          <a href="/bagusin/" lang="id" aria-current="page">Indonesia</a>
+          <a href="/bagusin/en/" lang="en">English</a>
+        </div>
+      </div>
+
+      <button class="mobile-menu-toggle" type="button" data-mobile-menu-toggle aria-expanded="false" aria-controls="mobile-navigation" aria-label="Buka menu">
+        <span class="mobile-menu-toggle__icon" aria-hidden="true"><span></span><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="header-search" id="header-search" hidden>
+    <div class="header-search__inner container">
+      <form class="search-field" action="/bagusin/search/" method="get" role="search">
+        <label class="sr-only" for="global-search">Cari layanan, produk, atau artikel</label>
+        <input id="global-search" name="q" type="search" placeholder="Cari layanan, demo, panduan..." autocomplete="off">
+        <button class="button button--accent button--small" type="submit">Cari</button>
+      </form>
+      <div class="header-search__suggestions" aria-label="Saran pencarian">
+        <button class="header-search__suggestion" type="button" data-search-suggestion="Bali">Bali</button>
+        <button class="header-search__suggestion" type="button" data-search-suggestion="Remote Work">Remote Work</button>
+        <button class="header-search__suggestion" type="button" data-search-suggestion="Freelancing">Freelancing</button>
+        <button class="header-search__suggestion" type="button" data-search-suggestion="Travel">Travel</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav-overlay" data-mobile-overlay hidden></div>
+
+<aside class="mobile-nav" id="mobile-navigation" aria-label="Navigasi mobile" aria-hidden="true">
+  <div class="mobile-nav__inner">
+    <div class="mobile-nav__header">
+      <span class="mobile-nav__label">Menu</span>
+      <button class="header-action" type="button" data-mobile-menu-close aria-label="Tutup menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+      </button>
+    </div>
+    <nav aria-label="Menu utama mobile">
+      <ul class="mobile-nav__list">
+        <li><a class="mobile-nav__link" href="/bagusin/blog/">Blog</a></li>
+        <li><a class="mobile-nav__link" href="/bagusin/destinations/">Destinasi</a></li>
+        <li class="mobile-nav__group"><span class="mobile-nav__label">Layanan &amp; karya</span><a class="mobile-nav__link" href="/bagusin/work/">Layanan</a><a class="mobile-nav__link" href="/bagusin/portfolio/">Portofolio</a></li>
+        <li><a class="mobile-nav__link" href="/bagusin/youtube/">YouTube</a></li>
+        <li><a class="mobile-nav__link" href="/bagusin/about/">Tentang</a></li>
+        <li><a class="mobile-nav__link" href="/bagusin/contact/">Kontak</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-nav__footer">
+      <span class="mobile-nav__label">Language</span>
+      <div class="flex gap-2">
+        <a class="button button--small button--accent" href="/bagusin/">ID</a>
+        <a class="button button--small button--secondary" href="/bagusin/en/" lang="en">EN</a>
+      </div>
+    </div>
+  </div>
+</aside>
+
 <main id="main-content">
 <section class="store-hero"><div class="container store-hero__inner"><span class="store-kicker">KOLEKSI TEMPLATE</span><h1>Temukan desain. Pilih platform. Gunakan dengan caramu.</h1><p>Jelajahi tampilan template berdasarkan industri, buka demo, dan periksa apa yang termasuk sebelum memilih lisensi.</p><div class="store-platforms" role="group" aria-label="Pilih platform"><button type="button" class="store-platform is-active" data-platform="blogger" aria-pressed="true"><span class="store-platform__mark">B</span><span><strong>Blogger</strong><small>Template untuk blog berbasis Blogger</small></span><span class="store-platform__arrow">↗</span></button><button type="button" class="store-platform" data-platform="wordpress" aria-pressed="false"><span class="store-platform__mark store-platform__mark--wp">W</span><span><strong>WordPress</strong><small>Tema untuk website berbasis WordPress</small></span><span class="store-platform__arrow">↗</span></button><button type="button" class="store-platform" data-platform="coded" aria-pressed="false"><span class="store-platform__mark store-platform__mark--code">&lt;/&gt;</span><span><strong>HTML, CSS &amp; JS</strong><small>Template kode untuk dikembangkan</small></span><span class="store-platform__arrow">↗</span></button></div></div></section>
 <section class="store-catalog section"><div class="container"><div class="store-mobile-filterbar" aria-label="Filter katalog mobile"><div class="store-mobile-filterbar__platforms"><span class="store-mobile-filterbar__label">Platform</span><div class="store-platforms store-platforms--mobile" role="group" aria-label="Pilih platform"><button type="button" class="store-platform is-active" data-platform="blogger" aria-pressed="true"><span class="store-platform__mark">B</span><span><strong>Blogger</strong><small>Template untuk blog berbasis Blogger</small></span><span class="store-platform__arrow">↗</span></button><button type="button" class="store-platform" data-platform="wordpress" aria-pressed="false"><span class="store-platform__mark store-platform__mark--wp">W</span><span><strong>WordPress</strong><small>Tema untuk website berbasis WordPress</small></span><span class="store-platform__arrow">↗</span></button><button type="button" class="store-platform" data-platform="coded" aria-pressed="false"><span class="store-platform__mark store-platform__mark--code">&lt;/&gt;</span><span><strong>HTML, CSS &amp; JS</strong><small>Template kode untuk dikembangkan</small></span><span class="store-platform__arrow">↗</span></button></div></div><div class="store-mobile-filterbar__industries"><div class="store-mobile-filterbar__heading"><span class="store-mobile-filterbar__label">Industri</span><button type="button" data-clear-filter>Reset</button></div><div class="store-industry-list" data-industry-list><button type="button" class="is-active" data-industry="all" aria-pressed="true">Semua industri <span data-industry-count="all">—</span></button><button type="button" data-industry="blog-personal">Blog personal <span data-industry-count="blog-personal">—</span></button><button type="button" data-industry="bisnis-jasa">Bisnis & jasa <span data-industry-count="bisnis-jasa">—</span></button><button type="button" data-industry="travel-rental">Travel & rental <span data-industry-count="travel-rental">—</span></button><button type="button" data-industry="hotel">Hotel & penginapan <span data-industry-count="hotel">—</span></button><button type="button" data-industry="kuliner">Makanan & minuman <span data-industry-count="kuliner">—</span></button><button type="button" data-industry="fashion">Fashion & kecantikan <span data-industry-count="fashion">—</span></button><button type="button" data-industry="teknologi">Teknologi <span data-industry-count="teknologi">—</span></button><button type="button" data-industry="pendidikan">Pendidikan <span data-industry-count="pendidikan">—</span></button><button type="button" data-industry="portofolio">Portofolio kreatif <span data-industry-count="portofolio">—</span></button><button type="button" data-industry="toko-online">Toko online <span data-industry-count="toko-online">—</span></button></div></div></div><div class="store-catalog__layout">
