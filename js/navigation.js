@@ -180,8 +180,8 @@
       if (!href) return "";
       let pathname = href;
       try { pathname = new URL(href, window.location.origin).pathname; } catch (_) {}
-      pathname = pathname.replace(/\\/+$/, "") || "/";
-      return navOrder.find(function (route) { return route !== "/" && pathname.endsWith(route.replace(/\\/$/, "")); }) || (pathname === navBase + "/" || pathname === "/" ? "/" : "");
+      pathname = pathname.replace(/\/+$/, "") || "/";
+      return navOrder.find(function (route) { return route !== "/" && pathname.endsWith(route.replace(/\/$/, "")); }) || (pathname === navBase || pathname === "/" ? "/" : "");
     }
 
     function setNavLabel(link, label) {
