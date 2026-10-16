@@ -109,7 +109,7 @@ for (const route of routes) {
             mobileLabels: labels("#mobile-navigation .mobile-nav__list .mobile-nav__link"),
             mobilePaths: [...document.querySelectorAll("#mobile-navigation .mobile-nav__list .mobile-nav__link")].map(el => new URL(el.href).pathname),
             searchAction: document.querySelector("#header-search form") ? new URL(document.querySelector("#header-search form").action).pathname : "",
-            headerContactPaths: [...document.querySelectorAll(".site-header__actions a[href]")].map(el => new URL(el.href).pathname).filter(path => path.endsWith("/contact")),
+            headerContactPaths: [...document.querySelectorAll(".site-header__actions a[href]")].map(el => new URL(el.href).pathname.replace(/\/+$/, "")).filter(path => path.endsWith("/contact")),
             hasMobileToggle: Boolean(document.querySelector("[data-mobile-menu-toggle]")),
             hasMobileNav: Boolean(document.querySelector("#mobile-navigation")),
             breadcrumbCount: document.querySelectorAll(breadcrumbSelector).length,
