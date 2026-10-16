@@ -217,6 +217,21 @@
 
     function normalizeNavList(list, mobile) {
       if (!list) return;
+      // Legacy mobile headers grouped several destinations into one list item,
+      // which made the displayed order differ from desktop. Flatten that group
+      // into individual items before sorting the shared destinations.
+      if (mobile) {
+        list.querySelectorAll(".mobile-nav__group").forEach(function (group) {
+          const links = Array.from(group.querySelectorAll("a.mobile-nav__link"));
+          if (!links.length) return;
+          links.forEach(function (link) {
+            const item = document.createElement("li");
+            item.appendChild(link);
+            group.parentNode.insertBefore(item, group);
+          });
+          group.remove();
+        });
+      }
       canonicalNavItems.forEach(function (item) {
         if (mobile || item.path !== "/contact/") ensureNavLink(list, item, mobile);
       });
