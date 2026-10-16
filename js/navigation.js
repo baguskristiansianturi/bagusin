@@ -222,12 +222,15 @@
       });
       if (mobile) {
         const homeLink = list.querySelector('a[href="' + navBase + '/"], a[href="/bagusin/"], a[href="/"]');
-        if (homeLink) setNavLabel(homeLink, navEnglish ? "Home" : "Beranda");
+        if (homeLink) { homeLink.setAttribute("href", navBase + "/"); setNavLabel(homeLink, navEnglish ? "Home" : "Beranda"); }
       }
       list.querySelectorAll("a.site-nav__link, a.mobile-nav__link, a.nav-dropdown__link").forEach(function (link) {
         const route = canonicalRoute(link.getAttribute("href"));
         const item = canonicalNavItems.find(function (candidate) { return candidate.path === route; });
-        if (item) setNavLabel(link, navEnglish ? item.en : item.id);
+        if (item) {
+          link.setAttribute("href", navBase + item.path);
+          setNavLabel(link, navEnglish ? item.en : item.id);
+        }
       });
       const rank = function (li) {
         const link = li.querySelector("a[href]");
