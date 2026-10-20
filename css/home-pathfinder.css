@@ -179,3 +179,80 @@
     padding: 1rem;
   }
 }
+
+
+/* Hero hierarchy refinement: clear headline, concise supporting copy, mobile-first rhythm. */
+.home-hero--pathfinder {
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+}
+
+.home-pathfinder__intro {
+  padding-top: clamp(.25rem, 1.5vw, 1.25rem);
+}
+
+.home-pathfinder__intro h1 {
+  max-width: 11ch;
+  margin-top: .65rem;
+  color: #111815;
+  font-size: clamp(3.25rem, 6.2vw, 5.35rem);
+  font-weight: 850;
+  letter-spacing: -.065em;
+  line-height: .99;
+  text-wrap: balance;
+}
+
+.home-pathfinder__intro .home-hero__lead {
+  max-width: 32rem;
+  margin-top: 1.25rem;
+  color: #4f5b55;
+  font-size: clamp(1rem, 1.45vw, 1.12rem);
+  font-weight: 450;
+  line-height: 1.65;
+}
+
+.home-pathfinder__reassurance {
+  margin-top: 1.15rem;
+  font-size: .82rem;
+  line-height: 1.55;
+}
+
+@media (max-width: 800px) {
+  .home-hero--pathfinder {
+    padding-block: 2.75rem 2.25rem;
+  }
+  .home-pathfinder__intro h1 {
+    max-width: 12ch;
+    font-size: clamp(3rem, 10.4vw, 4.2rem);
+    font-weight: 850;
+    line-height: 1;
+    letter-spacing: -.06em;
+  }
+  .home-pathfinder__intro .home-hero__lead {
+    max-width: 34rem;
+    margin-top: 1rem;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-hero--pathfinder {
+    padding-block: 2.5rem 1.75rem;
+  }
+  .home-pathfinder__intro h1 {
+    max-width: 11.5ch;
+    font-size: clamp(2.8rem, 12vw, 3.55rem);
+    line-height: .99;
+    letter-spacing: -.06em;
+  }
+  .home-pathfinder__intro .home-hero__lead {
+    max-width: 31rem;
+    margin-top: .9rem;
+    font-size: .98rem;
+    line-height: 1.6;
+  }
+  .home-pathfinder__reassurance {
+    margin-top: 1rem;
+    font-size: .78rem;
+  }
+}
