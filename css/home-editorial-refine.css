@@ -368,3 +368,56 @@
     background: transparent;
   }
 }
+
+/* Editorial link treatment: neutral charcoal, regular weight, understated underline. */
+.home-pathfinder__intro .section-kicker,
+.home-discovery-refresh__heading .section-kicker,
+.home-course-preview__heading .section-kicker,
+.home-feature-card__eyebrow {
+  color: #68716c;
+  font-size: .74rem;
+  font-weight: 400;
+  letter-spacing: .035em;
+}
+
+.home-feature-card__link,
+.home-course-card__link,
+.home-recommended-solutions__link {
+  color: #252b28;
+  font-weight: 400;
+  text-decoration: underline;
+  text-decoration-color: #8b938e;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .2em;
+}
+
+.home-feature-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+}
+
+.home-feature-card__link span[aria-hidden="true"],
+.home-course-card__link span[aria-hidden="true"],
+.home-recommended-solutions__link span[aria-hidden="true"] {
+  text-decoration: none;
+}
+
+.home-feature-card:hover .home-feature-card__link,
+.home-feature-card:focus-visible .home-feature-card__link,
+.home-course-card:hover .home-course-card__link,
+.home-course-card:focus-visible .home-course-card__link,
+.home-recommended-solutions__card:hover .home-recommended-solutions__link,
+.home-recommended-solutions__card:focus-visible .home-recommended-solutions__link {
+  color: #111815;
+  text-decoration-color: #252b28;
+}
+
+@media (max-width: 480px) {
+  .home-pathfinder__intro .section-kicker,
+  .home-discovery-refresh__heading .section-kicker,
+  .home-course-preview__heading .section-kicker,
+  .home-feature-card__eyebrow {
+    font-size: .72rem;
+  }
+}
