@@ -1,0 +1,297 @@
+/* Bagusin — homepage editorial refinement
+   Focus: typography, spacing, quiet surfaces, responsive safety.
+   This layer deliberately preserves the existing homepage structure.
+*/
+.home-hero--pathfinder {
+  background: #fff;
+  border-bottom: 1px solid #ecefed;
+}
+.home-pathfinder__intro {
+  max-width: 49rem;
+}
+.home-pathfinder__intro h1 {
+  max-width: 13ch;
+  margin-top: .45rem;
+  color: #151918;
+  font-size: clamp(2.5rem, 6.4vw, 4.8rem);
+  font-weight: 750;
+  letter-spacing: -.055em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+.home-pathfinder__intro > p:not(.home-pathfinder__reassurance) {
+  max-width: 43rem;
+  margin-top: 1.35rem;
+  color: #535c58;
+  font-size: clamp(1rem, 1.7vw, 1.16rem);
+  line-height: 1.8;
+}
+.home-pathfinder__reassurance {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem 1rem;
+  margin-top: 1.25rem;
+  color: #5b6561;
+  font-size: .875rem;
+}
+.home-pathfinder__panel {
+  border: 1px solid #e6ebe8;
+  border-radius: 1.15rem;
+  background: #fff;
+  box-shadow: 0 12px 34px rgba(20, 30, 26, .045);
+}
+.home-pathfinder__panel > h2,
+.home-pathfinder__followup h3,
+.home-pathfinder__result h3 {
+  color: #171c1a;
+  font-weight: 720;
+  letter-spacing: -.035em;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+.home-pathfinder__panel > h2 {
+  font-size: clamp(1.45rem, 2.7vw, 2rem);
+}
+.home-pathfinder__hint,
+.home-pathfinder__followup > p {
+  color: #606a65;
+  line-height: 1.7;
+}
+.home-pathfinder__choice {
+  border: 1px solid #e6ebe8;
+  border-radius: .8rem;
+  background: #fff;
+  box-shadow: none;
+  transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+.home-pathfinder__choice:hover,
+.home-pathfinder__choice[aria-pressed="true"] {
+  border-color: #78b9aa;
+  background: #f8fbf9;
+}
+.home-pathfinder__choice:hover {
+  transform: translateY(-1px);
+}
+.home-pathfinder__choice strong {
+  color: #1a201d;
+  font-weight: 700;
+}
+.home-pathfinder__choice small {
+  color: #66706b;
+  line-height: 1.55;
+}
+.home-pathfinder__footer-note {
+  border-top: 1px solid #e9eeeb;
+  color: #515c57;
+}
+.home-pathfinder__footer-note strong {
+  font-weight: 700;
+}
+.home-discovery-refresh,
+.home-course-preview {
+  background: #fff;
+}
+.home-discovery-refresh + .home-discovery-refresh {
+  border-top: 1px solid #f0f2f1;
+}
+.home-discovery-refresh__heading {
+  margin-bottom: clamp(1.6rem, 3vw, 2.4rem);
+}
+.home-discovery-refresh__heading .section-title,
+.home-course-preview__heading .section-title {
+  margin-top: .15rem;
+  color: #171c1a;
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  font-weight: 750;
+  letter-spacing: -.045em;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+.home-section__description,
+.home-course-preview__heading > div > p {
+  max-width: 42rem;
+  margin-top: .75rem;
+  color: #5d6762;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+.home-feature-grid {
+  gap: clamp(.9rem, 1.8vw, 1.35rem);
+}
+.home-feature-card {
+  overflow: hidden;
+  border: 1px solid #e7ece9;
+  border-radius: .9rem;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(20, 30, 26, .025);
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+.home-feature-card:hover {
+  border-color: #c8ddd6;
+  box-shadow: 0 12px 28px rgba(20, 30, 26, .075);
+  transform: translateY(-2px);
+}
+.home-feature-card__image {
+  background: #f2f5f3;
+}
+.home-feature-card__body {
+  padding: clamp(1rem, 2vw, 1.35rem);
+  background: #fff;
+}
+.home-feature-card__eyebrow {
+  color: #3f8274;
+  font-weight: 700;
+  letter-spacing: .055em;
+}
+.home-feature-card__body h3 {
+  margin-top: .45rem;
+  color: #171c1a;
+  font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+  font-weight: 720;
+  letter-spacing: -.025em;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+.home-feature-card__body p {
+  margin-top: .55rem;
+  color: #5d6762;
+  font-size: .92rem;
+  line-height: 1.7;
+}
+.home-feature-card__link {
+  margin-top: 1rem;
+  color: #367e70;
+  font-weight: 700;
+}
+.home-new-card__topline {
+  padding: .8rem .9rem 0;
+}
+.home-new-card__badge {
+  border: 1px solid rgba(226, 233, 229, .95);
+  background: rgba(255, 255, 255, .96);
+  color: #303a35;
+  box-shadow: 0 2px 8px rgba(20, 30, 26, .04);
+}
+.home-feature-card__body--overlay {
+  background: #fff;
+}
+.home-course-preview {
+  border-top: 1px solid #eff2f0;
+  border-bottom: 1px solid #eff2f0;
+}
+.home-course-preview__heading {
+  align-items: end;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.home-course-card {
+  border: 1px solid #e5ebe7;
+  border-radius: .9rem;
+  background: #fff;
+  box-shadow: 0 5px 18px rgba(20, 30, 26, .03);
+}
+.home-course-card__top {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #edf0ee;
+}
+.home-course-card__number {
+  color: #3f8274;
+  font-weight: 750;
+}
+.home-course-card h3 {
+  margin-top: .5rem;
+  color: #171c1a;
+  font-weight: 720;
+  letter-spacing: -.025em;
+}
+.home-course-card p,
+.home-course-preview__note {
+  color: #5d6762;
+  line-height: 1.75;
+}
+.home-course-card__link {
+  color: #367e70;
+  font-weight: 700;
+}
+.home-final-cta {
+  background: #f8faf9;
+  border-top: 1px solid #edf0ee;
+}
+.home-final-cta__heading h2 {
+  max-width: 15ch;
+  color: #171c1a;
+  font-weight: 750;
+  letter-spacing: -.045em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+.home-final-cta__heading p {
+  max-width: 43rem;
+  color: #5d6762;
+  line-height: 1.75;
+}
+.home-final-cta__card {
+  border: 1px solid #e2e8e4;
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(20, 30, 26, .035);
+}
+.home-final-cta__card h3 {
+  font-weight: 720;
+  letter-spacing: -.025em;
+}
+.home-final-cta__card p {
+  line-height: 1.7;
+}
+.home-final-cta__card--consult {
+  background: #fff;
+}
+@media (min-width: 56rem) {
+  .home-hero--pathfinder .home-pathfinder {
+    row-gap: clamp(2rem, 4vw, 3.25rem);
+  }
+}
+@media (max-width: 47.999rem) {
+  .home-pathfinder__intro h1 {
+    max-width: 11ch;
+    font-size: clamp(2.45rem, 11.8vw, 3.6rem);
+    line-height: 1.04;
+  }
+  .home-pathfinder__panel {
+    border-radius: .9rem;
+    box-shadow: 0 7px 22px rgba(20, 30, 26, .04);
+  }
+  .home-discovery-refresh__heading .section-title,
+  .home-course-preview__heading .section-title {
+    font-size: clamp(1.8rem, 8vw, 2.3rem);
+  }
+  .home-feature-card,
+  .home-course-card,
+  .home-final-cta__card {
+    border-radius: .8rem;
+  }
+  .home-feature-card:hover {
+    transform: none;
+  }
+  .home-final-cta {
+    background: #fff;
+  }
+}
+@media (max-width: 22.5rem) {
+  .home-pathfinder__reassurance {
+    display: grid;
+    gap: .4rem;
+  }
+  .home-feature-card__body {
+    padding: .95rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-pathfinder__choice,
+  .home-feature-card {
+    transition: none;
+  }
+  .home-pathfinder__choice:hover,
+  .home-feature-card:hover {
+    transform: none;
+  }
+}
