@@ -425,3 +425,49 @@
 }
 /* The return link belongs only after the page content, not above the heading. */
 .service-page .service-hero .service-back{display:none}
+
+
+/* Final polish: calmer headline rhythm and a single breadcrumb row. */
+.service-page .service-hero h1{
+  font-weight:700;
+  line-height:1.14;
+  letter-spacing:-.035em;
+  text-wrap:pretty;
+  overflow-wrap:normal;
+  word-break:normal;
+  margin-bottom:0;
+}
+@media (max-width:47.999rem){
+  .service-page .service-hero h1{
+    line-height:1.16;
+    letter-spacing:-.03em;
+  }
+}
+.service-page .service-hero__inner > .service-breadcrumb{
+  display:flex !important;
+  flex-wrap:nowrap !important;
+  align-items:center;
+  gap:.45rem;
+  white-space:nowrap !important;
+  overflow-x:auto;
+  overflow-y:hidden;
+}
+.service-page .service-hero__inner > .service-breadcrumb > *{
+  display:inline-block;
+  flex:0 0 auto !important;
+  white-space:nowrap !important;
+  overflow-wrap:normal !important;
+  word-break:keep-all !important;
+}
+.service-page .service-hero__inner > .service-breadcrumb + .service-breadcrumb{
+  display:none !important;
+}
+.service-page .service-hero__inner > .service-breadcrumb ~ .service-breadcrumb{
+  display:none !important;
+}
+.service-page .service-hero .service-back{
+  display:none !important;
+}
+.service-page .service-back-wrap .service-back{
+  display:inline-flex !important;
+}
