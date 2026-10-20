@@ -397,3 +397,31 @@
     line-height:1.75;
   }
 }
+
+
+/* Breadcrumb must remain a single horizontal trail, never wrap into a second row. */
+.service-page .service-hero__inner > .service-breadcrumb{
+  display:flex;
+  flex-flow:row nowrap;
+  align-items:center;
+  justify-content:flex-start;
+  gap:.45rem;
+  width:100%;
+  max-width:100%;
+  margin:0;
+  padding:0;
+  overflow-x:auto;
+  overflow-y:hidden;
+  white-space:nowrap;
+  scrollbar-width:none;
+}
+.service-page .service-hero__inner > .service-breadcrumb::-webkit-scrollbar{display:none}
+.service-page .service-hero__inner > .service-breadcrumb > *{
+  flex:0 0 auto;
+  white-space:nowrap;
+}
+.service-page .service-hero__inner > .service-breadcrumb [aria-current="page"]{
+  overflow-wrap:normal;
+}
+/* The return link belongs only after the page content, not above the heading. */
+.service-page .service-hero .service-back{display:none}
