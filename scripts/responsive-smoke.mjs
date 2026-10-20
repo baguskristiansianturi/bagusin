@@ -3,6 +3,8 @@ import { chromium } from "playwright";
 const origin = "http://127.0.0.1:4173";
 const routes = [
   "/bagusin/",
+  "/bagusin/learning/",
+  "/bagusin/en/learning/",
   "/bagusin/blog/",
   "/bagusin/blog/bekerja-dari-mana-saja/",
   "/bagusin/blog/pantai-kuta-bali/",
@@ -129,6 +131,36 @@ const interactionPage = await browser.newPage({ viewport: { width: 390, height: 
 try {
   await interactionPage.goto(origin + "/bagusin/", { waitUntil: "domcontentloaded" });
   let homepageText = await interactionPage.locator("main").innerText();
+
+  // Course cards must show visible visual previews on the homepage, not only on the full catalogue.
+  const homeCourseCards = interactionPage.locator(".home-course-card");
+  if (await homeCourseCards.count() < 3) errors.push("Homepage: expected at least three course cards");
+  const courseVisuals = interactionPage.locator(".home-course-card .course-visual--home");
+  if (await courseVisuals.count() < 3) errors.push("Homepage: course cards are missing their website, Google Ads, and online-business visuals");
+  const visualState = await courseVisuals.evaluateAll((items) => items.map((el) => {
+    const rect = el.getBoundingClientRect();
+    const svg = el.querySelector("svg");
+    const svgRect = svg?.getBoundingClientRect();
+    const style = getComputedStyle(el);
+    return {
+      width: Math.round(rect.width),
+      height: Math.round(rect.height),
+      borderStyle: style.borderStyle,
+      borderWidth: style.borderWidth,
+      svgVisible: !!svg && !!svgRect && svgRect.width > 0 && svgRect.height > 0
+    };
+  }));
+  if (visualState.length >= 3 && visualState.some((v) => v.width < 100 || v.height < 60 || !v.svgVisible || v.borderStyle === "none" || v.borderWidth === "0px")) {
+    errors.push("Homepage course visuals are not visibly rendered: " + JSON.stringify(visualState));
+  }
+  if (!(await interactionPage.locator('link[href*="course-visuals.css"]').count())) errors.push("Homepage: course visual stylesheet is not linked");
+
+  await interactionPage.goto(origin + "/bagusin/en/", { waitUntil: "domcontentloaded" });
+  if (await interactionPage.locator(".home-course-card .course-visual--home").count() < 3) {
+    errors.push("English homepage: course cards are missing visual previews");
+  }
+  await interactionPage.goto(origin + "/bagusin/", { waitUntil: "domcontentloaded" });
+  homepageText = await interactionPage.locator("main").innerText();
   if (await interactionPage.locator("[data-site-breadcrumbs]").count()) errors.push("Homepage: breadcrumb should stay hidden on the homepage");
   if (homepageText.includes("Cerita dan panduan pilihan") || homepageText.includes("Memulai kembali Bagusin")) errors.push("Homepage: article cards should be temporarily removed from the primary customer journey");
   // Homepage solution recommendations must stack into one readable column on mobile.
