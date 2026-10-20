@@ -383,3 +383,17 @@
 @media(prefers-reduced-motion:reduce){
   .service-tag{transition:none}
 }
+
+/* Keep supporting service copy readable instead of shrinking secondary descriptions */
+.service-process p,
+.service-hero__aside p{
+  font-size:1rem;
+  line-height:1.75;
+}
+@media(max-width:47.999rem){
+  .service-process p,
+  .service-hero__aside p{
+    font-size:1rem;
+    line-height:1.75;
+  }
+}
