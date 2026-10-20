@@ -17,7 +17,7 @@ body { color: var(--home-ink); }
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
   border-bottom: 1px solid rgba(226, 233, 229, .92);
   background: rgba(255, 255, 255, .96);
   box-shadow: 0 3px 18px rgba(20, 30, 26, .025);
