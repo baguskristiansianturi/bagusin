@@ -1,0 +1,166 @@
+/* Bagusin homepage polish — October 2026
+   A final, conservative visual layer: clearer hierarchy, calmer surfaces,
+   tactile interactions, and mobile-first spacing. Existing content and routes stay intact.
+*/
+:root {
+  --homepage-ink: #17211c;
+  --homepage-muted: #5b665f;
+  --homepage-line: #e5ebe7;
+  --homepage-accent: #367e70;
+  --homepage-accent-soft: #f0f7f3;
+}
+
+/* Calm editorial rhythm */
+.home-hero--pathfinder {
+  padding-block: clamp(2.75rem, 6vw, 5rem);
+  background:
+    radial-gradient(ellipse at 94% 8%, rgba(91, 170, 148, .09), transparent 35%),
+    linear-gradient(180deg, #fff 0%, #fcfdfc 100%);
+}
+.home-pathfinder { align-items: center; }
+.home-pathfinder__intro h1 { text-wrap: balance; }
+.home-pathfinder__intro .home-hero__lead { color: var(--homepage-muted); }
+.home-pathfinder__reassurance { line-height: 1.65; }
+.home-pathfinder__panel {
+  border-color: var(--homepage-line);
+  box-shadow: 0 16px 42px rgba(24, 44, 34, .055);
+}
+.home-pathfinder__topline { line-height: 1.5; }
+.home-pathfinder__choice {
+  min-height: 5.1rem;
+  border-color: #e4eae6;
+  box-shadow: 0 1px 2px rgba(20, 35, 27, .025);
+}
+.home-pathfinder__choice:hover {
+  box-shadow: 0 7px 18px rgba(31, 79, 60, .065);
+}
+.home-pathfinder__choice[aria-pressed="true"] {
+  background: var(--homepage-accent-soft);
+  box-shadow: inset 0 0 0 1px var(--homepage-accent);
+}
+.home-pathfinder__choice-icon {
+  transition: background-color .18s ease, transform .18s ease;
+}
+.home-pathfinder__choice:hover .home-pathfinder__choice-icon {
+  background: #e2f0e9;
+  transform: translateY(-1px);
+}
+.home-pathfinder__footer-note {
+  align-self: start;
+  background: #fbfcfb;
+}
+.home-pathfinder__result {
+  border-color: #cfe1d8;
+  box-shadow: 0 8px 22px rgba(30, 80, 59, .04);
+}
+
+/* Stronger section hierarchy without changing the established order */
+.home-discovery-refresh,
+.home-course-preview {
+  padding-block: clamp(3.25rem, 6vw, 5.25rem);
+}
+.home-discovery-refresh__heading,
+.home-course-preview__heading {
+  max-width: 54rem;
+}
+.home-discovery-refresh__heading .section-title,
+.home-course-preview__heading .section-title {
+  text-wrap: balance;
+}
+.home-section__description,
+.home-course-preview__heading > div > p {
+  max-width: 44rem;
+  line-height: 1.75;
+}
+
+/* Cards feel clickable, but stay quiet and professional */
+.home-feature-card,
+.home-course-card,
+.home-editorial-card,
+.home-final-cta__card {
+  border-color: var(--homepage-line);
+  box-shadow: 0 3px 14px rgba(22, 39, 29, .025);
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.home-feature-card:hover,
+.home-course-card:hover,
+.home-final-cta__card:hover {
+  border-color: #c5ddd2;
+  box-shadow: 0 12px 28px rgba(22, 54, 38, .075);
+  transform: translateY(-2px);
+}
+.home-feature-card__image {
+  display: block;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  background: #f0f4f1;
+}
+.home-feature-card__body p { line-height: 1.7; }
+.home-feature-card__link { text-underline-offset: .2em; }
+.home-feature-card:focus-visible,
+.home-course-card:focus-within,
+.home-final-cta__card:focus-within {
+  outline: 3px solid rgba(54, 126, 112, .35);
+  outline-offset: 3px;
+}
+.home-course-card { min-width: 0; }
+.home-course-card__link,
+.home-feature-card__link { transition: color .18s ease; }
+.home-feature-card:hover .home-feature-card__link,
+.home-course-card:hover .home-course-card__link { color: #245f51; }
+
+/* Clearer final invitation */
+.home-final-cta {
+  padding-block: clamp(3rem, 6vw, 5rem);
+}
+.home-final-cta__heading p { line-height: 1.75; }
+.home-final-cta__card { border-radius: 1rem; }
+
+/* Keep touch targets comfortable and prevent mobile crowding */
+@media (max-width: 800px) {
+  .home-hero--pathfinder { padding-block: 2.5rem; }
+  .home-pathfinder { gap: 1.35rem; }
+  .home-pathfinder__panel { padding: clamp(1rem, 4vw, 1.35rem); }
+  .home-discovery-refresh,
+  .home-course-preview { padding-block: 3rem; }
+  .home-feature-card:hover,
+  .home-course-card:hover,
+  .home-final-cta__card:hover { transform: none; }
+}
+@media (max-width: 480px) {
+  .home-hero--pathfinder { padding-block: 2rem; }
+  .home-pathfinder__intro h1 {
+    max-width: 13ch;
+    font-size: clamp(2.25rem, 10vw, 2.8rem);
+    line-height: 1.06;
+  }
+  .home-pathfinder__intro .home-hero__lead {
+    margin-top: 1rem;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  .home-pathfinder__reassurance { gap: .5rem .75rem; font-size: .8rem; }
+  .home-pathfinder__choice { min-height: 4.65rem; }
+  .home-pathfinder__choice small { line-height: 1.5; }
+  .home-pathfinder__footer-note { gap: .65rem; }
+  .home-discovery-refresh,
+  .home-course-preview { padding-block: 2.75rem; }
+  .home-discovery-refresh__heading .section-title,
+  .home-course-preview__heading .section-title {
+    font-size: clamp(1.8rem, 8vw, 2.25rem);
+    line-height: 1.13;
+  }
+  .home-feature-card { border-radius: .9rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-pathfinder__choice,
+  .home-pathfinder__choice-icon,
+  .home-feature-card,
+  .home-course-card,
+  .home-final-cta__card,
+  .home-course-card__link,
+  .home-feature-card__link { transition: none !important; }
+  .home-feature-card:hover,
+  .home-course-card:hover,
+  .home-final-cta__card:hover { transform: none; }
+}
