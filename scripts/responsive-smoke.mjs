@@ -670,7 +670,7 @@ try {
   await interactionPage.locator("[data-template-grid] .template-product").first().waitFor({ timeout: 10000 });
   const collectionTitle = await interactionPage.title();
   const collectionText = await interactionPage.locator("main").innerText();
-  if (!collectionTitle.includes("Template")) errors.push("Collections page: title metadata is not localized");
+  if (!collectionTitle.includes("Katalog Desain Website")) errors.push("Collections page: title metadata is not localized");
   if (!collectionText.includes("Koleksi terbaru") || !collectionText.includes("Bagus Sewa Mobil Bali 01")) errors.push("Collections page: latest demo is missing");
   if (!collectionText.includes("750.000") || !collectionText.includes("domain/hosting terpisah")) errors.push("Collections page: package price or exclusions are unclear");
   const templateCard = interactionPage.locator("[data-template-grid] .template-product").filter({ hasText: "Bagus Sewa Mobil Bali 01" }).first();
