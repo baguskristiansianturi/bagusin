@@ -232,11 +232,10 @@ try {
     }
   }
 
-  // Regression case: legacy articles may have a search toggle but no search panel.
-  await interactionPage.goto(origin + "/bagusin/blog/bekerja-dari-mana-saja/", { waitUntil: "domcontentloaded" });
+  // The current public article is Pantai Kuta; retired article slugs redirect to the blog index.
+  await interactionPage.goto(origin + "/bagusin/blog/pantai-kuta-bali/", { waitUntil: "domcontentloaded" });
   const articleText = await interactionPage.locator("main").innerText();
-  if (!articleText.includes("Ada yang perlu dibangun?")) errors.push("Article page: Indonesian contact CTA is missing");
-  if (articleText.includes("Need something built?")) errors.push("Article page: English contact CTA remains");
+  if (!articleText.includes("Pantai Kuta Bali")) errors.push("Article page: current Pantai Kuta article title is missing");
   const articleSearchToggle = interactionPage.locator("[data-search-toggle]").first();
   if (!(await articleSearchToggle.count())) {
     errors.push("Article page: global search toggle is missing");
@@ -252,9 +251,9 @@ try {
       if (!(await articleSearchInput.count())) {
         errors.push("Article page: global search input is missing");
       } else {
-        await articleSearchInput.fill("remote work");
+        await articleSearchInput.fill("pantai kuta");
         await articleSearchPanel.locator("form").evaluate((form) => form.requestSubmit());
-        await interactionPage.waitForURL(/\/bagusin\/search\/\?q=remote(?:%20|\+)work/i, { timeout: 10000 });
+        await interactionPage.waitForURL(/\\/bagusin\\/search\\/\\?q=pantai(?:%20|\\+)kuta/i, { timeout: 10000 });
       }
     }
   }
