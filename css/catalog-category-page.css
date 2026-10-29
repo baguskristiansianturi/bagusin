@@ -194,3 +194,22 @@
  .industry-chip { min-height:2.6rem; padding:.58rem .78rem; font-size:.8rem; }
  .category-long-description__grid { grid-template-columns:1fr; gap:1rem; }
 }
+
+/* Final refinement: functional icon labels, softly rounded industry carousel. */
+.category-audience-labels { gap:1rem 1.25rem; margin-top:1.4rem; }
+.category-audience-labels span { display:inline-flex; align-items:center; gap:.45rem; min-height:auto; padding:.15rem 0; border:0; border-radius:0; background:transparent; color:#555d64; font-size:.88rem; font-weight:500; }
+.category-audience-labels span svg { width:1.05rem; height:1.05rem; flex:0 0 1.05rem; color:#4d7772; }
+.industry-filter { position:sticky; top:var(--header-height,4.5rem); z-index:900; border-block:1px solid #e8eaec; background:rgba(255,255,255,.97); box-shadow:0 3px 12px rgba(20,28,36,.035); }
+.industry-filter__rail { gap:.55rem; padding:.8rem 0; }
+.industry-chip { border:1px solid #dfe3e6; border-radius:.55rem; background:transparent; color:#454b51; font-size:.86rem; font-weight:550; padding:.62rem .9rem; min-height:2.6rem; transition:background-color .18s ease,border-color .18s ease; }
+.industry-chip:hover { border-color:#bfc6cc; background:#f8f9fa; }
+.industry-chip.is-active { border-color:#cbd1d6; background:#f0f2f4; color:#20252b; box-shadow:none; }
+.category-results { padding-top:clamp(1.8rem,3.5vw,3rem); }
+.category-results__heading { display:none !important; }
+@media(max-width:640px) {
+ .category-audience-labels { gap:.75rem 1rem; }
+ .category-audience-labels span { font-size:.82rem; }
+ .industry-filter { top:0; }
+ .industry-filter__rail { gap:.45rem; padding:.65rem 0; }
+ .industry-chip { border-radius:.5rem; min-height:2.5rem; padding:.58rem .78rem; font-size:.8rem; }
+}
