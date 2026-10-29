@@ -26,7 +26,8 @@ Last reviewed: 29 October 2026. This is an index, not a guarantee that every dep
 |---|---|---|
 | `css/reset.css`, `css/variables.css`, `css/global.css`, `css/components.css` | Base styles, tokens, primitives | High |
 | `css/header.css`, `css/footer.css`, `css/responsive.css` | Shared shell styles and responsive rules | High |
-| `js/navigation.js` | Navigation interactions, shared search additions, navigation fixes | High |
+| `js/navigation.js` | Navigation interactions, shared search additions, navigation fixes; initializes after the category shell loads | High |
+| `js/global-shell.js` | Loads shared header/footer fragments for pages with shell placeholders | Category pilot |
 | `js/main.js` | Site-wide utilities and global interactions | High |
 | `css/catalog-category-page.css` | Approved shared category template | Scoped |
 | `js/catalog-category-page.js` | Category filter/empty-state behavior | Scoped |
@@ -38,7 +39,7 @@ Last reviewed: 29 October 2026. This is an index, not a guarantee that every dep
 
 ## Current architectural risks
 - There are approximately 100 HTML entry files; they do not all use identical header/footer markup.
-- Header and footer markup is repeated in multiple page families.
+- Header and footer markup is repeated in multiple page families. The category catalogue pages now use `components/site-header.html` and `components/site-footer.html` via `js/global-shell.js`; other page families remain unmigrated.
 - Styles and scripts are split across flat `css/` and `js/` directories, often with legacy naming.
 - Some pages are deliberately standalone (checkout and demos); they should not be forced into one generic layout without review.
 - Blog/article text is currently rendered in individual HTML pages as well as catalog data; article-source migration needs a deliberate content model.
