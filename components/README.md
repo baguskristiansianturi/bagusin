@@ -1,6 +1,6 @@
 # Shared components
 
-This folder is the planned single source of truth for reusable site-shell fragments and UI patterns.
+This folder holds the single source of truth for the shared shell pilot and future reusable UI patterns. The first migrated pages are the three service-category catalogues.
 
 ## Rules
 - Navbar/mobile navigation and footer belong here once the shared-shell pilot is wired up.
