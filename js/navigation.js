@@ -223,7 +223,7 @@
         advertising:"Advertising & Ads", copyContent:"Copy & Content Writing", website:"Website Development",
         android:"Android Apps", uiux:"UI/UX Design", systems:"Digital Systems & Modules", consultation:"Consultation",
         startProject:"Start a Project", help:"Book a Consultation", appointment:"Schedule a Meeting", contact:"Contact",
-        privacy:"Privacy Policy", terms:"Terms of Service", disclaimer:"Disclaimer", editorial:"Editorial Policy", faq:"Help & FAQ",
+        privacy:"Privacy Policy", terms:"Terms of Service", disclaimer:"Disclaimer", editorial:"Editorial Policy", faq:"Contact & Help",
         paymentNote:"Payment details are confirmed in your project invoice.",
         description:"Practical digital services, useful learning, and creative work built around real needs.",
         ctaTitle:"Have something you want to build?",
@@ -235,7 +235,7 @@
         advertising:"Advertising & Iklan", copyContent:"Copywriting & Penulisan Konten", website:"Pembuatan Website",
         android:"Aplikasi Android", uiux:"Desain UI/UX", systems:"Sistem & Modul Digital", consultation:"Konsultasi",
         startProject:"Mulai Proyek", help:"Konsultasi", appointment:"Atur Janji Temu", contact:"Kontak",
-        privacy:"Kebijakan Privasi", terms:"Syarat & Ketentuan", disclaimer:"Penafian", editorial:"Kebijakan Editorial", faq:"Bantuan & FAQ",
+        privacy:"Kebijakan Privasi", terms:"Syarat & Ketentuan", disclaimer:"Penafian", editorial:"Kebijakan Editorial", faq:"Kontak & Bantuan",
         paymentNote:"Detail pembayaran dikonfirmasi melalui invoice proyek.",
         description:"Layanan digital praktis, materi belajar, dan karya kreatif yang disusun sesuai kebutuhan nyata.",
         ctaTitle:"Ada sesuatu yang ingin kamu bangun?",
@@ -263,7 +263,7 @@
                 <li><a class="site-footer__link" href="${base}/blog/">${t.blog}</a></li><li><a class="site-footer__link" href="${base}/learning/">${t.learning}</a></li><li><span class="site-footer__link site-footer__link--soon" aria-label="${t.store}, ${t.comingSoon}">${t.store}<span class="site-footer__soon-label">${t.comingSoon}</span></span></li><li><a class="site-footer__link" href="${base}/templates/">${t.templates}</a></li>
               </ul></div>
               <div class="site-footer__column"><h2 class="site-footer__title">${t.work}</h2><ul class="site-footer__links">
-                <li><a class="site-footer__link" href="${base}/contact/?service=google-ads">${t.advertising}</a></li><li><a class="site-footer__link" href="${base}/contact/?service=copywriting">${t.copyContent}</a></li><li><a class="site-footer__link" href="${base}/contact/?service=websites">${t.website}</a></li><li><a class="site-footer__link" href="${base}/contact/?service=mobile-apps">${t.android}</a></li><li><a class="site-footer__link" href="${base}/contact/?service=ui-ux">${t.uiux}</a></li><li><a class="site-footer__link" href="${base}/contact/?service=systems-modules">${t.systems}</a></li><li><a class="site-footer__link" href="${base}/work/">${t.services}</a></li>
+                <li><a class="site-footer__link" href="${base}/contact/?service=google-ads">${t.advertising}</a></li><li><a class="site-footer__link" href="${base}/contact/?service=seo-content">${t.copyContent}</a></li><li><a class="site-footer__link" href="${base}/contact/?service=websites">${t.website}</a></li><li><a class="site-footer__link" href="${base}/contact/?service=mobile-apps">${t.android}</a></li><li><a class="site-footer__link" href="${base}/contact/?service=maintenance-uiux">${t.uiux}</a></li><li><a class="site-footer__link" href="${base}/contact/?service=web-applications">${t.systems}</a></li><li><a class="site-footer__link" href="${base}/work/">${t.services}</a></li>
               </ul></div>
               <div class="site-footer__column"><h2 class="site-footer__title">${t.start}</h2><ul class="site-footer__links">
                 <li><a class="site-footer__link" href="${checkoutBase}/">${t.startProject}</a></li><li><a class="site-footer__link" href="${base}/contact/?mode=consultation">${t.consultation}</a></li><li><a class="site-footer__link" href="${base}/contact/?mode=consultation#meeting-preference">${t.appointment}</a></li><li><a class="site-footer__link" href="${base}/contact/">${t.contact}</a></li>
