@@ -27,7 +27,7 @@
 ## Current state — update first on every session
 **Last updated:** 2026-10-29
 
-**Active phase:** modular architecture foundation on branch `refactor/modular-architecture`. Architecture rules, repository map, modularization phases, VS Code settings/tasks, and article/category template guidance have been added. This is documentation/editor setup only so far; the shared navbar/footer are still duplicated in page HTML and are NOT yet globally centralized. Do not claim the modularization is complete until the shared-shell pilot and its regression tests pass.
+**Active phase:** modular architecture foundation on branch `refactor/modular-architecture`. Architecture rules, repository map, modularization phases, VS Code settings/tasks, and article/category template guidance have been added. Architecture documentation/editor setup is in place. A real shared-shell pilot now exists for the three service-category pages (`components/site-header.html`, `components/site-footer.html`, `js/global-shell.js`). All other page families still have their own markup until separately migrated and tested. Do not claim the modularization is complete until the shared-shell pilot and its regression tests pass.
 
 **Latest verified main head:** `b18dbe9cc821cd599a8cc66220c33c82682ea106`.
 - Responsive browser smoke test run #948: success.
