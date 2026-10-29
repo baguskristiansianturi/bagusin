@@ -18,6 +18,9 @@ const routes = [
   "/bagusin/work/web-applications/",
   "/bagusin/work/maintenance-uiux/",
   "/bagusin/collections/",
+  "/bagusin/collections/landing-page/",
+  "/bagusin/collections/company-profile/",
+  "/bagusin/collections/complex-website/",
   "/bagusin/templates/",
   "/bagusin/templates/blogger-editorial/",
   "/bagusin/templates/demos/editorial-blogger/",
@@ -87,6 +90,14 @@ for (const route of routes) {
         errors.push(route + " @ " + viewport.width + "px: page response " + (response?.status() ?? "none"));
       }
       await page.waitForTimeout(150);
+      if (["/bagusin/collections/landing-page/","/bagusin/collections/company-profile/","/bagusin/collections/complex-website/"].includes(route)) {
+        try {
+          await page.locator("[data-site-header]").waitFor({ timeout: 5000 });
+          await page.locator(".site-footer").waitFor({ timeout: 5000 });
+        } catch {
+          errors.push(route + " @ " + viewport.width + "px: shared navbar/footer did not load");
+        }
+      }
       const metrics = await page.evaluate(() => {
         const width = window.innerWidth;
         const selector = "main, main > section, .container, .container--narrow, .container--article, .article-pro-layout, .article-layout, .contact-form, .site-header__inner, .site-footer__inner, .checkout-main, .checkout-aside";

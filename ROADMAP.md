@@ -465,3 +465,13 @@ CI statis, browser smoke, preview hosting, dan GitHub Pages live adalah gerbang 
 - CI otomatis lulus tidak berarti visual QA ponsel lulus.
 - Pages workflow sukses berarti pipeline deployment selesai; pemeriksaan tampilan URL publik dari browser eksternal masih tidak tersedia.
 - Cloudflare preview failure pada branch lama tidak otomatis berarti GitHub Pages gagal, tetapi penyebabnya tetap belum diketahui.
+
+
+## Modular architecture for VS Code (29 October 2026)
+
+- Working branch: `refactor/modular-architecture`; keep `main` protected until the PR and required checks are reviewed.
+- Added `ARCHITECTURE.md`, `docs/architecture/REPOSITORY_MAP.md`, and `docs/architecture/MODULARIZATION-PLAN.md` to establish file ownership, URL-preservation rules, and staged migration boundaries.
+- Added VS Code workspace defaults and tasks, plus README navigation and templates for article/category work.
+- **Important limitation:** this is the architecture/documentation foundation, not completion of modularization. The navbar/footer remain duplicated in many existing HTML files. The next implementation phase must establish a real single-source shared shell, pilot it on the three category pages, and test search/mobile navigation before migrating more routes.
+- Homepage remains protected; Complete Business page creation is explicitly out of scope. Keep current public URLs and keep checkout/demo pages isolated where their UX requires it.
+- Before claiming completion: run `node scripts/audit-static-site.mjs` and `node scripts/responsive-smoke.mjs`, review all changed paths, verify workflow results, and check the deployed URLs after merge.

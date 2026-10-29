@@ -18,7 +18,7 @@ function walk(dir) {
 }
 
 const files = walk(ROOT);
-const htmlFiles = files.filter((file) => file.toLowerCase().endsWith(".html"));
+const htmlFiles = files.filter((file) => file.toLowerCase().endsWith(".html") && !path.relative(ROOT, file).split(path.sep).join("/").startsWith("components/"));
 const htmlSet = new Set(htmlFiles.map((file) => path.relative(ROOT, file).split(path.sep).join("/")));
 
 function cleanUrl(value) {

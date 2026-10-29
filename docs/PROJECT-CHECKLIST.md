@@ -25,9 +25,9 @@
 - [ ] **Phase 10 — Release:** CI green; review diff; merge approved PR; verify Pages/production deployment and smoke-test live URLs.
 
 ## Current state — update first on every session
-**Last updated:** 2026-10-15
+**Last updated:** 2026-10-29
 
-**Active phase:** finish live mobile UX review and re-port the homepage changes onto the current main. PR #136 has been merged; do not assume older PR branches are safe to merge.
+**Active phase:** modular architecture foundation on branch `refactor/modular-architecture`. Architecture rules, repository map, modularization phases, VS Code settings/tasks, and article/category template guidance have been added. Architecture documentation/editor setup is in place. A real shared-shell pilot now exists for the three service-category pages (`components/site-header.html`, `components/site-footer.html`, `js/global-shell.js`). All other page families still have their own markup until separately migrated and tested. Do not claim the modularization is complete until the shared-shell pilot and its regression tests pass.
 
 **Latest verified main head:** `b18dbe9cc821cd599a8cc66220c33c82682ea106`.
 - Responsive browser smoke test run #948: success.
@@ -39,7 +39,13 @@
 - PR #135 and PR #125 are closed as superseded by PR #136. PR #127 and #128 are drafts because their older test/filter expectations need correction. PR #130 and #126 remain draft and must be re-ported from current main.
 - Future backend remains Go; Google Cloud is not active. No live email delivery, payment processing, or real checkout transaction has been verified.
 
-**Immediate next actions:**
+**Immediate next actions (modularization):**
+1. Capture current static audit and responsive smoke-test baselines on `refactor/modular-architecture`.
+2. Build a single-source navbar/mobile navigation and footer; pilot on the three category pages, then verify search/mobile-menu initialization and visual parity before broader migration.
+3. Migrate article source/content only after defining one source of truth and a tested render/build path. Preserve every existing public URL.
+4. Keep homepage layout protected and leave Complete Business page creation out of scope.
+
+**Earlier project follow-ups:**
 1. Check GitHub Pages on a real phone: sticky navbar while scrolling; mobile platform/industry filter reach; result heading below sticky chrome; breadcrumbs; shared footer links; ID/EN contact forms and contextual service prefill. Record specific failures rather than redesigning by intuition.
 2. Re-port homepage PR #130 onto current main after that review. Preserve the service-first homepage, the current pathfinder behavior, clear access to the catalog and demo, honest course status, and avoid returning to an article-first homepage. Test carousel keyboard and reduced-motion behavior.
 3. Re-port service PR #126 after the homepage; verify service registry, ID/EN selectors, terms topics, sitemap, detail copy, and brief-first CTA.
