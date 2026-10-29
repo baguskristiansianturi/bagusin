@@ -79,3 +79,49 @@
   .catalog-category-contact { display:none; }
 }
 @media (prefers-reduced-motion:reduce) { .industry-chip { transition:none; } }
+
+/* Minimal category catalogue and centered empty state */
+.category-hero { background:#fff; padding-block:clamp(1.25rem,3vw,2.5rem); }
+.category-breadcrumb { margin-bottom:1.1rem; }
+.category-hero h1 { margin-top:0; }
+.category-hero__lead { font-size:1.05rem; }
+.category-results { padding-block:clamp(1.6rem,3vw,2.5rem); }
+.category-results__heading { margin-bottom:1.1rem; }
+.category-results__heading h2 { margin-top:0; }
+.category-design-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:0 1.8rem; }
+.category-name { display:flex; align-items:center; justify-content:space-between; gap:1rem; width:100%; min-height:3.7rem; padding:.9rem 0; border:0; border-bottom:1px solid #e6e8eb; border-radius:0; background:transparent; color:#24282d; text-align:left; font-size:1rem; font-weight:650; cursor:pointer; transition:color .18s ease,padding .18s ease; }
+.category-name span { color:#9aa0a6; font-size:1.1rem; transition:transform .18s ease,color .18s ease; }
+.category-name:hover { padding-inline:.35rem; color:#111; }
+.category-name:hover span { transform:translate(2px,-2px); color:#4e555d; }
+.category-name:focus-visible,.category-empty-state__button:focus-visible { outline:2px solid #30363d; outline-offset:4px; }
+.category-empty-state { max-width:38rem; margin:clamp(1rem,4vw,2.5rem) auto 1rem; padding:clamp(1.5rem,4vw,2.75rem) 1.25rem; text-align:center; }
+.category-empty-state[hidden] { display:none; }
+.category-empty-state__visual { position:relative; display:grid; width:10rem; height:8rem; place-items:center; margin:0 auto 1.3rem; }
+.empty-orbit { position:absolute; display:block; border:1px solid #e0e3e6; border-radius:50%; }
+.empty-orbit--one { width:8.4rem; height:5.8rem; transform:rotate(-24deg); }
+.empty-orbit--two { width:7rem; height:7rem; border-style:dashed; opacity:.8; }
+.empty-window { position:relative; display:block; width:6.4rem; height:5.1rem; overflow:hidden; border:1px solid #d9dde1; border-radius:.8rem; background:linear-gradient(145deg,#fff,#f0f2f4); box-shadow:0 10px 25px rgba(35,42,50,.08); transform:rotate(-5deg); }
+.empty-window__top { display:flex; gap:.23rem; padding:.48rem; border-bottom:1px solid #e1e4e7; }
+.empty-window__top i { display:block; width:.32rem; height:.32rem; border-radius:50%; background:#c5cbd1; }
+.empty-window__code { display:block; margin-top:.2rem; color:#858d95; font-size:1.35rem; font-weight:800; letter-spacing:.08em; }
+.empty-window__line { display:block; width:3.6rem; height:.25rem; margin:.25rem auto 0; border-radius:1rem; background:#dce0e4; }
+.empty-window__line--short { width:2.2rem; margin-top:.2rem; background:#e7eaed; }
+.category-empty-state__eyebrow { color:#858c93; font-size:.72rem; font-weight:800; letter-spacing:.13em; }
+.category-empty-state h3 { margin-top:.55rem; color:#252a30; font-size:clamp(1.5rem,3vw,2rem); line-height:1.2; letter-spacing:-.035em; }
+.category-empty-state__copy { max-width:29rem; margin:.75rem auto 0; color:#626970; font-size:1rem; line-height:1.75; }
+.category-empty-state__copy strong { color:#30363c; font-weight:750; }
+.category-empty-state__button { display:inline-flex; align-items:center; justify-content:center; gap:.6rem; min-height:3rem; margin-top:1.25rem; padding:.75rem 1.1rem; border:1px solid #d9dde1; border-radius:.65rem; background:#f1f3f5; color:#252a30; font-size:.9rem; font-weight:750; cursor:pointer; transition:background .18s ease,border-color .18s ease,transform .18s ease; }
+.category-empty-state__button:hover { background:#e8ebee; border-color:#c8cdd2; transform:translateY(-1px); }
+@media(max-width:1023px) { .category-design-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:640px) {
+ .category-hero { padding-block:1rem 1.2rem; }
+ .category-breadcrumb { margin-bottom:.75rem; }
+ .category-hero h1 { font-size:2.15rem; }
+ .category-hero__lead { font-size:.98rem; line-height:1.65; }
+ .category-results { padding-block:1.5rem; }
+ .category-design-grid { grid-template-columns:1fr; gap:0; }
+ .category-name { min-height:3.5rem; font-size:.98rem; }
+ .category-empty-state { padding:1.4rem .25rem 1.7rem; }
+ .category-empty-state__visual { transform:scale(.95); margin-bottom:1rem; }
+ .category-empty-state__copy { font-size:.98rem; }
+}
