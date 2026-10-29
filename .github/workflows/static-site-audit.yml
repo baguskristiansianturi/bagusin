@@ -36,7 +36,7 @@ jobs:
       - name: Initialize temporary package metadata
         run: npm init -y
       - name: Install Playwright
-        run: npm install --no-save playwright@1.56.1
+        run: npm install --no-save playwright@latest
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
       - name: Serve the site and run responsive browser smoke tests
