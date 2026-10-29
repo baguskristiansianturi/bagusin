@@ -76,3 +76,138 @@
 .site-footer .site-footer__cta-description{
   color:rgba(255,255,255,.72) !important;
 }
+
+
+/* Footer navigation refresh — business-first, concise, and mobile two-column. */
+.site-footer{
+  background:#050505;
+  color:rgba(255,255,255,.82);
+}
+.site-footer__top{
+  grid-template-columns:minmax(14rem,1.5fr) repeat(4,minmax(7rem,1fr));
+  column-gap:2rem;
+  row-gap:2.25rem;
+}
+.site-footer__title{
+  margin-bottom:.75rem;
+  font-size:.76rem;
+  letter-spacing:.015em;
+}
+.site-footer__links{gap:.22rem}
+.site-footer__link{
+  min-height:1.7rem;
+  font-size:.76rem;
+  line-height:1.35;
+  text-decoration:none;
+}
+.site-footer__link--soon{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:.35rem;
+  cursor:default;
+}
+.site-footer__soon-label{
+  display:inline-flex;
+  align-items:center;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:999px;
+  padding:.12rem .38rem;
+  color:rgba(255,255,255,.62);
+  font-size:.58rem;
+  line-height:1.2;
+  white-space:nowrap;
+}
+.site-footer__payments{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:.55rem;
+  padding:1.1rem 0;
+  border-top:1px solid rgba(255,255,255,.1);
+}
+.site-footer__payments-label{
+  margin-right:.25rem;
+  color:rgba(255,255,255,.68);
+  font-size:.72rem;
+  font-weight:700;
+}
+.site-footer__payment-mark{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:2.5rem;
+  min-height:1.65rem;
+  padding:.2rem .45rem;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:.35rem;
+  color:rgba(255,255,255,.84);
+  font-size:.58rem;
+  font-weight:800;
+  letter-spacing:.04em;
+}
+.site-footer__payment-note{
+  color:rgba(255,255,255,.48);
+  font-size:.68rem;
+  line-height:1.45;
+}
+.site-footer-chat{
+  position:fixed;
+  z-index:90;
+  right:1.1rem;
+  bottom:1.1rem;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.55rem;
+  min-height:3rem;
+  padding:.7rem 1rem;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:999px;
+  background:#0e0e0e;
+  color:#fff;
+  box-shadow:0 8px 28px rgba(0,0,0,.24);
+  font-size:.82rem;
+  font-weight:700;
+  text-decoration:none;
+  transition:background-color .16s ease,transform .16s ease;
+}
+.site-footer-chat:hover,.site-footer-chat:focus-visible{
+  background:#202020;
+  color:#fff;
+  transform:translateY(-2px);
+}
+.site-footer-chat svg{
+  width:1.15rem;
+  height:1.15rem;
+  flex:0 0 auto;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.7;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+@media(max-width:63.999rem){
+  .site-footer__top{grid-template-columns:repeat(2,minmax(0,1fr));gap:1.8rem 1.5rem}
+  .site-footer__brand{grid-column:1/-1}
+}
+@media(max-width:47.999rem){
+  .site-footer__top{grid-template-columns:repeat(2,minmax(0,1fr));gap:1.65rem 1rem}
+  .site-footer__brand{grid-column:1/-1}
+  .site-footer__link{font-size:.75rem;overflow-wrap:anywhere}
+  .site-footer__payments{align-items:flex-start;gap:.45rem}
+  .site-footer__payments-label{width:100%;margin-bottom:.1rem}
+  .site-footer__payment-note{flex-basis:100%}
+  .site-footer-chat{right:.8rem;bottom:.8rem;min-height:2.9rem;padding:.72rem .9rem}
+}
+@media(max-width:29.999rem){
+  .site-footer__top{grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem .8rem}
+  .site-footer__link{font-size:.72rem}
+  .site-footer__title{font-size:.74rem}
+  .site-footer__soon-label{font-size:.54rem}
+  .site-footer-chat span{display:none}
+  .site-footer-chat{width:3rem;height:3rem;padding:0}
+}
+@media(prefers-reduced-motion:reduce){
+  .site-footer-chat{transition:none}
+}
