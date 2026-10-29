@@ -211,3 +211,41 @@
 @media(prefers-reduced-motion:reduce){
   .site-footer-chat{transition:none}
 }
+
+
+/* Footer contrast and compact mobile navigation — final override */
+.site-footer .site-footer__title,
+.site-footer .site-footer__column h2.site-footer__title {
+  color: #fff !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.site-footer .site-footer__link {
+  color: rgba(255,255,255,.76) !important;
+}
+.site-footer .site-footer__link:hover,
+.site-footer .site-footer__link:focus-visible {
+  color: #fff !important;
+}
+.site-footer .site-footer__social-link svg {
+  display: block;
+  width: 1.1rem;
+  height: 1.1rem;
+  fill: currentColor;
+  stroke: none;
+}
+.site-footer .site-footer__social-link:first-child svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+.site-footer .site-footer__social-link:first-child svg circle:last-child {
+  fill: currentColor;
+  stroke: none;
+}
+@media (max-width: 22.5rem) {
+  .site-footer__top { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .site-footer__brand { grid-column: 1 / -1; }
+  .site-footer__title { font-size: .76rem; }
+  .site-footer__link { font-size: .73rem; }
+}
