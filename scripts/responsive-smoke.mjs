@@ -253,7 +253,7 @@ try {
       } else {
         await articleSearchInput.fill("pantai kuta");
         await articleSearchPanel.locator("form").evaluate((form) => form.requestSubmit());
-        await interactionPage.waitForURL(/\\/bagusin\\/search\\/\\?q=pantai(?:%20|\\+)kuta/i, { timeout: 10000 });
+        await interactionPage.waitForURL(/\/bagusin\/search\/\?q=pantai(?:%20|\+)kuta/i, { timeout: 10000 });
       }
     }
   }
