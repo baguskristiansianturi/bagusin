@@ -10,10 +10,11 @@ Make routine edits in VS Code predictable: one owner for each concern, explicit 
 - [ ] Add a complete route-to-assets dependency inventory.
 
 ## Phase B — Shared shell pilot
-- [ ] Establish one shared navbar/mobile navigation source and one footer source.
-- [ ] Keep component CSS separate from page CSS.
-- [ ] Migrate the three service-category pages as the first pilot.
-- [ ] Ensure navigation behavior initializes after shell render, including search, mobile menu and current-page state.
+- [x] Establish one shared navbar/mobile navigation source and one footer source for the category-page pilot.
+- [x] Keep component CSS separate from page CSS by reusing existing shared `css/header.css` and `css/footer.css`.
+- [x] Migrate the three service-category pages as the first pilot.
+- [x] Ensure navigation behavior initializes after shell render and the mobile menu remains wired.
+- [ ] Run the new category routes through responsive browser smoke tests and verify visual parity before broader migration.
 - [ ] Verify visual parity at mobile and desktop sizes before migrating other page families.
 - [ ] Keep checkout and demo pages out of the shared-shell pilot unless their UX explicitly calls for it.
 
