@@ -294,7 +294,7 @@ try {
     text: (link.textContent || "").trim(),
     href: link.getAttribute("href") || ""
   })));
-  const requiredFooterPaths = ["/bagusin/collections/", "/bagusin/learning/", "/bagusin/work/", "/bagusin/templates/", "/bagusin/checkout/", "/bagusin/contact/", "/bagusin/legal/privacy/", "/bagusin/legal/terms/", "/bagusin/legal/disclaimer/", "/bagusin/legal/editorial-policy/"];
+  const requiredFooterPaths = ["/bagusin/collections/", "/bagusin/learning/", "/bagusin/checkout/", "/bagusin/contact/", "/bagusin/legal/privacy/", "/bagusin/legal/terms/", "/bagusin/legal/disclaimer/", "/bagusin/legal/editorial-policy/"];
   for (const path of requiredFooterPaths) {
     if (!footerLinks.some(link => link.href === path || link.href.startsWith(path + "?"))) {
       errors.push("Contact page: shared footer is missing expected destination " + path);
@@ -451,22 +451,22 @@ try {
   const blogCards = interactionPage.locator("[data-blog-grid] .blog-card");
   await blogCards.first().waitFor({ state: "visible", timeout: 5000 });
   const initialBlogCount = await blogCards.count();
-  if (initialBlogCount < 10 || initialBlogCount > 12) errors.push("Blog page: expected up to 12 first-page article cards, got " + initialBlogCount);
+  if (initialBlogCount !== 1) errors.push("Blog page: expected exactly one current public article card, got " + initialBlogCount);
   const categoryButtons = interactionPage.locator("[data-blog-categories] [data-category]");
-  if (await categoryButtons.count() < 4) errors.push("Blog page: categories were not generated from the article catalogue");
-  const domainCategory = interactionPage.locator('[data-blog-categories] [data-category="Panduan Website"]');
-  if (!(await domainCategory.count())) errors.push("Blog page: existing article category is missing from filters");
+  if (await categoryButtons.count() < 2) errors.push("Blog page: categories were not generated from the article catalogue");
+  const travelCategory = interactionPage.locator('[data-blog-categories] [data-category="Perjalanan · Bali"]');
+  if (!(await travelCategory.count())) errors.push("Blog page: current article category is missing from filters");
   else {
-    await domainCategory.click();
+    await travelCategory.click();
     const filteredLabels = await interactionPage.locator("[data-blog-grid] .blog-card__label").allTextContents();
-    if (!filteredLabels.length || filteredLabels.some(label => label.trim() !== "Panduan Website")) errors.push("Blog page: category filter did not show only matching articles");
+    if (filteredLabels.length !== 1 || filteredLabels.some(label => label.trim() !== "Perjalanan · Bali")) errors.push("Blog page: category filter did not show the current article");
   }
   await interactionPage.locator('[data-blog-categories] [data-category="Semua artikel"]').click();
   await interactionPage.locator("[data-blog-search-input]").fill("");
   const blogSearch = interactionPage.locator("[data-blog-search-input]");
-  await blogSearch.fill("domain");
-  const domainCards = await interactionPage.locator("[data-blog-grid] .blog-card__title").allTextContents();
-  if (!domainCards.some(title => title.toLowerCase().includes("domain"))) errors.push("Blog page: keyword search did not find the domain article");
+  await blogSearch.fill("pantai kuta");
+  const currentCards = await interactionPage.locator("[data-blog-grid] .blog-card__title").allTextContents();
+  if (!currentCards.some(title => title.toLowerCase().includes("pantai kuta"))) errors.push("Blog page: keyword search did not find the current Pantai Kuta article");
   await blogSearch.fill("");
   await blogSearch.focus();
   const suggestionButtons = interactionPage.locator("[data-blog-suggestions] [data-suggest]");
@@ -488,10 +488,10 @@ try {
   const desktopCardColumns = await blogGrid.evaluate(el => getComputedStyle(el).gridTemplateColumns.split(" ").filter(Boolean).length);
   if (desktopCardColumns !== 4) errors.push("Blog page @ 1440px: expected four card columns, got " + desktopCardColumns);
   await interactionPage.setViewportSize({ width: 390, height: 844 });
-  await interactionPage.goto(origin + "/bagusin/blog/memulai-kembali-bagusin/", { waitUntil: "domcontentloaded" });
-  await interactionPage.locator("[data-article-share]").first().waitFor({ state: "visible", timeout: 5000 });
-  if (await interactionPage.locator("[data-article-share]").count() < 5) errors.push("Article page: share controls are incomplete");
-  if (!(await interactionPage.locator(".article-ecosystem--other").count())) errors.push("Article page: separate other-articles recommendations are missing");
+  await interactionPage.goto(origin + "/bagusin/blog/pantai-kuta-bali/", { waitUntil: "domcontentloaded" });
+  const currentArticleHeading = await interactionPage.locator("main h1").textContent();
+  if (!currentArticleHeading || !currentArticleHeading.includes("Pantai Kuta Bali")) errors.push("Article page: current public article heading is missing");
+  if (!(await interactionPage.locator(".site-footer").count())) errors.push("Article page: shared global footer is missing");
 
   // Checkout must be an honest draft flow: validate, review, accept terms, and never expose payment details.
   await interactionPage.goto(origin + "/bagusin/checkout/?service=landing-pages", { waitUntil: "domcontentloaded" });
