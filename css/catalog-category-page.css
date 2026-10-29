@@ -158,3 +158,22 @@
  .category-name:hover { padding-inline:.8rem; }
 }
 @media(prefers-reduced-motion:reduce) { .category-empty-state { animation:none; } .category-name { transition:none; } }
+
+/* Keep the category selector as a horizontal carousel; avoid chip-like rounded pills. */
+.industry-filter { position:relative; top:auto; box-shadow:none; background:#fff; }
+.industry-filter__inner { display:block; min-height:0; }
+.industry-filter__label { display:none; }
+.industry-filter__rail { display:flex; gap:.65rem; overflow-x:auto; padding:1rem 0; scroll-snap-type:x proximity; }
+.industry-chip { border-radius:0; border-color:#dfe3e6; background:transparent; color:#3f454b; font-size:.88rem; font-weight:550; padding:.65rem .95rem; min-height:2.7rem; scroll-snap-align:start; }
+.industry-chip:hover { background:#f6f7f8; border-color:#b9c0c6; }
+.industry-chip.is-active { background:#eef0f2; border-color:#cfd4d9; color:#20252b; box-shadow:none; }
+.category-results__heading { display:block; }
+.category-results__heading h2 { margin:0; }
+.category-empty-state { margin-top:0; }
+.category-empty-state__copy { margin-top:.6rem; }
+@media(max-width:640px) {
+ .industry-filter { position:sticky; top:0; z-index:1000; }
+ .industry-filter__rail { margin-inline:-.15rem; padding:.7rem .15rem; gap:.5rem; }
+ .industry-chip { min-height:2.65rem; padding:.6rem .8rem; font-size:.82rem; }
+ .category-results { padding-block:1.6rem 2.4rem; }
+}
