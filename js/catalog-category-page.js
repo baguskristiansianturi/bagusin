@@ -25,7 +25,7 @@
     {id:"home",name:"Layanan rumah",desc:"Untuk kebersihan, perbaikan, instalasi, dan jasa rumah."},
     {id:"other",name:"Industri lainnya",desc:"Kategori tambahan akan disesuaikan dengan kebutuhan katalog."}
   ];
-  const allMarkup = () => categories.slice(0,6).map((item,index) => cardMarkup(item,index)).join("");
+  const allMarkup = () => categories.map((item,index) => cardMarkup(item,index)).join("");
   const cardMarkup = (item,index) => `<article class="category-coming-soon"><span class="category-coming-soon__mark" aria-hidden="true">${String(index+1).padStart(2,"0")}</span><div><h3>${item.name}</h3><p>${item.desc}</p></div><span class="category-coming-soon__status">Segera hadir</span></article>`;
   function select(id, clicked) {
     chips.forEach(chip => {
