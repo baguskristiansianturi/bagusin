@@ -12,6 +12,20 @@
   document.addEventListener("DOMContentLoaded", function () {
     const header = document.querySelector("[data-site-header], .site-header");
 
+    // Template catalog and live demo routes are paused while the core site is being cleaned up.
+    // Remove their navigation entries everywhere instead of leaving dead-end menu links.
+    if (header) {
+      header.querySelectorAll('a[href]').forEach(function (link) {
+        let pathname = "";
+        try { pathname = new URL(link.href, window.location.href).pathname; } catch (_) {}
+        if (/\/(?:collections|templates|demos)(?:\/|$)/.test(pathname)) {
+          const item = link.closest("li");
+          if (item) item.remove();
+          else link.remove();
+        }
+      });
+    }
+
     // Older content pages may have the search button without its panel. Add the shared
     // panel once so the global search works consistently across all routes.
     let searchPanel = document.getElementById("header-search");
