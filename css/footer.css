@@ -265,3 +265,75 @@
   border: 0 !important;
   border-radius: 0 !important;
 }
+
+/* GLOBAL FOOTER SOURCE OF TRUTH
+   Page-specific styles must not turn the footer into a different theme or a CTA card. */
+.site-footer,
+body .site-footer {
+  color: rgba(255,255,255,.8) !important;
+  background: #17181a !important;
+  border-top: 1px solid rgba(255,255,255,.1) !important;
+}
+.site-footer .site-footer__main { background: transparent !important; }
+.site-footer .site-footer__brand-mark {
+  background: rgba(255,255,255,.06) !important;
+  color: #fff !important;
+  border-color: rgba(255,255,255,.16) !important;
+  box-shadow: none !important;
+}
+.site-footer .site-footer__brand-name,
+.site-footer .site-footer__title,
+.site-footer .site-footer__cta-title { color: #fff !important; }
+.site-footer .site-footer__brand-tagline,
+.site-footer .site-footer__description,
+.site-footer .site-footer__cta-description { color: rgba(255,255,255,.62) !important; }
+.site-footer .site-footer__link,
+.site-footer .site-footer__legal-link,
+.site-footer .site-footer__copyright { color: rgba(255,255,255,.68) !important; }
+.site-footer .site-footer__link:hover,
+.site-footer .site-footer__link:focus-visible,
+.site-footer .site-footer__legal-link:hover,
+.site-footer .site-footer__legal-link:focus-visible { color: #fff !important; }
+.site-footer .site-footer__social-link {
+  background: transparent !important;
+  border-color: rgba(255,255,255,.18) !important;
+  color: rgba(255,255,255,.8) !important;
+  box-shadow: none !important;
+}
+.site-footer .site-footer__cta {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 2rem !important;
+  padding: 2rem 0 !important;
+  margin: 0 !important;
+  border-top: 1px solid rgba(255,255,255,.12) !important;
+  border-bottom: 1px solid rgba(255,255,255,.12) !important;
+  border-inline: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+.site-footer .site-footer__cta-content,
+.site-footer .site-footer__cta-action {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+.site-footer .site-footer__bottom {
+  margin-top: 0 !important;
+  border-top: 0 !important;
+  background: transparent !important;
+}
+@media (max-width: 47.999rem) {
+  .site-footer .site-footer__cta {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+    gap: 1.25rem !important;
+    padding-block: 1.75rem !important;
+  }
+  .site-footer .site-footer__cta-action,
+  .site-footer .site-footer__cta-action .button { width: 100% !important; }
+}
