@@ -6,6 +6,8 @@
   const category = root.querySelector("[data-template-category]");
   const level = root.querySelector("[data-template-level]");
   const status = root.querySelector("[data-template-status]");
+  const pathwayButtons = [...root.querySelectorAll("[data-catalog-type]")];
+  let selectedType = "";
   const base = root.dataset.catalogUrl || "/bagusin/templates/catalog.json";
   const money = value => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(value);
   const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, char => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[char]));
@@ -21,6 +23,11 @@
     const items = catalog.templates
       .filter(item => item.status === "available")
       .filter(item => {
+        const format = String(item.format || "").toLowerCase();
+        const type = format.includes("company-profile") ? "profile" : (format.includes("landing-page") || format === "one-page-website" ? "landing" : (format.includes("multi-page") || ["business", "commerce", "custom"].includes(item.level) ? "complex" : "landing"));
+        return !selectedType || type === selectedType;
+      })
+      .filter(item => {
         const haystack = [item.name, item.designName, item.description, ...(item.businessTypes || [])].join(" ").toLocaleLowerCase("id");
         return (!q || haystack.includes(q)) && (!selectedLevel || item.level === selectedLevel);
       })
@@ -34,9 +41,9 @@
     const categoryName = catalog.categories.find(item => item.id === selectedCategory)?.name;
     status.textContent = items.length
       ? (selectedCategory
-          ? `${items.length} demo tersedia · desain kategori ${categoryName || selectedCategory} ditampilkan lebih dahulu`
-          : `${items.length} demo tersedia · koleksi terbaru ditampilkan lebih dahulu`)
-      : "Belum ada desain tersedia yang cocok dengan pencarian atau level ini.";
+          ? `${items.length} desain tersedia · kategori ${categoryName || selectedCategory} ditampilkan lebih dahulu`
+          : `${items.length} desain tersedia · koleksi terbaru ditampilkan lebih dahulu`)
+      : "Belum ada desain dalam kategori ini yang cocok dengan filter saat ini. Hapus pencarian atau diskusikan desain yang kamu butuhkan.";
     grid.innerHTML = items.length ? items.map(item => {
       const cat = catalog.categories.find(c => c.id === item.category);
       const tier = catalog.levels.find(l => l.id === item.level);
@@ -57,7 +64,31 @@
     catalog = data;
     category.innerHTML = '<option value="">Semua kategori</option>' + data.categories.map(item => `<option value="${escapeHtml(item.id)}">${escapeHtml(item.name)}</option>`).join("");
     level.innerHTML = '<option value="">Semua level</option>' + data.levels.map(item => `<option value="${escapeHtml(item.id)}">${escapeHtml(item.name)}</option>`).join("");
+    const available = data.templates.filter(item => item.status === "available");
+    const countByType = {
+      profile: available.filter(item => String(item.format || "").includes("company-profile")).length,
+      landing: available.filter(item => !String(item.format || "").includes("company-profile") && (String(item.format || "").includes("landing-page") || item.format === "one-page-website")).length,
+      complex: available.filter(item => String(item.format || "").includes("multi-page") || ["business", "commerce", "custom"].includes(item.level)).length
+    };
+    Object.entries(countByType).forEach(([type, count]) => {
+      const node = root.querySelector(`[data-type-count="${type}"]`);
+      if (node) node.textContent = `${count} desain saat ini`;
+    });
     render();
   }).catch(() => { status.textContent = "Katalog belum dapat dimuat. Silakan hubungi Bagus untuk melihat pilihan yang tersedia."; grid.innerHTML = '<div class="template-empty"><p>Maaf, katalog sedang tidak tersedia.</p><a class="button button--accent" href="/bagusin/contact/?service=websites&mode=consultation">Tanya pilihan template</a></div>'; });
   [search, category, level].forEach(control => control.addEventListener(control === search ? "input" : "change", render));
+  pathwayButtons.forEach(button => button.addEventListener("click", () => {
+    const type = button.dataset.catalogType;
+    if (type === "complete") {
+      window.location.href = "/bagusin/contact/?service=websites&mode=complete-business";
+      return;
+    }
+    selectedType = type;
+    search.value = "";
+    category.value = "";
+    level.value = "";
+    pathwayButtons.forEach(item => item.classList.toggle("is-active", item === button));
+    render();
+    document.querySelector("#pilihan-template")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }));
 })();
