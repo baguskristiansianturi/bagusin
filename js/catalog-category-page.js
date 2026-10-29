@@ -5,6 +5,9 @@
   const title = page.querySelector("#industry-results-title");
   const emptyTitle = page.querySelector("[data-empty-title]");
   const copy = page.querySelector("[data-empty-copy]");
+  const catalogName = page.dataset.catalogName || page.querySelector("#category-title")?.textContent.trim() || "Website";
+  const defaultEmptyTitle = page.dataset.emptyTitle || ("Belum ada desain " + catalogName.toLowerCase() + ".");
+  const defaultEmptyCopy = page.dataset.emptyCopy || ("Koleksi desain " + catalogName.toLowerCase() + " sedang disiapkan.");
   const categories = [
     {id:"car-rental",name:"Rental mobil"},
     {id:"travel-tour",name:"Travel & tour"},
@@ -18,16 +21,16 @@
       chip.setAttribute("aria-pressed",String(active));
     });
     if (id === "all") {
-      title.textContent = "Desain landing page";
-      emptyTitle.textContent = "Belum ada desain landing page.";
-      copy.textContent = "Koleksi desain landing page sedang disiapkan.";
+      if (title) title.textContent = "Desain " + catalogName.toLowerCase();
+      if (emptyTitle) emptyTitle.textContent = defaultEmptyTitle;
+      if (copy) copy.textContent = defaultEmptyCopy;
       return;
     }
     const category = categories.find(item => item.id === id);
     if (!category) return;
-    title.textContent = category.name;
-    emptyTitle.textContent = "Kategori ini belum tersedia.";
-    copy.textContent = "Belum ada desain untuk kategori " + category.name + ".";
+    if (title) title.textContent = category.name;
+    if (emptyTitle) emptyTitle.textContent = "Belum ada desain untuk kategori ini.";
+    if (copy) copy.textContent = "Koleksi " + catalogName.toLowerCase() + " untuk kategori " + category.name + " sedang disiapkan.";
   }
   chips.forEach(chip => chip.addEventListener("click", () => {
     select(chip.dataset.industry);
