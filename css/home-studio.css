@@ -299,3 +299,64 @@ body.page-home-studio .site-header__actions { gap:.55rem; }
 @media (max-width:760px) {
   body.page-home-studio .studio-header-cta { display:none; }
 }
+
+
+/* Real photography for the homepage: use real imagery instead of fabricated device mockups. */
+body.page-home-studio .studio-hero__visual--photo {
+  min-height:31rem;
+  overflow:visible;
+  border-radius:1.2rem;
+  perspective:none;
+}
+body.page-home-studio .studio-hero__visual--photo .studio-hero__photo {
+  position:absolute; inset:0; display:block; width:100%; height:100%;
+  object-fit:cover; object-position:center; border-radius:1.2rem;
+  box-shadow:0 24px 60px rgba(20,43,70,.16);
+}
+body.page-home-studio .studio-hero__photo-shade {
+  position:absolute; inset:0; border-radius:1.2rem;
+  background:linear-gradient(180deg,rgba(9,24,42,.04) 35%,rgba(9,24,42,.42) 100%);
+}
+body.page-home-studio .studio-photo-note {
+  position:absolute; z-index:2; display:flex; align-items:center; gap:.7rem;
+  padding:.8rem .9rem; border:1px solid rgba(255,255,255,.7); border-radius:.8rem;
+  background:rgba(255,255,255,.95); box-shadow:0 12px 32px rgba(12,35,57,.15);
+}
+body.page-home-studio .studio-photo-note--top { top:1.1rem; left:1.1rem; }
+body.page-home-studio .studio-photo-note--bottom { bottom:1.4rem; left:1.1rem; }
+body.page-home-studio .studio-photo-note__mark {
+  display:grid; place-items:center; width:2.25rem; height:2.25rem; border-radius:.65rem;
+  background:#0b9db9; color:white; font-size:1.2rem; font-weight:850;
+}
+body.page-home-studio .studio-photo-note__check {
+  display:grid; place-items:center; width:1.8rem; height:1.8rem; border-radius:50%;
+  background:#e2f6fa; color:#0786a3; font-weight:900;
+}
+body.page-home-studio .studio-photo-note strong { display:block; color:#14243d; font-size:.75rem; }
+body.page-home-studio .studio-photo-note small { display:block; margin-top:.18rem; color:#65748a; font-size:.62rem; }
+body.page-home-studio .studio-hero__visual--photo .studio-visual-caption {
+  right:1.1rem; bottom:.9rem; color:white; text-shadow:0 1px 5px rgba(0,0,0,.4);
+}
+body.page-home-studio .studio-work-card__visual { position:relative; overflow:hidden; aspect-ratio:1.25; padding:0; }
+body.page-home-studio .studio-work-card__photo {
+  position:absolute; inset:0; display:block; width:100%; height:100%;
+  object-fit:cover; transition:transform .45s ease;
+}
+body.page-home-studio .studio-work-card:hover .studio-work-card__photo { transform:scale(1.045); }
+body.page-home-studio .studio-work-card__visual .studio-work-browser,
+body.page-home-studio .studio-work-card__visual .studio-work-art { display:none; }
+@media (max-width:900px) {
+  body.page-home-studio .studio-hero__visual--photo { min-height:25rem; }
+}
+@media (max-width:640px) {
+  body.page-home-studio .studio-hero__visual--photo { min-height:19rem; margin:0; border-radius:1rem; }
+  body.page-home-studio .studio-hero__visual--photo .studio-hero__photo,
+  body.page-home-studio .studio-hero__photo-shade { border-radius:1rem; }
+  body.page-home-studio .studio-photo-note--top { top:.7rem; left:.7rem; }
+  body.page-home-studio .studio-photo-note--bottom { bottom:1rem; left:.7rem; }
+  body.page-home-studio .studio-photo-note { gap:.5rem; padding:.6rem .65rem; }
+  body.page-home-studio .studio-photo-note__mark { width:1.8rem; height:1.8rem; }
+  body.page-home-studio .studio-photo-note strong { font-size:.66rem; }
+  body.page-home-studio .studio-photo-note small { font-size:.52rem; }
+  body.page-home-studio .studio-hero__visual--photo .studio-visual-caption { right:.7rem; bottom:.35rem; font-size:.42rem; }
+}
