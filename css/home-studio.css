@@ -284,3 +284,18 @@ body.page-home-studio .site-footer__cta { border-radius:1rem; background:linear-
     scroll-behavior:auto !important; transition-duration:.01ms !important; animation-duration:.01ms !important;
   }
 }
+
+/* Homepage-only navigation polish to match the studio direction */
+body.page-home-studio .studio-header-cta {
+  display:inline-flex; align-items:center; justify-content:center; gap:.45rem;
+  min-height:2.55rem; padding:.65rem 1rem; border-radius:999px;
+  background:linear-gradient(135deg,#0eabc8,#0786a6); color:#fff;
+  font-size:.76rem; font-weight:800; text-decoration:none; white-space:nowrap;
+  box-shadow:0 6px 16px rgba(12,159,189,.15);
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+body.page-home-studio .studio-header-cta:hover { transform:translateY(-1px); box-shadow:0 9px 20px rgba(12,159,189,.22); }
+body.page-home-studio .site-header__actions { gap:.55rem; }
+@media (max-width:760px) {
+  body.page-home-studio .studio-header-cta { display:none; }
+}
