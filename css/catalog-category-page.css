@@ -125,3 +125,36 @@
  .category-empty-state__visual { transform:scale(.95); margin-bottom:1rem; }
  .category-empty-state__copy { font-size:.98rem; }
 }
+
+/* Refinement: spacious hero, restrained audience labels and editorial category rows. */
+.category-hero { padding-block:clamp(2rem,5vw,4.5rem); }
+.category-hero__inner { max-width:var(--content-width,71.25rem); }
+.category-breadcrumb { margin-bottom:1.6rem; }
+.category-hero h1 { font-size:clamp(2.5rem,6vw,4.4rem); line-height:1.03; }
+.category-hero__lead { max-width:42rem; margin-top:1rem; font-size:clamp(1rem,1.7vw,1.18rem); line-height:1.75; }
+.category-audience-labels { display:flex; flex-wrap:wrap; gap:.55rem; margin-top:1.25rem; }
+.category-audience-labels span { display:inline-flex; align-items:center; min-height:2rem; padding:.35rem .75rem; border:1px solid #dfe3e6; border-radius:0; background:transparent; color:#454b51; font-size:.82rem; font-weight:550; }
+.category-results { padding-block:clamp(2rem,4vw,3.5rem); }
+.category-results__heading { margin-bottom:1.4rem; }
+.category-results__heading h2 { font-size:clamp(1.5rem,3vw,2.15rem); }
+.category-design-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 2.5rem; }
+.category-name { min-height:4.1rem; padding:1rem .8rem; border:1px solid transparent; border-bottom-color:#e2e5e8; color:#343a40; font-size:1rem; font-weight:550; transition:background-color .22s ease,border-color .22s ease,color .22s ease,padding .22s ease; }
+.category-name:hover { padding-inline:1rem; border-color:#dfe3e6; background:rgba(245,247,248,.65); color:#15191d; }
+.category-name:active { background:rgba(230,234,237,.55); }
+.category-name span { color:#8b9299; }
+.category-empty-state { animation:category-state-in .28s ease both; }
+.category-design-grid[hidden] { display:none !important; }
+@keyframes category-state-in { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+@media(max-width:640px) {
+ .category-hero { padding-block:1.7rem 2rem; }
+ .category-breadcrumb { margin-bottom:1.2rem; }
+ .category-hero h1 { font-size:clamp(2.35rem,10vw,3rem); }
+ .category-hero__lead { margin-top:.8rem; font-size:1rem; }
+ .category-audience-labels { gap:.45rem; margin-top:1rem; }
+ .category-audience-labels span { min-height:1.9rem; padding:.3rem .6rem; font-size:.78rem; }
+ .category-results { padding-block:1.8rem 2.4rem; }
+ .category-design-grid { grid-template-columns:1fr; gap:0; }
+ .category-name { min-height:3.8rem; padding:.9rem .65rem; }
+ .category-name:hover { padding-inline:.8rem; }
+}
+@media(prefers-reduced-motion:reduce) { .category-empty-state { animation:none; } .category-name { transition:none; } }
