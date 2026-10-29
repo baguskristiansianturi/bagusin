@@ -249,3 +249,19 @@
   .site-footer__title { font-size: .76rem; }
   .site-footer__link { font-size: .73rem; }
 }
+
+
+/* Footer CTA: keep the original seamless section treatment, not a colored card. */
+.site-footer .site-footer__cta {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  border-inline: 0 !important;
+}
+.site-footer .site-footer__cta-content {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
