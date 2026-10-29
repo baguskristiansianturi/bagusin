@@ -304,7 +304,7 @@
       chat.className = "site-footer-chat";
       chat.href = (window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin" ? "/bagusin" : "") + (/^\/(?:bagusin\/)?en(?:\/|$)/.test(window.location.pathname) ? "/en" : "") + "/contact/";
       chat.setAttribute("data-footer-chat", "");
-      chat.setAttribute("aria-label", /^\\/(?:bagusin\\/)?en(?:\\/|$)/.test(window.location.pathname) ? "Chat with Bagusin — contact page" : "Chat dengan Bagusin — halaman kontak");
+      chat.setAttribute("aria-label", /^\/(?:bagusin\/)?en(?:\/|$)/.test(window.location.pathname) ? "Chat with Bagusin — contact page" : "Chat dengan Bagusin — halaman kontak");
       chat.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H6l-3 2v-6.5A7.5 7.5 0 1 1 20 11.5Z"></path><path d="M8 11.5h8M8 14.5h5"></path></svg><span>' + (en ? "Chat" : "Chat") + '</span>';
       document.body.appendChild(chat);
     }
