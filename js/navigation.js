@@ -1,6 +1,7 @@
 (function(){if(!document.querySelector('link[data-ux-polish]')){const base=window.location.pathname.startsWith("/bagusin/")||window.location.pathname==="/bagusin"?"/bagusin":"";const l=document.createElement("link");l.rel="stylesheet";l.href=base+"/css/ux-polish.css?v=20261011-1";l.dataset.uxPolish="";document.head.appendChild(l)}})();
 (function(){if(!document.querySelector('link[data-final-responsive]')){const base=window.location.pathname.startsWith("/bagusin/")||window.location.pathname==="/bagusin"?"/bagusin":"";const l=document.createElement("link");l.rel="stylesheet";l.href=base+"/css/final-responsive.css?v=20261011-6";l.dataset.finalResponsive="";document.head.appendChild(l)}})();
 (function(){if(!document.querySelector('link[data-site-consistency]')){const base=window.location.pathname.startsWith("/bagusin/")||window.location.pathname==="/bagusin"?"/bagusin":"";const l=document.createElement("link");l.rel="stylesheet";l.href=base+"/css/site-consistency.css?v=20261014-1";l.dataset.siteConsistency="";document.head.appendChild(l)}})();
+(function(){if(!document.querySelector('link[data-global-footer]')){const base=window.location.pathname.startsWith("/bagusin/")||window.location.pathname==="/bagusin"?"/bagusin":"";const l=document.createElement("link");l.rel="stylesheet";l.href=base+"/css/footer.css?v=20261029-2";l.dataset.globalFooter="";document.head.appendChild(l)}})();
 /* =========================================================
    BAGUSIN — GLOBAL NAVIGATION
    Integrated mobile / search / dropdown / language
