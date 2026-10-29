@@ -68,7 +68,7 @@
     const desktopList = document.querySelector(".site-nav__list");
     const mobileList = document.querySelector(".mobile-nav__list");
     // Travel and destinations belong to blog taxonomy, not a separate top-level section.
-    document.querySelectorAll('.site-nav__list a[href$="/destinations/"], .mobile-nav__list a[href$="/destinations/"]').forEach(function (link) { link.closest("li")?.remove(); });
+    document.querySelectorAll('.site-nav__list a[href$="/destinations/"], .mobile-nav__list a[href$="/destinations/"]').forEach(function (link) { if (link.closest("li")) link.closest("li").remove(); });
     function addCollectionsLink(list, mobile) {
       if (!list || list.querySelector('a[href$="/collections/"]')) return;
       const item = document.createElement("li");
@@ -192,7 +192,7 @@
         const id = toggle.getAttribute("aria-controls");
         const dropdown = id ? document.getElementById(id) : null;
         setExpanded(toggle, false);
-        toggle.closest(".site-nav__item")?.classList.remove("is-open");
+        if (toggle.closest(".site-nav__item")) toggle.closest(".site-nav__item").classList.remove("is-open");
         if (dropdown) setHidden(dropdown, true);
       });
     }
@@ -206,7 +206,7 @@
     function closeSearch() {
       searchOpen = false;
       setExpanded(searchToggle, false);
-      searchToggle?.setAttribute("aria-label", "Buka pencarian");
+      if (searchToggle) searchToggle.setAttribute("aria-label", "Buka pencarian");
       setHidden(searchPanel, true);
     }
 
@@ -365,7 +365,7 @@
         const current = index === parts.length - 1;
         if (current) {
           const label = document.createElement("span");
-          label.textContent = (main.querySelector("h1")?.textContent || "").trim() || prettify(part);
+          label.textContent = ((main.querySelector("h1") ? main.querySelector("h1").textContent : "") || "").trim() || prettify(part);
           label.setAttribute("aria-current", "page");
           item.appendChild(label);
         } else {
@@ -386,10 +386,10 @@
       closeLanguage();
       searchOpen = true;
       setExpanded(searchToggle, true);
-      searchToggle?.setAttribute("aria-label", "Tutup pencarian");
+      if (searchToggle) searchToggle.setAttribute("aria-label", "Tutup pencarian");
       setHidden(searchPanel, false);
       window.setTimeout(function () {
-        searchInput?.focus();
+        if (searchInput) searchInput.focus();
       }, 0);
     }
 
@@ -399,20 +399,20 @@
     }
 
     function focusMobileMenu() {
-      const target = mobileClose || mobileNav?.querySelector("a, button, input, select, textarea");
-      target?.focus();
+      const target = mobileClose || (mobileNav ? mobileNav.querySelector("a, button, input, select, textarea") : null);
+      if (target) target.focus();
     }
 
     function closeMenu(restoreFocus) {
       menuOpen = false;
       setExpanded(mobileToggle, false);
-      mobileToggle?.setAttribute("aria-label", "Buka menu");
-      mobileNav?.classList.remove("is-open");
-      mobileNav?.setAttribute("aria-hidden", "true");
+      if (mobileToggle) mobileToggle.setAttribute("aria-label", "Buka menu");
+      if (mobileNav) mobileNav.classList.remove("is-open");
+      if (mobileNav) mobileNav.setAttribute("aria-hidden", "true");
       setMobileNavInteractivity(true);
       setHidden(mobileOverlay, true);
       document.body.classList.remove("menu-open");
-      if (restoreFocus) mobileToggle?.focus();
+      if (restoreFocus) if (mobileToggle) mobileToggle.focus();
     }
 
     function openMenu() {
@@ -422,7 +422,7 @@
       closeDropdowns();
       menuOpen = true;
       setExpanded(mobileToggle, true);
-      mobileToggle?.setAttribute("aria-label", "Tutup menu");
+      if (mobileToggle) mobileToggle.setAttribute("aria-label", "Tutup menu");
       mobileNav.classList.add("is-open");
       mobileNav.setAttribute("aria-hidden", "false");
       setMobileNavInteractivity(false);
@@ -431,16 +431,16 @@
       window.setTimeout(focusMobileMenu, 0);
     }
 
-    mobileToggle?.addEventListener("click", function (event) {
+    if (mobileToggle) mobileToggle.addEventListener("click", function (event) {
       event.preventDefault();
       event.stopPropagation();
       menuOpen ? closeMenu() : openMenu();
     });
 
-    mobileClose?.addEventListener("click", function () { closeMenu(true); });
-    mobileOverlay?.addEventListener("click", closeMenu);
+    if (mobileClose) mobileClose.addEventListener("click", function () { closeMenu(true); });
+    if (mobileOverlay) mobileOverlay.addEventListener("click", closeMenu);
 
-    mobileNav?.querySelectorAll("a").forEach(function (link) {
+    if (mobileNav) mobileNav.querySelectorAll("a").forEach(function (link) {
       link.addEventListener("click", closeMenu);
     });
 
@@ -458,22 +458,22 @@
         if (!isOpen) {
           setHidden(dropdown, false);
           setExpanded(toggle, true);
-          toggle.closest(".site-nav__item")?.classList.add("is-open");
+          if (toggle.closest(".site-nav__item")) toggle.closest(".site-nav__item").classList.add("is-open");
         }
       });
     });
 
-    searchToggle?.addEventListener("click", function (event) {
+    if (searchToggle) searchToggle.addEventListener("click", function (event) {
       event.preventDefault();
       event.stopPropagation();
       searchOpen ? closeSearch() : openSearch();
     });
 
-    searchForm?.addEventListener("submit", function (event) {
-      const query = (searchInput?.value || "").trim();
+    if (searchForm) searchForm.addEventListener("submit", function (event) {
+      const query = ((searchInput && searchInput.value) || "").trim();
       if (!query) {
         event.preventDefault();
-        searchInput?.focus();
+        if (searchInput) searchInput.focus();
         return;
       }
       event.preventDefault();
@@ -483,15 +483,15 @@
       window.location.href = searchBase + "?q=" + encodeURIComponent(query);
     });
 
-    searchPanel?.querySelectorAll("[data-search-suggestion]").forEach(function (button) {
+    if (searchPanel) searchPanel.querySelectorAll("[data-search-suggestion]").forEach(function (button) {
       button.addEventListener("click", function () {
         const value = button.getAttribute("data-search-suggestion") || button.textContent.trim();
         if (searchInput) searchInput.value = value;
-        searchForm?.requestSubmit();
+        if (searchForm) searchForm.requestSubmit();
       });
     });
 
-    languageToggle?.addEventListener("click", function (event) {
+    if (languageToggle) languageToggle.addEventListener("click", function (event) {
       event.preventDefault();
       event.stopPropagation();
       if (!languageMenu) return;
@@ -546,12 +546,12 @@
       }
       if (searchOpen) {
         closeSearch();
-        searchToggle?.focus();
+        if (searchToggle) searchToggle.focus();
         return;
       }
       if (languageOpen) {
         closeLanguage();
-        languageToggle?.focus();
+        if (languageToggle) languageToggle.focus();
         return;
       }
       closeDropdowns();
@@ -562,7 +562,7 @@
       if (stickyFrame) return;
       stickyFrame = window.requestAnimationFrame(function () {
         stickyFrame = 0;
-        header?.classList.toggle("is-sticky", window.scrollY > 8);
+        if (header) header.classList.toggle("is-sticky", window.scrollY > 8);
       });
     }, { passive: true });
 
@@ -595,7 +595,7 @@
     setHidden(searchPanel, true);
     setHidden(languageMenu, true);
     setHidden(mobileOverlay, true);
-    mobileNav?.setAttribute("aria-hidden", "true");
+    if (mobileNav) mobileNav.setAttribute("aria-hidden", "true");
     setMobileNavInteractivity(true);
     setExpanded(searchToggle, false);
     setExpanded(languageToggle, false);
