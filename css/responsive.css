@@ -1129,10 +1129,6 @@ summary {
     touch-action: manipulation;
   }
 
-  .site-footer__inner,
-  .site-footer__bottom-inner {
-    grid-template-columns: minmax(0, 1fr);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
