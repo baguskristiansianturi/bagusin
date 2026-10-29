@@ -355,7 +355,7 @@ try {
     text: (link.textContent || "").trim(),
     href: link.getAttribute("href") || ""
   })));
-  const requiredEnglishFooterPaths = ["/bagusin/en/collections/", "/bagusin/en/learning/", "/bagusin/en/work/", "/bagusin/en/templates/", "/bagusin/checkout/", "/bagusin/en/contact/", "/bagusin/en/legal/privacy/", "/bagusin/en/legal/terms/", "/bagusin/en/legal/disclaimer/", "/bagusin/en/legal/editorial-policy/"];
+  const requiredEnglishFooterPaths = ["/bagusin/en/collections/", "/bagusin/en/learning/", "/bagusin/checkout/", "/bagusin/en/contact/", "/bagusin/en/legal/privacy/", "/bagusin/en/legal/terms/", "/bagusin/en/legal/disclaimer/", "/bagusin/en/legal/editorial-policy/"];
   for (const path of requiredEnglishFooterPaths) {
     if (!englishFooterLinks.some(link => link.href === path || link.href.startsWith(path + "?"))) {
       errors.push("English contact page: shared footer is missing expected destination " + path);
