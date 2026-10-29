@@ -1057,3 +1057,95 @@ label {
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* Mobile robustness: preserve layouts while avoiding viewport overflow and heavy motion. */
+img,
+video,
+iframe,
+embed,
+object {
+  max-inline-size: 100%;
+}
+
+img {
+  height: auto;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+}
+
+input,
+select,
+textarea {
+  box-sizing: border-box;
+  min-inline-size: 0;
+}
+
+button,
+a,
+input,
+select,
+textarea,
+summary {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 47.999rem) {
+  :root {
+    --page-padding: clamp(.875rem, 4vw, 1.25rem);
+  }
+
+  body {
+    width: 100%;
+    min-width: 320px;
+  }
+
+  .container,
+  .container--narrow,
+  .container--article {
+    width: calc(100% - (var(--page-padding) * 2));
+    max-width: 100%;
+  }
+
+  .full-bleed {
+    max-width: 100vw;
+  }
+
+  pre,
+  code {
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+  }
+
+  .button,
+  button,
+  input[type="submit"],
+  input[type="button"] {
+    touch-action: manipulation;
+  }
+
+  .site-footer__inner,
+  .site-footer__bottom-inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
