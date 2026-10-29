@@ -348,27 +348,6 @@ body.page-home-studio .home-pathfinder-section .home-pathfinder__footer-note {
 }
 body.page-home-studio .home-pathfinder-section .home-pathfinder__spark { color: #34373b; }
 
-/* Service cards: grayscale editorial imagery and glass-like metadata surfaces. */
-body.page-home-studio .home-discovery-refresh {
-  background: #fff;
-}
-body.page-home-studio .home-discovery-refresh .section-kicker,
-body.page-home-studio .home-discovery-refresh .home-feature-card__eyebrow,
-body.page-home-studio .home-discovery-refresh .home-feature-card__link { color: #373a3f; }
-body.page-home-studio .home-discovery-refresh .home-feature-card {
-  border-color: rgba(20,22,25,.12);
-  background: #fff;
-  box-shadow: 0 8px 28px rgba(0,0,0,.035);
-}
-body.page-home-studio .home-discovery-refresh .home-feature-card__image {
-  filter: saturate(.18) contrast(1.03);
-}
-body.page-home-studio .home-discovery-refresh .home-feature-card__body {
-  background: rgba(255,255,255,.97);
-}
-body.page-home-studio .home-discovery-refresh .home-feature-card__eyebrow svg {
-  color: #35383d;
-}
 body.page-home-studio :is(.home-pathfinder-section,.home-discovery-refresh) svg {
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -397,18 +376,6 @@ body.page-home-studio main img {
 body.page-home-studio .studio-hero__visual--photo > .studio-hero__photo {
   visibility: visible;
   opacity: 1;
-}
-body.page-home-studio .home-discovery-refresh .home-feature-card h3,
-body.page-home-studio .home-discovery-refresh .home-feature-card__body h3,
-body.page-home-studio .home-discovery-refresh .home-discovery-refresh__heading h2,
-body.page-home-studio .home-discovery-refresh .section-title {
-  color: #17181a;
-}
-body.page-home-studio .home-discovery-refresh .home-feature-card p,
-body.page-home-studio .home-discovery-refresh .home-section__description,
-body.page-home-studio .home-discovery-refresh .home-feature-card__eyebrow,
-body.page-home-studio .home-discovery-refresh .home-feature-card__link {
-  color: #55585d;
 }
 body.page-home-studio .home-pathfinder-section .home-pathfinder__intro h2,
 body.page-home-studio .home-pathfinder-section .home-pathfinder__panel > h2,
