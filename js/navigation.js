@@ -217,23 +217,29 @@
       const base = (usesProjectBase ? "/bagusin" : "") + (en ? "/en" : "");
       const checkoutBase = (usesProjectBase ? "/bagusin" : "") + "/checkout";
       const t = en ? {
-        explore:"Explore", work:"Work", start:"Start", legal:"Legal",
-        blog:"Blog", collections:"Collection", learning:"Courses", youtube:"YouTube", about:"About", templates:"Template Catalog",
-        services:"Services",
-        startProject:"Start a Project", help:"Help Me Choose", contact:"Contact",
-        privacy:"Privacy Policy", terms:"Terms", disclaimer:"Disclaimer", editorial:"Editorial Policy",
-        description:"Stories, journeys, work, and things being built along the way.",
-        ctaTitle:"Have a project in mind?",
-        ctaText:"Start with the problem. If you know what you need, start a project. If not, ask for help choosing the right path."
+        explore:"Explore", work:"Services", start:"Get started", legal:"Information",
+        blog:"Blog", collections:"Design Catalog", learning:"Courses", youtube:"YouTube", about:"About Bagusin", templates:"Design Catalog",
+        services:"Services", store:"Store", comingSoon:"Coming soon",
+        advertising:"Advertising & Ads", copyContent:"Copy & Content Writing", website:"Website Development",
+        android:"Android Apps", uiux:"UI/UX Design", systems:"Digital Systems & Modules", consultation:"Consultation",
+        startProject:"Start a Project", help:"Book a Consultation", appointment:"Schedule a Meeting", contact:"Contact",
+        privacy:"Privacy Policy", terms:"Terms of Service", disclaimer:"Disclaimer", editorial:"Editorial Policy", faq:"Help & FAQ",
+        paymentNote:"Payment details are confirmed in your project invoice.",
+        description:"Practical digital services, useful learning, and creative work built around real needs.",
+        ctaTitle:"Have something you want to build?",
+        ctaText:"Start a project directly, or schedule a consultation if you need help deciding what fits."
       } : {
         explore:"Jelajahi", work:"Layanan", start:"Mulai", legal:"Informasi",
-        blog:"Blog", collections:"Koleksi", learning:"Kursus", youtube:"YouTube", about:"Tentang", templates:"Katalog template",
-        services:"Layanan",
-        startProject:"Mulai Proyek", help:"Bantu Pilihkan", contact:"Kontak",
-        privacy:"Kebijakan Privasi", terms:"Ketentuan", disclaimer:"Penafian", editorial:"Kebijakan Editorial",
-        description:"Ruang pribadi untuk cerita, perjalanan, pekerjaan, panduan, dan karya yang sedang dibangun.",
-        ctaTitle:"Punya proyek atau masalah yang perlu diselesaikan?",
-        ctaText:"Mulai dari masalahnya. Jika sudah tahu kebutuhannya, mulai proyek. Jika belum yakin, saya bantu menentukan jalur yang paling tepat."
+        blog:"Blog", collections:"Katalog Design", learning:"Course", youtube:"YouTube", about:"Tentang Bagusin", templates:"Katalog Design",
+        services:"Layanan", store:"Store", comingSoon:"Segera hadir",
+        advertising:"Advertising & Iklan", copyContent:"Copywriting & Penulisan Konten", website:"Pembuatan Website",
+        android:"Aplikasi Android", uiux:"Desain UI/UX", systems:"Sistem & Modul Digital", consultation:"Konsultasi",
+        startProject:"Mulai Proyek", help:"Konsultasi", appointment:"Atur Janji Temu", contact:"Kontak",
+        privacy:"Kebijakan Privasi", terms:"Syarat & Ketentuan", disclaimer:"Penafian", editorial:"Kebijakan Editorial", faq:"Bantuan & FAQ",
+        paymentNote:"Detail pembayaran dikonfirmasi melalui invoice proyek.",
+        description:"Layanan digital praktis, materi belajar, dan karya kreatif yang disusun sesuai kebutuhan nyata.",
+        ctaTitle:"Ada sesuatu yang ingin kamu bangun?",
+        ctaText:"Mulai proyek secara langsung, atau atur konsultasi jika masih perlu menentukan solusi yang tepat."
       };
       const social = [
         '<a class="site-footer__social-link" href="https://instagram.com/bagusin" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.4" cy="6.7" r="1"></circle></svg></a>',
@@ -254,27 +260,39 @@
                 <div class="site-footer__social" aria-label="Social media">${social}</div>
               </div>
               <div class="site-footer__column"><h2 class="site-footer__title">${t.explore}</h2><ul class="site-footer__links">
-                <li><a class="site-footer__link" href="${base}/blog/">${t.blog}</a></li><li><a class="site-footer__link" href="${base}/collections/">${t.collections}</a></li><li><a class="site-footer__link" href="${base}/learning/">${t.learning}</a></li><li><a class="site-footer__link" href="${base}/youtube/">${t.youtube}</a></li><li><a class="site-footer__link" href="${base}/about/">${t.about}</a></li>
+                <li><a class="site-footer__link" href="${base}/blog/">${t.blog}</a></li><li><a class="site-footer__link" href="${base}/learning/">${t.learning}</a></li><li><span class="site-footer__link site-footer__link--soon" aria-label="${t.store}, ${t.comingSoon}">${t.store}<span class="site-footer__soon-label">${t.comingSoon}</span></span></li><li><a class="site-footer__link" href="${base}/templates/">${t.templates}</a></li>
               </ul></div>
               <div class="site-footer__column"><h2 class="site-footer__title">${t.work}</h2><ul class="site-footer__links">
-                <li><a class="site-footer__link" href="${base}/work/">${t.services}</a></li><li><a class="site-footer__link" href="${base}/templates/">${t.templates}</a></li>
+                <li><a class="site-footer__link" href="${base}/contact/?service=google-ads">${t.advertising}</a></li><li><a class="site-footer__link" href="${base}/contact/?service=copywriting">${t.copyContent}</a></li><li><a class="site-footer__link" href="${base}/contact/?service=websites">${t.website}</a></li><li><a class="site-footer__link" href="${base}/contact/?service=mobile-apps">${t.android}</a></li><li><a class="site-footer__link" href="${base}/contact/?service=ui-ux">${t.uiux}</a></li><li><a class="site-footer__link" href="${base}/contact/?service=systems-modules">${t.systems}</a></li><li><a class="site-footer__link" href="${base}/work/">${t.services}</a></li>
               </ul></div>
               <div class="site-footer__column"><h2 class="site-footer__title">${t.start}</h2><ul class="site-footer__links">
-                <li><a class="site-footer__link" href="${checkoutBase}/">${t.startProject}</a></li><li><a class="site-footer__link" href="${base}/contact/?mode=consultation">${t.help}</a></li><li><a class="site-footer__link" href="${base}/contact/">${t.contact}</a></li>
+                <li><a class="site-footer__link" href="${checkoutBase}/">${t.startProject}</a></li><li><a class="site-footer__link" href="${base}/contact/?mode=consultation">${t.consultation}</a></li><li><a class="site-footer__link" href="${base}/contact/?mode=consultation#meeting-preference">${t.appointment}</a></li><li><a class="site-footer__link" href="${base}/contact/">${t.contact}</a></li>
               </ul></div>
               <div class="site-footer__column"><h2 class="site-footer__title">${t.legal}</h2><ul class="site-footer__links">
-                <li><a class="site-footer__link" href="${base}/legal/privacy/">${t.privacy}</a></li><li><a class="site-footer__link" href="${base}/legal/terms/">${t.terms}</a></li><li><a class="site-footer__link" href="${base}/legal/disclaimer/">${t.disclaimer}</a></li><li><a class="site-footer__link" href="${base}/legal/editorial-policy/">${t.editorial}</a></li>
+                <li><a class="site-footer__link" href="${base}/about/">${t.about}</a></li><li><a class="site-footer__link" href="${base}/legal/privacy/">${t.privacy}</a></li><li><a class="site-footer__link" href="${base}/legal/terms/">${t.terms}</a></li><li><a class="site-footer__link" href="${base}/legal/disclaimer/">${t.disclaimer}</a></li><li><a class="site-footer__link" href="${base}/legal/editorial-policy/">${t.editorial}</a></li><li><a class="site-footer__link" href="${base}/contact/">${t.faq}</a></li>
               </ul></div>
             </div>
             <div class="site-footer__cta"><div class="site-footer__cta-content"><h2 class="site-footer__cta-title">${t.ctaTitle}</h2><p class="site-footer__cta-description">${t.ctaText}</p></div>
               <div class="site-footer__cta-action"><a class="button button--light" href="${checkoutBase}/">${t.startProject}</a><a class="button button--footer-ghost" href="${base}/contact/?mode=consultation">${t.help}</a></div>
             </div>
-            <div class="site-footer__bottom"><div class="site-footer__bottom-inner"><p class="site-footer__copyright">© <span data-current-year>2026</span> Bagusin.</p><div class="site-footer__legal"><a class="site-footer__legal-link" href="${base}/legal/privacy/">${t.privacy}</a><a class="site-footer__legal-link" href="${base}/legal/terms/">${t.terms}</a><a class="site-footer__legal-link" href="${base}/contact/">${t.contact}</a></div></div></div>
+            <div class="site-footer__payments" aria-label="${en ? "Payment information" : "Informasi pembayaran"}"><span class="site-footer__payments-label">${en ? "Payment" : "Pembayaran"}</span><span class="site-footer__payment-mark" aria-hidden="true">BANK</span><span class="site-footer__payment-mark" aria-hidden="true">QR</span><span class="site-footer__payment-note">${t.paymentNote}</span></div>
+            <div class="site-footer__bottom"><div class="site-footer__bottom-inner"><p class="site-footer__copyright">© <span data-current-year>2026</span> Bagusin. ${en ? "All rights reserved." : "Hak cipta dilindungi."}</p><div class="site-footer__legal"><a class="site-footer__legal-link" href="${base}/legal/privacy/">${t.privacy}</a><a class="site-footer__legal-link" href="${base}/legal/terms/">${t.terms}</a><a class="site-footer__legal-link" href="${base}/contact/">${t.contact}</a></div></div></div>
           </div>
         </div>`;
     }
 
     renderSiteFooter();
+
+    // Shared compact chat entry point. It opens the contact flow until a live-chat provider is configured.
+    if (!document.querySelector("[data-footer-chat]")) {
+      const chat = document.createElement("a");
+      chat.className = "site-footer-chat";
+      chat.href = (window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin" ? "/bagusin" : "") + (/^\\/(?:bagusin\\/)?en(?:\\/|$)/.test(window.location.pathname) ? "/en" : "") + "/contact/";
+      chat.setAttribute("data-footer-chat", "");
+      chat.setAttribute("aria-label", en ? "Chat with Bagusin — contact page" : "Chat dengan Bagusin — halaman kontak");
+      chat.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H6l-3 2v-6.5A7.5 7.5 0 1 1 20 11.5Z"></path><path d="M8 11.5h8M8 14.5h5"></path></svg><span>' + (en ? "Chat" : "Chat") + '</span>';
+      document.body.appendChild(chat);
+    }
 
     // Add one consistent, accessible breadcrumb trail to interior pages.
     // The homepage stays clean; existing breadcrumbs are preserved rather than duplicated.
