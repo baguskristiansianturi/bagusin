@@ -218,7 +218,7 @@
       ],
       "level": "starter",
       "format": "one-page-company-profile",
-      "price": 750000,
+      "price": 990000,
       "currency": "IDR",
       "status": "available",
       "isNew": true,
@@ -249,7 +249,7 @@
         {
           "id": "customer-provides-content",
           "name": "Company Profile — materi dari pelanggan",
-          "price": 750000,
+          "price": 990000,
           "billing": "one-time",
           "includes": "Desain company profile satu halaman responsif, implementasi dengan teks dan foto yang disediakan pelanggan, struktur SEO dasar, Bahasa Indonesia dan English, pilihan tampilan mata uang indikatif.",
           "excludes": "Penulisan copy, domain, hosting, kurs live, foto profesional, booking otomatis, dan fitur khusus."
