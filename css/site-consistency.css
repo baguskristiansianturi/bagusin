@@ -109,3 +109,92 @@ header.site-header.is-sticky,
     transition: none !important;
   }
 }
+
+/* Shared breadcrumb contract: support both current and legacy class names. */
+.site-breadcrumbs,
+.breadcrumb {
+  box-sizing: border-box !important;
+  width: min(calc(100% - (var(--page-padding, 1.25rem) * 2)), var(--content-width, 68rem)) !important;
+  max-width: 100% !important;
+  margin-inline: auto !important;
+  padding-block: .8rem .65rem !important;
+  color: #73777b !important;
+  font-size: .78rem !important;
+  line-height: 1.5 !important;
+}
+.site-breadcrumbs__list,
+.breadcrumb__list {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: .35rem .55rem !important;
+  width: max-content !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: auto !important;
+  list-style: none !important;
+  scrollbar-width: none;
+}
+.site-breadcrumbs__list::-webkit-scrollbar,
+.breadcrumb::-webkit-scrollbar,
+.breadcrumb__list::-webkit-scrollbar { display: none; }
+.site-breadcrumbs__list li,
+.breadcrumb__item {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: .4rem !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  white-space: nowrap !important;
+}
+.site-breadcrumbs__list li + li::before { content: "/" !important; margin-inline-end: .1rem !important; color: #92969a !important; }
+.breadcrumb__separator { color: #92969a !important; }
+.site-breadcrumbs__list a,
+.breadcrumb__item a {
+  color: #0b8199 !important;
+  text-decoration: none !important;
+}
+.site-breadcrumbs__list a:hover,
+.site-breadcrumbs__list a:focus-visible,
+.breadcrumb__item a:hover,
+.breadcrumb__item a:focus-visible { color: #17181a !important; text-decoration: underline !important; }
+.site-breadcrumbs__list [aria-current="page"],
+.breadcrumb__item[aria-current="page"],
+.breadcrumb__item:last-child { color: #4f5458 !important; font-weight: 600 !important; }
+
+/* One small, accessible visual language for feedback/snackbar messages. */
+.snackbar,
+.snackbar-message,
+.toast,
+.toast-message,
+[data-snackbar],
+[role="status"].snackbar,
+[role="alert"].snackbar {
+  box-sizing: border-box;
+  max-width: min( calc(100vw - 2rem), 34rem);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: .75rem;
+  background: #17181a;
+  color: #fff;
+  box-shadow: 0 12px 32px rgba(0,0,0,.2);
+  font-size: .875rem;
+  line-height: 1.5;
+}
+.snackbar a,
+.snackbar-message a,
+.toast a,
+.toast-message a,
+[data-snackbar] a { color: #8be3ed; text-underline-offset: .15em; }
+.snackbar button,
+.snackbar-message button,
+.toast button,
+.toast-message button,
+[data-snackbar] button {
+  min-height: 2.25rem;
+  border-radius: .5rem;
+}
+@media (max-width: 40rem) {
+  .site-breadcrumbs,
+  .breadcrumb { padding-block: .7rem .55rem !important; font-size: .74rem !important; }
+}
