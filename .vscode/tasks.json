@@ -1,0 +1,17 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Bagusin: Static site audit",
+      "type": "shell",
+      "command": "node scripts/audit-static-site.mjs",
+      "problemMatcher": []
+    },
+    {
+      "label": "Bagusin: Responsive smoke test",
+      "type": "shell",
+      "command": "node scripts/responsive-smoke.mjs",
+      "problemMatcher": []
+    }
+  ]
+}
