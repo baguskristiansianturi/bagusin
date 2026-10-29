@@ -135,3 +135,49 @@ body.page-home-studio .studio-work-card__meta > b { flex: 0 0 auto; color: #087e
 @media (prefers-reduced-motion: reduce) {
   body.page-home-studio .studio-work-card__photo { transition: none; }
 }
+
+
+/* Mobile-first polish for the homepage needs-finder; scoped to homepage only. */
+body.page-home-studio .home-pathfinder-section{padding-block:clamp(1.65rem,5vw,4rem);background:#f3f8fb}
+body.page-home-studio .home-pathfinder-section>.container{width:min(100% - 2rem,76rem)}
+body.page-home-studio .home-pathfinder-section .home-pathfinder{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:start;gap:1.25rem clamp(1.5rem,4vw,3.5rem);min-width:0}
+body.page-home-studio .home-pathfinder-section .home-pathfinder__intro{min-width:0;padding:0}
+body.page-home-studio .home-pathfinder-section .home-pathfinder__intro>.section-kicker{display:block;color:#526577;font-size:.78rem;font-weight:750;line-height:1.4;letter-spacing:.07em}
+body.page-home-studio .home-pathfinder-section .home-pathfinder__intro h2{max-width:16ch;margin:.8rem 0 0;color:#14243d;font-size:clamp(2rem,4vw,3.35rem);font-weight:800;line-height:1.04;letter-spacing:-.045em;text-wrap:balance}
+body.page-home-studio .home-pathfinder-section .home-pathfinder__intro .home-hero__lead{max-width:35rem;margin-top:1rem;color:#4e5d6a;font-size:1rem;line-height:1.7}
+body.page-home-studio .home-pathfinder-section .home-pathfinder__reassurance{display:grid;gap:.55rem;margin-top:1rem;color:#4e5d6a;font-size:.84rem;line-height:1.5}
+body.page-home-studio .home-pathfinder-section .home-pathfinder__panel{min-width:0;padding:clamp(1rem,2.4vw,1.6rem);border:1px solid #dce6ee;border-radius:1.1rem;background:#fff;box-shadow:0 8px 28px rgba(24,47,72,.045)}
+body.page-home-studio .home-pathfinder-section .home-pathfinder__topline{display:flex;align-items:center;justify-content:space-between;gap:.75rem;color:#627283;font-size:.72rem;font-weight:750;line-height:1.4;letter-spacing:.04em}
+body.page-home-studio .home-pathfinder-section .home-pathfinder__panel>h2{margin:1rem 0 0;color:#17263b;font-size:clamp(1.3rem,2.2vw,1.7rem);font-weight:800;line-height:1.2;letter-spacing:-.03em}
+body.page-home-studio .home-pathfinder-section .home-pathfinder__hint{margin-top:.55rem;color:#596979;font-size:.92rem;line-height:1.6}
+body.page-home-studio .home-pathfinder-section .home-pathfinder__choices{display:grid;gap:.7rem;margin-top:1.15rem}
+body.page-home-studio .home-pathfinder-section .home-pathfinder__choice{display:grid;grid-template-columns:2.5rem minmax(0,1fr) 1rem;align-items:center;gap:.8rem;width:100%;min-width:0;min-height:4.4rem;padding:.9rem;border:1px solid #e0e7ed;border-radius:.85rem;background:#fff;color:#17263b;text-align:left}
+body.page-home-studio .home-pathfinder-section .home-pathfinder__choice-icon{display:grid;place-items:center;width:2.5rem;height:2.5rem;border-radius:.75rem;background:#edf4f8;color:#176a87}
+body.page-home-studio .home-pathfinder-section .home-pathfinder__choice strong{display:block;color:#17263b;font-size:.92rem;font-weight:750;line-height:1.4}
+body.page-home-studio .home-pathfinder-section .home-pathfinder__choice small{display:block;margin-top:.2rem;color:#5b6a79;font-size:.8rem;line-height:1.5}
+body.page-home-studio .home-pathfinder-section .home-pathfinder__choice[aria-pressed="true"]{border-color:#1683a0;background:#f3fafc;box-shadow:0 0 0 2px rgba(22,131,160,.1)}
+body.page-home-studio .home-pathfinder-section .home-pathfinder__footer-note{grid-column:1/-1;width:100%;max-width:none;margin:.25rem 0 0;border-color:#dce6ee;background:rgba(255,255,255,.72)}
+@media(max-width:800px){
+ body.page-home-studio .home-pathfinder-section .home-pathfinder{grid-template-columns:minmax(0,1fr);gap:1.25rem}
+ body.page-home-studio .home-pathfinder-section .home-pathfinder__intro h2{max-width:20ch;font-size:clamp(2rem,7.5vw,2.7rem);line-height:1.08}
+ body.page-home-studio .home-pathfinder-section .home-pathfinder__intro .home-hero__lead{max-width:42rem;margin-top:.8rem;font-size:.98rem;line-height:1.6}
+ body.page-home-studio .home-pathfinder-section .home-pathfinder__reassurance{grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem 1rem;margin-top:.85rem}
+ body.page-home-studio .home-pathfinder-section .home-pathfinder__panel{padding:1.1rem}
+}
+@media(max-width:480px){
+ body.page-home-studio .home-pathfinder-section>.container{width:calc(100% - 2rem)}
+ body.page-home-studio .home-pathfinder-section .home-pathfinder{gap:1rem}
+ body.page-home-studio .home-pathfinder-section .home-pathfinder__intro>.section-kicker{font-size:.7rem}
+ body.page-home-studio .home-pathfinder-section .home-pathfinder__intro h2{max-width:18ch;margin-top:.55rem;font-size:clamp(1.9rem,8.3vw,2.35rem);line-height:1.08;letter-spacing:-.04em}
+ body.page-home-studio .home-pathfinder-section .home-pathfinder__intro .home-hero__lead{margin-top:.7rem;font-size:.9rem;line-height:1.6}
+ body.page-home-studio .home-pathfinder-section .home-pathfinder__reassurance{grid-template-columns:minmax(0,1fr);gap:.4rem;margin-top:.7rem;font-size:.8rem}
+ body.page-home-studio .home-pathfinder-section .home-pathfinder__panel{padding:1rem;border-radius:.9rem}
+ body.page-home-studio .home-pathfinder-section .home-pathfinder__panel>h2{margin-top:.8rem;font-size:1.28rem;line-height:1.25}
+ body.page-home-studio .home-pathfinder-section .home-pathfinder__hint{margin-top:.4rem;font-size:.86rem;line-height:1.55}
+ body.page-home-studio .home-pathfinder-section .home-pathfinder__choices{gap:.6rem;margin-top:.9rem}
+ body.page-home-studio .home-pathfinder-section .home-pathfinder__choice{grid-template-columns:2.15rem minmax(0,1fr) .8rem;gap:.65rem;min-height:0;padding:.8rem;border-radius:.75rem}
+ body.page-home-studio .home-pathfinder-section .home-pathfinder__choice-icon{width:2.15rem;height:2.15rem;border-radius:.65rem}
+ body.page-home-studio .home-pathfinder-section .home-pathfinder__choice strong{font-size:.85rem}
+ body.page-home-studio .home-pathfinder-section .home-pathfinder__choice small{font-size:.75rem;line-height:1.45}
+ body.page-home-studio .home-pathfinder-section .home-pathfinder__footer-note{align-items:flex-start;gap:.65rem;padding:.8rem}
+}
