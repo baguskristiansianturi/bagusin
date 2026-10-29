@@ -210,8 +210,22 @@
     }
 
     function renderSiteFooter() {
-      const footer = document.querySelector(".site-footer");
-      if (!footer) return;
+      // One shared footer across all pages that load the global navigation bundle.
+      // Create the mount point when a legacy page has no footer placeholder.
+      let footer = document.querySelector(".site-footer");
+      if (!footer) {
+        footer = document.createElement("footer");
+        footer.className = "site-footer";
+        const main = document.querySelector("main#main-content, main");
+        const app = document.querySelector("#app");
+        if (main) main.insertAdjacentElement("afterend", footer);
+        else if (app) app.appendChild(footer);
+        else document.body.appendChild(footer);
+      }
+      // Prevent duplicated global footers if a page accidentally contains more than one.
+      document.querySelectorAll(".site-footer").forEach(function (candidate) {
+        if (candidate !== footer) candidate.remove();
+      });
       const usesProjectBase = window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin";
       const en = /^\/(?:bagusin\/)?en(?:\/|$)/.test(window.location.pathname);
       const base = (usesProjectBase ? "/bagusin" : "") + (en ? "/en" : "");
