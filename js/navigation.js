@@ -8,7 +8,11 @@
 (function () {
   "use strict";
 
-  document.addEventListener("DOMContentLoaded", function () {
+  let navigationInitialized = false;
+  function initializeNavigation() {
+    if (navigationInitialized) return;
+    if (document.querySelector("[data-global-header]") && !document.querySelector("[data-site-header]")) return;
+    navigationInitialized = true;
     const header = document.querySelector("[data-site-header], .site-header");
 
     // Older content pages may have the search button without its panel. Add the shared
@@ -567,5 +571,7 @@
     setExpanded(searchToggle, false);
     setExpanded(languageToggle, false);
     setExpanded(mobileToggle, false);
-  });
+  }
+  document.addEventListener("DOMContentLoaded", initializeNavigation, { once: true });
+  document.addEventListener("bagusin:shell-ready", initializeNavigation);
 })();
