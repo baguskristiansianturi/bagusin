@@ -337,3 +337,20 @@ body .site-footer {
   .site-footer .site-footer__cta-action,
   .site-footer .site-footer__cta-action .button { width: 100% !important; }
 }
+/* Equal-specificity overrides for the former homepage-only footer theme. */
+body.page-home-studio .site-footer {
+  background: #17181a !important;
+  color: rgba(255,255,255,.8) !important;
+  border-top: 1px solid rgba(255,255,255,.1) !important;
+}
+body.page-home-studio .site-footer__cta {
+  display: flex !important;
+  padding: 2rem 0 !important;
+  border: 0 !important;
+  border-top: 1px solid rgba(255,255,255,.12) !important;
+  border-bottom: 1px solid rgba(255,255,255,.12) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
