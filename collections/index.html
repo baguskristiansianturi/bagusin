@@ -147,5 +147,36 @@
 <script src="../js/navigation.js" defer></script>
 <script src="../js/main.js" defer></script>
 <script src="../js/template-catalog.js" defer></script>
+<script>
+(() => {
+  const valid = ["profile", "landing", "complex", "complete"];
+  const cards = [...document.querySelectorAll("[data-catalog-type]")];
+  const section = document.getElementById("pilihan-template");
+  const setActive = (type, scroll) => {
+    const selected = valid.includes(type) ? type : "";
+    cards.forEach(card => {
+      const active = card.dataset.catalogType === selected;
+      card.classList.toggle("is-active", active);
+      card.setAttribute("aria-pressed", String(active));
+    });
+    if (scroll && section) section.scrollIntoView({behavior: "smooth", block: "start"});
+  };
+  cards.forEach(card => card.addEventListener("click", () => {
+    const type = card.dataset.catalogType;
+    const url = new URL(window.location.href);
+    url.searchParams.set("type", type);
+    history.replaceState({}, "", url);
+    setActive(type, true);
+  }));
+  const type = new URLSearchParams(window.location.search).get("type");
+  if (valid.includes(type)) {
+    setActive(type, false);
+    window.addEventListener("load", () => section?.scrollIntoView({behavior: "auto", block: "start"}), {once:true});
+  } else {
+    setActive("", false);
+  }
+})();
+</script>
+
 </body>
 </html>
