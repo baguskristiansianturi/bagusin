@@ -18,6 +18,11 @@ const routes = [
   "/bagusin/work/web-applications/",
   "/bagusin/work/maintenance-uiux/",
   "/bagusin/collections/",
+  "/bagusin/collections/company-profile/",
+  "/bagusin/collections/landing-page/",
+  "/bagusin/collections/complex-website/",
+  "/bagusin/collections/website-kompleks/",
+  "/bagusin/collections/website-sistem-lengkap/",
   "/bagusin/templates/",
   "/bagusin/templates/blogger-editorial/",
   "/bagusin/templates/demos/editorial-blogger/",
@@ -124,6 +129,51 @@ for (const route of routes) {
     } finally {
       await page.close();
     }
+  }
+}
+
+
+const categoryRoutes = [
+  "/bagusin/collections/company-profile/",
+  "/bagusin/collections/landing-page/",
+  "/bagusin/collections/complex-website/",
+  "/bagusin/collections/website-kompleks/",
+  "/bagusin/collections/website-sistem-lengkap/"
+];
+for (const route of categoryRoutes) {
+  const categoryPage = await browser.newPage({ viewport: { width: 320, height: 740 } });
+  try {
+    await categoryPage.goto(origin + route, { waitUntil: "domcontentloaded" });
+    const root = categoryPage.locator("#app.catalog-category-page");
+    if (!(await root.count())) errors.push(route + ": category page root is missing");
+    const rail = categoryPage.locator(".industry-filter__rail");
+    const chips = categoryPage.locator(".industry-chip[data-industry]");
+    if (await chips.count() !== 5) errors.push(route + ": expected five consistent industry carousel controls");
+    const railState = await rail.evaluate((el) => ({
+      position: getComputedStyle(el.closest(".industry-filter")).position,
+      clientWidth: el.clientWidth,
+      scrollWidth: el.scrollWidth
+    }));
+    if (railState.position !== "sticky") errors.push(route + ": industry carousel should remain sticky on mobile");
+    if (railState.scrollWidth <= railState.clientWidth + 2) errors.push(route + ": industry carousel should horizontally scroll at 320px");
+    await categoryPage.locator('.industry-chip[data-industry="car-rental"]').click();
+    if ((await categoryPage.locator("[data-empty-title]").innerText()).trim() !== "Belum ada desain untuk kategori ini.") {
+      errors.push(route + ": industry selection did not update the empty state");
+    }
+    if (await categoryPage.locator('.industry-chip[data-industry="car-rental"]').getAttribute("aria-pressed") !== "true") {
+      errors.push(route + ": selected industry control did not expose aria-pressed=true");
+    }
+    await categoryPage.locator('.industry-chip[data-industry="all"]').click();
+    const restoredTitle = (await categoryPage.locator("[data-empty-title]").innerText()).trim();
+    const expectedTitle = (await root.getAttribute("data-empty-title")).trim();
+    if (restoredTitle !== expectedTitle) errors.push(route + ": selecting all industries did not restore the page-specific empty state");
+    if (await categoryPage.locator('.industry-chip[data-industry="all"]').getAttribute("aria-pressed") !== "true") {
+      errors.push(route + ": all-industries control did not reset aria-pressed state");
+    }
+  } catch (error) {
+    errors.push(route + ": category carousel interaction test failed: " + error.message);
+  } finally {
+    await categoryPage.close();
   }
 }
 
