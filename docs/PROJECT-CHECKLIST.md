@@ -25,11 +25,11 @@
 - [ ] **Phase 10 — Release:** CI green; review diff; merge approved PR; verify Pages/production deployment and smoke-test live URLs.
 
 ## Current state — update first on every session
-**Last updated:** 2026-10-15
+**Last updated:** 2026-10-30
 
-**Active phase:** finish live mobile UX review and re-port the homepage changes onto the current main. PR #136 has been merged; do not assume older PR branches are safe to merge.
+**Active phase:** stabilize repository structure and responsive regression coverage after restoring the catalogue category pages. Keep the homepage and existing catalogue visuals protected. PR #150 is a stale draft based on an older main commit and its responsive browser job failed; review its ideas, but do not merge it blindly.
 
-**Latest verified main head:** `b18dbe9cc821cd599a8cc66220c33c82682ea106`.
+**Latest verified main head:** `a99af09747fa963f3e347d8f2826f6d533a8cb72` (30 October 2026).
 - Responsive browser smoke test run #948: success.
 - Static site audit run #996: success.
 - GitHub Pages deployment run #1490: success.
@@ -38,6 +38,14 @@
 - Browser tooling could not open the public GitHub Pages URLs. The deployment workflow passed, but visual QA on Bagus's phone is still pending.
 - PR #135 and PR #125 are closed as superseded by PR #136. PR #127 and #128 are drafts because their older test/filter expectations need correction. PR #130 and #126 remain draft and must be re-ported from current main.
 - Future backend remains Go; Google Cloud is not active. No live email delivery, payment processing, or real checkout transaction has been verified.
+
+**Current structure findings (30 October 2026):**
+- Public pages remain static HTML entry points under their existing URL folders; shared assets are in flat `css/` and `js/` directories.
+- Homepage is protected and has its own `page-home-studio` root plus multiple ordered homepage-only stylesheets. Do not consolidate or reorder these casually.
+- Category catalogues use `#app.catalog-category-page`, `css/catalog-category-page.css`, and `js/catalog-category-page.js`. The category CSS currently contains layered historical refinements; preserve the final appearance until a browser baseline is captured before deduplicating it.
+- Header/footer markup is still repeated across multiple page families. Do not introduce asynchronous fragment loading as a blanket change; the existing PR #150 shell pilot is stale and its browser smoke failed.
+- Checkout, template demos/previews, and other special flows may remain standalone. Keep page CSS/JS local to the page family and preserve `/bagusin/` URLs.
+- New category routes must be included in static and six-viewport browser checks. The current maintenance branch adds route and carousel interaction assertions; results remain pending until CI completes.
 
 **Immediate next actions:**
 1. Check GitHub Pages on a real phone: sticky navbar while scrolling; mobile platform/industry filter reach; result heading below sticky chrome; breadcrumbs; shared footer links; ID/EN contact forms and contextual service prefill. Record specific failures rather than redesigning by intuition.

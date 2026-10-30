@@ -123,6 +123,45 @@ for (const file of htmlFiles) {
   }
 }
 
+
+const categoryPagePaths = [
+  "collections/company-profile/index.html",
+  "collections/landing-page/index.html",
+  "collections/complex-website/index.html",
+  "collections/website-kompleks/index.html",
+  "collections/website-sistem-lengkap/index.html"
+];
+const categoryStylesheet = "catalog-category-page.css";
+for (const rel of categoryPagePaths) {
+  const full = path.join(ROOT, rel);
+  if (!fs.existsSync(full)) {
+    reportError("Missing category catalogue entry point: " + rel);
+    continue;
+  }
+  const source = fs.readFileSync(full, "utf8");
+  if (!/class=["'][^"']*catalog-category-page/.test(source)) {
+    reportError(rel + ": missing catalog-category-page root scope");
+  }
+  if (!source.includes(categoryStylesheet)) {
+    reportError(rel + ": missing category-only stylesheet");
+  }
+  if (!source.includes("catalog-category-page.js")) {
+    reportError(rel + ": missing category page controller");
+  }
+  for (const industry of ["all", "car-rental", "travel-tour", "product-promo", "professional"]) {
+    if (!source.includes('data-industry="' + industry + '"')) {
+      reportError(rel + ": missing industry carousel option " + industry);
+    }
+  }
+}
+for (const file of htmlFiles) {
+  const rel = path.relative(ROOT, file).split(path.sep).join("/");
+  const source = fs.readFileSync(file, "utf8");
+  if (source.includes(categoryStylesheet) && !categoryPagePaths.includes(rel)) {
+    reportError(rel + ": category-only stylesheet must not be loaded by another page family");
+  }
+}
+
 const sitemapPath = path.join(ROOT, "sitemap.xml");
 const robotsPath = path.join(ROOT, "robots.txt");
 if (!fs.existsSync(sitemapPath)) reportError("Missing sitemap.xml");
