@@ -27,3 +27,10 @@
 .course-hub-note p{max-width:44rem;margin-top:.65rem;color:#687984;font-size:.88rem;line-height:1.75}
 @media(max-width:760px){.course-hub-card{grid-template-columns:1fr}.course-hub-card__image{min-height:17rem}.course-hub-card__bottom{align-items:stretch;flex-direction:column}.course-hub-card__bottom .button{width:100%;justify-content:center}.course-hub-note .container{align-items:stretch;flex-direction:column;gap:1rem}.course-hub-note .button{width:100%;justify-content:center}}
 @media(max-width:420px){.course-hub-card__content{padding:1.1rem}.course-hub-card__tags span{font-size:.65rem}.course-hub-card__image{min-height:15rem}}
+
+/* Course directory: two independent learning paths */
+.course-hub-feature .container>.course-hub-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.1rem}
+.course-hub-feature .course-hub-card{height:100%;display:flex;flex-direction:column}
+.course-hub-feature .course-hub-card__content{display:flex;flex:1;flex-direction:column}
+.course-hub-feature .course-hub-card__bottom{margin-top:auto}
+@media(max-width:720px){.course-hub-feature .container>.course-hub-grid{grid-template-columns:1fr}}
