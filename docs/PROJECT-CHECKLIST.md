@@ -25,27 +25,30 @@
 - [ ] **Phase 10 — Release:** CI green; review diff; merge approved PR; verify Pages/production deployment and smoke-test live URLs.
 
 ## Current state — update first on every session
-**Last updated:** 2026-10-15
+**Last updated:** 2026-10-31
 
-**Active phase:** finish live mobile UX review and re-port the homepage changes onto the current main. PR #136 has been merged; do not assume older PR branches are safe to merge.
+**Active phase:** focused Blog index and article-detail responsive UX correction.
 
-**Latest verified main head:** `b18dbe9cc821cd599a8cc66220c33c82682ea106`.
-- Responsive browser smoke test run #948: success.
-- Static site audit run #996: success.
-- GitHub Pages deployment run #1490: success.
-- PR #136 pre-merge browser smoke #947 and static audit #995 also passed.
-- Demo **Bagus Rental Mobil #002** and its `templates/catalog.json` entry remain present after integration.
-- Browser tooling could not open the public GitHub Pages URLs. The deployment workflow passed, but visual QA on Bagus's phone is still pending.
-- PR #135 and PR #125 are closed as superseded by PR #136. PR #127 and #128 are drafts because their older test/filter expectations need correction. PR #130 and #126 remain draft and must be re-ported from current main.
-- Future backend remains Go; Google Cloud is not active. No live email delivery, payment processing, or real checkout transaction has been verified.
+**Baseline main head:** `c045c8410d799bf7ce7e5936932a6227c6d7b3ec`.
+**Working branch:** `fix/blog-article-responsive-ux-20261031`.
+
+**Scope and implementation notes:**
+- Blog index uses its own `blog.css`; the unused legacy `article.css`, `article.js`, and `share.js` includes were removed from the Blog index only. Global navigation and footer remain the shared shell.
+- Blog terminology is “Blog” (not “Journal/Jurnal”) in the visible index labels. Search controls, breadcrumb, category icons, and compact topic chips are scoped to `.blog-editorial`.
+- Article detail keeps the article engine and the premium article template. A visible breadcrumb was added; metadata icons and share controls use compact SVGs with accessible labels.
+- The article layout has separate sidebar/content columns with responsive safeguards. Reading progress and curated TOC hooks now match the markup used by the premium article template.
+- Changes are isolated to Blog/article assets and the checklist; homepage, global navigation, global footer, and other page designs are not intentionally modified.
+
+**Validation status:**
+- Static source review is in progress. Automated workflow results, browser viewport checks (320/375/390/768/1024/1440 px), and GitHub Pages behavior are not yet verified for this branch.
+- Do not mark this phase complete or merge until CI passes and the resulting diff is reviewed. Visual review on the live site is still required after deployment.
 
 **Immediate next actions:**
-1. Check GitHub Pages on a real phone: sticky navbar while scrolling; mobile platform/industry filter reach; result heading below sticky chrome; breadcrumbs; shared footer links; ID/EN contact forms and contextual service prefill. Record specific failures rather than redesigning by intuition.
-2. Re-port homepage PR #130 onto current main after that review. Preserve the service-first homepage, the current pathfinder behavior, clear access to the catalog and demo, honest course status, and avoid returning to an article-first homepage. Test carousel keyboard and reduced-motion behavior.
-3. Re-port service PR #126 after the homepage; verify service registry, ID/EN selectors, terms topics, sitemap, detail copy, and brief-first CTA.
-4. Rework the useful sticky collection/filter parts of PR #128 without an initial 15-item cap. All Category + All Level must show every real available item by default; filters narrow the set; zero matches must show an honest empty state.
-5. Audit PR #102 tests for still-valid recommender keyboard/reset, consultation handoff, and contact-prefill coverage. Do not copy stale homepage label assertions.
-6. Consolidate docs and close superseded PRs only after unique useful content has been preserved. Use small branches based on current main, rerun CI, and verify Pages after merge.
+1. Validate modified HTML/CSS/JS for syntax, duplicate imports, broken selectors, and path correctness.
+2. Run the repository's responsive smoke and static-site audit workflows against this branch; resolve failures rather than weakening assertions.
+3. Review the complete branch diff and open a focused PR with test evidence and known limitations.
+4. After approved integration and Pages deployment, inspect Blog and an article on a real phone plus tablet/desktop; verify navbar/footer remain unchanged.
+5. Continue the wider site roadmap only after this focused page-family correction is reviewed.
 
 ## Homepage acceptance checklist
 - [ ] Clear, original H1 and concise explanation of what Bagusin can help with.

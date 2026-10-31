@@ -16,3 +16,7 @@
 @media(max-width:56rem){.article-pro-layout{width:min(calc(100% - 2 * var(--page-padding,1.25rem)),48rem);grid-template-columns:minmax(0,1fr);gap:2rem}.article-pro-aside{position:static}.article-pro-content{width:100%}}
 @media(max-width:36rem){.article-pro-hero__inner,.article-pro-layout{width:min(calc(100% - 1.5rem),48rem)}.article-pro-hero h1{overflow-wrap:anywhere}.article-pro-meta{gap:.45rem .65rem}.article-pro-meta span+span{padding-left:.65rem}.article-pro-cover{width:calc(100% - 1.5rem)}.article-pro-content{font-size:1rem;line-height:1.8}.article-pro-content h2,.article-pro-content h3{overflow-wrap:anywhere}.article-pro-footer{gap:1.25rem}.article-pro-footer .button{max-width:100%}}
 @media(prefers-reduced-motion:reduce){.article-page--pro *{scroll-behavior:auto!important}}
+
+/* Compact taxonomy chips in article detail. */
+.article-page--pro .article-pro-tags{gap:.35rem}
+.article-page--pro .article-pro-tags a{min-height:1.6rem;padding:.24rem .5rem;font-size:.67rem;line-height:1.25}
