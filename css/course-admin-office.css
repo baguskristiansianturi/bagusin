@@ -530,3 +530,56 @@
   .admin-course-schedule__grid h2,
   .admin-course-final-cta h2{max-width:100%}
 }
+
+
+/* Reusable course hero facts — shared visual language for future course pages */
+.admin-course-hero__quick{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:stretch;
+  gap:.65rem;
+  margin-top:1.45rem;
+}
+.admin-course-hero__fact{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center;
+  gap:.6rem;
+  min-width:0;
+  padding:.58rem .72rem;
+  border:1px solid #dce6e8;
+  border-radius:.75rem;
+  background:rgba(255,255,255,.78);
+  color:#526d75!important;
+  font-size:inherit!important;
+}
+.admin-course-hero__fact-icon{
+  display:grid;
+  place-items:center;
+  flex:0 0 2rem;
+  width:2rem;
+  height:2rem;
+  border-radius:.62rem;
+  background:#eaf1f2;
+  color:#557d88;
+}
+.admin-course-hero__fact-icon svg{display:block;width:1.08rem;height:1.08rem}
+.admin-course-hero__fact-copy{display:grid;gap:.12rem;min-width:0}
+.admin-course-hero__fact-copy b{
+  color:#557d88!important;
+  font-size:.88rem!important;
+  font-weight:850;
+  line-height:1.2;
+}
+.admin-course-hero__fact-copy small{
+  color:#737e82;
+  font-size:.66rem;
+  line-height:1.3;
+}
+@media(max-width:680px){
+  .admin-course-hero__quick{gap:.55rem}
+  .admin-course-hero__fact{flex:1 1 calc(50% - .3rem);padding:.55rem .6rem}
+}
+@media(max-width:420px){
+  .admin-course-hero__fact{flex-basis:100%}
+}
