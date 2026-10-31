@@ -1,0 +1,73 @@
+/* Bagusin — Digital Accounting course. Fully scoped to avoid collisions. */
+.accounting-course-page{--acc-ink:#17232b;--acc-muted:#64727b;--acc-line:#e2e8e9;--acc-blue:#557d88;--acc-pale:#edf4f5;color:var(--acc-ink);overflow:hidden}
+.accounting-course-page .section{padding-block:clamp(3rem,6vw,5.2rem)}
+.accounting-hero{padding-block:clamp(2.5rem,6vw,5rem);background:linear-gradient(120deg,#f8fbfb,#fff 55%,#edf4f5)}
+.accounting-hero__grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.85fr);gap:clamp(2rem,5vw,4rem);align-items:center}
+.accounting-hero__copy{min-width:0}
+.accounting-hero .course-back-link{display:inline-flex;margin-bottom:1.2rem;color:#607783;font-size:.82rem;font-weight:700;text-decoration:none}
+.accounting-hero .section-kicker,.accounting-heading .section-kicker,.accounting-two-col .section-kicker{color:#557d88;font-size:.7rem;font-weight:850;letter-spacing:.13em}
+.accounting-hero h1{max-width:12ch;margin-top:.8rem;color:#172b34;font-size:clamp(2.6rem,5.5vw,4.6rem);line-height:.98;letter-spacing:-.06em;text-wrap:balance}
+.accounting-hero__lead{max-width:42rem;margin-top:1.1rem;color:#5d6e77;font-size:1.03rem;line-height:1.8}
+.accounting-hero__facts{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.35rem}
+.accounting-hero__facts span{padding:.48rem .7rem;border:1px solid #dce7e9;border-radius:999px;background:#f0f6f6;color:#48636d;font-size:.72rem;font-weight:750}
+.accounting-hero__actions{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:1.35rem}
+.accounting-hero__micro{margin-top:.8rem;color:#78858b;font-size:.75rem;line-height:1.6}
+.accounting-hero__visual{position:relative;min-height:27rem;overflow:hidden;border-radius:1.2rem;background:#dce8e9;box-shadow:0 22px 50px rgba(22,47,56,.13)}
+.accounting-hero__visual img{position:absolute;width:100%;height:100%;inset:0;object-fit:cover}
+.accounting-hero__visual span{position:absolute;right:1rem;bottom:1rem;left:1rem;padding:.75rem .9rem;border:1px solid rgba(255,255,255,.45);border-radius:.65rem;background:rgba(19,39,47,.75);color:white;font-size:.68rem;font-weight:800;letter-spacing:.1em;backdrop-filter:blur(8px)}
+.accounting-two-col{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2rem,6vw,5rem);align-items:center}
+.accounting-two-col h2,.accounting-heading h2{max-width:19ch;margin-top:.6rem;color:#1b3038;font-size:clamp(1.85rem,4vw,3rem);line-height:1.08;letter-spacing:-.05em}
+.accounting-two-col>div:first-child>p,.accounting-heading>p{margin-top:.85rem;color:#68777f;font-size:.91rem;line-height:1.8}
+.accounting-outcomes{display:grid;gap:.7rem}
+.accounting-outcomes article{display:flex;gap:.9rem;padding:1rem;border:1px solid var(--acc-line);border-radius:.85rem;background:#fff}
+.accounting-outcomes article>b{color:#64838c;font-size:.8rem}
+.accounting-outcomes strong{font-size:.9rem}
+.accounting-outcomes p,.accounting-audience__grid p,.accounting-modern__grid p{margin-top:.25rem;color:#718087;font-size:.81rem;line-height:1.65}
+.accounting-audience,.accounting-curriculum{background:#f7f9f9}
+.accounting-heading{max-width:50rem;margin-bottom:1.6rem}
+.accounting-audience__grid,.accounting-modern__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem}
+.accounting-audience__grid article,.accounting-modern__grid article{padding:1.15rem;border:1px solid var(--acc-line);border-radius:.9rem;background:#fff}
+.accounting-audience__grid strong,.accounting-modern__grid b{color:#233d46;font-size:.9rem}
+.accounting-curriculum__summary{display:flex;flex-wrap:wrap;gap:.55rem;margin-bottom:1rem}
+.accounting-curriculum__summary span{padding:.48rem .72rem;border:1px solid #dce6e8;border-radius:999px;background:white;color:#68777f;font-size:.73rem}
+.accounting-curriculum__summary b{color:#557d88}
+.accounting-modules{display:grid;gap:.6rem}
+.accounting-module{overflow:hidden;border:1px solid #e0e7e8;border-radius:.85rem;background:white}
+.accounting-module summary{display:grid;grid-template-columns:2.35rem minmax(0,1fr);gap:.8rem;align-items:center;padding:.9rem 1rem;cursor:pointer;list-style:none}
+.accounting-module summary::-webkit-details-marker{display:none}
+.accounting-module summary>span{display:grid;place-items:center;width:2.1rem;height:2.1rem;border-radius:.65rem;background:#edf4f5;color:#557d88;font-size:.72rem;font-weight:850}
+.accounting-module summary strong,.accounting-module summary small{display:block}
+.accounting-module summary strong{color:#263d45;font-size:.88rem;line-height:1.45}
+.accounting-module summary small{margin-top:.15rem;color:#849097;font-size:.68rem}
+.accounting-module>div{padding:0 1.1rem 1rem 4.15rem;color:#68777f;font-size:.82rem;line-height:1.75}
+.accounting-module>div b{display:inline-block;margin-top:.4rem;color:#3c5c65;font-size:.78rem}
+.accounting-module--lab summary>span{background:#e5eff0;color:#385d68}
+.accounting-prerequisite{background:#fff}
+.accounting-prerequisite__card{padding:1.3rem;border:1px solid #dce7e8;border-radius:1rem;background:#f4f8f8}
+.accounting-prerequisite__label{color:#64808a;font-size:.68rem;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+.accounting-prerequisite__card h3{margin-top:.45rem;color:#263e46;font-size:1.05rem;line-height:1.4}
+.accounting-prerequisite__card p{margin-top:.45rem;color:#6b7980;font-size:.81rem;line-height:1.7}
+.accounting-prerequisite__card a{display:inline-block;margin-top:.7rem;color:#426d79;font-size:.8rem;font-weight:800;text-decoration:none}
+.accounting-prerequisite__card hr{margin:1rem 0;border:0;border-top:1px solid #dce5e6}
+.accounting-modern{background:#f7f9f9}
+.accounting-schedule{background:#193541;color:white}
+.accounting-schedule h2{color:white}
+.accounting-schedule .accounting-two-col>div:first-child>p{color:#c6d4d8}
+.accounting-schedule .section-kicker{color:#b7d2d5}
+.accounting-schedule__facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}
+.accounting-schedule__facts div{padding:1rem;border:1px solid rgba(255,255,255,.16);border-radius:.8rem;background:rgba(255,255,255,.06)}
+.accounting-schedule__facts small,.accounting-schedule__facts strong{display:block}
+.accounting-schedule__facts small{color:#c2d1d5;font-size:.7rem}
+.accounting-schedule__facts strong{margin-top:.3rem;color:white;font-size:1rem}
+.accounting-faq__list{display:grid;gap:.6rem;max-width:58rem}
+.accounting-faq__list details{padding:1rem 1.1rem;border:1px solid var(--acc-line);border-radius:.8rem;background:white}
+.accounting-faq__list summary{color:#29434b;font-size:.86rem;font-weight:800;cursor:pointer}
+.accounting-faq__list p{margin-top:.55rem;color:#6e7b82;font-size:.82rem;line-height:1.7}
+.accounting-cta{background:#eaf2f3}
+.accounting-cta>.container{display:flex;align-items:center;justify-content:space-between;gap:2rem}
+.accounting-cta h2{max-width:18ch;margin-top:.5rem;color:#1c3740;font-size:clamp(1.8rem,3.5vw,2.6rem);line-height:1.1;letter-spacing:-.04em}
+.accounting-cta p{max-width:40rem;margin-top:.55rem;color:#687981;font-size:.86rem;line-height:1.7}
+.accounting-cta .button{flex:0 0 auto}
+@media(max-width:850px){.accounting-hero__grid{grid-template-columns:minmax(0,1fr) minmax(240px,.8fr);gap:1.5rem}.accounting-hero__visual{min-height:23rem}.accounting-audience__grid,.accounting-modern__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.accounting-hero{padding-block:2rem 2.5rem}.accounting-hero__grid,.accounting-two-col{grid-template-columns:1fr;gap:1.4rem}.accounting-hero h1{font-size:clamp(2.35rem,11vw,3.4rem)}.accounting-hero__lead{font-size:.94rem;line-height:1.7}.accounting-hero__visual{min-height:16rem;order:-1}.accounting-hero__actions{display:grid;grid-template-columns:1fr}.accounting-hero__actions .button{justify-content:center}.accounting-hero__facts{gap:.4rem}.accounting-hero__facts span{font-size:.66rem;padding:.42rem .58rem}.accounting-audience__grid,.accounting-modern__grid{grid-template-columns:1fr 1fr;gap:.55rem}.accounting-audience__grid article,.accounting-modern__grid article{padding:.85rem}.accounting-module summary{grid-template-columns:2rem minmax(0,1fr);gap:.6rem;padding:.8rem}.accounting-module summary>span{width:1.85rem;height:1.85rem}.accounting-module summary strong{font-size:.81rem}.accounting-module>div{padding:0 .85rem .9rem 3.45rem;font-size:.78rem}.accounting-schedule__facts{grid-template-columns:1fr 1fr}.accounting-cta>.container{align-items:flex-start;flex-direction:column;gap:1rem}.accounting-cta .button{width:100%;justify-content:center}}
+@media(max-width:360px){.accounting-audience__grid,.accounting-modern__grid{grid-template-columns:1fr}.accounting-hero__facts span{font-size:.62rem}.accounting-module summary strong{font-size:.77rem}}
