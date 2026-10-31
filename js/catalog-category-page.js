@@ -12,7 +12,8 @@
     {id:"car-rental",name:"Rental mobil"},
     {id:"travel-tour",name:"Travel & tour"},
     {id:"product-promo",name:"Produk & promo"},
-    {id:"professional",name:"Jasa profesional"}
+    {id:"professional",name:"Jasa profesional"},
+    {id:"tattoo-studio",name:"Tattoo & Body Art"}
   ];
   function select(id) {
     chips.forEach(chip => {
