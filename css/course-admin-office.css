@@ -591,3 +591,18 @@
 .admin-course-hero__fact svg{display:block;flex:0 0 .9rem;width:.9rem;height:.9rem;color:#557d88}
 .admin-course-hero__fact b{color:#557d88!important;font-size:.75rem!important;font-weight:750;line-height:1.2}
 @media(max-width:680px){.admin-course-hero__quick{gap:.4rem;margin-top:1rem}.admin-course-hero__fact{padding:.36rem .55rem;font-size:.72rem!important}.admin-course-hero__fact b{font-size:.72rem!important}}
+
+
+/* 2026-10-31 — clarify instructor availability and improve investment contrast */
+.admin-course-pricebar{
+  background:linear-gradient(120deg,#e6eff1 0%,#dce9ec 100%)!important;
+  color:#243b42!important;
+  border:1px solid #d1e0e3;
+  box-shadow:0 10px 24px rgba(52,91,101,.09)!important;
+}
+.admin-course-pricebar small{color:#60777e!important;opacity:1!important}
+.admin-course-pricebar strong{color:#294f5a!important}
+.admin-course-pricebar__divider{background:rgba(67,105,115,.24)!important}
+.admin-course-pricebar__visit{color:#294f5a!important}
+.admin-course-pricebar__visit b{color:#294f5a!important}
+.admin-course-pricebar__visit small{color:#60777e!important}
