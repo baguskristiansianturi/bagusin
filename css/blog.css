@@ -142,3 +142,15 @@
 @media(max-width:60rem){.be-hero__grid{grid-template-columns:1fr 12rem;gap:2rem}.be-feature{grid-template-columns:1fr 1fr}.be-feature__visual{min-height:20rem}.be-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:46rem){.blog-editorial .container{width:min(calc(100% - 2rem),78rem)}.be-hero{padding-top:3rem}.be-hero__grid{grid-template-columns:1fr;gap:1.5rem}.be-hero h1{font-size:clamp(3rem,13vw,5rem)}.be-hero__side{padding:1rem 0 0;border-left:0;border-top:1px solid var(--be-line)}.be-search{margin-top:2.3rem}.be-topics{display:block;margin-top:2rem}.be-topics>span{display:block;margin-bottom:.8rem}.be-feature{grid-template-columns:1fr}.be-feature__visual{min-height:15rem;aspect-ratio:1.5}.be-feature__copy{padding:.5rem 0}.be-library__head{align-items:flex-start;flex-direction:column}.be-card-grid{grid-template-columns:1fr;gap:1.6rem}.be-card__image{aspect-ratio:1.55}.be-bottom{align-items:flex-start;flex-direction:column}.be-bottom__link{width:100%;justify-content:space-between}}
 @media(prefers-reduced-motion:reduce){.be-feature__visual img,.be-card__image img{transition:none}}
+
+/* Shared Bagusin type, category chips and icon language */
+.blog-editorial,.blog-editorial button,.blog-editorial input,.blog-editorial a{font-family:var(--font-sans)}
+.blog-editorial .be-eyebrow,.blog-editorial .be-section-head,.blog-editorial .be-section-label,.blog-editorial .be-feature__meta,.blog-editorial .be-card__meta,.blog-editorial .be-library__head>p,.blog-editorial .be-index{font-family:var(--font-sans);letter-spacing:.045em}
+.blog-editorial .be-hero h1 em{font-family:var(--font-sans);font-style:normal;font-weight:var(--weight-semibold);letter-spacing:-.075em}
+.blog-editorial .be-label,.blog-editorial .be-topic{display:inline-flex;align-items:center;min-height:2rem;padding:.35rem .7rem;border:1px solid var(--content-label-border);border-radius:var(--radius-pill);background:var(--content-label-bg);color:var(--content-label-text);font-family:var(--font-sans);font-size:var(--text-xs);font-weight:var(--weight-semibold);letter-spacing:0;text-decoration:none}
+.blog-editorial .be-topic span{color:inherit;opacity:.65;font-family:var(--font-sans);font-size:.68rem}
+.blog-editorial .be-topic.is-active,.blog-editorial .be-topic[aria-pressed=true]{border-color:var(--color-black);background:var(--color-black);color:var(--color-white)}
+.blog-editorial .be-topic.is-active span{color:var(--color-white)}
+.blog-editorial .be-card__arrow,.blog-editorial .be-feature__visual-arrow{display:grid;place-items:center}
+.blog-editorial .be-icon{display:inline-flex;width:1rem;height:1rem;align-items:center;justify-content:center;vertical-align:middle}
+.blog-editorial .be-icon svg{display:block;width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
