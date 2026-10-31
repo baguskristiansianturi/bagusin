@@ -23,8 +23,9 @@
 
     function updateProgress(){
       if(!progress)return;
-      const start=article.getBoundingClientRect().top+window.scrollY;
-      const end=Math.max(start,article.offsetTop+article.offsetHeight-window.innerHeight);
+      const bounds=article.getBoundingClientRect();
+      const start=bounds.top+window.scrollY;
+      const end=Math.max(start,bounds.bottom+window.scrollY-window.innerHeight);
       const value=end<=start?1:Math.min(1,Math.max(0,(window.scrollY-start)/Math.max(1,end-start)));
       progress.style.width=(value*100)+"%";
     }
