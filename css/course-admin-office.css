@@ -150,3 +150,97 @@
 @media(max-width:900px){.admin-course-careers__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:680px){.admin-course-careers__grid{grid-template-columns:1fr}.admin-course-page .course-module summary{grid-template-columns:7rem minmax(0,1fr) 1rem;gap:.6rem;padding:.9rem}.admin-course-page .course-module__number{min-height:2rem;padding:.3rem .4rem}.admin-course-page .course-module summary strong{font-size:.86rem}}
 @media(max-width:420px){.admin-course-page .course-module summary{grid-template-columns:6.35rem minmax(0,1fr) .9rem;gap:.45rem;padding:.8rem}.admin-course-page .course-module__number{gap:.3rem}.admin-course-page .course-module__number small{font-size:.59rem}.admin-course-page .course-module__number svg{width:.95rem;height:.95rem;flex-basis:.95rem}.admin-course-page .course-module summary strong{font-size:.82rem}}
+
+
+/* Mobile refinement — course detail and curriculum cards */
+.admin-course-page,
+.admin-course-page *{box-sizing:border-box}
+.admin-course-page{overflow-x:clip}
+.admin-course-page .container{min-width:0}
+.admin-course-page .course-module,
+.admin-course-page .course-module summary,
+.admin-course-page .course-module summary>span{min-width:0}
+.admin-course-page .course-module summary strong,
+.admin-course-page .course-module summary small{overflow-wrap:anywhere}
+@media(max-width:680px){
+  .admin-course-page .course-module summary{
+    position:relative;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 1.1rem;
+    grid-template-rows:auto auto;
+    align-items:center;
+    column-gap:.65rem;
+    row-gap:.55rem;
+    padding:.95rem 1rem;
+  }
+  .admin-course-page .course-module summary>.course-module__number{
+    grid-column:1;
+    grid-row:1;
+    justify-self:start;
+    width:max-content;
+    max-width:100%;
+    min-height:1.9rem;
+    padding:.3rem .55rem;
+    gap:.4rem;
+    border-radius:.55rem;
+  }
+  .admin-course-page .course-module summary>.course-module__number small{
+    font-size:.66rem;
+    line-height:1.2;
+  }
+  .admin-course-page .course-module summary>span:nth-child(2){
+    grid-column:1/-1;
+    grid-row:2;
+    display:grid;
+    gap:.22rem;
+    padding-right:0;
+  }
+  .admin-course-page .course-module summary>span:nth-child(2) strong{
+    font-size:.93rem;
+    line-height:1.38;
+    letter-spacing:-.015em;
+  }
+  .admin-course-page .course-module summary>span:nth-child(2) small{
+    font-size:.72rem;
+    line-height:1.4;
+  }
+  .admin-course-page .course-module summary>.course-module__toggle{
+    grid-column:2;
+    grid-row:1;
+    justify-self:end;
+    align-self:center;
+  }
+  .admin-course-page .course-module__body{
+    padding:0 1rem 1rem;
+  }
+  .admin-course-page .course-module__body h4{margin-top:.2rem}
+  .admin-course-careers__grid article{padding:1rem;gap:.75rem}
+  .admin-course-careers__grid article>svg{flex-basis:2rem;width:2rem;height:2rem}
+  .admin-course-section-heading{margin-bottom:1.35rem}
+  .admin-course-section-heading h2{line-height:1.15}
+  .admin-course-section-heading>p{font-size:.88rem;line-height:1.7}
+  .admin-course-curriculum__summary{gap:.5rem}
+  .admin-course-curriculum__summary span{padding:.5rem .65rem;font-size:.7rem;line-height:1.35}
+}
+@media(max-width:420px){
+  .admin-course-page .course-module summary{padding:.85rem .9rem;row-gap:.5rem}
+  .admin-course-page .course-module summary>.course-module__number{min-height:1.8rem}
+  .admin-course-page .course-module summary>.course-module__number svg{width:1rem;height:1rem;flex-basis:1rem}
+  .admin-course-page .course-module summary>.course-module__number small{font-size:.63rem}
+  .admin-course-page .course-module summary>span:nth-child(2) strong{font-size:.9rem}
+  .admin-course-page .course-module summary>span:nth-child(2) small{font-size:.69rem}
+  .admin-course-page .course-module__body{padding:0 .9rem .95rem}
+  .admin-course-trust__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem .55rem}
+  .admin-course-trust__grid article{align-items:flex-start;gap:.5rem}
+  .admin-course-trust__icon{flex-basis:1.9rem;height:1.9rem}
+  .admin-course-trust__grid strong{font-size:.7rem}
+  .admin-course-trust__grid small{font-size:.62rem}
+  .admin-course-curriculum__summary{grid-template-columns:1fr 1fr}
+}
+@media(max-width:350px){
+  .admin-course-page .course-module summary{padding:.8rem}
+  .admin-course-page .course-module summary>span:nth-child(2) strong{font-size:.86rem}
+  .admin-course-trust__grid{grid-template-columns:1fr}
+  .admin-course-pricebar{align-items:flex-start;flex-wrap:wrap}
+  .admin-course-pricebar__divider{display:none}
+}
