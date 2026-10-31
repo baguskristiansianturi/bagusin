@@ -1,0 +1,42 @@
+{
+  "categories": [
+    {
+      "id": "administrasi",
+      "name": "Administrasi & Produktivitas"
+    },
+    {
+      "id": "akuntansi",
+      "name": "Akuntansi & Keuangan"
+    }
+  ],
+  "courses": [
+    {
+      "id": "administrasi-perkantoran",
+      "category": "administrasi",
+      "categoryLabel": "Administrasi · Produktivitas",
+      "title": "Administrasi Perkantoran Digital",
+      "description": "Bangun keterampilan komputer, dokumen, spreadsheet, presentasi, email, invoice, dan pengarsipan untuk kebutuhan kerja sehari-hari.",
+      "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=85",
+      "imageAlt": "Seseorang sedang belajar dan bekerja menggunakan laptop",
+      "meetings": "19 pertemuan",
+      "duration": "38 jam belajar",
+      "price": "Rp5.500.000",
+      "url": "/bagusin/learning/administrasi-perkantoran/",
+      "status": "available"
+    },
+    {
+      "id": "akuntansi-digital",
+      "category": "akuntansi",
+      "categoryLabel": "Akuntansi · Keuangan usaha",
+      "title": "Akuntansi Digital untuk Usaha",
+      "description": "Pelajari pembukuan usaha jasa dan dagang, jurnal, buku besar, rekonsiliasi, serta penyusunan laporan keuangan melalui studi kasus.",
+      "image": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=85",
+      "imageAlt": "Dokumen pembukuan dan kalkulator untuk pencatatan keuangan",
+      "meetings": "18 pertemuan",
+      "duration": "36 jam praktik",
+      "price": "Rp9.500.000",
+      "url": "/bagusin/learning/akuntansi-digital/",
+      "status": "available"
+    }
+  ]
+}
