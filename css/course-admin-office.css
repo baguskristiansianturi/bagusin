@@ -618,7 +618,7 @@
 .course-related__arrow{display:grid;place-items:center;width:2.65rem;height:2.65rem;border:1px solid #d7dede;border-radius:50%;background:#fff;color:#252b2d;font-size:1.1rem;cursor:pointer;transition:background .2s ease,border-color .2s ease}
 .course-related__arrow:hover:not(:disabled){border-color:#89999d;background:#edf2f2}
 .course-related__arrow:disabled{opacity:.35;cursor:not-allowed}
-.course-related__track{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);grid-auto-columns:calc((100% - 1.2rem)/2);gap:1.2rem;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:0 0 .5rem;scrollbar-width:thin;scrollbar-color:#c5d0d1 transparent}
+.course-related__track{display:grid;grid-auto-flow:column;grid-auto-columns:58%;gap:1.2rem;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:0 0 .5rem;scrollbar-width:thin;scrollbar-color:#c5d0d1 transparent}
 .course-related__card{display:flex;flex-direction:column;min-width:0;overflow:hidden;scroll-snap-align:start;border:1px solid #e0e6e6;border-radius:1rem;background:#fff;box-shadow:0 8px 24px rgba(25,39,42,.045)}
 .course-related__card .course-hub-card__image{min-height:13rem;aspect-ratio:16/8}
 .course-related__card .course-hub-card__content{flex:1;padding:1.2rem}
