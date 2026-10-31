@@ -583,3 +583,11 @@
 @media(max-width:420px){
   .admin-course-hero__fact{flex-basis:100%}
 }
+
+
+/* 2026-10-31 — compact inline hero chips (reusable course template) */
+.admin-course-hero__quick{display:flex;flex-wrap:wrap;align-items:center;gap:.45rem;margin-top:1.2rem}
+.admin-course-hero__fact{display:inline-flex!important;flex:0 0 auto;flex-direction:row!important;align-items:center;gap:.38rem;min-width:0;padding:.38rem .62rem;border:1px solid #dce7e9;border-radius:999px;background:#f3f7f7;color:#557d88!important;font-size:.75rem!important;line-height:1.2;white-space:nowrap}
+.admin-course-hero__fact svg{display:block;flex:0 0 .9rem;width:.9rem;height:.9rem;color:#557d88}
+.admin-course-hero__fact b{color:#557d88!important;font-size:.75rem!important;font-weight:750;line-height:1.2}
+@media(max-width:680px){.admin-course-hero__quick{gap:.4rem;margin-top:1rem}.admin-course-hero__fact{padding:.36rem .55rem;font-size:.72rem!important}.admin-course-hero__fact b{font-size:.72rem!important}}
