@@ -606,3 +606,36 @@
 .admin-course-pricebar__visit{color:#294f5a!important}
 .admin-course-pricebar__visit b{color:#294f5a!important}
 .admin-course-pricebar__visit small{color:#60777e!important}
+
+
+/* Related courses carousel — shared by every course detail page */
+.course-related{background:#f5f7f7;border-top:1px solid #e7ebeb}
+.course-related__heading{display:flex;align-items:flex-end;justify-content:space-between;gap:1.5rem;margin-bottom:1.5rem}
+.course-related__heading>div:first-child{max-width:46rem}
+.course-related__heading h2{margin-top:.5rem;color:#202729;font-size:clamp(1.65rem,3vw,2.25rem);line-height:1.12;letter-spacing:-.04em}
+.course-related__heading p{margin-top:.55rem;color:#687477;font-size:.9rem;line-height:1.65}
+.course-related__controls{display:flex;gap:.5rem;flex:0 0 auto}
+.course-related__arrow{display:grid;place-items:center;width:2.65rem;height:2.65rem;border:1px solid #d7dede;border-radius:50%;background:#fff;color:#252b2d;font-size:1.1rem;cursor:pointer;transition:background .2s ease,border-color .2s ease}
+.course-related__arrow:hover:not(:disabled){border-color:#89999d;background:#edf2f2}
+.course-related__arrow:disabled{opacity:.35;cursor:not-allowed}
+.course-related__track{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);grid-auto-columns:calc((100% - 1.2rem)/2);gap:1.2rem;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:0 0 .5rem;scrollbar-width:thin;scrollbar-color:#c5d0d1 transparent}
+.course-related__card{display:flex;flex-direction:column;min-width:0;overflow:hidden;scroll-snap-align:start;border:1px solid #e0e6e6;border-radius:1rem;background:#fff;box-shadow:0 8px 24px rgba(25,39,42,.045)}
+.course-related__card .course-hub-card__image{min-height:13rem;aspect-ratio:16/8}
+.course-related__card .course-hub-card__content{flex:1;padding:1.2rem}
+.course-related__card .course-hub-card__content h3{margin:0;color:#202729;font-size:1.25rem;line-height:1.2;letter-spacing:-.035em}
+.course-related__card .course-hub-card__content>p{margin-top:.55rem;font-size:.82rem;line-height:1.65}
+.course-related__card .course-hub-card__bottom{align-items:flex-end;gap:.8rem;padding-top:1rem}
+.course-related__card .course-hub-card__bottom>div strong{color:#202729;font-size:1.25rem}
+.course-related__card .course-hub-card__bottom .button{padding:.65rem .8rem;font-size:.76rem}
+.course-related__card .course-hub-card__image-caption{font-size:1.25rem}
+@media(max-width:680px){
+ .course-related__heading{align-items:flex-start}
+ .course-related__controls{padding-top:.2rem}
+ .course-related__track{grid-auto-columns:minmax(0,86%);gap:.85rem;margin-right:-1rem;padding-right:1rem}
+ .course-related__card .course-hub-card__image{min-height:12rem}
+ .course-related__card .course-hub-card__content{padding:1rem}
+ .course-related__card .course-hub-card__bottom{align-items:stretch;flex-direction:column}
+ .course-related__card .course-hub-card__bottom .button{width:100%;justify-content:center}
+}
+@media(max-width:380px){.course-related__heading{flex-direction:column}.course-related__controls{align-self:flex-end}}
+@media(prefers-reduced-motion:reduce){.course-related__track{scroll-behavior:auto}.course-related__arrow{transition:none}}
