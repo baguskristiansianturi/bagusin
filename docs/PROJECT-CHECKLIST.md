@@ -1,5 +1,19 @@
 # Bagusin Project Checklist & Session Handoff
 
+## Session handoff — 2026-10-31: first Company Profile product demo
+
+**Active work:** Company Profile product BG-WEB-CMP-002 — Nara Ink Studio (Tattoo & Body Art).
+
+- Working branch: feat/company-profile-tattoo-studio-001-final, based on the current production branch after the 31 October catalog-footer update.
+- Product is isolated at demos/company-profile/tattoo-studio-001/ with its own HTML, CSS, JavaScript, product metadata, README, and asset guidance.
+- Company Profile catalog reads data/company-profile-products.json and renders the available product card through js/company-profile-catalog.js; product card styles are isolated in css/company-profile-products.css.
+- Added the Tattoo & Body Art industry filter to the Company Profile category page.
+- Demo content is complete concept copy, with clearly disclosed illustrative business details, prices, artist identities, contact data, and policies. Gallery images are remote reference imagery and must be replaced with client-owned/licensed images before commercial launch.
+- Booking form is a three-step front-end interaction with validation and a WhatsApp handoff. It does not store appointments, check availability, accept deposits, or confirm bookings.
+- Not yet verified: browser visual QA, mobile interaction QA, external image availability, automated workflow results, PR review, and live GitHub Pages deployment.
+- Next actions: finish static checks, open a focused PR, inspect CI/workflow results, fix any failures, then merge only after review and verify the live catalog and demo URLs.
+
+---
 > Persistent working memory for AI sessions. Update after each meaningful phase. Repository and test evidence are the source of truth, not old chat summaries.
 
 ## Project identity and guardrails
