@@ -244,3 +244,9 @@
   .admin-course-pricebar{align-items:flex-start;flex-wrap:wrap}
   .admin-course-pricebar__divider{display:none}
 }
+
+
+/* Instructor attribution links */
+.admin-course-hero__micro a{color:#087f8d;font-weight:800;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.admin-course-instructor .admin-course-inline-link{display:inline-flex;align-items:center;gap:.3rem;margin-top:.2rem;margin-bottom:.25rem}
+.admin-course-instructor__grid>div:last-child>p strong{color:#18364d;font-weight:850;text-decoration:underline;text-decoration-color:#8ccfd0;text-decoration-thickness:2px;text-underline-offset:3px}
