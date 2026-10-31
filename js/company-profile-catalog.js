@@ -18,6 +18,7 @@
         <a class="company-profile-product__media" href="${escapeHtml(product.demo_url)}" aria-label="Open ${escapeHtml(product.name)} live demo">
           <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.image_alt)}" loading="lazy" width="1000" height="690">
           <span class="company-profile-product__code">${escapeHtml(product.item_code)}</span>
+          <span class="company-profile-product__badge">${escapeHtml(product.badge_label || "Demo")}</span>
         </a>
         <div class="company-profile-product__body">
           <p class="company-profile-product__eyebrow">${escapeHtml(product.type_label)} · ${escapeHtml(product.industry_label)}</p>
