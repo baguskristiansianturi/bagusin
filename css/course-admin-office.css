@@ -121,3 +121,32 @@
 .admin-course-instructor__identity small{color:#5d7481;font-size:.84rem}
 .admin-course-instructor__identity>span:last-child{margin-top:1.2rem;padding:.5rem .7rem;border-radius:999px;background:rgba(255,255,255,.75);color:#176276;font-size:.65rem;font-weight:850;letter-spacing:.08em}
 @media(max-width:680px){.admin-course-instructor__identity{min-height:15rem;aspect-ratio:auto}}
+
+
+/* Clearer hierarchy, meaningful icons and explicit meeting labels */
+.admin-course-page h2,.admin-course-page h3,.admin-course-page h4{font-weight:850}
+.admin-course-section-heading h2,.admin-course-outcomes__grid h2,.admin-course-schedule__grid h2,.admin-course-investment__grid h2,.admin-course-instructor__grid h2,.admin-course-final-cta h2{font-weight:850;letter-spacing:-.048em}
+.admin-course-section-heading>p,.admin-course-outcomes__grid>div:first-child>p{font-weight:450}
+.admin-course-trust__icon svg,.admin-course-audience__grid article>span svg,.admin-course-method__grid article>span svg,.admin-course-careers__grid article>svg{width:1.15rem;height:1.15rem;display:block}
+.admin-course-trust__icon{flex:0 0 2.35rem;height:2.35rem}
+.admin-course-audience__grid article>span,.admin-course-method__grid article>span{width:2.15rem;height:2.15rem}
+.admin-course-audience__grid h3,.admin-course-method__grid h3{font-weight:850;letter-spacing:-.02em}
+.admin-course-careers{background:#fff}
+.admin-course-careers__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.85rem}
+.admin-course-careers__grid article{display:flex;align-items:flex-start;gap:.9rem;min-width:0;padding:1.15rem;border:1px solid var(--admin-line);border-radius:1rem;background:#fff;box-shadow:0 5px 18px rgba(15,44,64,.035)}
+.admin-course-careers__grid article>svg{flex:0 0 2.2rem;width:2.2rem;height:2.2rem;padding:.48rem;border-radius:.7rem;background:#e8f6f6;color:#078b99}
+.admin-course-careers__grid h3{color:#18364d;font-size:.94rem;font-weight:850;line-height:1.35;letter-spacing:-.02em}
+.admin-course-careers__grid p{margin-top:.35rem;color:#71808a;font-size:.8rem;line-height:1.65}
+.admin-course-careers__note{max-width:55rem;margin-top:1.1rem;padding:.85rem 1rem;border-left:3px solid #079eaa;background:#f3f8f9;color:#657781;font-size:.78rem;line-height:1.65}
+.admin-course-careers__note strong{color:#18364d;font-weight:850}
+.admin-course-page .course-module summary{grid-template-columns:7.4rem minmax(0,1fr) 1.2rem;gap:.9rem}
+.admin-course-page .course-module__number{display:flex;align-items:center;justify-content:flex-start;gap:.45rem;width:auto;height:auto;min-height:2.1rem;padding:.38rem .5rem;border:1px solid #dce9eb;border-radius:.7rem;background:#f0f8f8;color:#087f8d}
+.admin-course-page .course-module__number svg{display:block;flex:0 0 1.05rem;width:1.05rem;height:1.05rem}
+.admin-course-page .course-module__number small{color:#087f8d;font-size:.65rem;font-weight:850;line-height:1.15;white-space:nowrap;letter-spacing:.01em}
+.admin-course-page .course-module summary strong{font-size:.94rem;font-weight:850;line-height:1.4}
+.admin-course-page .course-module summary small{font-size:.72rem;font-weight:600}
+.admin-course-page .course-module__body h4{font-size:.86rem;font-weight:850}
+.admin-course-page .course-module__body p strong{color:#294b60;font-weight:850}
+@media(max-width:900px){.admin-course-careers__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:680px){.admin-course-careers__grid{grid-template-columns:1fr}.admin-course-page .course-module summary{grid-template-columns:7rem minmax(0,1fr) 1rem;gap:.6rem;padding:.9rem}.admin-course-page .course-module__number{min-height:2rem;padding:.3rem .4rem}.admin-course-page .course-module summary strong{font-size:.86rem}}
+@media(max-width:420px){.admin-course-page .course-module summary{grid-template-columns:6.35rem minmax(0,1fr) .9rem;gap:.45rem;padding:.8rem}.admin-course-page .course-module__number{gap:.3rem}.admin-course-page .course-module__number small{font-size:.59rem}.admin-course-page .course-module__number svg{width:.95rem;height:.95rem;flex-basis:.95rem}.admin-course-page .course-module summary strong{font-size:.82rem}}
