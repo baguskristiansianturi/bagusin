@@ -137,7 +137,7 @@
     ].join("\n");
     const demoNumber = "6281234567890";
     window.open("https://wa.me/" + demoNumber + "?text=" + encodeURIComponent(message), "_blank", "noopener,noreferrer");
-    if (alert) alert.textContent = "Your WhatsApp message is prepared. This concept uses a sample contact number; replace it before launch.";
+    if (alert) alert.textContent = "Your WhatsApp message is ready. Please attach any reference image directly in the chat.";
   });
 
   const dateInput = field("date");
