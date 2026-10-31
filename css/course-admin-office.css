@@ -250,3 +250,156 @@
 .admin-course-hero__micro a{color:#087f8d;font-weight:800;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
 .admin-course-instructor .admin-course-inline-link{display:inline-flex;align-items:center;gap:.3rem;margin-top:.2rem;margin-bottom:.25rem}
 .admin-course-instructor__grid>div:last-child>p strong{color:#18364d;font-weight:850;text-decoration:underline;text-decoration-color:#8ccfd0;text-decoration-thickness:2px;text-underline-offset:3px}
+
+
+/* 2026-10-31 — monochrome + muted gold palette and instructor card fix */
+.admin-course-page{
+  --admin-ink:#202020;
+  --admin-muted:#73716d;
+  --admin-line:#e7e4de;
+  --admin-teal:#a88a55;
+  --admin-deep:#171717;
+  color:var(--admin-ink);
+}
+.admin-course-hero{
+  background:linear-gradient(120deg,#f7f6f3 0%,#fff 55%,#f1eee8 100%);
+}
+.admin-course-hero .course-back-link{color:#77736c}
+.admin-course-hero .section-kicker,
+.admin-course-section-heading .section-kicker{color:#947747}
+.admin-course-hero h1,
+.admin-course-hero__quick b{color:#171717}
+.admin-course-hero__lead{color:#66635e}
+.admin-course-pricebar{
+  background:linear-gradient(110deg,#292824,#49453d);
+  box-shadow:0 12px 28px rgba(35,32,25,.12);
+}
+.admin-course-pricebar__divider{background:rgba(255,255,255,.28)}
+.admin-course-photo-caption span{color:#e7d6b5}
+.admin-course-trust__icon,
+.admin-course-audience__grid article>span,
+.admin-course-method__grid article>span{
+  background:#f2eee6;color:#967747;
+}
+.admin-course-outcomes__grid h2,
+.admin-course-schedule__grid h2,
+.admin-course-investment__grid h2,
+.admin-course-instructor__grid h2,
+.admin-course-section-heading h2{color:#171717}
+.admin-course-inline-link{color:#967747}
+.admin-course-outcome-list article>span{background:#f2eee6;color:#967747}
+.admin-course-outcome-list strong,
+.admin-course-audience__grid h3,
+.admin-course-method__grid h3{color:#292824}
+.admin-course-audience,
+.admin-course-curriculum{background:#f7f6f3}
+.admin-course-curriculum__summary span{border-color:#e5e0d5;color:#69665f}
+.admin-course-curriculum__summary b{color:#947747}
+.admin-course-page .course-module{border-color:#e7e3da}
+.admin-course-page .course-module__number{
+  background:#f3efe7;color:#947747;border-color:#e6dece;
+}
+.admin-course-page .course-module__number small,
+.admin-course-page .course-module__toggle{color:#947747}
+.admin-course-page .course-module summary strong{color:#25231f}
+.admin-course-page .course-module summary small,
+.admin-course-page .course-module__body p{color:#716e68}
+.admin-course-page .course-module__body h4,
+.admin-course-page .course-module__body p strong{color:#49443b}
+.admin-course-schedule{background:#242321;color:#fff}
+.admin-course-schedule__grid>div:first-child>p{color:#d0ccc4}
+.admin-course-schedule__facts div{border-color:rgba(255,255,255,.16);background:rgba(255,255,255,.055)}
+.admin-course-schedule__facts small{color:#c5c0b6}
+.admin-course-instructor__identity{
+  background:radial-gradient(circle at 82% 16%,rgba(190,164,116,.2),transparent 36%),linear-gradient(145deg,#f3f0e9,#e8e3d8 58%,#ddd7ca);
+}
+.admin-course-instructor__identity .admin-course-instructor__monogram{
+  background:#292824;color:#f5e9d1;
+  box-shadow:0 12px 28px rgba(40,36,27,.16);
+}
+.admin-course-instructor__identity strong{color:#24221e}
+.admin-course-instructor__identity small{color:#716b60}
+.admin-course-instructor__identity>span:last-child{
+  background:rgba(255,255,255,.78);color:#80683f;
+}
+.admin-course-instructor__portrait:not(.admin-course-instructor__identity)>span{
+  background:rgba(30,29,26,.84);
+}
+/* Identity card is a normal vertical stack; never absolutely position its text spans. */
+.admin-course-instructor__identity{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:center;
+  gap:.65rem;
+  min-height:23rem;
+  padding:clamp(1.5rem,4vw,3rem);
+  overflow:hidden;
+  aspect-ratio:auto;
+}
+.admin-course-instructor__identity > span{
+  position:static;
+  inset:auto;
+  display:block;
+  width:auto;
+  max-width:100%;
+  padding:0;
+  border:0;
+  border-radius:0;
+  font-size:inherit;
+  letter-spacing:normal;
+  backdrop-filter:none;
+}
+.admin-course-instructor__identity > .admin-course-instructor__monogram{
+  display:grid;
+  place-items:center;
+  width:5.5rem;
+  height:5.5rem;
+  flex:0 0 5.5rem;
+  padding:0;
+  border-radius:1.4rem;
+  font-size:2.7rem;
+  line-height:1;
+}
+.admin-course-instructor__identity > strong{display:block;margin-top:.35rem}
+.admin-course-instructor__identity > small{display:block}
+.admin-course-instructor__identity > span:last-child{
+  margin-top:1rem;
+  padding:.5rem .7rem;
+  border-radius:999px;
+  font-size:.65rem;
+  font-weight:850;
+  letter-spacing:.08em;
+}
+.admin-course-investment{background:#f6f5f1}
+.admin-course-price-card{border-color:#e7e1d5;box-shadow:0 12px 28px rgba(30,28,22,.055)}
+.admin-course-price-card strong{color:#947747}
+.admin-course-includes{border-color:#e7e3da}
+.admin-course-includes h3,
+.admin-course-faq__list summary{color:#292824}
+.admin-course-faq__list details{border-color:#e7e3da}
+.admin-course-faq__list summary:after{color:#947747}
+.admin-course-final-cta{background:#242321}
+.admin-course-final-cta .section-kicker{color:#d8c49f}
+.admin-course-final-cta p{color:#d1cec7}
+.admin-course-final-cta .button{background:#e9dfcc;color:#292824}
+.admin-course-hero__micro a{
+  color:#947747;
+  text-decoration-color:#c4ae83;
+}
+.admin-course-instructor__grid>div:last-child>p strong{
+  color:#39352d;
+  text-decoration-color:#c7b48f;
+}
+.admin-course-careers__grid article>svg{
+  background:#f2eee6;color:#967747;
+}
+.admin-course-careers__note{
+  border-left-color:#b59a68;background:#f7f5ef;color:#6c685f;
+}
+.admin-course-careers__note strong{color:#292824}
+.admin-course-careers__grid h3{color:#292824}
+@media(max-width:680px){
+  .admin-course-instructor__identity{min-height:15rem;aspect-ratio:auto}
+}
