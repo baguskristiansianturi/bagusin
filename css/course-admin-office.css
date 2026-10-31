@@ -1,0 +1,35 @@
+/* Bagusin — Administrasi Perkantoran Digital course detail */
+.admin-course-page{--admin-ink:#151719;--admin-muted:#626b70;--admin-line:#e4e7e8;--admin-accent:#1b8583}
+.admin-course-page .learning-hero{background:linear-gradient(125deg,#fff 0%,#f7f9f9 72%,#eaf4f3 100%)}
+.admin-course-page .course-detail-hero .learning-hero__inner{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(260px,.9fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:center;max-width:76rem}
+.admin-course-hero-copy{min-width:0}
+.admin-course-hero-copy h1{max-width:12ch}
+.admin-course-status{display:flex;align-items:center;gap:.45rem;margin-top:1.15rem;color:#59666a;font-size:.78rem;font-weight:700}
+.admin-course-status span{color:#b7791f;font-size:.62rem}
+.admin-course-hero-visual{min-width:0;padding:1.1rem;border:1px solid #dce4e4;border-radius:1.15rem;background:#fff;box-shadow:0 18px 48px rgba(20,35,37,.08)}
+.admin-course-visual-top,.admin-course-visual-foot{display:flex;justify-content:space-between;align-items:center;gap:.75rem;color:#687477;font-size:.68rem;font-weight:800;letter-spacing:.08em}
+.admin-course-sheet-bar{display:flex;align-items:center;gap:.35rem;margin-top:1rem;padding:.7rem .8rem;border:1px solid #e5e9e9;border-radius:.65rem .65rem 0 0;background:#f8fafa}
+.admin-course-sheet-bar i{width:.42rem;height:.42rem;border-radius:50%;background:#aab5b6}
+.admin-course-sheet-bar span{margin-left:.45rem;color:#667174;font-size:.7rem}
+.admin-course-sheet-head{display:flex;justify-content:space-between;align-items:center;gap:.7rem;padding:.9rem .85rem .6rem;color:#202729}
+.admin-course-sheet-head b{font-size:.95rem}
+.admin-course-sheet-head small{color:#758084;font-size:.68rem}
+.admin-course-sheet-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem;padding:0 .8rem .8rem}
+.admin-course-sheet-stats div{padding:.7rem .55rem;border:1px solid #e8eded;border-radius:.55rem;background:#fbfcfc}
+.admin-course-sheet-stats small,.admin-course-sheet-stats strong{display:block}
+.admin-course-sheet-stats small{color:#7b8588;font-size:.62rem}
+.admin-course-sheet-stats strong{margin-top:.25rem;color:#1c393a;font-size:clamp(.72rem,1.5vw,.95rem)}
+.admin-course-sheet-table{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.4rem;padding:.8rem;border-top:1px solid #edf0f0}
+.admin-course-sheet-table span{height:1.05rem;border-radius:.2rem;background:#eef3f3}
+.admin-course-sheet-table span:nth-child(4n+1){background:#dcebea}
+.admin-course-visual-foot{margin-top:.85rem;padding-top:.8rem;border-top:1px solid #e8eded;letter-spacing:0}
+.admin-course-visual-foot strong{color:#334346;font-size:.76rem}
+.admin-course-visual-foot span{color:#788487;font-size:.68rem;font-weight:500}
+.admin-course-page .course-offer-price{font-size:clamp(2rem,4vw,2.8rem);letter-spacing:-.045em}
+.admin-course-page .course-offer-status{color:#8a641f}
+.admin-course-page .course-module__body p{max-width:55rem}
+.admin-course-page .course-terms__grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:760px){.admin-course-page .course-detail-hero .learning-hero__inner{grid-template-columns:1fr}.admin-course-hero-visual{max-width:34rem;width:100%;justify-self:center}}
+@media(max-width:48rem){.admin-course-page .course-terms__grid{grid-template-columns:1fr}.admin-course-page .course-overview-grid,.admin-course-page .course-project-grid{grid-template-columns:1fr}}
+@media(max-width:36rem){.admin-course-hero-visual{padding:.85rem}.admin-course-sheet-stats{gap:.35rem}.admin-course-sheet-stats div{padding:.6rem .4rem}.admin-course-visual-foot{align-items:flex-start;flex-direction:column;gap:.2rem}}
+@media(prefers-reduced-motion:reduce){.admin-course-page *{scroll-behavior:auto!important;transition:none!important}}
