@@ -24,3 +24,16 @@
 .home-course-preview--featured .home-course-preview__note{margin-top:1rem;color:#74818a;font-size:.78rem;line-height:1.65}
 @media(max-width:760px){.home-course-feature-card{grid-template-columns:1fr}.home-course-feature-card__visual{min-height:17rem}.home-course-feature-card__bottom{align-items:stretch;flex-direction:column}.home-course-feature-card__bottom .button{width:100%;justify-content:center}}
 @media(max-width:420px){.home-course-feature-card__body{padding:1.1rem}.home-course-feature-card__visual{min-height:15rem}.home-course-feature-card__meta span{font-size:.64rem}}
+
+/* Homepage course discovery: editorial cards, never price-led. */
+.home-course-preview__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.15rem;margin-top:1.5rem}
+.home-course-feature-card{display:flex;min-width:0;flex-direction:column;overflow:hidden;border:1px solid #e4eaed;border-radius:1.05rem;background:#fff;box-shadow:0 12px 34px rgba(16,43,73,.055)}
+.home-course-feature-card__visual{min-height:0;aspect-ratio:16/9}
+.home-course-feature-card__tag{top:1rem!important;left:1rem}
+.home-course-feature-card__body{gap:0;padding:1.2rem 1.3rem 1.35rem}
+.home-course-feature-card__body h3{margin-top:.45rem;font-size:clamp(1.2rem,2.2vw,1.65rem)}
+.home-course-feature-card__body>p{margin-top:.5rem;font-size:.86rem;line-height:1.65}
+.home-course-feature-card__eyebrow{font-size:.65rem}
+.home-course-feature-card__link{display:inline-flex;align-items:center;gap:.4rem;margin-top:1rem;color:#087f8d;font-size:.82rem;font-weight:800;text-decoration:none}
+.home-course-feature-card__link:hover{text-decoration:underline}
+@media(max-width:680px){.home-course-preview__grid{grid-template-columns:1fr;gap:1rem}.home-course-feature-card__visual{aspect-ratio:16/9;min-height:0}.home-course-feature-card__body{padding:1rem 1.05rem 1.15rem}}
