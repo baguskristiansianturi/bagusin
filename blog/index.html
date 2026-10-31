@@ -110,49 +110,30 @@
   </div>
 </aside>
 
-<main id="main-content" tabindex="-1" class="blog-page">
-  <section class="section blog-hero" aria-labelledby="blog-title">
-    <div class="container blog-hero__inner">
-      <div class="blog-hero__copy">
-        <span class="section-kicker">BLOG · BAGUSIN</span>
-        <h1 id="blog-title" class="blog-hero__title">Cerita, panduan, dan hal yang layak dibagikan.</h1>
-        <p class="blog-hero__dek">Temukan pengalaman, ide, dan panduan praktis untuk perjalanan, pekerjaan, dan membangun bisnis digital.</p>
-        <form class="blog-search" role="search" data-blog-search>
-          <label class="sr-only" for="blog-search-input">Cari artikel blog</label>
-          <svg class="blog-search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6"></circle><path d="m16 16 4.2 4.2"></path></svg>
-          <input id="blog-search-input" type="search" autocomplete="off" placeholder="Cari artikel, topik, atau panduan…" data-blog-search-input aria-describedby="blog-search-hint">
-          <button type="submit" aria-label="Cari artikel"><span aria-hidden="true">↵</span></button>
-          <div class="blog-search__suggestions" aria-label="Pilih topik populer" data-blog-suggestions></div>
-        </form>
-        <p class="blog-search__hint" id="blog-search-hint">Mulai dengan mengetik atau pilih topik yang muncul di sini.</p>
+<main id="main-content" tabindex="-1" class="blog-page blog-editorial">
+  <section class="be-hero">
+    <div class="container">
+      <div class="be-eyebrow"><span class="be-eyebrow__line"></span> BAGUSIN JOURNAL <span>VOL. 01 / 2026</span></div>
+      <div class="be-hero__grid">
+        <div><h1>Ideas, places<br>and <em>everything</em><br>in between.</h1><p>Catatan, panduan, dan perspektif tentang perjalanan, pekerjaan, teknologi, serta proses membangun sesuatu dengan lebih baik.</p></div>
+        <div class="be-hero__side"><span class="be-index">01 — 04</span><p>Stories for curious minds.<br>Written from Bali, shared everywhere.</p><a href="#latest-stories">Jelajahi tulisan <span>↓</span></a></div>
       </div>
+      <form class="be-search" role="search" data-blog-search><label for="blog-search-input">Cari dalam jurnal</label><div><span aria-hidden="true">⌕</span><input id="blog-search-input" type="search" autocomplete="off" placeholder="Cari topik, tempat, atau ide…" data-blog-search-input><button type="submit" aria-label="Cari artikel">↗</button><div class="blog-search__suggestions" data-blog-suggestions></div></div></form>
+      <div class="be-topics"><span>JELAJAHI BERDASARKAN TOPIK</span><nav class="be-topics__list blog-filters__list" data-blog-categories aria-label="Kategori blog"></nav></div>
     </div>
   </section>
-
-  <section class="section blog-library" aria-labelledby="blog-library-title">
-    <div class="container blog-library__container">
-      <div class="blog-library__heading">
-        <div><span class="section-kicker">DARI BLOG</span><h2 id="blog-library-title">Tulisan terbaru</h2></div>
-        <p data-blog-result-count aria-live="polite">Memuat artikel…</p>
-      </div>
-      <div class="blog-library__layout">
-        <aside class="blog-filters" aria-label="Filter kategori artikel">
-          <p class="blog-filters__title">Jelajahi topik</p>
-          <nav class="blog-filters__list" data-blog-categories aria-label="Kategori blog"></nav>
-          <div class="blog-filters__note"><span aria-hidden="true">✳</span><p>Kategori mengikuti topik yang digunakan pada artikel.</p></div>
-        </aside>
-        <div class="blog-results">
-          <div class="blog-card-grid" data-blog-grid aria-live="polite"></div>
-          <div class="blog-empty" data-blog-empty hidden><span aria-hidden="true">⌕</span><h3>Belum ada artikel yang cocok</h3><p>Coba kata kunci lain atau pilih kategori berbeda.</p><button class="button button--secondary" type="button" data-blog-reset>Hapus filter</button></div>
-          <nav class="blog-pagination" aria-label="Navigasi halaman artikel" data-blog-pagination hidden></nav>
-        </div>
-      </div>
-      <section class="blog-discover" aria-labelledby="blog-discover-title">
-        <div><span class="section-kicker">LANJUTKAN DARI SINI</span><h2 id="blog-discover-title">Sedang mencari solusi untuk bisnis?</h2><p>Kenali pilihan layanan dan temukan langkah yang sesuai dengan kebutuhan Anda.</p></div>
-        <a class="button button--secondary" href="/bagusin/work/">Jelajahi layanan <span aria-hidden="true">↗</span></a>
-      </section>
+  <section class="be-feature-section container" aria-labelledby="be-feature-title">
+    <div class="be-section-head"><span>THE EDITOR'S PICK</span><span>01 / FEATURED STORY</span></div>
+    <div class="be-feature" data-blog-feature></div>
+  </section>
+  <section class="be-library container" id="latest-stories" aria-labelledby="blog-library-title">
+    <div class="be-library__head"><div><span class="be-section-label">THE JOURNAL</span><h2 id="blog-library-title">Latest stories<span>.</span></h2></div><p data-blog-result-count aria-live="polite">Memuat artikel…</p></div>
+    <div class="be-library__body"><div class="be-card-grid" data-blog-grid aria-live="polite"></div>
+      <div class="blog-empty" data-blog-empty hidden><span aria-hidden="true">⌕</span><h3>Belum ada artikel yang cocok</h3><p>Coba kata kunci lain atau pilih kategori berbeda.</p><button class="button button--secondary" type="button" data-blog-reset>Hapus filter</button></div>
+      <nav class="blog-pagination" aria-label="Navigasi halaman artikel" data-blog-pagination hidden></nav>
     </div>
   </section>
+  <section class="be-bottom container"><div><span class="be-section-label">BUILD SOMETHING BETTER</span><h2>Punya ide yang ingin diwujudkan?</h2><p>Jelajahi layanan Bagusin untuk menemukan dukungan yang tepat bagi proyek atau bisnis Anda.</p></div><a href="/bagusin/work/" class="be-bottom__link">Lihat layanan <span>↗</span></a></section>
 </main><footer class="site-footer">
   <div class="site-footer__main">
     <div class="site-footer__inner">
