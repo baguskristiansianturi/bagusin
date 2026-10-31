@@ -70,7 +70,7 @@
       const links=new Map();
       tocLinks.forEach(function(link){
         const id=(link.getAttribute("href")||"").slice(1);
-        if(id&&article.querySelector("#"+CSS.escape(id)))links.set(id,link);
+        if(id&&headings.some(function(heading){return heading.id===id;}))links.set(id,link);
       });
 
       const observer=new IntersectionObserver(function(entries){
