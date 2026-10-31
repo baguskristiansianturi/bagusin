@@ -165,9 +165,9 @@ try {
   if (!(await interactionPage.locator("h1").first().innerText()).includes("GOOD INK.")) {
     errors.push("Bagus Tattoo demo: hero headline is missing");
   }
-  if (await interactionPage.locator('a[href="tel:+6281234567890"]').count() !== 1) errors.push("Nara Ink demo: clickable phone link is missing");
+  if (await interactionPage.locator('a[href="tel:+6281234567890"]').count() !== 1) errors.push("Bagus Tattoo demo: clickable phone link is missing");
   if (await interactionPage.locator('a[href="mailto:hello@bagustattoostudio.example"]').count() !== 1) errors.push("Bagus Tattoo demo: clickable email link is missing");
-  if (await interactionPage.locator('a[href*="google.com/maps/search"]').count() !== 1) errors.push("Nara Ink demo: studio directions link is missing");
+  if (await interactionPage.locator('a[href*="google.com/maps/search"]').count() !== 1) errors.push("Bagus Tattoo demo: studio directions link is missing");
   const demoOverflow = await interactionPage.evaluate(() => ({
     viewport: window.innerWidth,
     documentWidth: document.documentElement.scrollWidth,
