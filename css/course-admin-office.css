@@ -639,3 +639,20 @@
 }
 @media(max-width:380px){.course-related__heading{flex-direction:column}.course-related__controls{align-self:flex-end}}
 @media(prefers-reduced-motion:reduce){.course-related__track{scroll-behavior:auto}.course-related__arrow{transition:none}}
+
+/* Related courses: vertical list, no carousel and no price-led layout. */
+.course-related{background:#fff}.course-related__heading{margin-bottom:1.35rem}
+.course-related__heading h2{margin-top:.5rem;color:#102b49;font-size:clamp(1.65rem,3.2vw,2.35rem);line-height:1.12;letter-spacing:-.04em}
+.course-related__heading p{max-width:42rem;margin-top:.55rem;color:#687984;font-size:.88rem;line-height:1.7}
+.course-related__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.course-related__card{display:flex;min-width:0;flex-direction:column;overflow:hidden;border:1px solid #e3e9ec;border-radius:1rem;background:#fff;box-shadow:0 8px 24px rgba(16,43,73,.045)}
+.course-related__image{position:relative;display:block;overflow:hidden;aspect-ratio:16/9;background:#e8eef0}
+.course-related__image img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+.course-related__image:hover img{transform:scale(1.035)}
+.course-related__image-label{position:absolute;left:.85rem;bottom:.85rem;padding:.38rem .62rem;border:1px solid rgba(255,255,255,.7);border-radius:999px;background:rgba(255,255,255,.92);color:#294354;font-size:.66rem;font-weight:750}
+.course-related__content{padding:1rem 1.1rem 1.15rem}
+.course-related__content h3{font-size:1.08rem;line-height:1.35;letter-spacing:-.02em}
+.course-related__content h3 a{color:#102b49;text-decoration:none}.course-related__content h3 a:hover{color:#087f8d}
+.course-related__content p{margin-top:.45rem;color:#687984;font-size:.82rem;line-height:1.65}
+@media(max-width:680px){.course-related__grid{grid-template-columns:1fr;gap:.85rem}.course-related__image{aspect-ratio:16/9}.course-related__content{padding:.9rem 1rem 1.05rem}}
+@media(prefers-reduced-motion:reduce){.course-related__image img{transition:none}}
