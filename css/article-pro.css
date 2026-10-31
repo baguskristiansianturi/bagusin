@@ -219,3 +219,6 @@
   .article-page--pro .article-pro-meta{font-size:.64rem}
   .article-page--pro .article-pro-meta>*{gap:.28rem}
 }
+
+.article-page--pro .article-pro-toc a.is-active{color:#111;font-weight:700}
+.article-page--pro .article-pro-toc a[aria-current=location]{border-left:2px solid #111;padding-left:.65rem}
