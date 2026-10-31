@@ -141,6 +141,9 @@ try {
   if (await interactionPage.locator(".company-profile-product").count() !== 1) {
     errors.push("Company Profile catalogue: expected the Nara Ink Studio product card");
   }
+  if ((await interactionPage.locator(".company-profile-product__badge").first().innerText()) !== "Demo konsep") {
+    errors.push("Company Profile catalogue: concept demo label is missing");
+  }
   await interactionPage.locator('[data-industry="tattoo-studio"]').click();
   if (!(await interactionPage.locator(".company-profile-product").first().isVisible())) {
     errors.push("Company Profile catalogue: Tattoo & Body Art filter hid its matching product");
@@ -162,6 +165,9 @@ try {
   if (!(await interactionPage.locator("h1").first().innerText()).includes("Wear a story")) {
     errors.push("Nara Ink demo: hero headline is missing");
   }
+  if (await interactionPage.locator('a[href="tel:+6281234567890"]').count() !== 1) errors.push("Nara Ink demo: clickable phone link is missing");
+  if (await interactionPage.locator('a[href="mailto:hello@narainkstudio.com"]').count() !== 1) errors.push("Nara Ink demo: clickable email link is missing");
+  if (await interactionPage.locator('a[href*="google.com/maps/search"]').count() !== 1) errors.push("Nara Ink demo: studio directions link is missing");
   const demoOverflow = await interactionPage.evaluate(() => ({
     viewport: window.innerWidth,
     documentWidth: document.documentElement.scrollWidth,
