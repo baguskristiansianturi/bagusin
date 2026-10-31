@@ -18,6 +18,8 @@ const routes = [
   "/bagusin/work/web-applications/",
   "/bagusin/work/maintenance-uiux/",
   "/bagusin/collections/",
+  "/bagusin/collections/company-profile/",
+  "/bagusin/demos/company-profile/tattoo-studio-001/",
   "/bagusin/templates/",
   "/bagusin/templates/blogger-editorial/",
   "/bagusin/templates/demos/editorial-blogger/",
@@ -128,7 +130,96 @@ for (const route of routes) {
 }
 
 const interactionPage = await browser.newPage({ viewport: { width: 390, height: 844 } });
+await interactionPage.addInitScript(() => {
+  window.__openedUrls = [];
+  window.open = (url) => { window.__openedUrls.push(String(url)); return null; };
+});
 try {
+  // Company Profile catalog: the Tattoo & Body Art product must load from the product registry.
+  await interactionPage.goto(origin + "/bagusin/collections/company-profile/", { waitUntil: "domcontentloaded" });
+  await interactionPage.locator(".company-profile-product").first().waitFor({ state: "visible", timeout: 8000 });
+  if (await interactionPage.locator(".company-profile-product").count() !== 1) {
+    errors.push("Company Profile catalogue: expected the Nara Ink Studio product card");
+  }
+  await interactionPage.locator('[data-industry="tattoo-studio"]').click();
+  if (!(await interactionPage.locator(".company-profile-product").first().isVisible())) {
+    errors.push("Company Profile catalogue: Tattoo & Body Art filter hid its matching product");
+  }
+  const demoHref = await interactionPage.locator(".company-profile-product__actions a").first().getAttribute("href");
+  if (demoHref !== "/bagusin/demos/company-profile/tattoo-studio-001/") {
+    errors.push("Company Profile catalogue: demo link is incorrect: " + demoHref);
+  }
+  await interactionPage.locator('[data-industry="car-rental"]').click();
+  if (await interactionPage.locator(".company-profile-product").first().isVisible()) {
+    errors.push("Company Profile catalogue: unrelated industry filter did not hide the tattoo product");
+  }
+
+  // Demo: check navigation, gallery lightbox and the complete booking wizard.
+  await interactionPage.goto(origin + "/bagusin/demos/company-profile/tattoo-studio-001/", { waitUntil: "domcontentloaded" });
+  if (!(await interactionPage.title()).includes("Nara Ink Studio")) {
+    errors.push("Nara Ink demo: document title is missing the studio name");
+  }
+  if (!(await interactionPage.locator("h1").first().innerText()).includes("Wear a story")) {
+    errors.push("Nara Ink demo: hero headline is missing");
+  }
+  const demoOverflow = await interactionPage.evaluate(() => ({
+    viewport: window.innerWidth,
+    documentWidth: document.documentElement.scrollWidth,
+    bodyWidth: document.body.scrollWidth
+  }));
+  if (demoOverflow.documentWidth > demoOverflow.viewport + 2 || demoOverflow.bodyWidth > demoOverflow.viewport + 2) {
+    errors.push("Nara Ink demo @ 390px: horizontal overflow " + JSON.stringify(demoOverflow));
+  }
+  const demoMenu = interactionPage.locator(".menu-toggle");
+  await demoMenu.click();
+  if (!(await interactionPage.locator("#primary-nav").evaluate(el => el.classList.contains("is-open")))) {
+    errors.push("Nara Ink demo: mobile navigation did not open");
+  }
+  await interactionPage.locator('#primary-nav a[href="#work"]').click();
+  if (await interactionPage.locator("#primary-nav").evaluate(el => el.classList.contains("is-open"))) {
+    errors.push("Nara Ink demo: mobile navigation did not close after choosing a link");
+  }
+  await interactionPage.locator("[data-gallery-image]").first().click();
+  if (!(await interactionPage.locator("[data-gallery-dialog]").evaluate(el => el.open))) {
+    errors.push("Nara Ink demo: gallery lightbox did not open");
+  }
+  await interactionPage.locator("[data-gallery-close]").click();
+  if (await interactionPage.locator("[data-gallery-dialog]").evaluate(el => el.open)) {
+    errors.push("Nara Ink demo: gallery lightbox did not close");
+  }
+
+  // Step one must validate before advancing.
+  await interactionPage.locator("[data-next]").click();
+  if (!(await interactionPage.locator('[data-step-panel="1"]').isVisible())) {
+    errors.push("Nara Ink demo: booking wizard advanced without required contact details");
+  }
+  await interactionPage.locator('[name="name"]').fill("Alex Example");
+  await interactionPage.locator('[name="phone"]').fill("+62 812 0000 0000");
+  await interactionPage.locator("[data-next]").click();
+  if (!(await interactionPage.locator('[data-step-panel="2"]').isVisible())) {
+    errors.push("Nara Ink demo: booking wizard did not advance to tattoo details");
+  }
+  await interactionPage.locator('[name="style"]').selectOption({ label: "Fine Line" });
+  await interactionPage.locator('[name="placement"]').fill("Left forearm");
+  await interactionPage.locator('[name="size"]').selectOption({ label: "Small · under 5 cm" });
+  await interactionPage.locator('[name="idea"]').fill("A small botanical linework piece.");
+  await interactionPage.locator("[data-next]").click();
+  if (!(await interactionPage.locator('[data-step-panel="3"]').isVisible())) {
+    errors.push("Nara Ink demo: booking wizard did not advance to appointment details");
+  }
+  const dateMin = await interactionPage.locator('[name="date"]').getAttribute("min");
+  await interactionPage.locator('[name="date"]').fill(dateMin);
+  await interactionPage.locator('[name="time"]').selectOption({ label: "10:00 – 12:00" });
+  await interactionPage.locator('[name="consent"]').check();
+  if (!(await interactionPage.locator("[data-summary]").innerText()).includes("Alex Example")) {
+    errors.push("Nara Ink demo: booking summary did not include the submitted contact name");
+  }
+  await interactionPage.locator("[data-whatsapp]").click();
+  const preparedWhatsApp = await interactionPage.evaluate(() => window.__openedUrls[0] || "");
+  if (!preparedWhatsApp.includes("wa.me/6281234567890") || !preparedWhatsApp.includes("Alex%20Example")) {
+    errors.push("Nara Ink demo: WhatsApp handoff did not prepare the expected contact and message");
+  }
+
   await interactionPage.goto(origin + "/bagusin/", { waitUntil: "domcontentloaded" });
   let homepageText = await interactionPage.locator("main").innerText();
 
