@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
             '<div class="course-directory-card__body"><h4><a href="' + escapeHtml(course.url) + '">' + escapeHtml(course.title) + '</a></h4>' +
               '<p>' + escapeHtml(course.description) + '</p>' +
               '<div class="course-directory-card__meta"><span>' + escapeHtml(course.meetings) + '</span><span>' + escapeHtml(course.duration) + '</span></div>' +
-              '<div class="course-directory-card__bottom"><div><small>Investasi program</small><strong>' + escapeHtml(course.price) + '</strong></div><a class="course-directory-card__link" href="' + escapeHtml(course.url) + 'Lihat detail <span aria-hidden="true">→</span></a></div>' +
+              '<div class="course-directory-card__bottom"><div><small>Investasi program</small><strong>' + escapeHtml(course.price) + '</strong></div><a class="course-directory-card__link" href="' + escapeHtml(course.url) + '">Lihat detail <span aria-hidden="true">→</span></a></div>' +
             '</div></article>'
         ).join("") + '</div></section>';
     }).join("");
