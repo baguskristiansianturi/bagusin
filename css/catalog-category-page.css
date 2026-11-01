@@ -213,3 +213,27 @@
  .industry-filter__rail { gap:.45rem; padding:.65rem 0; }
  .industry-chip { border-radius:.5rem; min-height:2.5rem; padding:.58rem .78rem; font-size:.8rem; }
 }
+
+
+/* Keep the industry carousel directly below the persistent global navbar on every viewport. */
+.industry-filter {
+  position: sticky !important;
+  inset-block-start: var(--header-height, 4.5rem) !important;
+  z-index: 900;
+  isolation: isolate;
+  scroll-margin-top: calc(var(--header-height, 4.5rem) + .5rem);
+}
+.category-results,
+.category-long-description {
+  scroll-margin-top: calc(var(--header-height, 4.5rem) + 1rem);
+}
+@media (max-width: 640px) {
+  .industry-filter {
+    inset-block-start: var(--header-height-mobile, 4rem) !important;
+    z-index: 900;
+  }
+  .category-results,
+  .category-long-description {
+    scroll-margin-top: calc(var(--header-height-mobile, 4rem) + 1rem);
+  }
+}
