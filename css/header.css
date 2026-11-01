@@ -132,3 +132,14 @@ body.menu-open{overflow:hidden}
 @media (prefers-reduced-motion:reduce){
   .site-header,.mobile-menu-toggle__icon span,.nav-dropdown-toggle > span{transition:none}
 }
+
+/* Global sticky-header contract: shared by every page using the global header stylesheet. */
+.site-header,
+header.site-header,
+[data-site-header] {
+  position: sticky !important;
+  inset-block-start: 0 !important;
+  z-index: 1000 !important;
+  isolation: isolate;
+}
+.site-header__inner { min-width: 0; }
