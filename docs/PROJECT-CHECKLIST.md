@@ -84,3 +84,15 @@ Update this file before ending a work session:
 - **Rollback reference/known-good SHA:**
 
 A new AI session must read this file, verify current repository state, and continue from "Immediate next actions" rather than restarting or assuming earlier work succeeded.
+
+
+## Session handoff — 2026-11-01: global sticky navigation and collection category rail
+
+- **Objective:** keep the shared Bagusin navbar sticky on all viewports and keep the industry category carousel sticky immediately beneath it on category collection pages.
+- **Branch:** `fix/global-sticky-header-collection-rail` (based on current `main`).
+- **Files changed:** `css/header.css`, `css/catalog-category-page.css`.
+- **Implementation:** reinforced the shared header sticky contract in the global header stylesheet; corrected the category rail's mobile `top: 0` behavior so it uses the mobile header height, while desktop uses the global header height. Kept category rail below the header in stacking order and added matching scroll offsets.
+- **Scope guard:** no page markup, catalog data, product cards, filters, prices, homepage, or footer changed.
+- **Tests:** not yet run in a browser; test 320/375/390/768/1024/1440 px, including scroll on all category pages and menu/search overlays.
+- **Known limitation:** navbar markup is still repeated across static HTML pages; shared behavior and styling are provided by global `header.css` and `navigation.js`. A full componentization of markup is a separate architecture task and is intentionally not bundled into this focused sticky fix.
+- **Next action:** run CI/browser smoke tests, open a focused PR, and verify GitHub Pages on a real mobile device after merge. Do not claim live deployment before the workflow and browser check pass.
