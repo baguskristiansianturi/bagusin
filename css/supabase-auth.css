@@ -133,7 +133,7 @@
   line-height: 1.5;
   overflow-wrap: anywhere;
 }
-.account-message[data-state="success"] { background: #edf6f1; color: #205c3b; }
+.account-message[data-state="success"] { background: #edf3f8; color: #31536d; }
 .account-message[data-state="error"] { background: #fff0ef; color: #9b3028; }
 .account-message[hidden] { display: none; }
 .account-profile-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
