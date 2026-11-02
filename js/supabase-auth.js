@@ -6,9 +6,10 @@
   var SDK_URL = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js";
   var BASE = window.location.pathname.indexOf("/bagusin/") === 0 || window.location.pathname === "/bagusin"
     ? "/bagusin" : "";
-  var ACCOUNT_URL = BASE + "/account/";
+
   var isEnglish = /(?:\?|&)lang=en(?:&|$)/.test(window.location.search) ||
     /^\/(?:bagusin\/)?en(?:\/|$)/.test(window.location.pathname);
+  var ACCOUNT_URL = BASE + (isEnglish ? "/en/account/" : "/account/");
 
   function ready(fn) {
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn, { once: true });
