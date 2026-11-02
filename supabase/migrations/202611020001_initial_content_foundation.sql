@@ -240,6 +240,7 @@ values
 on conflict (id) do nothing;
 
 create policy "Public can view Bagusin media" on storage.objects for select using (bucket_id in ('bagusin-article-media','bagusin-design-previews'));
+create policy "Admins can view private course media" on storage.objects for select using (bucket_id = 'bagusin-course-media' and public.is_bagusin_admin());
 create policy "Admins upload Bagusin media" on storage.objects for insert with check (bucket_id in ('bagusin-article-media','bagusin-design-previews','bagusin-course-media') and public.is_bagusin_admin());
 create policy "Admins update Bagusin media" on storage.objects for update using (bucket_id in ('bagusin-article-media','bagusin-design-previews','bagusin-course-media') and public.is_bagusin_admin()) with check (bucket_id in ('bagusin-article-media','bagusin-design-previews','bagusin-course-media') and public.is_bagusin_admin());
 create policy "Admins delete Bagusin media" on storage.objects for delete using (bucket_id in ('bagusin-article-media','bagusin-design-previews','bagusin-course-media') and public.is_bagusin_admin());
