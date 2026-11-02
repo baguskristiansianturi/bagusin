@@ -236,10 +236,10 @@ insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_typ
 values
   ('bagusin-article-media', 'bagusin-article-media', true, 5242880, array['image/jpeg','image/png','image/webp','image/avif']),
   ('bagusin-design-previews', 'bagusin-design-previews', true, 5242880, array['image/jpeg','image/png','image/webp','image/avif']),
-  ('bagusin-course-media', 'bagusin-course-media', true, 10485760, array['image/jpeg','image/png','image/webp','image/avif','application/pdf'])
+  ('bagusin-course-media', 'bagusin-course-media', false, 10485760, array['image/jpeg','image/png','image/webp','image/avif','application/pdf'])
 on conflict (id) do nothing;
 
-create policy "Public can view Bagusin media" on storage.objects for select using (bucket_id in ('bagusin-article-media','bagusin-design-previews','bagusin-course-media'));
+create policy "Public can view Bagusin media" on storage.objects for select using (bucket_id in ('bagusin-article-media','bagusin-design-previews'));
 create policy "Admins upload Bagusin media" on storage.objects for insert with check (bucket_id in ('bagusin-article-media','bagusin-design-previews','bagusin-course-media') and public.is_bagusin_admin());
 create policy "Admins update Bagusin media" on storage.objects for update using (bucket_id in ('bagusin-article-media','bagusin-design-previews','bagusin-course-media') and public.is_bagusin_admin()) with check (bucket_id in ('bagusin-article-media','bagusin-design-previews','bagusin-course-media') and public.is_bagusin_admin());
 create policy "Admins delete Bagusin media" on storage.objects for delete using (bucket_id in ('bagusin-article-media','bagusin-design-previews','bagusin-course-media') and public.is_bagusin_admin());
