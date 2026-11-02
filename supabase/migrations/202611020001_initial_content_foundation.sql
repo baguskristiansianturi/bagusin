@@ -36,7 +36,7 @@ create or replace function public.protect_profile_role()
 returns trigger language plpgsql set search_path = public
 as $$
 begin
-  if new.role is distinct from old.role and not public.is_bagusin_admin() then
+  if new.role is distinct from old.role and not public.is_bagusin_admin() and current_user not in ('postgres','supabase_admin') then
     raise exception 'Only a Bagusin admin can change account roles';
   end if;
   new.updated_at = now();
