@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bagusin Account — Sign In or Register</title>
+  <meta name="description" content="Sign in or create a Bagusin account to manage your profile and interact with content.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://baguskristiansianturi.github.io/bagusin/en/account/">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/header.css">
+  <link rel="stylesheet" href="../../css/footer.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <link rel="stylesheet" href="../../css/supabase-auth.css?v=20261102-1">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="app">
+    <header class="site-header" id="site-header" data-site-header>
+      <div class="site-header__inner container">
+        <a class="site-brand" href="/bagusin/en/" aria-label="Bagusin — Home">
+          <span class="site-brand__mark" aria-hidden="true">B</span>
+          <span class="site-brand__text"><span class="site-brand__name">Bagusin</span><span class="site-brand__tagline">Work. Travel. Build.</span></span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+          <ul class="site-nav__list">
+            <li class="site-nav__item"><a class="site-nav__link" href="/bagusin/en/">Home</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="/bagusin/en/blog/">Blog</a></li>
+            <li class="site-nav__item"><a class="site-nav__link" href="/bagusin/en/collections/">Collections</a></li>
+          </ul>
+        </nav>
+        <div class="site-header__actions">
+          <a class="studio-header-cta" href="/bagusin/en/contact/">Contact <span aria-hidden="true">↗</span></a>
+          <button class="mobile-menu-toggle" type="button" data-mobile-menu-toggle aria-expanded="false" aria-controls="mobile-navigation" aria-label="Open menu">
+            <span class="mobile-menu-toggle__icon" aria-hidden="true"><span></span><span></span><span></span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+    <div class="mobile-nav-overlay" data-mobile-overlay hidden></div>
+    <aside class="mobile-nav" id="mobile-navigation" aria-label="Mobile navigation" aria-hidden="true">
+      <div class="mobile-nav__inner">
+        <div class="mobile-nav__header"><span class="mobile-nav__label">Menu</span><button class="header-action" type="button" data-mobile-menu-close aria-label="Close menu">×</button></div>
+        <nav aria-label="Mobile menu"><ul class="mobile-nav__list">
+          <li><a class="mobile-nav__link" href="/bagusin/en/">Home</a></li>
+          <li><a class="mobile-nav__link" href="/bagusin/en/blog/">Blog</a></li>
+          <li><a class="mobile-nav__link" href="/bagusin/en/collections/">Collections</a></li>
+        </ul></nav>
+      </div>
+    </aside>
+    <main id="main-content" class="account-page" tabindex="-1" data-account-page>
+      <div class="account-shell">
+        <header class="account-heading">
+          <span class="account-kicker">Bagusin account</span>
+          <h1>Welcome back.</h1>
+          <p>Sign in to manage your profile and continue your activity on Bagusin.</p>
+        </header>
+        <section class="account-card" data-auth-view>
+          <div class="account-tabs" role="group" aria-label="Choose account access">
+            <button type="button" data-auth-mode="signin" aria-pressed="true">Sign in</button>
+            <button type="button" data-auth-mode="signup" aria-pressed="false">Create account</button>
+          </div>
+          <form class="account-form" data-auth-form>
+            <div class="account-field" data-register-name hidden>
+              <label for="account-name">Display name</label>
+              <input id="account-name" name="display_name" type="text" autocomplete="name" maxlength="80" placeholder="Your name">
+            </div>
+            <div class="account-field">
+              <label for="account-email">Email address</label>
+              <input id="account-email" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="name@email.com">
+            </div>
+            <div class="account-field">
+              <label for="account-password">Password</label>
+              <input id="account-password" name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="72" placeholder="At least 8 characters">
+            </div>
+            <button class="account-submit" type="submit" data-auth-submit>Sign in</button>
+            <button class="account-quiet" type="button" data-forgot-password>Forgot password?</button>
+          </form>
+          <form class="account-form" data-recovery-form hidden>
+            <div class="account-field">
+              <label for="account-new-password">New password</label>
+              <input id="account-new-password" name="new_password" type="password" required minlength="8" maxlength="72" autocomplete="new-password">
+            </div>
+            <button class="account-submit" type="submit">Save new password</button>
+          </form>
+          <p class="account-message" data-auth-message role="status" aria-live="polite" hidden></p>
+          <p class="account-note">By creating an account, you agree to use your account in accordance with Bagusin's Privacy Policy and Terms. Accounts are free; features that are not yet available will not be presented as active services.</p>
+        </section>
+        <section class="account-card" data-profile-view hidden>
+          <div class="account-profile-head">
+            <div><h2>Your profile</h2><p data-account-email></p></div>
+            <span class="account-role" data-account-role>Member</span>
+          </div>
+          <form class="account-form" data-profile-form>
+            <div class="account-field"><label for="profile-name">Display name</label><input id="profile-name" name="display_name" data-profile-name maxlength="80" autocomplete="name"></div>
+            <div class="account-field"><label for="profile-username">Username</label><input id="profile-username" name="username" data-profile-username minlength="3" maxlength="30" pattern="[A-Za-z0-9_]+" placeholder="your_username" autocomplete="username"><small>3–30 characters, letters, numbers, or underscores.</small></div>
+            <div class="account-field"><label for="profile-bio">About you</label><textarea id="profile-bio" name="bio" data-profile-bio maxlength="500" rows="4" placeholder="Tell us a little about yourself."></textarea></div>
+            <button class="account-submit" type="submit">Save profile</button>
+          </form>
+          <p class="account-message" data-profile-message role="status" aria-live="polite" hidden></p>
+          <button class="account-quiet" type="button" data-sign-out>Sign out</button>
+        </section>
+        <a class="account-back" href="/bagusin/en/">← Back to Bagusin</a>
+      </div>
+    </main>
+    <footer class="site-footer" aria-label="Bagusin footer"></footer>
+  </div>
+  <script src="../../js/main.js" defer></script>
+  <script src="../../js/navigation.js" defer></script>
+</body>
+</html>

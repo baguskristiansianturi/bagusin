@@ -344,14 +344,14 @@
         learning:"Courses", about:"About", contact:"Contact", destinations:"Destinations",
         terms:"Terms & Conditions", legal:"Legal", privacy:"Privacy Policy", disclaimer:"Disclaimer",
         "editorial-policy":"Editorial Policy", checkout:"Checkout", portfolio:"Portfolio",
-        youtube:"YouTube", search:"Search", guides:"Guides", services:"Services", demos:"Demos",
+        youtube:"YouTube", search:"Search", guides:"Guides", services:"Services", demos:"Demos", account:"Account",
         "blogger-editorial":"Blogger Editorial Template", categories:"Categories", tags:"Tags"
       } : {
         blog:"Blog", collections:"Koleksi", templates:"Katalog template", work:"Layanan",
         learning:"Kursus", about:"Tentang", contact:"Kontak", destinations:"Destinasi",
         terms:"Syarat dan ketentuan", legal:"Informasi legal", privacy:"Kebijakan privasi",
         disclaimer:"Penafian", "editorial-policy":"Kebijakan editorial", checkout:"Pemesanan",
-        portfolio:"Portofolio", youtube:"YouTube", search:"Pencarian", guides:"Panduan",
+        portfolio:"Portofolio", youtube:"YouTube", search:"Pencarian", guides:"Panduan", account:"Akun",
         services:"Layanan", demos:"Demo", "blogger-editorial":"Template editorial Blogger",
         categories:"Kategori", tags:"Tag"
       };
