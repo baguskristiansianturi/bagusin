@@ -3,7 +3,7 @@
 
   var PROJECT_URL = "https://hpmeoxynftankklwgntb.supabase.co";
   var PUBLISHABLE_KEY = "sb_publishable_dozGZy3IZCZCrpq1qikNkQ_s891bCrD";
-  var SDK_URL = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js";
+  var SDK_URL = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0";
   var BASE = window.location.pathname.indexOf("/bagusin/") === 0 || window.location.pathname === "/bagusin"
     ? "/bagusin" : "";
 
