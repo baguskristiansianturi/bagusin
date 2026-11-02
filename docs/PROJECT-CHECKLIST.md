@@ -96,3 +96,18 @@ A new AI session must read this file, verify current repository state, and conti
 - **Tests:** not yet run in a browser; test 320/375/390/768/1024/1440 px, including scroll on all category pages and menu/search overlays.
 - **Known limitation:** navbar markup is still repeated across static HTML pages; shared behavior and styling are provided by global `header.css` and `navigation.js`. A full componentization of markup is a separate architecture task and is intentionally not bundled into this focused sticky fix.
 - **Next action:** run CI/browser smoke tests, open a focused PR, and verify GitHub Pages on a real mobile device after merge. Do not claim live deployment before the workflow and browser check pass.
+
+
+## Backend foundation handoff — 2 November 2026
+
+- **Objective:** begin a portable backend foundation for Bagusin while preserving the existing static frontend and its visual design.
+- **Branch:** feat/supabase-backend-foundation (based on main at 444b95eca5f887c0f42ca190a561220c3f75f6a6).
+- **Decision:** Supabase PostgreSQL/Auth/Storage is the practical first backend. This supersedes the older Go/Google Cloud plan for the initial implementation; Go/Cloud may be reconsidered later if justified. The frontend hosting and public website address remain separate from the Supabase API address.
+- **Product model:** articles are expected to grow continuously; design templates may grow to hundreds; course pages use a reusable course/module/lesson structure.
+- **Files added:** docs/BACKEND-FOUNDATION-DECISION.md, supabase/README.md, supabase/migrations/202611020001_initial_content_foundation.sql.
+- **Migration scope:** profiles and member/admin roles; article categories/articles/tags; design categories/templates/template images; courses/modules/lessons/enrollments; RLS; public media buckets with admin-only writes.
+- **Security notes:** role changes are guarded; admin bootstrap is intended through the Supabase SQL Editor after the owner account is created. Never put service_role/database credentials in frontend files or repository.
+- **Not yet done:** no Supabase project has been created, no migration has been applied or executed against a live database, no website integration or admin dashboard exists, and no deployment/domain change has been made.
+- **Next actions:** Mas Bagus creates the Supabase project from the phone; review/apply the migration in SQL Editor; create the owner account and assign admin; then implement a small frontend adapter and connect articles first.
+- **Tests:** source inspection only. Live SQL execution, RLS verification, Storage upload test, and mobile browser integration remain pending.
+- **Rollback:** all work is isolated on feat/supabase-backend-foundation; main has not been changed.
