@@ -96,3 +96,19 @@ A new AI session must read this file, verify current repository state, and conti
 - **Tests:** not yet run in a browser; test 320/375/390/768/1024/1440 px, including scroll on all category pages and menu/search overlays.
 - **Known limitation:** navbar markup is still repeated across static HTML pages; shared behavior and styling are provided by global `header.css` and `navigation.js`. A full componentization of markup is a separate architecture task and is intentionally not bundled into this focused sticky fix.
 - **Next action:** run CI/browser smoke tests, open a focused PR, and verify GitHub Pages on a real mobile device after merge. Do not claim live deployment before the workflow and browser check pass.
+
+
+## Session handoff — 2026-11-02: Supabase Auth frontend integration
+
+- **Objective:** connect the existing static Bagusin frontend to the live Supabase project without redesigning existing pages.
+- **Branch:** `feat/supabase-auth-integration` (based on main `444b95eca5f887c0f42ca190a561220c3f75f6a6`).
+- **Supabase project:** `bagusin` / `hpmeoxynftankklwgntb`, status ACTIVE_HEALTHY.
+- **Frontend work:** added a pinned Supabase JS browser adapter, global account links for desktop/mobile navigation, Indonesian and English account pages, sign-up/sign-in/sign-out, email confirmation, password reset, and self-service profile editing.
+- **Database work:** added `profiles.role` defaulting to `member`; Auth trigger creates a profile and copies the optional display name; a private-schema trigger prevents members from changing their own role. RLS remains enabled on all ten existing public tables.
+- **Files added:** `js/supabase-auth.js`, `css/supabase-auth.css`, `account/index.html`, `en/account/index.html`, `supabase/migrations/202611020002_profile_auth_role.sql`, `docs/SUPABASE-AUTH-INTEGRATION.md`.
+- **Files changed:** `js/main.js` loads the auth adapter site-wide.
+- **Live DB verification:** role column exists; Auth profile trigger runs from private schema as SECURITY DEFINER; role guard and updated-at triggers run as SECURITY INVOKER; anon can read profiles but cannot update them; authenticated users have profile update grants, still constrained by RLS.
+- **Not yet verified:** real email delivery/confirmation, password reset, Android browser session, live Pages deployment, and end-to-end browser UI. Supabase Auth Site URL and the two account redirect URLs must be configured in Dashboard before email links are expected to return to GitHub Pages.
+- **Not included:** Storage upload, Explore feed UI, comments/reactions/community UI, admin dashboard, and migration of current static content.
+- **Next actions:** run CI/static/browser smoke checks on the PR; configure Auth redirect URLs; after merge/deploy, test a real owner registration, confirm email, promote the owner manually in SQL Editor, and test profile editing on Android.
+- **Rollback:** revert the auth integration commit(s) on the feature branch; the database role migration is additive and can remain without affecting the public static pages.
