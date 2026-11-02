@@ -76,6 +76,19 @@ create table if not exists public.articles (
 create index if not exists articles_publication_idx on public.articles (published_at desc) where status = 'published';
 create index if not exists articles_category_idx on public.articles (category_id);
 
+create table if not exists public.article_tags (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  slug text not null unique,
+  created_at timestamptz not null default now()
+);
+create table if not exists public.article_tag_assignments (
+  article_id uuid not null references public.articles(id) on delete cascade,
+  tag_id uuid not null references public.article_tags(id) on delete cascade,
+  primary key (article_id, tag_id)
+);
+create index if not exists article_tag_assignments_tag_idx on public.article_tag_assignments (tag_id);
+
 create table if not exists public.design_categories (
   id uuid primary key default gen_random_uuid(),
   name text not null,
@@ -169,6 +182,8 @@ create table if not exists public.course_enrollments (
 
 alter table public.profiles enable row level security;
 alter table public.article_categories enable row level security;
+alter table public.article_tags enable row level security;
+alter table public.article_tag_assignments enable row level security;
 alter table public.articles enable row level security;
 alter table public.design_categories enable row level security;
 alter table public.design_templates enable row level security;
@@ -180,6 +195,12 @@ alter table public.course_enrollments enable row level security;
 
 create policy "Public can read article categories" on public.article_categories for select using (true);
 create policy "Admins manage article categories" on public.article_categories for all using (public.is_bagusin_admin()) with check (public.is_bagusin_admin());
+create policy "Public can read article tags" on public.article_tags for select using (true);
+create policy "Admins manage article tags" on public.article_tags for all using (public.is_bagusin_admin()) with check (public.is_bagusin_admin());
+create policy "Public can read tags assigned to published articles" on public.article_tag_assignments for select using (
+  exists (select 1 from public.articles a where a.id = article_id and ((a.status = 'published' and a.published_at <= now()) or public.is_bagusin_admin()))
+);
+create policy "Admins manage article tag assignments" on public.article_tag_assignments for all using (public.is_bagusin_admin()) with check (public.is_bagusin_admin());
 create policy "Public can read published articles" on public.articles for select using ((status = 'published' and published_at <= now()) or public.is_bagusin_admin());
 create policy "Admins manage articles" on public.articles for all using (public.is_bagusin_admin()) with check (public.is_bagusin_admin());
 
@@ -199,9 +220,9 @@ create policy "Public can read modules for published courses" on public.course_m
 );
 create policy "Admins manage course modules" on public.course_modules for all using (public.is_bagusin_admin()) with check (public.is_bagusin_admin());
 create policy "Public can read preview lessons" on public.course_lessons for select using (
-  is_preview or exists (
+  exists (
     select 1 from public.course_modules m join public.courses c on c.id = m.course_id
-    where m.id = module_id and (c.status = 'published' or public.is_bagusin_admin())
+    where m.id = module_id and ((c.status = 'published' and is_preview) or public.is_bagusin_admin())
   )
 );
 create policy "Admins manage course lessons" on public.course_lessons for all using (public.is_bagusin_admin()) with check (public.is_bagusin_admin());
