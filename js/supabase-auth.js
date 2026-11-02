@@ -319,6 +319,14 @@
     });
   }
 
+  ready(function () {
+    addStyles();
+    buildAccountLink();
+  });
+
+  // Keep public pages lightweight: load the SDK only on the account screens.
+  if (!document.querySelector("[data-account-page]")) return;
+
   loadSdk().then(function (sdk) {
     var client = sdk.createClient(PROJECT_URL, PUBLISHABLE_KEY, {
       auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true }
@@ -326,8 +334,6 @@
     init(client);
   }).catch(function (error) {
     ready(function () {
-      addStyles();
-      buildAccountLink();
       var message = document.querySelector("[data-auth-message]");
       setMessage(message, error.message, "error");
     });
