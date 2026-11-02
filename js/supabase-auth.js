@@ -57,7 +57,7 @@
   }
 
   function buildAccountLink() {
-    var href = ACCOUNT_URL + (isEnglish ? "?lang=en" : "");
+    var href = ACCOUNT_URL;
     var actions = document.querySelector(".site-header__actions");
     if (actions && !actions.querySelector("[data-bagusin-account-link]")) {
       var link = document.createElement("a");
@@ -247,7 +247,8 @@
         var hash = new URLSearchParams(window.location.hash.replace(/^#/, ""));
         if (hash.get("type") === "recovery" || window.location.search.indexOf("type=recovery") >= 0) {
           recoveryForm.hidden = false;
-          authView.hidden = true;
+          if (authForm) authForm.hidden = true;
+          authView.hidden = false;
           profileView.hidden = true;
         }
         recoveryForm.addEventListener("submit", async function (event) {
@@ -258,6 +259,8 @@
             if (result.error) throw result.error;
             window.history.replaceState({}, document.title, window.location.pathname + window.location.search);
             recoveryForm.hidden = true;
+            if (authForm) authForm.hidden = false;
+            authView.hidden = false;
             setMessage(message, isEnglish ? "Password updated. Please sign in." : "Kata sandi berhasil diperbarui. Silakan masuk.", "success");
             await refreshSession();
           } catch (error) {
