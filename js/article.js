@@ -18,13 +18,14 @@
     const isEnglish=document.documentElement.lang.toLowerCase().startsWith("en");
 
     /* Reading progress */
-    const progress=document.querySelector("[data-reading-progress] span");
+    const progress=document.querySelector("[data-reading-progress] span, .article-reading-progress span, .reading-progress span");
     let progressFrame=0;
 
     function updateProgress(){
       if(!progress)return;
-      const start=article.getBoundingClientRect().top+window.scrollY;
-      const end=Math.max(start,article.offsetTop+article.offsetHeight-window.innerHeight);
+      const bounds=article.getBoundingClientRect();
+      const start=bounds.top+window.scrollY;
+      const end=Math.max(start,bounds.bottom+window.scrollY-window.innerHeight);
       const value=end<=start?1:Math.min(1,Math.max(0,(window.scrollY-start)/Math.max(1,end-start)));
       progress.style.width=(value*100)+"%";
     }
@@ -41,11 +42,15 @@
     window.addEventListener("resize",scheduleProgress,{passive:true});
     updateProgress();
 
-    /* Table of contents + active section */
+    /* Table of contents + active section.
+       Support both generated TOCs and the editorial template's curated links. */
     const tocList=document.querySelector("[data-toc-list]");
-    const toc=document.querySelector("[data-toc]");
+    const toc=document.querySelector("[data-toc], .article-pro-toc");
+    const headings=Array.from(article.querySelectorAll("h2[id],h3[id]"));
+    let tocLinks=[];
+
     if(tocList){
-      const headings=Array.from(article.querySelectorAll("h2[id],h3[id]"));
+      tocList.replaceChildren();
       headings.forEach(function(heading){
         const li=document.createElement("li");
         const link=document.createElement("a");
@@ -55,34 +60,38 @@
         li.appendChild(link);
         tocList.appendChild(li);
       });
+      tocLinks=Array.from(tocList.querySelectorAll("a[href^='#']"));
+    }else if(toc){
+      tocLinks=Array.from(toc.querySelectorAll("a[href^='#']"));
+    }
 
-      if(!headings.length){
-        toc?.setAttribute("hidden","");
-      }else if("IntersectionObserver" in window){
-        const links=new Map();
-        tocList.querySelectorAll("a[href^='#']").forEach(function(link){
-          links.set(link.getAttribute("href").slice(1),link);
-        });
+    if(toc&&!headings.length){
+      toc.setAttribute("hidden","");
+    }else if(tocLinks.length&&"IntersectionObserver" in window){
+      const links=new Map();
+      tocLinks.forEach(function(link){
+        const id=(link.getAttribute("href")||"").slice(1);
+        if(id&&headings.some(function(heading){return heading.id===id;}))links.set(id,link);
+      });
 
-        const observer=new IntersectionObserver(function(entries){
-          entries.forEach(function(entry){
-            if(!entry.isIntersecting)return;
-            tocList.querySelectorAll(".toc__link.is-active").forEach(function(link){
-              link.classList.remove("is-active");
-              link.removeAttribute("aria-current");
-            });
-            const link=links.get(entry.target.id);
-            if(link){
-              link.classList.add("is-active");
-              link.setAttribute("aria-current","location");
-            }
+      const observer=new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(!entry.isIntersecting)return;
+          tocLinks.forEach(function(link){
+            link.classList.remove("is-active");
+            link.removeAttribute("aria-current");
           });
-        },{
-          rootMargin:"-"+(document.querySelector("#site-header")?.offsetHeight||0)+"px 0px -65% 0px",
-          threshold:0
+          const link=links.get(entry.target.id);
+          if(link){
+            link.classList.add("is-active");
+            link.setAttribute("aria-current","location");
+          }
         });
-        headings.forEach(function(heading){observer.observe(heading);});
-      }
+      },{
+        rootMargin:"-"+(document.querySelector("#site-header")?.offsetHeight||0)+"px 0px -65% 0px",
+        threshold:0
+      });
+      headings.forEach(function(heading){observer.observe(heading);});
     }
 
     /* True external links */
