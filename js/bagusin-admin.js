@@ -32,11 +32,11 @@ if(ids.length){
   client.from("payments").select("*").in("order_id",ids),
   client.from("shipments").select("*").in("order_id",ids),
   client.from("invoices").select("id,order_id,invoice_number,invoice_status,due_at").in("order_id",ids),
-  itemIds.length?client.from("course_enrollments").select("id,order_item_id").in("order_item_id",itemIds):Promise.resolve({data:[],error:null}),
+  itemIds.length?client.from("course_enrollments").select("id,order_item_id,meetings_total,instructor_name,start_date,schedule_notes,enrollment_status").in("order_item_id",itemIds):Promise.resolve({data:[],error:null}),
   itemIds.length?client.from("digital_entitlements").select("id,order_item_id").in("order_item_id",itemIds):Promise.resolve({data:[],error:null})
  ]);
  q.forEach(function(x){if(x.error)throw x.error;});
- payments=q[0].data||[];shipments=q[1].data||[];invoices=q[2].data||[];enrollments=q[3].data||[];entitlements=q[4].data||[];
+ payments=q[0].data||[];shipments=q[1].data||[];invoices=q[2].data||[];enrollments=q[3].data||[];entitlements=q[4].data||[];if(enrollments.length){var sessionResult=await client.from("course_sessions").select("*").in("enrollment_id",enrollments.map(function(e){return e.id;}));if(sessionResult.error)throw sessionResult.error;var courseSessions=sessionResult.data||[];}else{var courseSessions=[];}
 }
 box.replaceChildren();if(!orders.length){box.appendChild(node("p","admin-note","Belum ada pesanan yang tercatat."));return;}
 orders.forEach(function(order){
@@ -45,14 +45,31 @@ var meta=node("div","admin-order__meta");[[ "Total",money(order.total_amount)],[
 var line=items.filter(function(i){return i.order_id===order.id;});line.forEach(function(i){card.appendChild(node("p","admin-note",i.item_name+" × "+i.quantity));});
 if(order.payment_status==="paid" && order.order_type==="course"){
  line.forEach(function(item){
-  if(enrollments.some(function(e){return e.order_item_id===item.id;}))return;
-  var form=node("form","admin-proof"),course=node("select"),instructor=node("input"),start=node("input"),meetings=node("input"),notes=node("input"),submit=node("button","is-primary","Buat pendaftaran kursus");
-  course.required=true;course.appendChild(node("option","","Pilih course"));
-  courseCatalog.forEach(function(c){var o=node("option","",c.title);o.value=c.id;course.appendChild(o);});
-  instructor.placeholder="Nama pengajar";instructor.value="Bagus";start.type="date";meetings.type="number";meetings.min="1";meetings.value="19";notes.placeholder="Catatan jadwal / lokasi";submit.type="submit";
-  form.append(course,instructor,start,meetings,notes,submit);
-  form.addEventListener("submit",async function(e){e.preventDefault();var selected=courseCatalog.find(function(c){return c.id===course.value;});var ins=await client.from("course_enrollments").insert({order_item_id:item.id,customer_id:order.customer_id,course_id:course.value,instructor_name:instructor.value||null,start_date:start.value||null,meetings_total:Number(meetings.value)||selected&&selected.meeting_count||null,schedule_notes:notes.value||null,enrollment_status:"pending"});if(ins.error)alert(ins.error.message);else await loadOrders();});
-  card.appendChild(form);
+  var enrollment=enrollments.find(function(e){return e.order_item_id===item.id;});
+  if(!enrollment){
+   var form=node("form","admin-proof"),course=node("select"),instructor=node("input"),startDate=node("input"),meetings=node("input"),notes=node("input"),submit=node("button","is-primary","Buat pendaftaran kursus");
+   course.required=true;course.appendChild(node("option","","Pilih course"));
+   courseCatalog.forEach(function(c){var o=node("option","",c.title);o.value=c.id;course.appendChild(o);});
+   instructor.placeholder="Nama pengajar";instructor.value="Bagus";startDate.type="date";meetings.type="number";meetings.min="1";meetings.value="19";notes.placeholder="Catatan jadwal / lokasi";submit.type="submit";
+   form.append(course,instructor,startDate,meetings,notes,submit);
+   form.addEventListener("submit",async function(e){e.preventDefault();var selected=courseCatalog.find(function(c){return c.id===course.value;});var ins=await client.from("course_enrollments").insert({order_item_id:item.id,customer_id:order.customer_id,course_id:course.value,instructor_name:instructor.value||null,start_date:startDate.value||null,meetings_total:Number(meetings.value)||selected&&selected.meeting_count||null,schedule_notes:notes.value||null,enrollment_status:"pending"});if(ins.error)alert(ins.error.message);else await loadOrders();});
+   card.appendChild(form);return;
+  }
+  var scheduleBox=node("div","admin-proof"),scheduleTitle=node("strong","", "Jadwal kursus · "+(enrollment.instructor_name||"Pengajar belum diatur"));
+  scheduleBox.appendChild(scheduleTitle);
+  var related=courseSessions.filter(function(s){return s.enrollment_id===enrollment.id;});
+  related.forEach(function(session){
+   var row=node("div","admin-order__meta");
+   row.appendChild(node("span","", "Pertemuan "+session.session_number+" · "+(session.scheduled_at?new Date(session.scheduled_at).toLocaleString("id-ID"):"Belum dijadwalkan")+" · "+session.session_status));
+   if(session.session_status!=="completed"){var done=node("button","admin-button admin-button--light","Tandai selesai");done.addEventListener("click",async function(){var u=await client.from("course_sessions").update({session_status:"completed",completed_at:new Date().toISOString()}).eq("id",session.id);if(u.error)alert(u.error.message);else await loadOrders();});row.appendChild(done);}
+   scheduleBox.appendChild(row);
+  });
+  var sessionForm=node("form","admin-form--inline"),sessionNo=node("input"),sessionTitle=node("input"),sessionDate=node("input"),sessionDuration=node("input"),sessionLocation=node("input"),addSession=node("button","is-primary","Tambah pertemuan");
+  sessionNo.type="number";sessionNo.min="1";sessionNo.value=String(related.reduce(function(max,s){return Math.max(max,s.session_number);},0)+1);
+  sessionTitle.placeholder="Judul pertemuan";sessionDate.type="datetime-local";sessionDuration.type="number";sessionDuration.min="1";sessionDuration.value="90";sessionLocation.placeholder="Lokasi / catatan";addSession.type="submit";
+  sessionForm.append(sessionNo,sessionTitle,sessionDate,sessionDuration,sessionLocation,addSession);
+  sessionForm.addEventListener("submit",async function(e){e.preventDefault();var ins=await client.from("course_sessions").insert({enrollment_id:enrollment.id,session_number:Number(sessionNo.value),title:sessionTitle.value||null,scheduled_at:sessionDate.value?new Date(sessionDate.value).toISOString():null,duration_minutes:Number(sessionDuration.value)||null,location_note:sessionLocation.value||null,session_status:"scheduled"});if(ins.error)alert(ins.error.message);else{await client.from("course_enrollments").update({enrollment_status:"scheduled"}).eq("id",enrollment.id);await loadOrders();}});
+  scheduleBox.appendChild(sessionForm);card.appendChild(scheduleBox);
  });
 }
 if(order.payment_status==="paid" && order.order_type==="digital"){
