@@ -21,11 +21,11 @@
       <h2 id="brief-form-title" class="section-title">Tell me what you want to build, improve, or learn.</h2>
       <p class="section-description">Your previous choice is carried over when available. The details can be discussed later.</p>
     </div>
-    <form class="contact-form" id="project-form" novalidate>
-      <div class="form-context" id="service-context"><span>Selected service</span><strong id="selected-service">—</strong><button type="button" class="form-context__change" data-service-change hidden>Change selection</button></div>
+    <form class="contact-form" id="project-form" data-form-stepper novalidate>
+      <ol class="contact-step-progress" aria-label="Form steps"><li class="is-current" data-stepper-indicator="1">Needs</li><li data-stepper-indicator="2">Contact &amp; brief</li><li data-stepper-indicator="3">Review</li></ol><div class="form-context" id="service-context"><span>Selected service</span><strong id="selected-service">—</strong><button type="button" class="form-context__change" data-service-change hidden>Change selection</button></div>
       <input type="hidden" name="service" id="service-value">
       <input type="hidden" name="mode" id="mode-value">
-      <label class="form-full" data-service-choice-label>What do you need help with?
+      <section class="contact-step-panel" data-form-step-panel="1"><h3>Start with your needs</h3><label class="form-full" data-service-choice-label>What do you need help with?
         <select name="service_choice" id="service-choice">
           <option value="">Not sure yet / discuss first</option>
           <option value="consultation">Strategy consultation</option>
@@ -40,9 +40,9 @@
           <option value="google-business-profile">Google Business Profile</option>
           <option value="mobile-apps">Mobile App Development</option>
         </select>
-      </label><div class="contact-form-honeypot" aria-hidden="true"><label>Leave this field empty<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
+      </label></section><div class="contact-form-honeypot" aria-hidden="true"><label>Leave this field empty<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
       <div class="form-grid">
-        <label class="form-full">How would you like to discuss it?<select name="meeting_preference" id="meeting-preference"><option value="online">Online consultation</option><option value="in-person">Arrange an in-person meeting</option><option value="business-location">At my business location (if feasible)</option></select></label><label class="form-full">Business location / city (optional)<input name="meeting_location" autocomplete="address-level2" placeholder="e.g. Denpasar, Bali"></label><label>Name<input name="name" required autocomplete="name"></label>
+        <label class="form-full">How would you like to discuss it?<select name="meeting_preference" id="meeting-preference"><option value="online">Online consultation</option><option value="in-person">Arrange an in-person meeting</option><option value="business-location">At my business location (if feasible)</option></select></label><label class="form-full">Business location / city (optional)<input name="meeting_location" autocomplete="address-level2" placeholder="e.g. Denpasar, Bali"></label></div></section><section class="contact-step-panel" data-form-step-panel="2" hidden><h3>Your contact and brief</h3><div class="form-grid"><label>Name<input name="name" required autocomplete="name"></label>
         <label>Email<input name="email" type="email" required autocomplete="email"></label>
         <label class="form-full">Company / brand (optional)<input name="company" autocomplete="organization"></label>
         <label class="form-full">What do you need?<textarea name="brief" rows="7" required placeholder="What would you like to build or improve? A short explanation is enough to start."></textarea></label>
@@ -50,7 +50,7 @@
       <div class="form-consent">
         <label><input type="checkbox" name="terms" required><span>I understand that sending a brief does not automatically mean the project is accepted. <a id="contact-terms-link" href="/bagusin/en/terms/#general">Read the general terms</a>.</span></label>
       </div>
-      <button class="button button--accent" type="submit">Send discussion request</button>
+      <div class="contact-step-actions"><span class="contact-step-status" data-stepper-status aria-live="polite">Step 1 of 3</span><button type="button" data-stepper-back hidden>Back</button><button type="button" data-stepper-next>Continue</button><button class="button button--accent" type="submit" data-stepper-submit hidden>Send discussion request</button></div></section>
       <p class="form-disclosure">Your brief is processed by a third-party email service (FormSubmit). Do not include passwords, payment credentials, or sensitive information.</p>
       <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
     </form>
@@ -94,4 +94,4 @@
 <div class="site-footer__column"><h2 class="site-footer__title">About</h2><div class="site-footer__links"><a class="site-footer__link" href="/bagusin/en/about/">About</a><a class="site-footer__link" href="/bagusin/en/author/">Author</a><a class="site-footer__link" href="/bagusin/en/contact/">Contact</a></div></div>
 <div class="site-footer__column"><h2 class="site-footer__title">Legal</h2><div class="site-footer__links"><a class="site-footer__link" href="/bagusin/en/legal/privacy/">Privacy</a><a class="site-footer__link" href="/bagusin/en/legal/terms/">Terms</a><a class="site-footer__link" href="/bagusin/en/legal/disclaimer/">Disclaimer</a><a class="site-footer__link" href="/bagusin/en/legal/editorial-policy/">Editorial Policy</a></div></div></div>
 <div class="site-footer__cta"><div class="site-footer__cta-content"><h2 class="site-footer__cta-title">Have something that needs to be built?</h2><p class="site-footer__cta-description">Start with the problem. The rest can be worked out together.</p></div><div class="site-footer__cta-action"><a class="button button--light" href="/bagusin/en/work/">Services</a></div></div>
-<div class="site-footer__bottom"><div class="site-footer__bottom-inner"><span class="site-footer__copyright">© 2026 BagusIn</span><div class="site-footer__legal"><a class="site-footer__legal-link" href="/bagusin/en/legal/privacy/">Privacy</a><a class="site-footer__legal-link" href="/bagusin/en/legal/terms/">Terms</a><a class="site-footer__legal-link" href="/bagusin/en/contact/">Contact</a></div></div></div></div></div></footer></div><script src="../../js/main.js" defer></script><script src="../../js/navigation.js" defer></script><script src="../../js/contact-form.js?v=contextual-form-20261014" defer></script></body></html>
+<div class="site-footer__bottom"><div class="site-footer__bottom-inner"><span class="site-footer__copyright">© 2026 BagusIn</span><div class="site-footer__legal"><a class="site-footer__legal-link" href="/bagusin/en/legal/privacy/">Privacy</a><a class="site-footer__legal-link" href="/bagusin/en/legal/terms/">Terms</a><a class="site-footer__legal-link" href="/bagusin/en/contact/">Contact</a></div></div></div></div></div></footer></div><script src="../../js/main.js" defer></script><script src="../../js/navigation.js" defer></script><script src="../../js/forms/stepper.js" defer></script><script src="../../js/contact-form.js?v=contextual-form-20261014" defer></script></body></html>
