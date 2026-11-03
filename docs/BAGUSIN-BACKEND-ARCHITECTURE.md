@@ -76,7 +76,7 @@ This backend is exclusively for Bagusin: an independent digital studio and its b
 - WhatsApp notifications are not automated. Admin can contact a customer manually; the outbox table is only a queue structure until a WhatsApp Business provider and email provider are connected.
 - Automatic unpaid-order expiry is active. Reminder rows are queued on schedule, but WhatsApp/email messages are not delivered until a provider and sender worker are connected.
 - National courier APIs/rates, shipping aggregator and automatic tracking are not yet connected.
-- Course enrolment data structures and admin creation are present; full session planner and customer attendance workflow need more UI.
+- Course enrolment and admin session scheduling/completion are present; attendance records and richer student progress reporting remain future work.
 - Secure digital download function is deployed; actual customer entitlement and end-to-end download testing require a paid/completed test order and a private source file.
 - Product review moderation is available in admin; public product/homepage review widgets and Google Merchant Center feed are not yet connected.
 - First owner account must be confirmed by email and promoted to admin before the admin dashboard can be used.
