@@ -406,14 +406,15 @@ try {
   if (!(await serviceChoiceLabel.isVisible())) errors.push("Contact page: service selector did not open after choosing to change it");
   if (await interactionPage.locator("#service-choice").inputValue() !== "landing-pages") errors.push("Contact page: revealed selector lost the preselected service");
   if (contactOptionsText.includes("software engineering") || contactOptionsText.includes("SEO content")) errors.push("Contact page: English service terms remain in Indonesian copy");
-  let contactEmailPayload = null;
-  await interactionPage.route("https://formsubmit.co/ajax/sbaguskristian@gmail.com", async (route) => {
+  let contactInquiryPayload = null;
+  const inquiryEndpoint = "https://hpmeoxynftankklwgntb.supabase.co/rest/v1/inquiries*";
+  await interactionPage.route(inquiryEndpoint, async (route) => {
     if (route.request().method() === "OPTIONS") {
-      await route.fulfill({ status: 204, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" } });
+      await route.fulfill({ status: 204, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "GET, POST, OPTIONS", "Access-Control-Allow-Headers": "apikey, authorization, content-type, x-client-info, prefer" } });
       return;
     }
-    contactEmailPayload = route.request().postDataJSON();
-    await route.fulfill({ status: 200, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" }, contentType: "application/json", body: JSON.stringify({ success: "true", message: "Test submission accepted" }) });
+    contactInquiryPayload = route.request().postDataJSON();
+    await route.fulfill({ status: 201, headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json", "Preference-Applied": "return=minimal" }, contentType: "application/json", body: "[]" });
   });
   await interactionPage.locator("[data-stepper-next]").click();
   await interactionPage.locator("#project-form input[name=name]").fill("Test User");
@@ -422,16 +423,16 @@ try {
   await interactionPage.locator("[data-stepper-next]").click();
   await interactionPage.locator("#project-form input[name=terms]").check();
   await interactionPage.locator("#project-form button[type=submit]").click();
-  await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("Permintaan pengiriman diterima"), null, { timeout: 5000 });
+  await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("Permintaan Anda berhasil tersimpan di Bagusin"), null, { timeout: 5000 });
   const preparedBrief = interactionPage.locator("#project-form [data-brief-output]");
   if (!(await preparedBrief.count())) errors.push("Contact form: prepared brief output was not created");
   else if (!(await preparedBrief.inputValue()).includes("Testing the contact email submission flow.")) errors.push("Contact form: prepared brief is missing the entered details");
   if (!(await interactionPage.locator("#project-form [data-copy-brief]").count())) errors.push("Contact form: copy summary button was not created");
-  if (!contactEmailPayload || contactEmailPayload.email !== "test@example.com") errors.push("Contact form: email payload is missing the client's reply address");
-  if (!contactEmailPayload || contactEmailPayload.service_id !== "landing-pages") errors.push("Contact form: email payload is missing the selected service");
-  if (!contactEmailPayload || !contactEmailPayload.project_brief.includes("Testing the contact email submission flow.")) errors.push("Contact form: email payload is missing the project brief");
+  if (!contactInquiryPayload || contactInquiryPayload.email !== "test@example.com") errors.push("Contact form: inquiry record is missing the customer email");
+  if (!contactInquiryPayload || contactInquiryPayload.request_type !== "consultation" || !contactInquiryPayload.subject.includes("Landing Page")) errors.push("Contact form: inquiry record is missing the selected service context");
+  if (!contactInquiryPayload || !contactInquiryPayload.message.includes("Testing the contact email submission flow.")) errors.push("Contact form: inquiry record is missing the project brief");
   const formStatus = await interactionPage.locator("#form-status").textContent();
-  if (!formStatus || !formStatus.includes("Permintaan pengiriman diterima")) errors.push("Contact form: status does not confirm email-service acceptance");
+  if (!formStatus || !formStatus.includes("Permintaan Anda berhasil tersimpan di Bagusin")) errors.push("Contact form: status does not confirm email-service acceptance");
   await interactionPage.locator("#project-form [data-copy-brief]").click();
   await interactionPage.waitForFunction(() => {
     const message = document.querySelector("#form-status")?.textContent || "";
@@ -440,7 +441,7 @@ try {
   const copyStatus = await interactionPage.locator("#form-status").textContent();
   if (!copyStatus || !(copyStatus.includes("disalin") || copyStatus.includes("Penyalinan otomatis tidak tersedia"))) errors.push("Contact form: copy action did not provide useful feedback");
 
-  // English contact form uses the same email workflow with localized status.
+  // English contact form saves a localized inquiry to Supabase.
   await interactionPage.goto(origin + "/bagusin/en/contact/?service=copywriting&mode=consultation", { waitUntil: "domcontentloaded" });
   await interactionPage.locator(".site-footer__column").first().waitFor({ state: "attached", timeout: 5000 });
   const englishFooterLinks = await interactionPage.locator(".site-footer__links a").evaluateAll(links => links.map(link => ({
@@ -463,18 +464,17 @@ try {
   await interactionPage.locator("[data-stepper-next]").click();
   await interactionPage.locator("#project-form input[name=terms]").check();
   await interactionPage.locator("#project-form button[type=submit]").click();
-  await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("The email service accepted the request"), null, { timeout: 5000 });
-  if (!contactEmailPayload || contactEmailPayload.service_id !== "copywriting") errors.push("English contact form: email payload is missing the selected service");
-  if (!contactEmailPayload || contactEmailPayload.mode !== "consultation") errors.push("English contact form: email payload is missing the inquiry mode");
+  await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("Your request has been saved in Bagusin"), null, { timeout: 5000 });
+  if (!contactInquiryPayload || contactInquiryPayload.request_type !== "consultation" || !contactInquiryPayload.subject.includes("Copywriting")) errors.push("English contact form: inquiry record is missing the selected service and inquiry mode");
 
-  // If the email service fails, the contact form must provide an honest manual email fallback.
-  await interactionPage.unroute("https://formsubmit.co/ajax/sbaguskristian@gmail.com");
-  await interactionPage.route("https://formsubmit.co/ajax/sbaguskristian@gmail.com", async (route) => {
+  // If the database rejects a request, the contact form must provide an honest manual email fallback.
+  await interactionPage.unroute(inquiryEndpoint);
+  await interactionPage.route(inquiryEndpoint, async (route) => {
     if (route.request().method() === "OPTIONS") {
       await route.fulfill({ status: 204, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" } });
       return;
     }
-    await route.fulfill({ status: 500, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" }, contentType: "application/json", body: JSON.stringify({ success: "false", message: "Simulated email service failure" }) });
+    await route.fulfill({ status: 500, headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }, contentType: "application/json", body: JSON.stringify({ message: "Simulated database failure" }) });
   });
   await interactionPage.goto(origin + "/bagusin/contact/", { waitUntil: "domcontentloaded" });
   await interactionPage.locator("[data-stepper-next]").click();
@@ -487,8 +487,8 @@ try {
   await interactionPage.waitForFunction(() => document.querySelector("#project-form [data-mailto-fallback]") !== null, null, { timeout: 5000 });
   const fallbackLink = interactionPage.locator("#project-form [data-mailto-fallback]");
   if (!(await fallbackLink.getAttribute("href")).startsWith("mailto:sbaguskristian@gmail.com")) errors.push("Contact form: failure fallback does not open the configured recipient");
-  if (!(await interactionPage.locator("#form-status").innerText()).includes("belum terkonfirmasi")) errors.push("Contact form: failed delivery is not communicated honestly");
-  await interactionPage.unroute("https://formsubmit.co/ajax/sbaguskristian@gmail.com");
+  if (!(await interactionPage.locator("#form-status").innerText()).includes("Database belum mengonfirmasi")) errors.push("Contact form: failed delivery is not communicated honestly");
+  await interactionPage.unroute(inquiryEndpoint);
 
   // The Indonesian services page should use Indonesian metadata and headings.
   await interactionPage.goto(origin + "/bagusin/work/", { waitUntil: "domcontentloaded" });
