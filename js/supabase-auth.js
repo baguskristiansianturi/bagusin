@@ -327,12 +327,14 @@
   // Keep public pages lightweight: load the SDK only on the account screens.
   if (!document.querySelector("[data-account-page]")) return;
 
-  loadSdk().then(function (sdk) {
-    var client = sdk.createClient(PROJECT_URL, PUBLISHABLE_KEY, {
-      auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true }
-    });
-    init(client);
-  }).catch(function (error) {
+  var clientPromise = window.BagusinSupabaseClient && typeof window.BagusinSupabaseClient.get === "function"
+    ? window.BagusinSupabaseClient.get()
+    : loadSdk().then(function (sdk) {
+        return sdk.createClient(PROJECT_URL, PUBLISHABLE_KEY, {
+          auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true }
+        });
+      });
+  clientPromise.then(init).catch(function (error) {
     ready(function () {
       var message = document.querySelector("[data-auth-message]");
       setMessage(message, error.message, "error");

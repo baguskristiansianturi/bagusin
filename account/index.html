@@ -106,6 +106,18 @@
           <p class="account-message" data-profile-message role="status" aria-live="polite" hidden></p>
           <button class="account-quiet" type="button" data-sign-out>Keluar dari akun</button>
         </section>
+        
+        <section class="member-dashboard" data-member-area hidden>
+          <div class="member-dashboard__heading"><div><span class="account-kicker">Ruang pelanggan</span><h2>Aktivitas Bagusin Anda</h2><p>Pesanan, pembayaran, pengiriman, dan ulasan dalam satu tempat.</p></div><a class="member-admin-link" data-admin-link href="/bagusin/admin/" hidden>Dashboard admin ↗</a></div>
+          <div class="member-stats"><article><strong data-stat-orders>0</strong><span>Total pesanan</span></article><article><strong data-stat-pending>0</strong><span>Perlu tindakan</span></article><article><strong data-stat-complete>0</strong><span>Selesai</span></article></div>
+          <section class="member-panel"><div class="member-panel__head"><div><h3>Riwayat pesanan</h3><p>Setiap permintaan dan transaksi tetap tercatat di sini.</p></div><a href="/bagusin/collections/">Jelajahi katalog ↗</a></div><div data-orders-list><p class="member-empty">Memuat pesanan Anda…</p></div></section>
+          <section class="member-panel"><div class="member-panel__head"><div><h3>Invoice</h3><p>Nomor invoice, jumlah tagihan, dan batas pembayaran.</p></div></div><div data-invoice-list><p class="member-empty">Invoice akan muncul setelah diterbitkan Bagusin.</p></div></section>
+          <section class="member-panel"><div class="member-panel__head"><div><h3>Kursus saya</h3><p>Status pendaftaran, pengajar, jadwal, dan progres pertemuan.</p></div></div><div data-course-list><p class="member-empty">Informasi kursus akan muncul setelah pendaftaran.</p></div></section>
+          <section class="member-panel"><div class="member-panel__head"><div><h3>Pembelian digital</h3><p>Akses template dan file yang sudah dibeli.</p></div></div><div data-download-list><p class="member-empty">Pembelian digital Anda akan muncul di sini.</p></div></section>
+<section class="member-panel"><div class="member-panel__head"><div><h3>Ulasan Anda</h3><p>Bagikan pengalaman setelah pesanan selesai dan dibayar. Ulasan selalu bersifat sukarela.</p></div></div><div data-review-list><p class="member-empty">Ulasan tersedia setelah pesanan selesai dan dibayar.</p></div></section>
+          <p class="account-message" data-member-message role="status" aria-live="polite" hidden></p>
+        </section>
+
         <a class="account-back" href="/bagusin/">← Kembali ke Bagusin</a>
       </div>
     </main>
@@ -113,5 +125,7 @@
   </div>
   <script src="../js/main.js" defer></script>
   <script src="../js/navigation.js" defer></script>
+  <link rel="stylesheet" href="../css/bagusin-member-area.css?v=20261103-1">
+  <script src="../js/bagusin-member-area.js?v=20261103-1" defer></script>
 </body>
 </html>

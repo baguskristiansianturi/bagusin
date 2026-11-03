@@ -1,9 +1,34 @@
 (function(){
+  var navBase = window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin" ? "/bagusin" : "";
+  var navScript = document.createElement("script"); navScript.src = navBase + "/js/components/site-nav-links.js"; navScript.defer = true; document.head.appendChild(navScript);
+})();
+(function(){
+  var footerBase = window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin" ? "/bagusin" : "";
+  var footerStyle = document.createElement("link"); footerStyle.rel = "stylesheet"; footerStyle.href = footerBase + "/css/components/site-footer.css"; document.head.appendChild(footerStyle);
+  var footerScript = document.createElement("script"); footerScript.src = footerBase + "/js/components/site-footer.js"; footerScript.defer = true; document.head.appendChild(footerScript);
+})();
+(function(){
+  var breadcrumbBase = window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin" ? "/bagusin" : "";
+  var breadcrumbScript = document.createElement("script");
+  breadcrumbScript.src = breadcrumbBase + "/js/breadcrumbs.js";
+  breadcrumbScript.defer = true;
+  document.head.appendChild(breadcrumbScript);
+})();
+(function(){
+  var base = window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin" ? "/bagusin" : "";
+  if (document.querySelector("script[data-bagusin-supabase-client]")) return;
+  var script = document.createElement("script");
+  script.src = base + "/js/supabase-client.js";
+  script.async = false;
+  script.dataset.bagusinSupabaseClient = "";
+  document.head.appendChild(script);
+})();
+(function(){
   var base = window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin" ? "/bagusin" : "";
   if (document.querySelector('script[data-bagusin-auth]')) return;
   var script = document.createElement("script");
   script.src = base + "/js/supabase-auth.js?v=20261102-1";
-  script.async = true;
+  script.async = false;
   script.dataset.bagusinAuth = "";
   document.head.appendChild(script);
 })();

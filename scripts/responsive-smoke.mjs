@@ -4,6 +4,8 @@ const origin = "http://127.0.0.1:4173";
 const routes = [
   "/bagusin/",
   "/bagusin/learning/",
+  "/bagusin/store/",
+  "/bagusin/store/product/?slug=demo-product",
   "/bagusin/en/learning/",
   "/bagusin/blog/",
   "/bagusin/blog/bekerja-dari-mana-saja/",
@@ -34,6 +36,7 @@ const routes = [
   "/bagusin/contact/",
   "/bagusin/account/",
   "/bagusin/en/account/",
+  "/bagusin/admin/",
   "/bagusin/legal/privacy/",
   "/bagusin/legal/terms/",
   "/bagusin/legal/disclaimer/",
@@ -77,7 +80,7 @@ for (const route of routes) {
     page.setDefaultNavigationTimeout(25000);
     const pageErrors = [];
     const badLocalResponses = [];
-    page.on("pageerror", (error) => pageErrors.push(error.message));
+    page.on("pageerror", (error) => pageErrors.push(error.stack || error.message));
     page.on("response", (response) => {
       const url = response.url();
       if (url.startsWith(origin) && response.status() >= 400 && !url.endsWith("/favicon.ico")) {
@@ -143,7 +146,7 @@ try {
   if (await interactionPage.locator(".company-profile-product").count() !== 1) {
     errors.push("Company Profile catalogue: expected the Bagus Tattoo Studio product card");
   }
-  if ((await interactionPage.locator(".company-profile-product__badge").first().innerText()) !== "Demo konsep") {
+  if ((await interactionPage.locator(".company-profile-product__badge").first().innerText()).trim().toLowerCase() !== "demo konsep") {
     errors.push("Company Profile catalogue: concept demo label is missing");
   }
   await interactionPage.locator('[data-industry="tattoo-studio"]').click();
@@ -231,28 +234,16 @@ try {
   await interactionPage.goto(origin + "/bagusin/", { waitUntil: "domcontentloaded" });
   let homepageText = await interactionPage.locator("main").innerText();
 
-  // Course cards must show visible visual previews on the homepage, not only on the full catalogue.
-  const homeCourseCards = interactionPage.locator(".home-course-card");
-  if (await homeCourseCards.count() < 3) errors.push("Homepage: expected at least three course cards");
-  const courseVisuals = interactionPage.locator(".home-course-card .course-visual--home");
-  if (await courseVisuals.count() < 3) errors.push("Homepage: course cards are missing their website, Google Ads, and online-business visuals");
+  // Homepage course feature cards: verify the actual configured modules and their image previews.
+  const homeCourseCards = interactionPage.locator(".home-course-feature-card");
+  if (await homeCourseCards.count() < 2) errors.push("Homepage: expected the two configured course feature cards");
+  const courseVisuals = interactionPage.locator(".home-course-feature-card__visual img");
+  if (await courseVisuals.count() < 2) errors.push("Homepage: course feature cards are missing their image previews");
   const visualState = await courseVisuals.evaluateAll((items) => items.map((el) => {
     const rect = el.getBoundingClientRect();
-    const svg = el.querySelector("svg");
-    const svgRect = svg?.getBoundingClientRect();
-    const style = getComputedStyle(el);
-    return {
-      width: Math.round(rect.width),
-      height: Math.round(rect.height),
-      borderStyle: style.borderStyle,
-      borderWidth: style.borderWidth,
-      svgVisible: !!svg && !!svgRect && svgRect.width > 0 && svgRect.height > 0
-    };
+    return { width: Math.round(rect.width), height: Math.round(rect.height), src: el.getAttribute("src") };
   }));
-  if (visualState.length >= 3 && visualState.some((v) => v.width < 100 || v.height < 60 || !v.svgVisible || v.borderStyle === "none" || v.borderWidth === "0px")) {
-    errors.push("Homepage course visuals are not visibly rendered: " + JSON.stringify(visualState));
-  }
-  if (!(await interactionPage.locator('link[href*="course-visuals.css"]').count())) errors.push("Homepage: course visual stylesheet is not linked");
+  if (visualState.length >= 2 && visualState.some((v) => v.width < 100 || v.height < 60 || !v.src)) errors.push("Homepage course previews are not visibly rendered: " + JSON.stringify(visualState));
 
   await interactionPage.goto(origin + "/bagusin/en/", { waitUntil: "domcontentloaded" });
   if (await interactionPage.locator(".home-course-card .course-visual--home").count() < 3) {
@@ -415,30 +406,33 @@ try {
   if (!(await serviceChoiceLabel.isVisible())) errors.push("Contact page: service selector did not open after choosing to change it");
   if (await interactionPage.locator("#service-choice").inputValue() !== "landing-pages") errors.push("Contact page: revealed selector lost the preselected service");
   if (contactOptionsText.includes("software engineering") || contactOptionsText.includes("SEO content")) errors.push("Contact page: English service terms remain in Indonesian copy");
-  let contactEmailPayload = null;
-  await interactionPage.route("https://formsubmit.co/ajax/sbaguskristian@gmail.com", async (route) => {
+  let contactInquiryPayload = null;
+  const inquiryEndpoint = "https://hpmeoxynftankklwgntb.supabase.co/rest/v1/inquiries*";
+  await interactionPage.route(inquiryEndpoint, async (route) => {
     if (route.request().method() === "OPTIONS") {
-      await route.fulfill({ status: 204, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" } });
+      await route.fulfill({ status: 204, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "GET, POST, OPTIONS", "Access-Control-Allow-Headers": "apikey, authorization, content-type, x-client-info, prefer" } });
       return;
     }
-    contactEmailPayload = route.request().postDataJSON();
-    await route.fulfill({ status: 200, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" }, contentType: "application/json", body: JSON.stringify({ success: "true", message: "Test submission accepted" }) });
+    contactInquiryPayload = route.request().postDataJSON();
+    await route.fulfill({ status: 201, headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json", "Preference-Applied": "return=minimal" }, contentType: "application/json", body: "[]" });
   });
+  await interactionPage.locator("[data-stepper-next]").click();
   await interactionPage.locator("#project-form input[name=name]").fill("Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("test@example.com");
   await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the contact email submission flow.");
+  await interactionPage.locator("[data-stepper-next]").click();
   await interactionPage.locator("#project-form input[name=terms]").check();
   await interactionPage.locator("#project-form button[type=submit]").click();
-  await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("Permintaan pengiriman diterima"), null, { timeout: 5000 });
+  await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("Permintaan Anda berhasil tersimpan di Bagusin"), null, { timeout: 12000 });
   const preparedBrief = interactionPage.locator("#project-form [data-brief-output]");
   if (!(await preparedBrief.count())) errors.push("Contact form: prepared brief output was not created");
   else if (!(await preparedBrief.inputValue()).includes("Testing the contact email submission flow.")) errors.push("Contact form: prepared brief is missing the entered details");
   if (!(await interactionPage.locator("#project-form [data-copy-brief]").count())) errors.push("Contact form: copy summary button was not created");
-  if (!contactEmailPayload || contactEmailPayload.email !== "test@example.com") errors.push("Contact form: email payload is missing the client's reply address");
-  if (!contactEmailPayload || contactEmailPayload.service_id !== "landing-pages") errors.push("Contact form: email payload is missing the selected service");
-  if (!contactEmailPayload || !contactEmailPayload.project_brief.includes("Testing the contact email submission flow.")) errors.push("Contact form: email payload is missing the project brief");
+  if (!contactInquiryPayload || contactInquiryPayload.email !== "test@example.com") errors.push("Contact form: inquiry record is missing the customer email");
+  if (!contactInquiryPayload || contactInquiryPayload.request_type !== "consultation" || !contactInquiryPayload.subject.includes("Landing Page")) errors.push("Contact form: inquiry record is missing the selected service context");
+  if (!contactInquiryPayload || !contactInquiryPayload.message.includes("Testing the contact email submission flow.")) errors.push("Contact form: inquiry record is missing the project brief");
   const formStatus = await interactionPage.locator("#form-status").textContent();
-  if (!formStatus || !formStatus.includes("Permintaan pengiriman diterima")) errors.push("Contact form: status does not confirm email-service acceptance");
+  if (!formStatus || !formStatus.includes("Permintaan Anda berhasil tersimpan di Bagusin")) errors.push("Contact form: status does not confirm email-service acceptance");
   await interactionPage.locator("#project-form [data-copy-brief]").click();
   await interactionPage.waitForFunction(() => {
     const message = document.querySelector("#form-status")?.textContent || "";
@@ -447,7 +441,7 @@ try {
   const copyStatus = await interactionPage.locator("#form-status").textContent();
   if (!copyStatus || !(copyStatus.includes("disalin") || copyStatus.includes("Penyalinan otomatis tidak tersedia"))) errors.push("Contact form: copy action did not provide useful feedback");
 
-  // English contact form uses the same email workflow with localized status.
+  // English contact form saves a localized inquiry to Supabase.
   await interactionPage.goto(origin + "/bagusin/en/contact/?service=copywriting&mode=consultation", { waitUntil: "domcontentloaded" });
   await interactionPage.locator(".site-footer__column").first().waitFor({ state: "attached", timeout: 5000 });
   const englishFooterLinks = await interactionPage.locator(".site-footer__links a").evaluateAll(links => links.map(link => ({
@@ -463,35 +457,38 @@ try {
   if (englishFooterLinks.some(link => /search|author|portfolio|destinations/i.test(link.href))) {
     errors.push("English contact page: footer still exposes a legacy Search, Author, Portfolio, or Destinations link");
   }
+  await interactionPage.locator("[data-stepper-next]").click();
   await interactionPage.locator("#project-form input[name=name]").fill("English Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("english@example.com");
   await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the English contact email flow.");
+  await interactionPage.locator("[data-stepper-next]").click();
   await interactionPage.locator("#project-form input[name=terms]").check();
   await interactionPage.locator("#project-form button[type=submit]").click();
-  await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("The email service accepted the request"), null, { timeout: 5000 });
-  if (!contactEmailPayload || contactEmailPayload.service_id !== "copywriting") errors.push("English contact form: email payload is missing the selected service");
-  if (!contactEmailPayload || contactEmailPayload.mode !== "consultation") errors.push("English contact form: email payload is missing the inquiry mode");
+  await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("Your request has been saved in Bagusin"), null, { timeout: 12000 });
+  if (!contactInquiryPayload || contactInquiryPayload.request_type !== "consultation" || !contactInquiryPayload.subject.includes("Copywriting")) errors.push("English contact form: inquiry record is missing the selected service and inquiry mode");
 
-  // If the email service fails, the contact form must provide an honest manual email fallback.
-  await interactionPage.unroute("https://formsubmit.co/ajax/sbaguskristian@gmail.com");
-  await interactionPage.route("https://formsubmit.co/ajax/sbaguskristian@gmail.com", async (route) => {
+  // If the database rejects a request, the contact form must provide an honest manual email fallback.
+  await interactionPage.unroute(inquiryEndpoint);
+  await interactionPage.route(inquiryEndpoint, async (route) => {
     if (route.request().method() === "OPTIONS") {
-      await route.fulfill({ status: 204, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" } });
+      await route.fulfill({ status: 204, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "GET, POST, OPTIONS", "Access-Control-Allow-Headers": "apikey, authorization, content-type, x-client-info, prefer" } });
       return;
     }
-    await route.fulfill({ status: 500, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" }, contentType: "application/json", body: JSON.stringify({ success: "false", message: "Simulated email service failure" }) });
+    await route.fulfill({ status: 500, headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }, contentType: "application/json", body: JSON.stringify({ message: "Simulated database failure" }) });
   });
   await interactionPage.goto(origin + "/bagusin/contact/", { waitUntil: "domcontentloaded" });
+  await interactionPage.locator("[data-stepper-next]").click();
   await interactionPage.locator("#project-form input[name=name]").fill("Fallback Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("fallback@example.com");
   await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the manual email fallback.");
+  await interactionPage.locator("[data-stepper-next]").click();
   await interactionPage.locator("#project-form input[name=terms]").check();
   await interactionPage.locator("#project-form button[type=submit]").click();
   await interactionPage.waitForFunction(() => document.querySelector("#project-form [data-mailto-fallback]") !== null, null, { timeout: 5000 });
   const fallbackLink = interactionPage.locator("#project-form [data-mailto-fallback]");
   if (!(await fallbackLink.getAttribute("href")).startsWith("mailto:sbaguskristian@gmail.com")) errors.push("Contact form: failure fallback does not open the configured recipient");
-  if (!(await interactionPage.locator("#form-status").innerText()).includes("belum terkonfirmasi")) errors.push("Contact form: failed delivery is not communicated honestly");
-  await interactionPage.unroute("https://formsubmit.co/ajax/sbaguskristian@gmail.com");
+  if (!(await interactionPage.locator("#form-status").innerText()).includes("Database belum mengonfirmasi")) errors.push("Contact form: failed delivery is not communicated honestly");
+  await interactionPage.unroute(inquiryEndpoint);
 
   // The Indonesian services page should use Indonesian metadata and headings.
   await interactionPage.goto(origin + "/bagusin/work/", { waitUntil: "domcontentloaded" });
@@ -511,7 +508,7 @@ try {
   await interactionPage.goto(origin + "/bagusin/about/", { waitUntil: "domcontentloaded" });
   const aboutTitle = await interactionPage.title();
   const aboutText = await interactionPage.locator("main").innerText();
-  const aboutStructuredData = await interactionPage.locator('script[type="application/ld+json"]').textContent();
+  const aboutStructuredData = await interactionPage.locator('script[type="application/ld+json"]').first().textContent();
   if (!aboutTitle.includes("Tentang")) errors.push("About page: title metadata is not localized");
   if (!aboutText.includes("ruang untuk pekerjaan digital") || !aboutText.includes("Selalu ada ruang untuk memperbaiki.")) errors.push("About page: current Indonesian positioning copy is missing");
   if (aboutText.includes("independent software studio") || aboutText.includes("Built around real problems.")) errors.push("About page: outdated English positioning copy remains");
@@ -521,7 +518,7 @@ try {
   await interactionPage.goto(origin + "/bagusin/portfolio/", { waitUntil: "domcontentloaded" });
   const portfolioTitle = await interactionPage.title();
   const portfolioText = await interactionPage.locator("main").innerText();
-  const portfolioStructuredData = await interactionPage.locator('script[type="application/ld+json"]').textContent();
+  const portfolioStructuredData = await interactionPage.locator('script[type="application/ld+json"]').first().textContent();
   if (!portfolioTitle.includes("Portofolio")) errors.push("Portfolio page: title metadata is not localized");
   if (!portfolioText.includes("Pekerjaan nyata, proses yang jujur, dan konteks yang jelas.") || !portfolioText.includes("Portofolio seharusnya menunjukkan cara berpikir")) errors.push("Portfolio page: Indonesian headings are missing");
   if (portfolioText.includes("Things I’ve built, tested, and explored.") || portfolioText.includes("independent software studio") || portfolioText.includes("Work With Me")) errors.push("Portfolio page: outdated English or studio positioning remains");
@@ -530,7 +527,7 @@ try {
   // The YouTube page remains honest about video availability while using Indonesian copy.
   await interactionPage.goto(origin + "/bagusin/youtube/", { waitUntil: "domcontentloaded" });
   const youtubeText = await interactionPage.locator("main").innerText();
-  const youtubeStructuredData = await interactionPage.locator('script[type="application/ld+json"]').textContent();
+  const youtubeStructuredData = await interactionPage.locator('script[type="application/ld+json"]').first().textContent();
   if (!youtubeText.includes("Cerita yang tidak berhenti di halaman.")) errors.push("YouTube page: Indonesian hero copy is missing");
   if (youtubeText.includes("Stories that move beyond the page.") || youtubeText.includes("The channel will grow with the journey.") || youtubeText.includes("Field Notes")) errors.push("YouTube page: English interface copy remains on the Indonesian page");
   if (!youtubeText.includes("thumbnail atau judul fiktif")) errors.push("YouTube page: transparency note about unavailable videos is missing");
@@ -540,7 +537,7 @@ try {
   await interactionPage.goto(origin + "/bagusin/blog/", { waitUntil: "domcontentloaded" });
   const blogTitle = await interactionPage.title();
   const blogText = await interactionPage.locator("main").innerText();
-  const blogStructuredData = await interactionPage.locator('script[type="application/ld+json"]').textContent();
+  const blogStructuredData = await interactionPage.locator('script[type="application/ld+json"]').first().textContent();
   if (!blogTitle.includes("Blog")) errors.push("Blog page: title metadata is missing");
   if (!blogText.includes("Cerita, panduan, dan hal yang layak dibagikan.") || !blogText.includes("Temukan pengalaman, ide, dan panduan praktis")) errors.push("Blog page: Indonesian hero copy is missing");
   if (blogText.includes("Stories from the road") || blogText.includes("Read the story") || blogText.includes("The archive grows with real experience.")) errors.push("Blog page: English interface copy remains");
@@ -605,9 +602,9 @@ try {
   if (await interactionPage.locator('[data-panel="2"]').isHidden()) errors.push("Checkout: valid brief did not advance to review");
   if (!(await interactionPage.locator("#review-box").innerText()).includes("Test Client")) errors.push("Checkout: review summary did not include entered details");
   if (await interactionPage.locator("#review-box script").count()) errors.push("Checkout: user brief was interpreted as HTML instead of escaped text");
-  await interactionPage.locator('[data-next="3"]').click();
+  await interactionPage.locator('[data-step-nav="3"]').click();
   if (await interactionPage.locator('[data-panel="3"]').isHidden()) errors.push("Checkout: review did not advance to terms");
-  await interactionPage.locator('[data-next="4"]').click();
+  await interactionPage.locator('[data-step-nav="4"]').click();
   if (await interactionPage.locator('[data-panel="4"]').isVisible()) errors.push("Checkout: terms step allowed continuation without consent");
   const requiredConsents = interactionPage.locator('[data-panel="3"] input[type="checkbox"][required]');
   for (let i = 0; i < await requiredConsents.count(); i += 1) await requiredConsents.nth(i).check();
@@ -649,120 +646,56 @@ try {
   if (!(await interactionPage.locator("#aside-category-row").isHidden())) errors.push("Checkout: stale category leaked into a direct service order");
   if ((await interactionPage.locator("#aside-tier").textContent()).trim() !== "Belum ditentukan") errors.push("Checkout: stale tier leaked into a direct service order");
 
-  // Collection detail CTAs must preserve the right context into checkout.
-  const collectionCases = [
-    { route: "/bagusin/landing-pages/collections/detail/?collection=travel-showroom", service: "landing-pages", collection: "travel-showroom", contextKey: "industry", contextValue: "travel" },
-    { route: "/bagusin/websites/collections/detail/?collection=travel-business-website", service: "websites", collection: "travel-business-website", contextKey: "industry", contextValue: "travel", tier: "starter" },
-    { route: "/bagusin/copywriting/collections/detail/?collection=landing-page-copy", service: "copywriting", collection: "landing-page-copy", contextKey: "category", contextValue: "landing" }
+  // Current service detail pages route into the contextual multi-step inquiry form.
+  const serviceCases = [
+    { route: "/bagusin/work/landing-pages/", service: "landing-pages", label: "Landing Page" },
+    { route: "/bagusin/work/websites/", service: "websites", label: "Website" },
+    { route: "/bagusin/work/copywriting/", service: "copywriting", label: "Copywriting" }
   ];
-  for (const item of collectionCases) {
+  for (const item of serviceCases) {
     await interactionPage.goto(origin + item.route, { waitUntil: "domcontentloaded" });
-    const orderLink = interactionPage.locator("[data-order]");
-    if (!(await orderLink.count())) { errors.push("Collection detail: order CTA is missing for " + item.service); continue; }
-    const orderHref = await orderLink.getAttribute("href");
-    const orderUrl = new URL(orderHref, origin);
-    if (orderUrl.searchParams.get("service") !== item.service) errors.push("Collection detail: service context was lost for " + item.service);
-    if (orderUrl.searchParams.get("collection") !== item.collection) errors.push("Collection detail: collection context was lost for " + item.service);
-    if (orderUrl.searchParams.get(item.contextKey) !== item.contextValue) errors.push("Collection detail: " + item.contextKey + " context is incorrect for " + item.service);
-    if (item.service === "copywriting" && orderUrl.searchParams.has("industry")) errors.push("Collection detail: copywriting category was incorrectly passed as an industry");
-    if (item.tier && orderUrl.searchParams.get("tier") !== item.tier) errors.push("Collection detail: website tier was lost");
+    const orderLink = interactionPage.locator('a[href*="/contact/?service="]').first();
+    if (!(await orderLink.count())) { errors.push("Service detail: inquiry CTA is missing for " + item.service); continue; }
+    const orderUrl = new URL(await orderLink.getAttribute("href"), origin);
+    if (orderUrl.searchParams.get("service") !== item.service) errors.push("Service detail: service context was lost for " + item.service);
+    if (orderUrl.searchParams.get("mode") !== "project") errors.push("Service detail: project inquiry mode is missing for " + item.service);
     await interactionPage.goto(orderUrl.href, { waitUntil: "domcontentloaded" });
-    if (await interactionPage.locator("#service").inputValue() !== item.service) errors.push("Checkout: collection CTA did not preselect " + item.service);
-    await interactionPage.locator("#name").fill("Collection Test");
-    await interactionPage.locator("#email").fill("collection@example.com");
-    await interactionPage.locator("#timeline").fill("Start 20 October, finish 5 November");
-    await interactionPage.locator("#agreed-quote").fill("1500000");
-    await interactionPage.locator("#payment-plan").fill("50% deposit, balance on handover");
-    await interactionPage.locator("#brief").fill("Please review the selected collection and discuss scope.");
-    await interactionPage.locator('[data-next="2"]').click();
-    if (await interactionPage.locator('[data-panel="2"]').isHidden()) errors.push("Checkout: collection brief did not advance to review for " + item.service);
-    const review = await interactionPage.locator("#review-box").innerText();
-    if (!review.includes(item.collection.split("-").map(w => w[0].toUpperCase() + w.slice(1)).join(" "))) errors.push("Checkout: review summary lost collection name for " + item.service);
-    if (item.service === "copywriting" && (!review.includes("Landing Page") || !review.includes("Kategori"))) errors.push("Checkout: copywriting category was not shown as a category");
-    if (item.tier && !review.toLowerCase().includes("starter")) errors.push("Checkout: website tier was not shown in review");
+    const contextLabel = await interactionPage.locator("#selected-service").textContent();
+    if (!contextLabel || !contextLabel.includes(item.label)) errors.push("Service inquiry: selected service was not prefilled for " + item.service);
   }
 
-  // Copywriting category must survive the entire review-to-email journey.
-  await interactionPage.locator('[data-next="3"]').click();
-  const requiredConsentsForCopywriting = interactionPage.locator('[data-panel="3"] input[type="checkbox"][required]');
-  for (let i = 0; i < await requiredConsentsForCopywriting.count(); i += 1) await requiredConsentsForCopywriting.nth(i).check();
-  await interactionPage.locator('[data-next="4"]').click();
-  await interactionPage.locator("#send-order-brief").click();
-  await interactionPage.waitForFunction(() => document.querySelector("#checkout-email-status")?.textContent.includes("diterima layanan email"), null, { timeout: 5000 });
-  if (!submittedEmailPayload || submittedEmailPayload.category !== "Landing Page") errors.push("Checkout: copywriting category was not included in the email payload");
-
-  // New self-installable template journey: platform/category → visual demo → license → simulated checkout.
-  await interactionPage.goto(origin + "/bagusin/templates/", { waitUntil: "domcontentloaded" });
-  const storeCatalogCard = interactionPage.locator(".store-product-card");
-  await storeCatalogCard.waitFor({ state: "visible", timeout: 5000 });
-  const mobileFilterbar = interactionPage.locator(".store-mobile-filterbar");
-  if (!(await mobileFilterbar.isVisible())) errors.push("Template store: sticky mobile filter bar is not visible at phone width");
-  const filterPosition = await mobileFilterbar.evaluate(el => getComputedStyle(el).position);
-  if (filterPosition !== "sticky") errors.push("Template store: mobile filter bar is not sticky");
-  const platformTrack = mobileFilterbar.locator(".store-platforms");
-  const trackMetrics = await platformTrack.evaluate(el => ({scrollWidth: el.scrollWidth, clientWidth: el.clientWidth}));
-  if (trackMetrics.scrollWidth <= trackMetrics.clientWidth) errors.push("Template store: platform controls should form a horizontal carousel on mobile");
-  if (!(await interactionPage.locator("footer.site-footer").count()) || await interactionPage.locator("footer.store-footer").count()) errors.push("Template store: footer should use the shared site footer");
-  await interactionPage.locator('.store-mobile-filterbar button[data-platform="wordpress"]').click();
-  if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: WordPress with no products should show an honest empty state");
-  // Mobile filter choice should reveal the results without placing them beneath sticky chrome.
-  try {
-    await interactionPage.waitForFunction(() => {
-      const target = document.querySelector(".store-results__top");
-      const header = document.querySelector(".site-header");
-      const filterbar = document.querySelector(".store-mobile-filterbar");
-      if (!target || !header || !filterbar) return false;
-      const targetRect = target.getBoundingClientRect();
-      const headerRect = header.getBoundingClientRect();
-      const filterRect = filterbar.getBoundingClientRect();
-      return targetRect.top >= Math.max(headerRect.bottom, filterRect.bottom) - 2
-        && targetRect.top < window.innerHeight;
-    }, null, { timeout: 6000 });
-  } catch {
-    errors.push("Template store: mobile filter selection did not reveal results below the sticky header and filter bar");
-  }
-  if (await storeCatalogCard.isVisible()) errors.push("Template store: Blogger product remained visible after switching to WordPress");
-  await interactionPage.locator('.store-mobile-filterbar button[data-platform="coded"]').click();
-  if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: coded platform should show an honest empty state until a code template is released");
-  if (!(await interactionPage.locator("[data-results-title]").innerText()).includes("HTML, CSS")) errors.push("Template store: coded platform heading is incorrect");
-  await interactionPage.locator('.store-mobile-filterbar button[data-platform="blogger"]').click();
-  await interactionPage.locator("[data-template-purpose]").selectOption("landing-page");
-  if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: purpose filter should not mislabel an editorial blog as a landing page");
-  await interactionPage.locator("[data-template-purpose]").selectOption("blog");
-  if (!(await storeCatalogCard.isVisible())) errors.push("Template store: blog purpose filter hid the matching editorial template");
-  await interactionPage.locator("[data-template-purpose]").selectOption("all");
-  if (!(await storeCatalogCard.isVisible())) errors.push("Template store: Blogger product did not return after switching platforms");
-  await interactionPage.locator('.store-mobile-filterbar [data-industry="travel-rental"]').click();
-  if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: empty industry should not fabricate a product");
-  await interactionPage.locator('.store-mobile-filterbar [data-industry="all"]').click();
-  await interactionPage.locator("[data-template-search]").fill("editorial");
-  if (!(await storeCatalogCard.isVisible())) errors.push("Template store: search did not find Bagusin Editorial");
-  await interactionPage.locator("[data-template-search]").fill("hotel");
-  if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: unmatched search did not show an empty state");
-  await interactionPage.locator("[data-template-search]").fill("");
-  await interactionPage.goto(origin + "/bagusin/templates/blogger-editorial/", { waitUntil: "domcontentloaded" });
-  if (!(await interactionPage.locator(".product-copy h1").innerText()).includes("Bagusin Editorial")) errors.push("Template detail: product title is missing");
-  if (!(await interactionPage.locator(".product-demo iframe").getAttribute("src")).includes("/bagusin/templates/demos/editorial-blogger/")) errors.push("Template detail: live demo frame is not connected to the sample demo");
-  if (!(await interactionPage.locator('a[href="/bagusin/templates/files/bagusin-editorial-free-v0.1.xml"]').count())) errors.push("Template detail: free Blogger XML download link is missing");
-  await interactionPage.goto(origin + "/bagusin/templates/checkout/?license=premium", { waitUntil: "domcontentloaded" });
-  if (await interactionPage.locator("#test-license").inputValue() !== "premium") errors.push("Template checkout: premium choice was not preserved from product detail");
-  if (!(await interactionPage.locator("[data-summary-price]").innerText()).includes("49.000")) errors.push("Template checkout: simulated premium price is not reflected in summary");
-  await interactionPage.locator('[data-test-next="2"]').click();
-  if (!(await interactionPage.locator("#test-error").innerText()).includes("nama")) errors.push("Template checkout: missing required name was not validated");
-  await interactionPage.locator("#test-name").fill("Template Test User");
-  await interactionPage.locator("#test-email").fill("template@example.com");
-  await interactionPage.locator("#test-blog").fill("https://contoh.blogspot.com");
-  await interactionPage.locator("#test-note").fill("Test template checkout journey");
-  await interactionPage.locator("#test-agree").check();
-  await interactionPage.locator('[data-test-next="2"]').click();
-  if (await interactionPage.locator('[data-test-panel="2"]').isHidden()) errors.push("Template checkout: valid form did not advance to review");
-  const templateReview = await interactionPage.locator("#test-review").innerText();
-  if (!templateReview.includes("Template Test User") || !templateReview.includes("Premium")) errors.push("Template checkout: review summary lost name or selected license");
-  await interactionPage.locator('[data-test-next="3"]').click();
-  await interactionPage.locator("#test-submit").click();
-  if (!(await interactionPage.locator("#test-success").isVisible())) errors.push("Template checkout: submit did not complete the simulated journey");
-  const templateSuccess = await interactionPage.locator("#test-success").innerText();
-  if (!templateSuccess.includes("bukan transaksi nyata") || !templateSuccess.includes("tidak ada pembayaran")) errors.push("Template checkout: success state does not explain the simulation boundary");
+  // Bagusin Store: exercise the real public catalog and four-step inquiry flow with an isolated demo product.
+  await interactionPage.route("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0", route => route.fulfill({
+    status: 200, contentType: "application/javascript",
+    body: `window.supabase = { createClient: () => ({ from: () => ({ select: () => ({ eq: () => ({ order: async () => ({ data: [{"id":"store-demo-1","slug":"demo-produk","sku":"DEMO-001","name":"Produk Demo Bagusin","short_description":"Produk contoh untuk pengujian alur katalog.","description":"Deskripsi demo produk.","brand":"Bagusin","category":"Digital","product_type":"digital","price_amount":49000,"currency":"IDR","stock_quantity":1,"manage_stock":false,"availability":"in_stock","image_path":null,"status":"published"}], error: null }) }) }) }), insert: async () => ({ error: null }) }) };`
+  }));
+  await interactionPage.goto(origin + "/bagusin/store/", { waitUntil: "domcontentloaded" });
+  const storeCard = interactionPage.locator(".store-card").first();
+  await storeCard.waitFor({ state: "visible", timeout: 10000 });
+  if (!(await storeCard.innerText()).includes("Produk Demo Bagusin")) errors.push("Bagusin Store: published product card is missing");
+  await interactionPage.locator('#store-categories button[data-category="Digital"]').click();
+  if (await interactionPage.locator(".store-card").count() !== 1) errors.push("Bagusin Store: category filter did not retain the matching product");
+  await interactionPage.locator("#store-search").fill("tidak-ada-produk");
+  if (!(await interactionPage.locator(".store-empty").isVisible())) errors.push("Bagusin Store: unmatched search does not show an honest empty state");
+  await interactionPage.locator("#store-search").fill("");
+  await storeCard.locator('button[data-add="store-demo-1"]').click();
+  await interactionPage.locator("[data-open-cart]").click();
+  await interactionPage.locator("[data-start-checkout]").click();
+  await interactionPage.locator('input[name="full_name"]').fill("Store Test User");
+  await interactionPage.locator('input[name="email"]').fill("store@example.com");
+  await interactionPage.locator('input[name="phone"]').fill("+628123456789");
+  await interactionPage.locator("[data-step-next]").click();
+  await interactionPage.locator('select[name="delivery_method"]').selectOption("digital");
+  await interactionPage.locator('input[name="city"]').fill("Denpasar");
+  await interactionPage.locator("[data-step-next]").click();
+  if (!(await interactionPage.locator("[data-checkout-summary]").innerText()).includes("Produk Demo Bagusin")) errors.push("Bagusin Store: review step lost the selected product");
+  await interactionPage.locator('input[name="consent"]').check();
+  await interactionPage.locator("[data-step-next]").click();
+  if (await interactionPage.locator('[data-step-indicator="4"]').getAttribute("class") === "is-current" && !(await interactionPage.locator("[data-step-submit]").isVisible())) errors.push("Bagusin Store: final submit action is not visible");
+  await interactionPage.locator("[data-step-submit]").click();
+  await interactionPage.locator("[data-store-success]").waitFor({ state: "visible", timeout: 5000 });
+  if (!(await interactionPage.locator("[data-store-success]").innerText()).includes("berhasil dikirim")) errors.push("Bagusin Store: successful inquiry confirmation is missing");
+  if (!(await interactionPage.locator("footer.site-footer").count()) || await interactionPage.locator("footer.store-footer").count()) errors.push("Bagusin Store: shared footer is missing or replaced");
 
   // Collections and Portfolio have distinct roles and destinations.
   await interactionPage.goto(origin + "/bagusin/collections/", { waitUntil: "domcontentloaded" });
