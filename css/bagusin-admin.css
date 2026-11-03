@@ -23,3 +23,5 @@
 .admin-proof{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:#f7f8fa;font-size:.8rem}
 .admin-review{display:grid;gap:8px;padding:14px 0;border-top:1px solid #edf0f2}.admin-review:first-child{border-top:0}
 @media(max-width:680px){.admin-form--inline{grid-template-columns:1fr}.admin-form-grid{grid-template-columns:1fr}.admin-card__head{flex-direction:column}.admin-order__top{flex-direction:column}.admin-order__meta{grid-template-columns:1fr 1fr}}
+
+.admin-course-schedule{display:grid;align-items:stretch;gap:12px}.admin-course-schedule .admin-form--inline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.admin-course-schedule .admin-form--inline input{min-width:0}.admin-course-schedule .admin-form--inline button{justify-self:start}@media(max-width:680px){.admin-course-schedule .admin-form--inline{grid-template-columns:1fr}}
