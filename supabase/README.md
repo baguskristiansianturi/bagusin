@@ -17,10 +17,13 @@ This directory contains the versioned SQL migration history for the live Bagusin
 6. `20261103121901_bagusin_cms_policy_index_refinement.sql`
 7. `20261103122045_bagusin_design_private_file_security.sql`
 8. `20261103122102_bagusin_private_file_index_and_media_mime.sql`
-
-The November 3 migrations add Bagusin editorial, services, portfolio, course, inquiry, media and site-settings structures; configure public/private Storage buckets; require admin role for CMS management; separate private template source files from the public catalogue; and disable API access to unused social/community tables without dropping them.
-
-Do not apply the old alternative foundation migration from an unmerged branch on top of this live schema.
+9. `20261103130026_bagusin_commerce_orders_payments_shipping_reviews_v1.sql`
+10. `20261103130137_bagusin_commerce_access_and_verified_review_guards_v1.sql`
+11. `20261103130206_bagusin_public_payment_method_configuration_v1.sql`
+12. `20261103130502_bagusin_course_digital_variant_fulfillment_v1.sql`
+13. `20261103130523_bagusin_commerce_proof_guard_and_fk_indexes_v1.sql`
+14. `20261103130538_bagusin_invoices_and_google_product_metadata_v1.sql`
+15. `20261103130737_bagusin_secure_digital_download_entitlement_v1.sql`
 
 ## Auth dashboard configuration
 Supabase Dashboard → Authentication → URL Configuration:
@@ -40,7 +43,14 @@ where id = (select id from auth.users where email = 'OWNER_EMAIL');
 ```
 Never expose this SQL to the browser or a public form.
 
-## Product boundary
-Bagusin is a professional digital studio and CMS for services, articles, design catalogue, portfolio/demos, courses and enquiries. It is not My Bali. Social/community tables are legacy-only and inaccessible through the client API.
+## Payment and operational configuration
+- Add the real BCA account number in Admin → Instruksi transfer BCA. It is intentionally blank and inactive until configured.
+- The current invoice due-time default is 24 hours and can be changed by admin.
+- The customer proof bucket is private. Do not move receipts into the public media bucket.
+- Manual BCA verification means an admin checks the bank account before marking an order paid.
+- WhatsApp/email delivery, reminder scheduling and courier integrations are not active yet.
 
-See [backend architecture](../docs/BAGUSIN-BACKEND-ARCHITECTURE.md) for the domain model, access model, Storage conventions and deferred phases.
+## Product boundary
+Bagusin is a professional digital studio and CMS for services, articles, design catalogue, portfolio/demos, courses, store and customer operations. It is not My Bali. Social/community tables are legacy-only and inaccessible through the client API.
+
+See [backend architecture](../docs/BAGUSIN-BACKEND-ARCHITECTURE.md) for the domain model, access model, order lifecycle, Storage conventions and current limitations.
