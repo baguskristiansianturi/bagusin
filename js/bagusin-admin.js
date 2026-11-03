@@ -93,8 +93,13 @@ if(storeForm){
    if(remaining.length+files.length>15)throw Error("Maksimal 15 foto per produk. Hapus beberapa foto sebelum menambahkan yang baru.");
    if(removeIds.length){
     var removed=existing.filter(function(x){return removeIds.includes(x.id);});
+    var removedPrimary=removed.find(function(x){return x.is_primary;});
     var del=await client.from("store_product_images").delete().in("id",removeIds);if(del.error)throw del.error;
     var storageDel=await client.storage.from("bagusin-public").remove(removed.map(function(x){return x.image_path;}));if(storageDel.error)throw storageDel.error;
+    if(removedPrimary){
+     if(imagePath===removedPrimary.image_path)imagePath=remaining.length?remaining[0].image_path:null;
+     if(remaining.length){var promote=await client.from("store_product_images").update({is_primary:true}).eq("id",remaining[0].id);if(promote.error)throw promote.error;}
+    }
    }
    var payload={slug:slug,name:name,sku:String(d.get("sku")||"").trim()||null,category:String(d.get("category")||"").trim()||null,product_type:String(d.get("product_type")||"physical"),price_amount:Number(d.get("price_amount")||0),currency:"IDR",stock_quantity:Math.max(0,Number(d.get("stock_quantity")||0)),availability:String(d.get("availability")||"in_stock"),manage_stock:f.elements.manage_stock.checked,brand:String(d.get("brand")||"").trim()||null,short_description:String(d.get("short_description")||"").trim()||null,description:String(d.get("description")||"").trim(),image_path:imagePath||null,status:String(d.get("status")||"draft"),seo_title:String(d.get("seo_title")||"").trim()||null,seo_description:String(d.get("seo_description")||"").trim()||null,updated_at:new Date().toISOString()};
    var result=id?await client.from("store_products").update(payload).eq("id",id).select("id").single():await client.from("store_products").insert(payload).select("id").single();
@@ -103,7 +108,7 @@ if(storeForm){
    for(var i=0;i<files.length;i++){
     var imageFile=files[i],ext=imageFile.name.split(".").pop().toLowerCase().replace(/[^a-z0-9]/g,"")||"webp",path="products/"+slug+"-"+Date.now()+"-"+i+"."+ext;
     var upload=await client.storage.from("bagusin-public").upload(path,imageFile,{upsert:false,contentType:imageFile.type});if(upload.error)throw upload.error;
-    uploaded.push({product_id:productId,image_path:path,alt_text:name+" — foto "+(remaining.length+i+1),sort_order:remaining.length+i,is_primary:remaining.length===0&&i===0});
+    uploaded.push({product_id:productId,image_path:path,alt_text:name+" — foto "+(remaining.length+i+1),sort_order:(remaining.reduce(function(max,x){return Math.max(max,Number(x.sort_order)||0);},-1)+1+i),is_primary:remaining.length===0&&i===0});
     if(!imagePath&&remaining.length===0&&i===0)imagePath=path;
    }
    if(uploaded.length){var inserted=await client.from("store_product_images").insert(uploaded);if(inserted.error)throw inserted.error;}
