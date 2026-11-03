@@ -71,6 +71,16 @@ const handler = withSupabase({ auth: "user" }, async (req, ctx) => {
     });
   }
 
+  const { data: signed, error: storageError } = await ctx.supabaseAdmin.storage
+    .from(entitlement.storage_bucket)
+    .createSignedUrl(entitlement.storage_path, 300, { download: true });
+
+  if (storageError || !signed?.signedUrl) {
+    return new Response(JSON.stringify({ error: "Could not prepare the secure download. Please contact Bagusin." }), {
+      status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+
   // Compare-and-swap prevents concurrent requests from exceeding the configured download count.
   const nextCount = Number(entitlement.download_count || 0) + 1;
   const { data: counted, error: countError } = await ctx.supabaseAdmin
@@ -85,16 +95,6 @@ const handler = withSupabase({ auth: "user" }, async (req, ctx) => {
   if (countError || !counted) {
     return new Response(JSON.stringify({ error: "Please retry the download. The download counter changed." }), {
       status: 409, headers: { ...corsHeaders, "Content-Type": "application/json" },
-    });
-  }
-
-  const { data: signed, error: storageError } = await ctx.supabaseAdmin.storage
-    .from(entitlement.storage_bucket)
-    .createSignedUrl(entitlement.storage_path, 300, { download: true });
-
-  if (storageError || !signed?.signedUrl) {
-    return new Response(JSON.stringify({ error: "Could not prepare the secure download. Please contact Bagusin." }), {
-      status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }
 
