@@ -396,7 +396,7 @@ try {
   await interactionPage.evaluate(() => window.scrollTo(0, 0));
 
   const contactOptionsText = await interactionPage.locator("main").innerText();
-  if (!contactOptionsText.includes("Ceritakan kebutuhanmu secara singkat")) errors.push("Contact page: concise guidance is missing");
+  if (!contactOptionsText.includes("Apa yang ingin kamu buat, perbaiki, atau pelajari?")) errors.push("Contact page: contextual inquiry heading is missing");
   const selectedServiceText = await interactionPage.locator("#selected-service").innerText();
   if (!selectedServiceText.includes("Landing Page & Iklan")) errors.push("Contact page: service from the incoming URL was not preselected");
   const serviceChoiceLabel = interactionPage.locator("[data-service-choice-label]");
