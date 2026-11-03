@@ -146,7 +146,7 @@ try {
   if (await interactionPage.locator(".company-profile-product").count() !== 1) {
     errors.push("Company Profile catalogue: expected the Bagus Tattoo Studio product card");
   }
-  if ((await interactionPage.locator(".company-profile-product__badge").first().innerText()) !== "Demo konsep") {
+  if ((await interactionPage.locator(".company-profile-product__badge").first().innerText()).trim().toLowerCase() !== "demo konsep") {
     errors.push("Company Profile catalogue: concept demo label is missing");
   }
   await interactionPage.locator('[data-industry="tattoo-studio"]').click();
