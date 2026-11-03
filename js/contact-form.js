@@ -402,6 +402,7 @@ document.addEventListener("DOMContentLoaded", function () {
       company: valueOf("company") || (isEnglish ? "Not provided" : "Tidak diisi"),
       meeting_preference: valueOf("meeting_preference") || "online",
       meeting_location: valueOf("meeting_location") || (isEnglish ? "Not provided" : "Tidak diisi"),
+      "WhatsApp: " + (valueOf("phone") || (isEnglish ? "Not provided" : "Tidak diisi")),
       project_brief: brief,
       brief_summary: summary,
       terms_acknowledged: form.elements.namedItem("terms")?.checked ? (isEnglish ? "Yes" : "Ya") : (isEnglish ? "No" : "Tidak"),
@@ -427,6 +428,16 @@ document.addEventListener("DOMContentLoaded", function () {
     status.insertAdjacentElement("afterend", link);
   }
 
+  async function getSupabaseClient() {
+    if (window.BagusinSupabase) return window.BagusinSupabase;
+    await new Promise(function(resolve) {
+      window.addEventListener("bagusin:supabase-ready", resolve, { once: true });
+      window.setTimeout(resolve, 9000);
+    });
+    if (!window.BagusinSupabase) throw new Error(isEnglish ? "Bagusin database connection is not ready. Please retry." : "Koneksi database Bagusin belum siap. Silakan coba kembali.");
+    return window.BagusinSupabase;
+  }
+
   form.addEventListener("submit", async function (event) {
     event.preventDefault();
     if (form.dataset.submitted === "true") return;
@@ -437,51 +448,59 @@ document.addEventListener("DOMContentLoaded", function () {
         : "Lengkapi kolom wajib sebelum mengirim brief.";
       return;
     }
-
     const honeypot = form.querySelector('input[name="_honey"]');
     if (honeypot?.value.trim()) return;
 
     const summary = buildBrief();
     createBriefOutput(summary);
-    const payload = buildEmailPayload();
+    const fallbackPayload = buildEmailPayload();
+    const requestType = mode === "consultation" || mode === "appointment"
+      ? "consultation"
+      : service === "course-interest" ? "course"
+      : params.get("template") ? "template" : "project";
     const submitButton = form.querySelector('button[type="submit"]');
     form.querySelector("[data-mailto-fallback]")?.remove();
     if (submitButton) {
       submitButton.disabled = true;
-      submitButton.textContent = isEnglish ? "Sending brief…" : "Mengirim brief…";
+      submitButton.textContent = isEnglish ? "Saving request…" : "Menyimpan permintaan…";
     }
     status.textContent = isEnglish
-      ? "Sending your brief to the email service. Please wait and keep this page open."
-      : "Mengirim brief ke layanan email. Mohon tunggu dan jangan tutup halaman.";
+      ? "Saving your request securely to Bagusin. Please keep this page open."
+      : "Menyimpan permintaan Anda ke database Bagusin. Mohon tunggu dan jangan tutup halaman.";
 
     try {
-      const response = await fetch("https://formsubmit.co/ajax/sbaguskristian@gmail.com", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "Accept": "application/json" },
-        body: JSON.stringify(payload)
-      });
-      let result = {};
-      try { result = await response.json(); } catch (_) {}
-      if (!response.ok || result.success === "false" || result.success === false) {
-        throw new Error(result.message || "Email service rejected the request.");
-      }
+      const client = await getSupabaseClient();
+      const record = {
+        request_type: requestType,
+        full_name: valueOf("name").trim(),
+        email: valueOf("email").trim(),
+        phone: valueOf("phone").trim() || null,
+        company_name: valueOf("company").trim() || null,
+        subject: fallbackPayload._subject,
+        message: summary,
+        locale: isEnglish ? "en" : "id",
+        source_path: window.location.pathname + window.location.search
+      };
+      const result = await client.from("inquiries").insert(record);
+      if (result.error) throw result.error;
+
       form.dataset.submitted = "true";
       if (submitButton) {
-        submitButton.textContent = isEnglish ? "Brief sent" : "Brief terkirim";
+        submitButton.textContent = isEnglish ? "Request saved" : "Permintaan tersimpan";
         submitButton.disabled = true;
       }
       status.textContent = isEnglish
-        ? "The email service accepted the request. If this is the first submission, the inbox owner must activate FormSubmit from its verification email before messages can be delivered. After activation, the brief will be reviewed and follow-up will happen personally through WhatsApp; scope, quotation, schedule, and payment are agreed manually."
-        : "Permintaan pengiriman diterima layanan email. Jika ini pengiriman pertama, pemilik inbox perlu mengaktifkan FormSubmit dari email verifikasi sebelum pesan dapat diteruskan. Setelah aktif, brief akan ditinjau dan follow-up dilakukan secara personal melalui WhatsApp; scope, quotation, jadwal, dan pembayaran disepakati manual.";
+        ? "Your request has been saved in Bagusin. The team will review it and follow up using the contact details you provided. Sending this brief does not automatically confirm a project, quotation, schedule, or payment."
+        : "Permintaan Anda berhasil tersimpan di Bagusin. Tim akan meninjau dan menghubungi melalui kontak yang Anda berikan. Pengiriman brief belum berarti proyek, penawaran, jadwal, atau pembayaran otomatis dikonfirmasi.";
     } catch (error) {
       if (submitButton) {
         submitButton.disabled = false;
-        submitButton.textContent = isEnglish ? "Try sending again" : "Coba kirim lagi";
+        submitButton.textContent = isEnglish ? "Try saving again" : "Coba simpan lagi";
       }
       status.textContent = isEnglish
-        ? "Automatic sending did not succeed. Delivery is not confirmed; use the email fallback below or copy the prepared summary."
-        : "Pengiriman otomatis belum berhasil. Pengiriman belum terkonfirmasi; gunakan tautan email manual di bawah atau salin ringkasan.";
-      showMailtoFallback(payload);
+        ? "The database did not confirm your request. Use the manual email option below or copy the prepared summary."
+        : "Database belum mengonfirmasi penyimpanan permintaan. Gunakan email manual di bawah atau salin ringkasan yang sudah disiapkan.";
+      showMailtoFallback(fallbackPayload);
     }
-  });
+  });;
 });
