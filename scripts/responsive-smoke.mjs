@@ -4,6 +4,7 @@ const origin = "http://127.0.0.1:4173";
 const routes = [
   "/bagusin/",
   "/bagusin/learning/",
+  "/bagusin/store/",
   "/bagusin/en/learning/",
   "/bagusin/blog/",
   "/bagusin/blog/bekerja-dari-mana-saja/",
@@ -232,31 +233,19 @@ try {
   await interactionPage.goto(origin + "/bagusin/", { waitUntil: "domcontentloaded" });
   let homepageText = await interactionPage.locator("main").innerText();
 
-  // Course cards must show visible visual previews on the homepage, not only on the full catalogue.
-  const homeCourseCards = interactionPage.locator(".home-course-card");
-  if (await homeCourseCards.count() < 3) errors.push("Homepage: expected at least three course cards");
-  const courseVisuals = interactionPage.locator(".home-course-card .course-visual--home");
-  if (await courseVisuals.count() < 3) errors.push("Homepage: course cards are missing their website, Google Ads, and online-business visuals");
+  // Homepage course feature cards: verify the actual configured modules and their image previews.
+  const homeCourseCards = interactionPage.locator(".home-course-feature-card");
+  if (await homeCourseCards.count() < 2) errors.push("Homepage: expected the two configured course feature cards");
+  const courseVisuals = interactionPage.locator(".home-course-feature-card__visual img");
+  if (await courseVisuals.count() < 2) errors.push("Homepage: course feature cards are missing their image previews");
   const visualState = await courseVisuals.evaluateAll((items) => items.map((el) => {
     const rect = el.getBoundingClientRect();
-    const svg = el.querySelector("svg");
-    const svgRect = svg?.getBoundingClientRect();
-    const style = getComputedStyle(el);
-    return {
-      width: Math.round(rect.width),
-      height: Math.round(rect.height),
-      borderStyle: style.borderStyle,
-      borderWidth: style.borderWidth,
-      svgVisible: !!svg && !!svgRect && svgRect.width > 0 && svgRect.height > 0
-    };
+    return { width: Math.round(rect.width), height: Math.round(rect.height), src: el.getAttribute("src") };
   }));
-  if (visualState.length >= 3 && visualState.some((v) => v.width < 100 || v.height < 60 || !v.svgVisible || v.borderStyle === "none" || v.borderWidth === "0px")) {
-    errors.push("Homepage course visuals are not visibly rendered: " + JSON.stringify(visualState));
-  }
-  if (!(await interactionPage.locator('link[href*="course-visuals.css"]').count())) errors.push("Homepage: course visual stylesheet is not linked");
+  if (visualState.length >= 2 && visualState.some((v) => v.width < 100 || v.height < 60 || !v.src)) errors.push("Homepage course previews are not visibly rendered: " + JSON.stringify(visualState));
 
   await interactionPage.goto(origin + "/bagusin/en/", { waitUntil: "domcontentloaded" });
-  if (await interactionPage.locator(".home-course-card .course-visual--home").count() < 3) {
+  if (await interactionPage.locator(".home-course-feature-card__visual img").count() < 3) {
     errors.push("English homepage: course cards are missing visual previews");
   }
   await interactionPage.goto(origin + "/bagusin/", { waitUntil: "domcontentloaded" });
