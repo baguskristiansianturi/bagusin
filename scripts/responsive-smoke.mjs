@@ -664,78 +664,38 @@ try {
     if (!contextLabel || !contextLabel.includes(item.label)) errors.push("Service inquiry: selected service was not prefilled for " + item.service);
   }
 
-  // New self-installable template journey: platform/category → visual demo → license → simulated checkout.
-  await interactionPage.goto(origin + "/bagusin/templates/", { waitUntil: "domcontentloaded" });
-  const storeCatalogCard = interactionPage.locator(".store-product-card");
-  await storeCatalogCard.waitFor({ state: "visible", timeout: 5000 });
-  const mobileFilterbar = interactionPage.locator(".store-mobile-filterbar");
-  if (!(await mobileFilterbar.isVisible())) errors.push("Template store: sticky mobile filter bar is not visible at phone width");
-  const filterPosition = await mobileFilterbar.evaluate(el => getComputedStyle(el).position);
-  if (filterPosition !== "sticky") errors.push("Template store: mobile filter bar is not sticky");
-  const platformTrack = mobileFilterbar.locator(".store-platforms");
-  const trackMetrics = await platformTrack.evaluate(el => ({scrollWidth: el.scrollWidth, clientWidth: el.clientWidth}));
-  if (trackMetrics.scrollWidth <= trackMetrics.clientWidth) errors.push("Template store: platform controls should form a horizontal carousel on mobile");
-  if (!(await interactionPage.locator("footer.site-footer").count()) || await interactionPage.locator("footer.store-footer").count()) errors.push("Template store: footer should use the shared site footer");
-  await interactionPage.locator('.store-mobile-filterbar button[data-platform="wordpress"]').click();
-  if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: WordPress with no products should show an honest empty state");
-  // Mobile filter choice should reveal the results without placing them beneath sticky chrome.
-  try {
-    await interactionPage.waitForFunction(() => {
-      const target = document.querySelector(".store-results__top");
-      const header = document.querySelector(".site-header");
-      const filterbar = document.querySelector(".store-mobile-filterbar");
-      if (!target || !header || !filterbar) return false;
-      const targetRect = target.getBoundingClientRect();
-      const headerRect = header.getBoundingClientRect();
-      const filterRect = filterbar.getBoundingClientRect();
-      return targetRect.top >= Math.max(headerRect.bottom, filterRect.bottom) - 2
-        && targetRect.top < window.innerHeight;
-    }, null, { timeout: 6000 });
-  } catch {
-    errors.push("Template store: mobile filter selection did not reveal results below the sticky header and filter bar");
-  }
-  if (await storeCatalogCard.isVisible()) errors.push("Template store: Blogger product remained visible after switching to WordPress");
-  await interactionPage.locator('.store-mobile-filterbar button[data-platform="coded"]').click();
-  if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: coded platform should show an honest empty state until a code template is released");
-  if (!(await interactionPage.locator("[data-results-title]").innerText()).includes("HTML, CSS")) errors.push("Template store: coded platform heading is incorrect");
-  await interactionPage.locator('.store-mobile-filterbar button[data-platform="blogger"]').click();
-  await interactionPage.locator("[data-template-purpose]").selectOption("landing-page");
-  if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: purpose filter should not mislabel an editorial blog as a landing page");
-  await interactionPage.locator("[data-template-purpose]").selectOption("blog");
-  if (!(await storeCatalogCard.isVisible())) errors.push("Template store: blog purpose filter hid the matching editorial template");
-  await interactionPage.locator("[data-template-purpose]").selectOption("all");
-  if (!(await storeCatalogCard.isVisible())) errors.push("Template store: Blogger product did not return after switching platforms");
-  await interactionPage.locator('.store-mobile-filterbar [data-industry="travel-rental"]').click();
-  if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: empty industry should not fabricate a product");
-  await interactionPage.locator('.store-mobile-filterbar [data-industry="all"]').click();
-  await interactionPage.locator("[data-template-search]").fill("editorial");
-  if (!(await storeCatalogCard.isVisible())) errors.push("Template store: search did not find Bagusin Editorial");
-  await interactionPage.locator("[data-template-search]").fill("hotel");
-  if (!(await interactionPage.locator("[data-store-empty]").isVisible())) errors.push("Template store: unmatched search did not show an empty state");
-  await interactionPage.locator("[data-template-search]").fill("");
-  await interactionPage.goto(origin + "/bagusin/templates/blogger-editorial/", { waitUntil: "domcontentloaded" });
-  if (!(await interactionPage.locator(".product-copy h1").innerText()).includes("Bagusin Editorial")) errors.push("Template detail: product title is missing");
-  if (!(await interactionPage.locator(".product-demo iframe").getAttribute("src")).includes("/bagusin/templates/demos/editorial-blogger/")) errors.push("Template detail: live demo frame is not connected to the sample demo");
-  if (!(await interactionPage.locator('a[href="/bagusin/templates/files/bagusin-editorial-free-v0.1.xml"]').count())) errors.push("Template detail: free Blogger XML download link is missing");
-  await interactionPage.goto(origin + "/bagusin/templates/checkout/?license=premium", { waitUntil: "domcontentloaded" });
-  if (await interactionPage.locator("#test-license").inputValue() !== "premium") errors.push("Template checkout: premium choice was not preserved from product detail");
-  if (!(await interactionPage.locator("[data-summary-price]").innerText()).includes("49.000")) errors.push("Template checkout: simulated premium price is not reflected in summary");
-  await interactionPage.locator('[data-test-next="2"]').click();
-  if (!(await interactionPage.locator("#test-error").innerText()).includes("nama")) errors.push("Template checkout: missing required name was not validated");
-  await interactionPage.locator("#test-name").fill("Template Test User");
-  await interactionPage.locator("#test-email").fill("template@example.com");
-  await interactionPage.locator("#test-blog").fill("https://contoh.blogspot.com");
-  await interactionPage.locator("#test-note").fill("Test template checkout journey");
-  await interactionPage.locator("#test-agree").check();
-  await interactionPage.locator('[data-test-next="2"]').click();
-  if (await interactionPage.locator('[data-test-panel="2"]').isHidden()) errors.push("Template checkout: valid form did not advance to review");
-  const templateReview = await interactionPage.locator("#test-review").innerText();
-  if (!templateReview.includes("Template Test User") || !templateReview.includes("Premium")) errors.push("Template checkout: review summary lost name or selected license");
-  await interactionPage.locator('[data-test-next="3"]').click();
-  await interactionPage.locator("#test-submit").click();
-  if (!(await interactionPage.locator("#test-success").isVisible())) errors.push("Template checkout: submit did not complete the simulated journey");
-  const templateSuccess = await interactionPage.locator("#test-success").innerText();
-  if (!templateSuccess.includes("bukan transaksi nyata") || !templateSuccess.includes("tidak ada pembayaran")) errors.push("Template checkout: success state does not explain the simulation boundary");
+  // Bagusin Store: exercise the real public catalog and four-step inquiry flow with an isolated demo product.
+  await interactionPage.route("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0", route => route.fulfill({
+    status: 200, contentType: "application/javascript",
+    body: `window.supabase={createClient:function(){return {from:function(table){return {select:function(){return {eq:function(){return {order:async function(){return {data:[{id:"store-demo-1",slug:"demo-produk",sku:"DEMO-001",name:"Produk Demo Bagusin",short_description:"Produk contoh untuk pengujian alur katalog.",description:"Deskripsi demo produk.",brand:"Bagusin",category:"Digital",product_type:"digital",price_amount:49000,currency:"IDR",stock_quantity:1,manage_stock:false,availability:"in_stock",image_path:null,status:"published"}],error:null}}}}}},insert:async function(){return {error:null}}}}}}}}`
+  }));
+  await interactionPage.goto(origin + "/bagusin/store/", { waitUntil: "domcontentloaded" });
+  const storeCard = interactionPage.locator(".store-card").first();
+  await storeCard.waitFor({ state: "visible", timeout: 10000 });
+  if (!(await storeCard.innerText()).includes("Produk Demo Bagusin")) errors.push("Bagusin Store: published product card is missing");
+  await interactionPage.locator('#store-categories button[data-category="Digital"]').click();
+  if (await interactionPage.locator(".store-card").count() !== 1) errors.push("Bagusin Store: category filter did not retain the matching product");
+  await interactionPage.locator("#store-search").fill("tidak-ada-produk");
+  if (!(await interactionPage.locator(".store-empty").isVisible())) errors.push("Bagusin Store: unmatched search does not show an honest empty state");
+  await interactionPage.locator("#store-search").fill("");
+  await storeCard.locator('button[data-add="store-demo-1"]').click();
+  await interactionPage.locator("[data-open-cart]").click();
+  await interactionPage.locator("[data-start-checkout]").click();
+  await interactionPage.locator('input[name="full_name"]').fill("Store Test User");
+  await interactionPage.locator('input[name="email"]').fill("store@example.com");
+  await interactionPage.locator('input[name="phone"]').fill("+628123456789");
+  await interactionPage.locator("[data-step-next]").click();
+  await interactionPage.locator('select[name="delivery_method"]').selectOption("digital");
+  await interactionPage.locator('input[name="city"]').fill("Denpasar");
+  await interactionPage.locator("[data-step-next]").click();
+  if (!(await interactionPage.locator("[data-checkout-summary]").innerText()).includes("Produk Demo Bagusin")) errors.push("Bagusin Store: review step lost the selected product");
+  await interactionPage.locator('input[name="consent"]').check();
+  await interactionPage.locator("[data-step-next]").click();
+  if (await interactionPage.locator('[data-step-indicator="4"]').getAttribute("class") === "is-current" && !(await interactionPage.locator("[data-step-submit]").isVisible())) errors.push("Bagusin Store: final submit action is not visible");
+  await interactionPage.locator("[data-step-submit]").click();
+  await interactionPage.locator("[data-store-success]").waitFor({ state: "visible", timeout: 5000 });
+  if (!(await interactionPage.locator("[data-store-success]").innerText()).includes("berhasil dikirim")) errors.push("Bagusin Store: successful inquiry confirmation is missing");
+  if (!(await interactionPage.locator("footer.site-footer").count()) || await interactionPage.locator("footer.store-footer").count()) errors.push("Bagusin Store: shared footer is missing or replaced");
 
   // Collections and Portfolio have distinct roles and destinations.
   await interactionPage.goto(origin + "/bagusin/collections/", { waitUntil: "domcontentloaded" });
