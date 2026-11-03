@@ -112,3 +112,19 @@ A new AI session must read this file, verify current repository state, and conti
 - **Not included:** Storage upload, Explore feed UI, comments/reactions/community UI, admin dashboard, and migration of current static content.
 - **Next actions:** run CI/static/browser smoke checks on the PR; configure Auth redirect URLs; after merge/deploy, test a real owner registration, confirm email, promote the owner manually in SQL Editor, and test profile editing on Android.
 - **Rollback:** revert the auth integration commit(s) on the feature branch; the database role migration is additive and can remain without affecting the public static pages.
+
+
+## Session handoff — 2026-11-03: Bagusin CMS backend foundation
+
+- **Scope correction:** Bagusin is the digital studio/CMS for services, articles, design catalogue, portfolio/demos, courses, enquiries and admin operations. My Bali social discovery/Explore concepts do not belong here.
+- **Production baseline:** main at `acce330b652d8555c9634ac9e3451616dc9ff249`; Supabase project `hpmeoxynftankklwgntb` in eu-west-2, PostgreSQL 17.11.
+- **Working branch:** `feat/bagusin-cms-backend-foundation`, created from current main.
+- **Live Supabase migrations applied:** `20261103121830_bagusin_cms_backend_foundation_v1` and `20261103121901_bagusin_cms_policy_index_refinement`.
+- **New CMS tables:** article_categories, article_tags, article_tag_assignments, service_categories, services, portfolio_projects, course_categories, courses, course_curriculum, inquiries, media_assets, site_settings. Existing articles/design_items gained CMS metadata fields.
+- **Storage:** created public `bagusin-public` (8 MiB, image MIME allowlist) and private `bagusin-private` (15 MiB, PDF/Office/image allowlist). Upload and management policies are admin-only.
+- **Access:** anonymous visitors can read published content and submit new enquiries; only admins can manage CMS data and view/update enquiries. Existing social/community tables are retained for rollback safety but API grants are revoked. No data was dropped.
+- **Verification:** all new tables have RLS enabled; security advisor returned no findings. Performance advisor no longer reports missing FK indexes or overlapping permissive policies; remaining notices are unused indexes on empty tables.
+- **Not verified yet:** real signup/email confirmation, Android session, owner admin promotion, public inquiry submission, upload/download, and frontend CMS CRUD. No Auth users existed at the time of audit.
+- **Next phase:** build a restrained admin CMS interface after owner account is confirmed/promoted; then migrate existing static article/service/course/catalog data in reviewed batches while preserving current URLs and visual layout. Integrate inquiry form only after spam/rate-limit/email-handling plan.
+- **Deferred:** payment gateway/orders, customer LMS, certificates, automated transactional email, and deleting legacy social tables.
+- **Rollback:** additive schema migrations; no existing rows deleted. Do not drop tables or buckets as part of routine rollback.
