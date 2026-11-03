@@ -128,3 +128,23 @@ A new AI session must read this file, verify current repository state, and conti
 - **Next phase:** build a restrained admin CMS interface after owner account is confirmed/promoted; then migrate existing static article/service/course/catalog data in reviewed batches while preserving current URLs and visual layout. Integrate inquiry form only after spam/rate-limit/email-handling plan.
 - **Deferred:** payment gateway/orders, customer LMS, certificates, automated transactional email, and deleting legacy social tables.
 - **Rollback:** additive schema migrations; no existing rows deleted. Do not drop tables or buckets as part of routine rollback.
+
+
+## Session handoff — 2026-11-03: Bagusin member area and commerce foundation
+
+- **Scope:** extend the CMS foundation for Bagusin only. No My Bali, social feed, Explore, posts, reactions or communities.
+- **Branch / PR:** `feat/bagusin-cms-backend-foundation` / PR #160 (draft; not merged).
+- **Supabase project:** `hpmeoxynftankklwgntb`.
+- **New live domain tables:** orders, order_items, order_status_history, invoices, payments, payment_methods, shipments, store_products, store_product_variants, product_reviews, notification_outbox, customer_addresses, course_enrollments, course_sessions, digital_entitlements.
+- **CMS foundation:** article categories/tags, services, portfolio projects, courses/curriculum, inquiries, media assets, site settings and private design source files.
+- **Frontend:** Indonesian and English member-area panels for orders, payment proof upload, invoice, courses, digital purchases and voluntary reviews; new admin workspace for order/invoice creation, BCA settings, payment proof verification, shipping tracking, review moderation, course enrolment and digital entitlement setup.
+- **Payment:** manual BCA only; account number intentionally blank and inactive until Bagus configures it. Admin checks the actual incoming bank transfer before marking paid. Current invoice expiry default is 24 hours and configurable in admin.
+- **Shipping:** schema supports local same-day, Bagusin delivery, pickup and manually managed national courier shipments. No live J&T/JNE/aggregator rate or tracking API is connected.
+- **Digital downloads:** private entitlement table and deployed Edge Function `bagusin-download-entitlement` (version 2) return five-minute signed URLs only after checking the signed-in owner, paid/completed order and download limit.
+- **Security verification:** RLS enabled on all commerce tables; Security Advisor returned no findings after removing an exposed SECURITY DEFINER download RPC. Performance Advisor reports only unused-index INFO notices because tables are empty; no missing FK index or multiple permissive-policy warnings remain.
+- **Data state at last check:** zero Auth users, orders, invoices, reviews, course enrolments and digital entitlements. No fake transactions/reviews were inserted.
+- **Not yet active:** customer self-service checkout/cart, automated WhatsApp/email notifications, scheduled reminders and expiry worker, live courier APIs, Google Merchant Center feed, public product/review widgets, full course session planner, end-to-end account/payment/download test.
+- **Required owner setup:** register and confirm Bagus's account, promote that verified profile to admin using the trusted SQL documented in `supabase/README.md`, then configure BCA account number in Admin.
+- **Next exact actions:** finish source/CI review; fix any JS/browser issues; test owner login and admin role on Android; create a test customer/order, submit proof, verify payment, complete order, test review and secure download; only then merge and verify GitHub Pages deployment.
+- **Current limitation:** customer-facing product/service CTAs are not all wired to automatic order creation yet. Initial operational flow is inquiry → admin-created order/invoice → member area.
+- **Rollback:** code changes are isolated in PR #160. Database changes are additive migrations; do not drop tables or buckets for rollback.
