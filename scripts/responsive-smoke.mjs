@@ -414,9 +414,11 @@ try {
     contactEmailPayload = route.request().postDataJSON();
     await route.fulfill({ status: 200, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" }, contentType: "application/json", body: JSON.stringify({ success: "true", message: "Test submission accepted" }) });
   });
+  await interactionPage.locator("[data-stepper-next]").click();
   await interactionPage.locator("#project-form input[name=name]").fill("Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("test@example.com");
   await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the contact email submission flow.");
+  await interactionPage.locator("[data-stepper-next]").click();
   await interactionPage.locator("#project-form input[name=terms]").check();
   await interactionPage.locator("#project-form button[type=submit]").click();
   await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("Permintaan pengiriman diterima"), null, { timeout: 5000 });
@@ -453,9 +455,11 @@ try {
   if (englishFooterLinks.some(link => /search|author|portfolio|destinations/i.test(link.href))) {
     errors.push("English contact page: footer still exposes a legacy Search, Author, Portfolio, or Destinations link");
   }
+  await interactionPage.locator("[data-stepper-next]").click();
   await interactionPage.locator("#project-form input[name=name]").fill("English Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("english@example.com");
   await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the English contact email flow.");
+  await interactionPage.locator("[data-stepper-next]").click();
   await interactionPage.locator("#project-form input[name=terms]").check();
   await interactionPage.locator("#project-form button[type=submit]").click();
   await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("The email service accepted the request"), null, { timeout: 5000 });
@@ -472,9 +476,11 @@ try {
     await route.fulfill({ status: 500, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" }, contentType: "application/json", body: JSON.stringify({ success: "false", message: "Simulated email service failure" }) });
   });
   await interactionPage.goto(origin + "/bagusin/contact/", { waitUntil: "domcontentloaded" });
+  await interactionPage.locator("[data-stepper-next]").click();
   await interactionPage.locator("#project-form input[name=name]").fill("Fallback Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("fallback@example.com");
   await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the manual email fallback.");
+  await interactionPage.locator("[data-stepper-next]").click();
   await interactionPage.locator("#project-form input[name=terms]").check();
   await interactionPage.locator("#project-form button[type=submit]").click();
   await interactionPage.waitForFunction(() => document.querySelector("#project-form [data-mailto-fallback]") !== null, null, { timeout: 5000 });
