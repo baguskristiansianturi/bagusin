@@ -1,51 +1,44 @@
 # Supabase — Bagusin
 
-This directory contains the SQL migration history for the live Bagusin Supabase project.
+This directory contains the versioned SQL migration history for the live Bagusin Supabase project.
 
 ## Project
+- Project ref: `hpmeoxynftankklwgntb`
+- API URL: `https://hpmeoxynftankklwgntb.supabase.co`
+- Public frontend: GitHub Pages.
+- Browser uses the publishable key only. Never commit a service-role/secret key, database password, or admin token.
 
-- Project ref: \`hpmeoxynftankklwgntb\`
-- API URL: \`https://hpmeoxynftankklwgntb.supabase.co\`
-- Frontend remains hosted separately on GitHub Pages.
+## Applied migration history
+1. `20261102130800_bagusin_foundation_schema_v1.sql`
+2. `20261102130818_bagusin_profile_trigger_and_timestamps.sql`
+3. `20261102130847_bagusin_lock_anon_writes_and_index_fks.sql`
+4. `20261102131414_profile_auth_role.sql`
+5. `20261103121830_bagusin_cms_backend_foundation_v1.sql`
+6. `20261103121901_bagusin_cms_policy_index_refinement.sql`
 
-Only the publishable key is used by the browser adapter. Never commit a service-role/secret key, database password, or admin token.
+The two November 3 migrations add Bagusin editorial, services, portfolio, course, inquiry, media, and site-settings structures; configure public/private Storage buckets; require admin role for CMS management; and disable API access to the unused social/community tables without dropping them.
 
-## Migration history
-
-The following migrations are already applied to the live project and versioned here in the same order:
-
-1. \`20261102130800_bagusin_foundation_schema_v1.sql\` — profiles, posts, comments, reactions, articles, communities, and design catalog tables; RLS and initial grants.
-2. \`20261102130818_bagusin_profile_trigger_and_timestamps.sql\` — private Auth profile bootstrap and updated-at triggers.
-3. \`20261102130847_bagusin_lock_anon_writes_and_index_fks.sql\` — explicitly revoke anonymous writes and index foreign keys.
-4. \`20261102131414_profile_auth_role.sql\` — member/admin role, display-name bootstrap, and role-change guard.
-
-Do not apply an older alternative foundation migration from an unmerged branch on top of this live schema. The migration history above is the source of truth for this project.
+Do not apply the old alternative foundation migration from an unmerged branch on top of this live schema.
 
 ## Auth dashboard configuration
-
-In Supabase Dashboard → Authentication → URL Configuration:
-
-- Site URL: \`https://baguskristiansianturi.github.io/bagusin/\`
+Supabase Dashboard → Authentication → URL Configuration:
+- Site URL: `https://baguskristiansianturi.github.io/bagusin/`
 - Redirect URLs:
-  - \`https://baguskristiansianturi.github.io/bagusin/account/\`
-  - \`https://baguskristiansianturi.github.io/bagusin/en/account/\`
-
-Email/password provider should remain enabled.
+  - `https://baguskristiansianturi.github.io/bagusin/account/`
+  - `https://baguskristiansianturi.github.io/bagusin/en/account/`
+- Keep email/password provider enabled.
 
 ## First owner/admin
-
-Register the owner's account from the Bagusin account page and confirm the email. Then promote the exact owner account in SQL Editor:
-
-\`\`\`sql
+1. Register the owner's account from the Bagusin account page and confirm the email.
+2. Promote the verified owner in SQL Editor, replacing the email with the exact owner login:
+```sql
 update public.profiles
 set role = 'admin'
-where id = (
-  select id from auth.users where email = 'OWNER_EMAIL'
-);
-\`\`\`
+where id = (select id from auth.users where email = 'OWNER_EMAIL');
+```
+Never expose this SQL to the browser or a public form.
 
-Replace \`OWNER_EMAIL\` with the owner's exact login email. Never expose this operation to the public frontend.
+## Product boundary
+Bagusin is a professional digital studio and CMS for services, articles, design catalogue, portfolio/demos, courses and enquiries. It is not My Bali. Social/community tables are legacy-only and inaccessible through the client API.
 
-## Next phases
-
-Storage uploads, Explore feed UI, moderation, comments/reactions, communities, editorial/catalog/course admin tools, and migration of existing static content are separate implementation phases.
+See [backend architecture](../docs/BAGUSIN-BACKEND-ARCHITECTURE.md) for the domain model, access model, Storage conventions and deferred phases.
