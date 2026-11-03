@@ -80,7 +80,7 @@ for (const route of routes) {
     page.setDefaultNavigationTimeout(25000);
     const pageErrors = [];
     const badLocalResponses = [];
-    page.on("pageerror", (error) => pageErrors.push(error.message));
+    page.on("pageerror", (error) => pageErrors.push(error.stack || error.message));
     page.on("response", (response) => {
       const url = response.url();
       if (url.startsWith(origin) && response.status() >= 400 && !url.endsWith("/favicon.ico")) {
