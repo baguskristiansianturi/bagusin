@@ -2,7 +2,7 @@
   "use strict";
   var root = document.querySelector("[data-member-area]");
   if (!root) return;
-  var isEnglish = /^\\/(?:bagusin\\/)?en(?:\\/|$)/.test(window.location.pathname);
+  var isEnglish = /^\/(?:bagusin\/)?en(?:\/|$)/.test(window.location.pathname);
   var words = isEnglish ? {
     loading:"Loading your orders…", empty:"No orders yet. Your orders will appear here after a request is accepted by Bagusin.",
     error:"We could not load your account activity. Please refresh and try again.",
