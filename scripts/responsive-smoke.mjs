@@ -508,7 +508,7 @@ try {
   await interactionPage.goto(origin + "/bagusin/about/", { waitUntil: "domcontentloaded" });
   const aboutTitle = await interactionPage.title();
   const aboutText = await interactionPage.locator("main").innerText();
-  const aboutStructuredData = await interactionPage.locator('script[type="application/ld+json"]').textContent();
+  const aboutStructuredData = await interactionPage.locator('script[type="application/ld+json"]').first().textContent();
   if (!aboutTitle.includes("Tentang")) errors.push("About page: title metadata is not localized");
   if (!aboutText.includes("ruang untuk pekerjaan digital") || !aboutText.includes("Selalu ada ruang untuk memperbaiki.")) errors.push("About page: current Indonesian positioning copy is missing");
   if (aboutText.includes("independent software studio") || aboutText.includes("Built around real problems.")) errors.push("About page: outdated English positioning copy remains");
@@ -518,7 +518,7 @@ try {
   await interactionPage.goto(origin + "/bagusin/portfolio/", { waitUntil: "domcontentloaded" });
   const portfolioTitle = await interactionPage.title();
   const portfolioText = await interactionPage.locator("main").innerText();
-  const portfolioStructuredData = await interactionPage.locator('script[type="application/ld+json"]').textContent();
+  const portfolioStructuredData = await interactionPage.locator('script[type="application/ld+json"]').first().textContent();
   if (!portfolioTitle.includes("Portofolio")) errors.push("Portfolio page: title metadata is not localized");
   if (!portfolioText.includes("Pekerjaan nyata, proses yang jujur, dan konteks yang jelas.") || !portfolioText.includes("Portofolio seharusnya menunjukkan cara berpikir")) errors.push("Portfolio page: Indonesian headings are missing");
   if (portfolioText.includes("Things I’ve built, tested, and explored.") || portfolioText.includes("independent software studio") || portfolioText.includes("Work With Me")) errors.push("Portfolio page: outdated English or studio positioning remains");
@@ -527,7 +527,7 @@ try {
   // The YouTube page remains honest about video availability while using Indonesian copy.
   await interactionPage.goto(origin + "/bagusin/youtube/", { waitUntil: "domcontentloaded" });
   const youtubeText = await interactionPage.locator("main").innerText();
-  const youtubeStructuredData = await interactionPage.locator('script[type="application/ld+json"]').textContent();
+  const youtubeStructuredData = await interactionPage.locator('script[type="application/ld+json"]').first().textContent();
   if (!youtubeText.includes("Cerita yang tidak berhenti di halaman.")) errors.push("YouTube page: Indonesian hero copy is missing");
   if (youtubeText.includes("Stories that move beyond the page.") || youtubeText.includes("The channel will grow with the journey.") || youtubeText.includes("Field Notes")) errors.push("YouTube page: English interface copy remains on the Indonesian page");
   if (!youtubeText.includes("thumbnail atau judul fiktif")) errors.push("YouTube page: transparency note about unavailable videos is missing");
@@ -537,7 +537,7 @@ try {
   await interactionPage.goto(origin + "/bagusin/blog/", { waitUntil: "domcontentloaded" });
   const blogTitle = await interactionPage.title();
   const blogText = await interactionPage.locator("main").innerText();
-  const blogStructuredData = await interactionPage.locator('script[type="application/ld+json"]').textContent();
+  const blogStructuredData = await interactionPage.locator('script[type="application/ld+json"]').first().textContent();
   if (!blogTitle.includes("Blog")) errors.push("Blog page: title metadata is missing");
   if (!blogText.includes("Cerita, panduan, dan hal yang layak dibagikan.") || !blogText.includes("Temukan pengalaman, ide, dan panduan praktis")) errors.push("Blog page: Indonesian hero copy is missing");
   if (blogText.includes("Stories from the road") || blogText.includes("Read the story") || blogText.includes("The archive grows with real experience.")) errors.push("Blog page: English interface copy remains");
