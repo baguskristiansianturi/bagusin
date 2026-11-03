@@ -40,7 +40,7 @@ where id = (select id from auth.users where email = 'OWNER_EMAIL');
 Never expose this operation through frontend code or user-editable Auth metadata.
 
 ## Verification and remaining work
-- The CMS tables and Storage buckets are created in the live project.
+- The CMS tables and Storage buckets are created in the live project. Private template source files are separated from the public catalogue, and the legacy resource URL column is not selectable by browser clients.
 - Security advisor currently reports no findings.
 - Performance advisor has no foreign-key or overlapping-policy warnings; unused-index notices are expected while tables are empty.
 - No Auth users exist yet; real signup, email confirmation, Android session persistence, and owner promotion remain untested.
