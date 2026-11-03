@@ -38,7 +38,7 @@ This backend is exclusively for Bagusin: an independent digital studio and its b
 - Admin accepts the order and issues an invoice. The current admin screen uses a configurable due period (default 24 hours).
 - Payment is manual bank transfer to the configured BCA account. The customer uploads proof in the member area or sends it to Bagusin through WhatsApp; a WhatsApp-sent proof still needs to be recorded/checked by admin.
 - A payment is only marked paid after an admin checks the actual bank credit. A screenshot alone is not payment verification.
-- Unpaid expiry is automated by Supabase Cron every five minutes. Reminder jobs are queued at configurable offsets (default 2, 12 and 22 hours); actual WhatsApp/email delivery still needs a connected provider and sender worker.
+- Unpaid expiry is automated by Supabase Cron every five minutes. Reminder jobs are queued at admin-configurable offsets (default 2, 12 and 22 hours); actual WhatsApp/email delivery still needs a connected provider and sender worker.
 - Order status, payment status and fulfilment status are separate fields.
 
 ## Shipping
