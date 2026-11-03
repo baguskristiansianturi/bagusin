@@ -230,3 +230,35 @@
  .store-product-page-layout .store-product-price-line{margin:.8rem 0}
  .store-product-page-layout .store-product-meta{gap:.65rem .75rem}
 }
+
+/* Bagusin product gallery, pricing and quantity controls */
+.store-card-media{position:relative}
+.store-sale-badge{position:absolute;top:.7rem;right:.7rem;z-index:2;display:inline-flex;align-items:center;justify-content:center;min-width:2.35rem;padding:.32rem .48rem;border:1px solid rgba(20,20,20,.12);border-radius:.25rem;background:rgba(255,255,255,.94);color:#252525;font-size:.68rem;font-weight:700;letter-spacing:.01em}
+.store-product-gallery{min-width:0}
+.store-product-thumbnails{display:flex;gap:.55rem;overflow-x:auto;padding:.7rem .05rem .2rem;scrollbar-width:thin}
+.store-product-thumb{flex:0 0 4.6rem;width:4.6rem;height:4.6rem;padding:.2rem;border:1px solid #e5e5e5;border-radius:.35rem;background:#fff;cursor:pointer}
+.store-product-thumb.is-active{border-color:#333;box-shadow:inset 0 0 0 1px #333}
+.store-product-thumb img{display:block;width:100%;height:100%;object-fit:contain}
+.store-product-price-stack{display:flex;flex-direction:column;align-items:flex-start;gap:.2rem;margin:1rem 0}
+.store-detail-discount{display:inline-flex;padding:.24rem .42rem;border:1px solid #e5e5e5;border-radius:.2rem;color:#333;background:#f7f7f6;font-size:.7rem;font-weight:700}
+.store-product-price-stack .store-price-old{color:#888;font-size:.92rem}
+.store-product-price-stack .store-card-price{font-size:1.65rem;font-weight:800;line-height:1.2;color:#171717}
+.store-product-purchase{display:flex;align-items:center;gap:.65rem;margin-top:1.2rem;flex-wrap:wrap}
+.store-quantity-control{display:inline-flex;align-items:center;height:3.1rem;border:1px solid #dedede;border-radius:.35rem;overflow:hidden;background:#fff}
+.store-quantity-control button{width:2.65rem;height:100%;border:0;background:#f7f7f6;color:#222;font-size:1.2rem;cursor:pointer}
+.store-quantity-control input{width:2.7rem;height:100%;border:0;border-left:1px solid #eee;border-right:1px solid #eee;border-radius:0;text-align:center;font:inherit;font-size:.95rem;font-weight:650;appearance:textfield;-moz-appearance:textfield}
+.store-quantity-control input::-webkit-inner-spin-button,.store-quantity-control input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.store-product-purchase .store-primary-button{flex:1;min-width:10rem}
+.store-product-purchase .store-product-wishlist{flex:0 0 3.1rem}
+.store-product-info{min-width:0}
+@media(max-width:640px){
+ .store-product-thumbnails{gap:.45rem;padding-top:.6rem}
+ .store-product-thumb{flex-basis:4.15rem;width:4.15rem;height:4.15rem}
+ .store-product-price-stack{margin:.8rem 0}
+ .store-product-price-stack .store-card-price{font-size:1.45rem}
+ .store-product-purchase{gap:.5rem}
+ .store-quantity-control{height:2.9rem}
+ .store-quantity-control button{width:2.35rem}
+ .store-quantity-control input{width:2.3rem}
+ .store-product-purchase .store-primary-button{min-width:0;min-height:2.9rem;padding:.7rem .8rem}
+}
