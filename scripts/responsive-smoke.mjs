@@ -34,6 +34,7 @@ const routes = [
   "/bagusin/contact/",
   "/bagusin/account/",
   "/bagusin/en/account/",
+  "/bagusin/admin/",
   "/bagusin/legal/privacy/",
   "/bagusin/legal/terms/",
   "/bagusin/legal/disclaimer/",
