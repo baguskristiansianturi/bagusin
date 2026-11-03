@@ -1,66 +1,47 @@
-# Supabase Auth integration — Bagusin
+# Supabase Auth and CMS integration — Bagusin
 
-Last updated: 2 November 2026
+Last updated: 3 November 2026
 
 ## Live project
+- Project ref: `hpmeoxynftankklwgntb`
+- API URL: `https://hpmeoxynftankklwgntb.supabase.co`
+- Frontend: GitHub Pages.
+- Client SDK: pinned `@supabase/supabase-js@2.118.0` UMD build.
+- Browser credential: publishable key only. Never place a secret/service-role key or database password in frontend code.
 
-- Project ref: \`hpmeoxynftankklwgntb\`
-- API URL: \`https://hpmeoxynftankklwgntb.supabase.co\`
-- Frontend: GitHub Pages at \`https://baguskristiansianturi.github.io/bagusin/\`
-- Client SDK: pinned \`@supabase/supabase-js@2.118.0\` UMD build.
-- Client credential: publishable key only. Never place a secret/service-role key or database password in frontend code.
-
-## What is connected in this phase
-
+## Auth already connected
 - Email/password registration and sign-in.
-- Email confirmation and password reset links back to the matching Indonesian/English account page.
+- Email confirmation and password reset redirect handling for Indonesian/English account pages.
 - Persistent browser session and sign-out.
-- Profile read/update for the signed-in user.
-- A global account entry point injected into the shared desktop/mobile navigation.
-- New-user profile bootstrap from Supabase Auth metadata.
-- Member/admin role column with a database trigger preventing a member from changing their own role.
+- Profile read/update.
+- Member/admin role field; members cannot promote their own role.
+- New Auth users receive a profile row through a private-schema trigger.
 
-The existing static site and its page-specific HTML/CSS remain in place. The adapter loads from the global \`js/main.js\`; pages without that global script will not display the account entry point.
+## Dashboard URL setup
+Authentication → URL Configuration:
+- Site URL: `https://baguskristiansianturi.github.io/bagusin/`
+- Redirect URL: `https://baguskristiansianturi.github.io/bagusin/account/`
+- Redirect URL: `https://baguskristiansianturi.github.io/bagusin/en/account/`
+Email/password provider should remain enabled. For reliable delivery at scale, configure a verified sender/custom SMTP provider.
 
-## Supabase dashboard setup still required
+## CMS backend migrations
+- `20261103121830_bagusin_cms_backend_foundation_v1.sql`
+- `20261103121901_bagusin_cms_policy_index_refinement.sql`
 
-In Supabase Dashboard → Authentication → URL Configuration:
+See `BAGUSIN-BACKEND-ARCHITECTURE.md` and `supabase/README.md` for the complete schema and access model.
 
-1. Set Site URL to \`https://baguskristiansianturi.github.io/bagusin/\`.
-2. Add these Redirect URLs:
-   - \`https://baguskristiansianturi.github.io/bagusin/account/\`
-   - \`https://baguskristiansianturi.github.io/bagusin/en/account/\`
-3. Keep email/password provider enabled.
-4. For production, use a verified sender/custom SMTP if higher email delivery reliability is needed; the built-in email service is rate-limited.
-
-## First owner/admin bootstrap
-
-1. Register the owner's email through the Bagusin account page.
-2. Confirm the email using the confirmation link.
-3. In Supabase SQL Editor, promote only the verified owner account by exact email:
-
-\`\`\`sql
+## First owner/admin
+After the owner has registered and confirmed the email, run this trusted SQL in Supabase SQL Editor (replace the exact email):
+```sql
 update public.profiles
 set role = 'admin'
-where id = (
-  select id from auth.users where email = 'OWNER_EMAIL'
-);
-\`\`\`
+where id = (select id from auth.users where email = 'OWNER_EMAIL');
+```
+Never expose this operation through frontend code or user-editable Auth metadata.
 
-Replace \`OWNER_EMAIL\` with the owner's exact login email. Never expose this SQL through a public frontend or let a registration form assign the admin role.
-
-## Not included yet
-
-- Image/video uploads and Storage buckets/policies for user-generated posts.
-- Explore feed, likes, comments, communities, and moderation UI.
-- Admin dashboard/content editor.
-- Migration of existing static articles/catalog data into database records.
-- Payment, email marketing, or transactional email flows.
-
-## Verification checklist
-
-- [ ] Add the two redirect URLs in Supabase Dashboard.
-- [ ] Test registration and confirmation from a real email inbox.
-- [ ] Test sign-in, refresh persistence, sign-out, password reset, and profile update on Android.
-- [ ] Promote the verified owner to admin.
-- [ ] Confirm the account page and nav links on ID/EN pages after GitHub Pages deployment.
+## Verification and remaining work
+- The CMS tables and Storage buckets are created in the live project.
+- Security advisor currently reports no findings.
+- Performance advisor has no foreign-key or overlapping-policy warnings; unused-index notices are expected while tables are empty.
+- No Auth users exist yet; real signup, email confirmation, Android session persistence, and owner promotion remain untested.
+- Current static pages still use repository data; CMS migration, admin interface, and contact form integration are not yet shipped.
