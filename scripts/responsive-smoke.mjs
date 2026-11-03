@@ -667,7 +667,7 @@ try {
   // Bagusin Store: exercise the real public catalog and four-step inquiry flow with an isolated demo product.
   await interactionPage.route("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0", route => route.fulfill({
     status: 200, contentType: "application/javascript",
-    body: `window.supabase = { createClient: () => ({ from: () => ({ select: () => ({ eq: () => ({ order: async () => ({ data: [{"id":"store-demo-1","slug":"demo-produk","sku":"DEMO-001","name":"Produk Demo Bagusin","short_description":"Produk contoh untuk pengujian alur katalog.","description":"Deskripsi demo produk.","brand":"Bagusin","category":"Digital","product_type":"digital","price_amount":49000,"currency":"IDR","stock_quantity":1,"manage_stock":false,"availability":"in_stock","image_path":null,"status":"published"}], error: null }) }) }) }), insert: async () => ({ error: null }) }) };`
+    body: `window.supabase = { createClient: () => ({ from: () => ({ select: () => ({ eq: () => ({ order: async () => ({ data: [{"id":"store-demo-1","slug":"demo-produk","sku":"DEMO-001","name":"Produk Demo Bagusin","short_description":"Produk contoh untuk pengujian alur katalog.","description":"Deskripsi demo produk.","brand":"Bagusin","category":"Digital","product_type":"digital","price_amount":49000,"currency":"IDR","stock_quantity":1,"manage_stock":false,"availability":"in_stock","image_path":null,"status":"published"}], error: null }) }) }), insert: async () => ({ error: null }) }) }) };`
   }));
   await interactionPage.goto(origin + "/bagusin/store/", { waitUntil: "domcontentloaded" });
   const storeCard = interactionPage.locator(".store-card").first();
