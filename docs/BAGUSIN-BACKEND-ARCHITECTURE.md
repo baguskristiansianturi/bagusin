@@ -10,14 +10,14 @@ This backend is exclusively for Bagusin: a professional digital studio and its b
 - Backend: Supabase Postgres, Auth, and Storage.
 - Browser SDK: pinned Supabase JS v2.118.0, loaded only where needed.
 - Public browser code uses the Supabase publishable key only. Never ship service-role/secret keys, database passwords, or admin tokens.
-- Keep the current public pages and their static content working while the CMS is introduced incrementally. Do not switch every page to database-backed rendering in one release.
+- Keep current public pages and static content working while CMS is introduced incrementally. Do not switch every page to database-backed rendering in one release.
 
 ## Domain model
 | Area | Tables | Purpose |
 |---|---|---|
 | Accounts and roles | profiles | Owner/admin identity; member role is not a social publishing permission |
 | Editorial CMS | articles, article_categories, article_tags, article_tag_assignments | Draft/publish/archive, SEO metadata, language, category and tags |
-| Design catalogue | design_categories, design_items | Design product metadata, price, platform, use case, industry, demo and ordering links |
+| Design catalogue | design_categories, design_items, design_item_private_files | Design product metadata, price, platform, use case, industry, demo and ordering links; private download files separated from public catalogue |
 | Services | service_categories, services | Service directory, availability status, descriptions and SEO metadata |
 | Portfolio and demos | portfolio_projects | Clearly classify client work, concept demos, internal work and experiments |
 | Courses | course_categories, courses, course_curriculum | Course descriptions, delivery, price, schedule notes and curriculum |
@@ -26,8 +26,9 @@ This backend is exclusively for Bagusin: a professional digital studio and its b
 | Site configuration | site_settings | Non-secret site settings only |
 
 ## Storage
-- `bagusin-public`: public images for published articles, catalogue items, courses, services and portfolio. Upload/update/delete is admin-only. 8 MiB maximum; JPEG, PNG, WebP, AVIF and SVG MIME types.
-- `bagusin-private`: private PDFs, office documents and restricted images. All operations admin-only. 15 MiB maximum.
+- `bagusin-public`: public images for published articles, catalogue items, courses, services and portfolio. Upload/update/delete is admin-only. 8 MiB maximum; JPEG, PNG, WebP and AVIF only.
+- `bagusin-private`: private PDFs, Office documents and restricted images. All operations admin-only. 15 MiB maximum.
+- Template source files belong in `bagusin-private` and are indexed through `design_item_private_files`; do not expose download paths through the public catalogue.
 - Never store secrets, payment credentials, or database credentials in Storage or `site_settings`.
 - Public bucket URLs are public by design. Do not put client briefs, personal documents, or unpublished sensitive material in it.
 
@@ -35,6 +36,7 @@ This backend is exclusively for Bagusin: a professional digital studio and its b
 - RLS enabled on every new public table.
 - Anonymous visitors can read published/active public content and submit a new enquiry; they cannot read enquiries or write CMS content.
 - Authenticated admin role is required for all CMS management, media uploads and site settings.
+- Public design catalogue SELECT is column-limited; the legacy `resource_url` field is not readable from browser clients.
 - Existing social/community tables are retained (no destructive drop) but revoked from anon/authenticated API access; do not build UI or features on them.
 - Enquiry records contain personal data. Only admins can read/update/delete them.
 - Role changes must be performed by trusted admin/database operations. Never assign admin from user-editable Auth metadata or a public form.
