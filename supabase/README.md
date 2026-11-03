@@ -23,7 +23,7 @@ This directory contains the versioned SQL migration history for the live Bagusin
 12. `20261103130502_bagusin_course_digital_variant_fulfillment_v1.sql`
 13. `20261103130523_bagusin_commerce_proof_guard_and_fk_indexes_v1.sql`
 14. `20261103130538_bagusin_invoices_and_google_product_metadata_v1.sql`
-15. `20261103130737_bagusin_secure_digital_download_entitlement_v1.sql`
+15. `20261103130737_bagusin_secure_digital_download_entitlement_v1.sql`\n16. `20261103131001_bagusin_download_rpc_hardening_v1.sql`
 
 ## Auth dashboard configuration
 Supabase Dashboard → Authentication → URL Configuration:
