@@ -5,6 +5,7 @@ const routes = [
   "/bagusin/",
   "/bagusin/learning/",
   "/bagusin/store/",
+  "/bagusin/store/product/?slug=demo-product",
   "/bagusin/en/learning/",
   "/bagusin/blog/",
   "/bagusin/blog/bekerja-dari-mana-saja/",
