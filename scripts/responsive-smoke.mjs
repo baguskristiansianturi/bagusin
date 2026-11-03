@@ -245,7 +245,7 @@ try {
   if (visualState.length >= 2 && visualState.some((v) => v.width < 100 || v.height < 60 || !v.src)) errors.push("Homepage course previews are not visibly rendered: " + JSON.stringify(visualState));
 
   await interactionPage.goto(origin + "/bagusin/en/", { waitUntil: "domcontentloaded" });
-  if (await interactionPage.locator(".home-course-feature-card__visual img").count() < 3) {
+  if (await interactionPage.locator(".home-course-card .course-visual--home").count() < 3) {
     errors.push("English homepage: course cards are missing visual previews");
   }
   await interactionPage.goto(origin + "/bagusin/", { waitUntil: "domcontentloaded" });
