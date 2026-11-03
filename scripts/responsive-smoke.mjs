@@ -722,9 +722,9 @@ try {
   if (!(await interactionPage.locator("[data-detail-base-price]").innerText()).includes("750.000")) errors.push("Template detail: base package price is missing or incorrect");
   if (await interactionPage.locator("[data-detail-included] li").count() < 3) errors.push("Template detail: included scope did not load from the catalog");
   if (await interactionPage.locator("[data-detail-excluded] li").count() < 2) errors.push("Template detail: exclusions did not load from the catalog");
-  const orderHref = await interactionPage.locator("[data-detail-order]").getAttribute("href");
+  const orderHref = await interactionPage.locator("[data-detail-order]").first().getAttribute("href");
   if (!orderHref?.includes("service=websites") || !orderHref.includes("mode=project")) errors.push("Template detail: order CTA does not preselect a website project");
-  const discussHref = await interactionPage.locator("[data-detail-discuss]").getAttribute("href");
+  const discussHref = await interactionPage.locator("[data-detail-discuss]").first().getAttribute("href");
   if (!discussHref?.includes("service=websites") || !discussHref.includes("mode=consultation")) errors.push("Template detail: discussion CTA does not preselect website consultation");
   const meetingHref = await interactionPage.locator("[data-detail-meeting]").first().getAttribute("href");
   if (!meetingHref?.includes("service=consultation") || !meetingHref.includes("meeting=in-person")) errors.push("Template detail: in-person meeting CTA does not preselect paid consultation");
