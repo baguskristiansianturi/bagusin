@@ -12,7 +12,8 @@ var session=await client.auth.getSession(),user=session.data.session&&session.da
 if(!user){message.textContent="Silakan masuk dengan akun admin Bagusin.";return;}
 if(!await isAdmin(client,user)){message.textContent="Akun ini belum memiliki akses admin. Hubungi pemilik Bagusin.";return;}
 locked.hidden=true;root.hidden=false;
-var courseCatalogResult=await client.from("courses").select("id,title,meeting_count").order("title");var courseCatalog=courseCatalogResult.data||[];\nvar customerSelect=document.querySelector('[data-create-order] select[name="customer_id"]');
+var courseCatalogResult=await client.from("courses").select("id,title,meeting_count").order("title");var courseCatalog=courseCatalogResult.data||[];
+var customerSelect=document.querySelector('[data-create-order] select[name="customer_id"]');
 var profiles=await client.from("profiles").select("id,display_name,username").order("display_name");
 if(!profiles.error)(profiles.data||[]).forEach(function(p){var o=node("option","",(p.display_name||p.username||"Pelanggan")+" · "+p.id.slice(0,8));o.value=p.id;customerSelect.appendChild(o);});
 customerSelect.addEventListener("change",function(){var p=(profiles.data||[]).find(function(x){return x.id===customerSelect.value;});if(p){var f=document.querySelector("[data-create-order]");if(!f.elements.customer_name.value)f.elements.customer_name.value=p.display_name||p.username||"";}});
