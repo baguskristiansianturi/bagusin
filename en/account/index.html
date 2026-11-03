@@ -103,6 +103,15 @@
           <p class="account-message" data-profile-message role="status" aria-live="polite" hidden></p>
           <button class="account-quiet" type="button" data-sign-out>Sign out</button>
         </section>
+        
+        <section class="member-dashboard" data-member-area hidden>
+          <div class="member-dashboard__heading"><div><span class="account-kicker">Your workspace</span><h2>Your Bagusin activity</h2><p>Orders, payments, delivery updates and reviews in one place.</p></div><a class="member-admin-link" data-admin-link href="/bagusin/admin/" hidden>Admin dashboard ↗</a></div>
+          <div class="member-stats"><article><strong data-stat-orders>0</strong><span>Total orders</span></article><article><strong data-stat-pending>0</strong><span>Awaiting action</span></article><article><strong data-stat-complete>0</strong><span>Completed</span></article></div>
+          <section class="member-panel"><div class="member-panel__head"><div><h3>Order history</h3><p>Every request and transaction stays recorded here.</p></div><a href="/bagusin/collections/">Explore catalogue ↗</a></div><div data-orders-list><p class="member-empty">Loading your orders…</p></div></section>
+          <section class="member-panel"><div class="member-panel__head"><div><h3>Your reviews</h3><p>Share your experience when an order is complete. It is always optional.</p></div></div><div data-review-list><p class="member-empty">Reviews become available after a paid order is completed.</p></div></section>
+          <p class="account-message" data-member-message role="status" aria-live="polite" hidden></p>
+        </section>
+
         <a class="account-back" href="/bagusin/en/">← Back to Bagusin</a>
       </div>
     </main>
@@ -110,5 +119,5 @@
   </div>
   <script src="../../js/main.js" defer></script>
   <script src="../../js/navigation.js" defer></script>
-</body>
+  <link rel="stylesheet" href="../../css/bagusin-member-area.css?v=20261103-1">\n  <script src="../../js/bagusin-member-area.js?v=20261103-1" defer></script>\n</body>
 </html>
