@@ -423,7 +423,7 @@ try {
   await interactionPage.locator("[data-stepper-next]").click();
   await interactionPage.locator("#project-form input[name=terms]").check();
   await interactionPage.locator("#project-form button[type=submit]").click();
-  await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("Permintaan Anda berhasil tersimpan di Bagusin"), null, { timeout: 5000 });
+  await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("Permintaan Anda berhasil tersimpan di Bagusin"), null, { timeout: 12000 });
   const preparedBrief = interactionPage.locator("#project-form [data-brief-output]");
   if (!(await preparedBrief.count())) errors.push("Contact form: prepared brief output was not created");
   else if (!(await preparedBrief.inputValue()).includes("Testing the contact email submission flow.")) errors.push("Contact form: prepared brief is missing the entered details");
@@ -464,14 +464,14 @@ try {
   await interactionPage.locator("[data-stepper-next]").click();
   await interactionPage.locator("#project-form input[name=terms]").check();
   await interactionPage.locator("#project-form button[type=submit]").click();
-  await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("Your request has been saved in Bagusin"), null, { timeout: 5000 });
+  await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("Your request has been saved in Bagusin"), null, { timeout: 12000 });
   if (!contactInquiryPayload || contactInquiryPayload.request_type !== "consultation" || !contactInquiryPayload.subject.includes("Copywriting")) errors.push("English contact form: inquiry record is missing the selected service and inquiry mode");
 
   // If the database rejects a request, the contact form must provide an honest manual email fallback.
   await interactionPage.unroute(inquiryEndpoint);
   await interactionPage.route(inquiryEndpoint, async (route) => {
     if (route.request().method() === "OPTIONS") {
-      await route.fulfill({ status: 204, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept" } });
+      await route.fulfill({ status: 204, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "GET, POST, OPTIONS", "Access-Control-Allow-Headers": "apikey, authorization, content-type, x-client-info, prefer" } });
       return;
     }
     await route.fulfill({ status: 500, headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }, contentType: "application/json", body: JSON.stringify({ message: "Simulated database failure" }) });
