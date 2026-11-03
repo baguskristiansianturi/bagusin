@@ -602,9 +602,9 @@ try {
   if (await interactionPage.locator('[data-panel="2"]').isHidden()) errors.push("Checkout: valid brief did not advance to review");
   if (!(await interactionPage.locator("#review-box").innerText()).includes("Test Client")) errors.push("Checkout: review summary did not include entered details");
   if (await interactionPage.locator("#review-box script").count()) errors.push("Checkout: user brief was interpreted as HTML instead of escaped text");
-  await interactionPage.locator('[data-next="3"]').click();
+  await interactionPage.locator('[data-step-nav="3"]').click();
   if (await interactionPage.locator('[data-panel="3"]').isHidden()) errors.push("Checkout: review did not advance to terms");
-  await interactionPage.locator('[data-next="4"]').click();
+  await interactionPage.locator('[data-step-nav="4"]').click();
   if (await interactionPage.locator('[data-panel="4"]').isVisible()) errors.push("Checkout: terms step allowed continuation without consent");
   const requiredConsents = interactionPage.locator('[data-panel="3"] input[type="checkbox"][required]');
   for (let i = 0; i < await requiredConsents.count(); i += 1) await requiredConsents.nth(i).check();
@@ -646,47 +646,23 @@ try {
   if (!(await interactionPage.locator("#aside-category-row").isHidden())) errors.push("Checkout: stale category leaked into a direct service order");
   if ((await interactionPage.locator("#aside-tier").textContent()).trim() !== "Belum ditentukan") errors.push("Checkout: stale tier leaked into a direct service order");
 
-  // Collection detail CTAs must preserve the right context into checkout.
-  const collectionCases = [
-    { route: "/bagusin/landing-pages/collections/detail/?collection=travel-showroom", service: "landing-pages", collection: "travel-showroom", contextKey: "industry", contextValue: "travel" },
-    { route: "/bagusin/websites/collections/detail/?collection=travel-business-website", service: "websites", collection: "travel-business-website", contextKey: "industry", contextValue: "travel", tier: "starter" },
-    { route: "/bagusin/copywriting/collections/detail/?collection=landing-page-copy", service: "copywriting", collection: "landing-page-copy", contextKey: "category", contextValue: "landing" }
+  // Current service detail pages route into the contextual multi-step inquiry form.
+  const serviceCases = [
+    { route: "/bagusin/work/landing-pages/", service: "landing-pages", label: "Landing Page" },
+    { route: "/bagusin/work/websites/", service: "websites", label: "Website" },
+    { route: "/bagusin/work/copywriting/", service: "copywriting", label: "Copywriting" }
   ];
-  for (const item of collectionCases) {
+  for (const item of serviceCases) {
     await interactionPage.goto(origin + item.route, { waitUntil: "domcontentloaded" });
-    const orderLink = interactionPage.locator("[data-order]");
-    if (!(await orderLink.count())) { errors.push("Collection detail: order CTA is missing for " + item.service); continue; }
-    const orderHref = await orderLink.getAttribute("href");
-    const orderUrl = new URL(orderHref, origin);
-    if (orderUrl.searchParams.get("service") !== item.service) errors.push("Collection detail: service context was lost for " + item.service);
-    if (orderUrl.searchParams.get("collection") !== item.collection) errors.push("Collection detail: collection context was lost for " + item.service);
-    if (orderUrl.searchParams.get(item.contextKey) !== item.contextValue) errors.push("Collection detail: " + item.contextKey + " context is incorrect for " + item.service);
-    if (item.service === "copywriting" && orderUrl.searchParams.has("industry")) errors.push("Collection detail: copywriting category was incorrectly passed as an industry");
-    if (item.tier && orderUrl.searchParams.get("tier") !== item.tier) errors.push("Collection detail: website tier was lost");
+    const orderLink = interactionPage.locator('a[href*="/contact/?service="]').first();
+    if (!(await orderLink.count())) { errors.push("Service detail: inquiry CTA is missing for " + item.service); continue; }
+    const orderUrl = new URL(await orderLink.getAttribute("href"), origin);
+    if (orderUrl.searchParams.get("service") !== item.service) errors.push("Service detail: service context was lost for " + item.service);
+    if (orderUrl.searchParams.get("mode") !== "project") errors.push("Service detail: project inquiry mode is missing for " + item.service);
     await interactionPage.goto(orderUrl.href, { waitUntil: "domcontentloaded" });
-    if (await interactionPage.locator("#service").inputValue() !== item.service) errors.push("Checkout: collection CTA did not preselect " + item.service);
-    await interactionPage.locator("#name").fill("Collection Test");
-    await interactionPage.locator("#email").fill("collection@example.com");
-    await interactionPage.locator("#timeline").fill("Start 20 October, finish 5 November");
-    await interactionPage.locator("#agreed-quote").fill("1500000");
-    await interactionPage.locator("#payment-plan").fill("50% deposit, balance on handover");
-    await interactionPage.locator("#brief").fill("Please review the selected collection and discuss scope.");
-    await interactionPage.locator('[data-next="2"]').click();
-    if (await interactionPage.locator('[data-panel="2"]').isHidden()) errors.push("Checkout: collection brief did not advance to review for " + item.service);
-    const review = await interactionPage.locator("#review-box").innerText();
-    if (!review.includes(item.collection.split("-").map(w => w[0].toUpperCase() + w.slice(1)).join(" "))) errors.push("Checkout: review summary lost collection name for " + item.service);
-    if (item.service === "copywriting" && (!review.includes("Landing Page") || !review.includes("Kategori"))) errors.push("Checkout: copywriting category was not shown as a category");
-    if (item.tier && !review.toLowerCase().includes("starter")) errors.push("Checkout: website tier was not shown in review");
+    const contextLabel = await interactionPage.locator("#selected-service").textContent();
+    if (!contextLabel || !contextLabel.includes(item.label)) errors.push("Service inquiry: selected service was not prefilled for " + item.service);
   }
-
-  // Copywriting category must survive the entire review-to-email journey.
-  await interactionPage.locator('[data-next="3"]').click();
-  const requiredConsentsForCopywriting = interactionPage.locator('[data-panel="3"] input[type="checkbox"][required]');
-  for (let i = 0; i < await requiredConsentsForCopywriting.count(); i += 1) await requiredConsentsForCopywriting.nth(i).check();
-  await interactionPage.locator('[data-next="4"]').click();
-  await interactionPage.locator("#send-order-brief").click();
-  await interactionPage.waitForFunction(() => document.querySelector("#checkout-email-status")?.textContent.includes("diterima layanan email"), null, { timeout: 5000 });
-  if (!submittedEmailPayload || submittedEmailPayload.category !== "Landing Page") errors.push("Checkout: copywriting category was not included in the email payload");
 
   // New self-installable template journey: platform/category → visual demo → license → simulated checkout.
   await interactionPage.goto(origin + "/bagusin/templates/", { waitUntil: "domcontentloaded" });
