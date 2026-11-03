@@ -158,3 +158,36 @@
  .store-card-price-wrap .store-card-price{font-size:.85rem}
  .store-card-actions .store-detail-link{min-height:2.3rem;font-size:.68rem}
 }
+
+/* Bagusin Store homepage composition */
+.store-home-hero{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(20rem,.95fr);align-items:center;min-height:23rem;margin:1.5rem 0 2.5rem;padding:2.6rem 3rem;overflow:hidden;border-radius:1.15rem;background:linear-gradient(112deg,#111 0%,#202329 56%,#313b46 100%);color:#fff}
+.store-home-hero-copy{position:relative;z-index:2;max-width:38rem}.store-hero-kicker,.store-section-kicker{display:block;font-size:.62rem;font-weight:800;letter-spacing:.17em;color:#aeb8c3}
+.store-home-hero h1{max-width:12ch;margin:.9rem 0 .85rem;font-size:clamp(2.3rem,4.4vw,4.1rem);line-height:.99;letter-spacing:-.065em;color:#fff}.store-home-hero h1 em{font-style:normal;color:#b7c8d8}
+.store-home-hero-copy>p{max-width:31rem;color:#c4cbd2;font-size:.9rem;line-height:1.7}
+.store-hero-cta{display:inline-flex;align-items:center;gap:1.4rem;margin-top:1rem;padding:.85rem 1.1rem;border-radius:.35rem;background:#fff;color:#15191e;font-size:.76rem;font-weight:800;text-decoration:none}
+.store-hero-proof{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:2.3rem;color:#c2c8ce;font-size:.63rem}.store-hero-proof i{width:3px;height:3px;border-radius:50%;background:#8796a5}
+.store-hero-art{position:relative;min-height:18rem;display:grid;place-items:center}.store-art-orbit{position:absolute;border:1px solid #ffffff22;border-radius:50%;aspect-ratio:1}.orbit-one{width:18rem}.orbit-two{width:13rem}
+.store-art-device{position:absolute;border:1px solid #ffffff55;background:linear-gradient(145deg,#d9e1e8,#687684);box-shadow:0 2rem 4rem #0007}.device-monitor{width:14rem;height:9.2rem;top:3.3rem;left:50%;transform:translateX(-50%);border-radius:.55rem;padding:.45rem}.device-monitor span{display:block;width:100%;height:100%;border-radius:.25rem;background:linear-gradient(135deg,#101923,#3f5a70 55%,#aebdca)}.device-monitor b{position:absolute;width:4rem;height:2.2rem;left:calc(50% - 2rem);bottom:-2.5rem;background:#8998a5;clip-path:polygon(25% 0,75% 0,85% 100%,15% 100%)}
+.device-phone{width:4.2rem;height:7.6rem;right:1.3rem;bottom:1rem;border:3px solid #dce3e9;border-radius:.7rem;background:linear-gradient(145deg,#17212c,#647f95);transform:rotate(12deg)}.device-phone span{position:absolute;top:.35rem;left:35%;width:30%;height:3px;border-radius:5px;background:#dce3e9}
+.store-art-chip{position:absolute;left:1.4rem;bottom:2rem;display:grid;place-items:center;width:3.8rem;height:3.8rem;border:1px solid #ffffff65;border-radius:1rem;background:#ffffff18;color:#fff;font-size:1.5rem;font-weight:900;backdrop-filter:blur(8px)}.store-art-chip span{font-size:.55rem}
+.store-art-caption{position:absolute;right:0;top:1rem;color:#c5d0d9;font-size:.55rem;font-weight:800;letter-spacing:.2em;line-height:1.6;text-align:right}
+.store-category-feature{margin:0 0 2.3rem}.store-feature-heading{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:1rem}.store-feature-heading h2{margin:.35rem 0 0;font-size:1.3rem;letter-spacing:-.035em}.store-section-kicker{color:#8a929a;font-size:.56rem}
+.store-feature-arrows{display:flex;gap:.4rem}.store-feature-arrows button{width:2.2rem;height:2.2rem;border:1px solid #e1e3e5;border-radius:50%;background:#fff;color:#333}
+.store-category-tiles{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(8.5rem,1fr);grid-template-rows:1fr;gap:.75rem;overflow-x:auto;padding:.15rem .1rem .7rem;scroll-snap-type:x mandatory;scrollbar-width:thin}
+.store-category-tile{display:flex;flex-direction:column;align-items:flex-start;gap:.55rem;min-height:9.2rem;padding:1rem;border:1px solid #e8eaec;border-radius:.55rem;background:#fff;color:#222;text-align:left;scroll-snap-align:start;transition:border-color .2s,transform .2s}.store-category-tile:hover{border-color:#aeb7c0;transform:translateY(-2px)}
+.store-tile-icon{display:grid;place-items:center;width:2.7rem;height:2.7rem;border-radius:.55rem;background:#f1f3f5;color:#344454}.store-tile-icon svg{width:1.45rem;height:1.45rem;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.store-category-tile strong{font-size:.75rem}.store-tile-link{display:flex;gap:.35rem;align-items:center;margin-top:auto;color:#7a8086;font-size:.61rem}
+.store-toolbar{display:flex;align-items:center;gap:1rem;padding:1rem 0}.store-search{flex:0 1 20%;max-width:20%;min-width:10rem}
+.store-sort{display:flex;align-items:center;gap:.65rem;flex:1 1 80%;min-width:0;white-space:nowrap}.store-sort>span{flex:0 0 auto;font-size:.73rem;font-weight:750;color:#62676c}.store-sort select{flex:1 1 auto;width:100%;min-width:0;min-height:2.9rem;padding:.7rem 2.2rem .7rem .85rem;border:1px solid #dedede;border-radius:.45rem;background:#fff;color:#222;font:inherit;font-size:.8rem}
+.store-results-head h1{font-size:1.45rem}
+@media(max-width:760px){
+ .store-home-hero{grid-template-columns:minmax(0,1fr);min-height:0;margin:1rem 0 1.8rem;padding:1.65rem 1.25rem;border-radius:.75rem}
+ .store-home-hero h1{max-width:11ch;font-size:clamp(2.2rem,10vw,3.15rem)}.store-home-hero-copy>p{font-size:.79rem;max-width:27rem}
+ .store-hero-proof{gap:.5rem;margin-top:1.4rem;font-size:.55rem}.store-hero-art{position:absolute;right:-4.8rem;bottom:-1.3rem;width:15rem;min-height:13rem;opacity:.38;pointer-events:none}
+ .orbit-one{width:13rem}.orbit-two{width:9rem}.device-monitor{width:10rem;height:6.5rem;top:2.3rem}.device-phone{width:3rem;height:5.5rem;right:.3rem}.store-art-chip{left:.5rem;bottom:1rem;width:2.7rem;height:2.7rem}.store-art-caption{display:none}
+ .store-feature-heading h2{font-size:1.08rem}.store-feature-arrows button{width:2rem;height:2rem}.store-category-tiles{grid-auto-columns:7.8rem;gap:.55rem}.store-category-tile{min-height:8.2rem;padding:.8rem}.store-tile-icon{width:2.4rem;height:2.4rem}
+ .store-toolbar{display:flex;flex-direction:column;align-items:stretch;gap:.55rem;padding:.7rem 0}.store-search{width:100%;max-width:none;min-width:0;min-height:2.65rem}
+ .store-sort{width:80%;max-width:80%;min-height:2.8rem;gap:.45rem}.store-sort>span{font-size:.68rem}.store-sort select{min-height:2.65rem;font-size:.73rem;padding:.55rem 1.7rem .55rem .65rem}
+ .store-results-head{align-items:flex-start}.store-results-head h1{font-size:1.2rem}
+}
+@media(max-width:380px){.store-sort{width:80%;max-width:80%}.store-category-tiles{grid-auto-columns:7.1rem}.store-home-hero{padding:1.45rem 1rem}}
