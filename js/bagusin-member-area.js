@@ -16,7 +16,7 @@
     reviewTitle:"Share your experience", reviewPlaceholder:"Tell us about your experience (at least 10 characters).",
     reviewSubmit:"Send review", reviewSent:"Thank you. Your review has been sent for moderation.",
     reviewPending:"Waiting for review", reviewPublished:"Published", reviewRejected:"Not published",
-    reviewEmpty:"No reviews submitted yet.", payment:"Payment", shipment:"Delivery", tracking:"Tracking number", noTracking:"Tracking information will appear here after dispatch.",
+    reviewEmpty:"No reviews submitted yet.", reviewpending:"Waiting for review", reviewpublished:"Published", reviewrejected:"Not published", payment:"Payment", shipment:"Delivery", tracking:"Tracking number", noTracking:"Tracking information will appear here after dispatch.",
     amount:"Total", created:"Order date", noAccount:"Bank details have not been configured yet."
   } : {
     loading:"Memuat pesanan Anda…", empty:"Belum ada pesanan. Pesanan akan muncul di sini setelah permintaan diterima Bagusin.",
@@ -31,7 +31,7 @@
     reviewTitle:"Bagikan pengalaman Anda", reviewPlaceholder:"Ceritakan pengalaman Anda (minimal 10 karakter).",
     reviewSubmit:"Kirim ulasan", reviewSent:"Terima kasih. Ulasan Anda sudah dikirim untuk diperiksa.",
     reviewPending:"Menunggu pemeriksaan", reviewPublished:"Ditampilkan", reviewRejected:"Tidak ditampilkan",
-    reviewEmpty:"Belum ada ulasan yang dikirim.", payment:"Pembayaran", shipment:"Pengiriman", tracking:"Nomor resi", noTracking:"Informasi pelacakan akan muncul setelah pesanan dikirim.",
+    reviewEmpty:"Belum ada ulasan yang dikirim.", reviewpending:"Menunggu pemeriksaan", reviewpublished:"Ditampilkan", reviewrejected:"Tidak ditampilkan", payment:"Pembayaran", shipment:"Pengiriman", tracking:"Nomor resi", noTracking:"Informasi pelacakan akan muncul setelah pesanan dikirim.",
     amount:"Total", created:"Tanggal pesanan", noAccount:"Rekening pembayaran belum dikonfigurasi."
   };
   function el(tag, className, text) {
@@ -162,17 +162,21 @@
     var result=await window.BagusinSupabase.from("orders").select("id,order_number,order_type,order_status,payment_status,fulfillment_status,total_amount,currency,shipping_method,expires_at,created_at").eq("customer_id",user.id).order("created_at",{ascending:false});
     if(result.error) throw result.error;
     var orders=result.data||[], ids=orders.map(function(o){return o.id;});
-    var items=[],payments=[],shipments=[],reviews=[],methods=[];
+    var items=[],payments=[],shipments=[],reviews=[],methods=[],invoices=[],enrollments=[],entitlements=[],sessions=[];
     if(ids.length){
       var responses=await Promise.all([
         window.BagusinSupabase.from("order_items").select("id,order_id,item_type,item_slug,item_name,quantity").in("order_id",ids),
         window.BagusinSupabase.from("payments").select("id,order_id,payment_status,created_at").in("order_id",ids),
         window.BagusinSupabase.from("shipments").select("id,order_id,tracking_number,shipment_status,tracking_url").in("order_id",ids),
-        window.BagusinSupabase.from("product_reviews").select("id,order_item_id,moderation_status").eq("customer_id",user.id)
+        window.BagusinSupabase.from("product_reviews").select("id,order_item_id,moderation_status").eq("customer_id",user.id),
+        window.BagusinSupabase.from("invoices").select("id,order_id,invoice_number,invoice_status,total_amount,due_at,issued_at").in("order_id",ids),
+        window.BagusinSupabase.from("course_enrollments").select("id,enrollment_status,instructor_name,start_date,schedule_notes,meetings_total,courses(title)").eq("customer_id",user.id),
+        window.BagusinSupabase.from("digital_entitlements").select("id,item_name,entitlement_status,download_limit,download_count,expires_at").eq("customer_id",user.id)
       ]);
       responses.forEach(function(response){if(response.error)throw response.error;});
-      items=responses[0].data||[];payments=responses[1].data||[];shipments=responses[2].data||[];reviews=responses[3].data||[];
+      items=responses[0].data||[];payments=responses[1].data||[];shipments=responses[2].data||[];reviews=responses[3].data||[];invoices=responses[4].data||[];enrollments=responses[5].data||[];entitlements=responses[6].data||[];
     }
+    if(enrollments.length){var sr=await window.BagusinSupabase.from("course_sessions").select("id,enrollment_id,session_number,session_status,scheduled_at").in("enrollment_id",enrollments.map(function(e){return e.id;}));if(!sr.error)sessions=sr.data||[];}
     var methodResult=await window.BagusinSupabase.from("payment_methods").select("bank_name,account_holder,account_number,instructions,is_active").eq("method_code","bca_manual");
     if(!methodResult.error) methods=methodResult.data||[];
     var pending=orders.filter(function(o){return ["pending_review","awaiting_payment","processing","ready"].includes(o.order_status);}).length;
@@ -182,6 +186,15 @@
     var list=root.querySelector("[data-orders-list]"); list.replaceChildren();
     if(!orders.length) list.appendChild(el("p","member-empty",words.empty));
     orders.forEach(function(order){list.appendChild(renderOrder(order,items,payments,shipments,reviews,methods));});
+    var invoiceList=root.querySelector("[data-invoice-list]");invoiceList.replaceChildren();
+    if(!invoices.length)invoiceList.appendChild(el("p","member-empty",isEnglish?"No invoices have been issued yet.":"Belum ada invoice yang diterbitkan."));
+    invoices.forEach(function(invoice){var row=el("div","member-review-row");var info=el("div");info.append(el("strong","",invoice.invoice_number),el("span","member-muted",statusLabel(invoice.invoice_status)+" · "+(isEnglish?"Due":"Jatuh tempo")+": "+date(invoice.due_at)));row.append(info,el("strong","",money(invoice.total_amount)));invoiceList.appendChild(row);});
+    var courseList=root.querySelector("[data-course-list]");courseList.replaceChildren();
+    if(!enrollments.length)courseList.appendChild(el("p","member-empty",isEnglish?"No course enrollment yet.":"Belum ada pendaftaran kursus."));
+    enrollments.forEach(function(enrollment){var row=el("div","member-review-row");var related=sessions.filter(function(s){return s.enrollment_id===enrollment.id;});var done=related.filter(function(s){return s.session_status==="completed";}).length;var total=enrollment.meetings_total||related.length;var info=el("div");info.append(el("strong","",enrollment.courses&&enrollment.courses.title||"Course"),el("span","member-muted",statusLabel(enrollment.enrollment_status)+" · "+done+"/"+total+" "+(isEnglish?"meetings":"pertemuan")));if(enrollment.instructor_name)info.appendChild(el("span","member-muted",(isEnglish?"Instructor: ":"Pengajar: ")+enrollment.instructor_name));if(enrollment.start_date)info.appendChild(el("span","member-muted",(isEnglish?"Starts: ":"Mulai: ")+date(enrollment.start_date)));row.appendChild(info);courseList.appendChild(row);});
+    var downloadList=root.querySelector("[data-download-list]");downloadList.replaceChildren();
+    if(!entitlements.length)downloadList.appendChild(el("p","member-empty",isEnglish?"No digital purchases yet.":"Belum ada pembelian digital."));
+    entitlements.forEach(function(entitlement){var row=el("div","member-review-row");row.append(el("strong","",entitlement.item_name),el("span","member-muted",statusLabel(entitlement.entitlement_status)));downloadList.appendChild(row);});
     var reviewList=root.querySelector("[data-review-list]"); reviewList.replaceChildren();
     if(!reviews.length) reviewList.appendChild(el("p","member-empty",words.reviewEmpty));
     reviews.forEach(function(review){var row=el("div","member-review-row");row.append(el("strong","",statusLabel("review"+review.moderation_status)),el("span","member-muted",review.moderation_status));reviewList.appendChild(row);});
