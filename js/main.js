@@ -1,4 +1,8 @@
 (function(){
+  var navBase = window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin" ? "/bagusin" : "";
+  var navScript = document.createElement("script"); navScript.src = navBase + "/js/components/site-nav-links.js"; navScript.defer = true; document.head.appendChild(navScript);
+})();
+(function(){
   var footerBase = window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin" ? "/bagusin" : "";
   var footerStyle = document.createElement("link"); footerStyle.rel = "stylesheet"; footerStyle.href = footerBase + "/css/components/site-footer.css"; document.head.appendChild(footerStyle);
   var footerScript = document.createElement("script"); footerScript.src = footerBase + "/js/components/site-footer.js"; footerScript.defer = true; document.head.appendChild(footerScript);
