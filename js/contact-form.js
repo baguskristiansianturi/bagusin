@@ -317,6 +317,7 @@ document.addEventListener("DOMContentLoaded", function () {
       (isEnglish ? "Contact type" : "Jenis kebutuhan") + ": " + modeLabel,
       (isEnglish ? "Name" : "Nama") + ": " + valueOf("name"),
       "Email: " + valueOf("email"),
+      "WhatsApp: " + (valueOf("phone") || (isEnglish ? "Not provided" : "Tidak diisi")),
       (isEnglish ? "Company / brand" : "Perusahaan / brand") + ": " + (valueOf("company") || (isEnglish ? "Not provided" : "Tidak diisi")),
       (isEnglish ? "Discussion preference" : "Cara berdiskusi") + ": " + ({online: isEnglish ? "Online consultation" : "Konsultasi online", "in-person": isEnglish ? "In-person meeting" : "Janji bertemu langsung", "business-location": isEnglish ? "At business location (if feasible)" : "Di lokasi bisnis (jika memungkinkan)"}[valueOf("meeting_preference")] || (isEnglish ? "Online consultation" : "Konsultasi online")),
       (isEnglish ? "Business location / city" : "Lokasi bisnis / kota") + ": " + (valueOf("meeting_location") || (isEnglish ? "Not provided" : "Tidak diisi")),
