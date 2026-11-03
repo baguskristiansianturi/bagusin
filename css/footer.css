@@ -354,3 +354,6 @@ body.page-home-studio .site-footer__cta {
   background-image: none !important;
   box-shadow: none !important;
 }
+
+/* Keep footer links in a compact two-column layout even on narrow phones. */
+@media(max-width:29.999rem){.site-footer__top{grid-template-columns:repeat(2,minmax(0,1fr))}.site-footer__brand{grid-column:1/-1}}
