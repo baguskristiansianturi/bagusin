@@ -15,8 +15,10 @@ This directory contains the versioned SQL migration history for the live Bagusin
 4. `20261102131414_profile_auth_role.sql`
 5. `20261103121830_bagusin_cms_backend_foundation_v1.sql`
 6. `20261103121901_bagusin_cms_policy_index_refinement.sql`
+7. `20261103122045_bagusin_design_private_file_security.sql`
+8. `202611031221xx_bagusin_private_file_index_and_media_mime.sql` (replace xx with the version reported by the live migration history after applying)
 
-The two November 3 migrations add Bagusin editorial, services, portfolio, course, inquiry, media, and site-settings structures; configure public/private Storage buckets; require admin role for CMS management; and disable API access to the unused social/community tables without dropping them.
+The November 3 migrations add Bagusin editorial, services, portfolio, course, inquiry, media and site-settings structures; configure public/private Storage buckets; require admin role for CMS management; separate private template source files from the public catalogue; and disable API access to unused social/community tables without dropping them.
 
 Do not apply the old alternative foundation migration from an unmerged branch on top of this live schema.
 
