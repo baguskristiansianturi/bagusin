@@ -55,7 +55,7 @@ if(order.payment_status==="paid" && order.order_type==="course"){
    form.addEventListener("submit",async function(e){e.preventDefault();var selected=courseCatalog.find(function(c){return c.id===course.value;});var ins=await client.from("course_enrollments").insert({order_item_id:item.id,customer_id:order.customer_id,course_id:course.value,instructor_name:instructor.value||null,start_date:startDate.value||null,meetings_total:Number(meetings.value)||selected&&selected.meeting_count||null,schedule_notes:notes.value||null,enrollment_status:"pending"});if(ins.error)alert(ins.error.message);else await loadOrders();});
    card.appendChild(form);return;
   }
-  var scheduleBox=node("div","admin-proof"),scheduleTitle=node("strong","", "Jadwal kursus · "+(enrollment.instructor_name||"Pengajar belum diatur"));
+  var scheduleBox=node("div","admin-proof admin-course-schedule"),scheduleTitle=node("strong","", "Jadwal kursus · "+(enrollment.instructor_name||"Pengajar belum diatur"));
   scheduleBox.appendChild(scheduleTitle);
   var related=courseSessions.filter(function(s){return s.enrollment_id===enrollment.id;});
   related.forEach(function(session){
@@ -64,11 +64,12 @@ if(order.payment_status==="paid" && order.order_type==="course"){
    if(session.session_status!=="completed"){var done=node("button","admin-button admin-button--light","Tandai selesai");done.addEventListener("click",async function(){var u=await client.from("course_sessions").update({session_status:"completed",completed_at:new Date().toISOString()}).eq("id",session.id);if(u.error)alert(u.error.message);else await loadOrders();});row.appendChild(done);}
    scheduleBox.appendChild(row);
   });
-  var sessionForm=node("form","admin-form--inline"),sessionNo=node("input"),sessionTitle=node("input"),sessionDate=node("input"),sessionDuration=node("input"),sessionLocation=node("input"),addSession=node("button","is-primary","Tambah pertemuan");
+  var sessionForm=node("form","admin-form admin-form--inline"),sessionNo=node("input"),sessionTitle=node("input"),sessionDate=node("input"),sessionDuration=node("input"),sessionLocation=node("input"),addSession=node("button","is-primary","Tambah pertemuan");
   sessionNo.type="number";sessionNo.min="1";sessionNo.value=String(related.reduce(function(max,s){return Math.max(max,s.session_number);},0)+1);
   sessionTitle.placeholder="Judul pertemuan";sessionDate.type="datetime-local";sessionDuration.type="number";sessionDuration.min="1";sessionDuration.value="90";sessionLocation.placeholder="Lokasi / catatan";addSession.type="submit";
   sessionForm.append(sessionNo,sessionTitle,sessionDate,sessionDuration,sessionLocation,addSession);
   sessionForm.addEventListener("submit",async function(e){e.preventDefault();var ins=await client.from("course_sessions").insert({enrollment_id:enrollment.id,session_number:Number(sessionNo.value),title:sessionTitle.value||null,scheduled_at:sessionDate.value?new Date(sessionDate.value).toISOString():null,duration_minutes:Number(sessionDuration.value)||null,location_note:sessionLocation.value||null,session_status:"scheduled"});if(ins.error)alert(ins.error.message);else{await client.from("course_enrollments").update({enrollment_status:"scheduled"}).eq("id",enrollment.id);await loadOrders();}});
+  if(enrollment.meetings_total && related.length>=enrollment.meetings_total && related.every(function(s){return s.session_status==="completed";}) && enrollment.enrollment_status!=="completed"){var courseDone=node("button","admin-button admin-button--light","Tandai kursus selesai");courseDone.addEventListener("click",async function(){var u=await client.from("course_enrollments").update({enrollment_status:"completed"}).eq("id",enrollment.id);if(u.error)alert(u.error.message);else await loadOrders();});scheduleBox.appendChild(courseDone);}
   scheduleBox.appendChild(sessionForm);card.appendChild(scheduleBox);
  });
 }
