@@ -38,7 +38,7 @@ This backend is exclusively for Bagusin: an independent digital studio and its b
 - Admin accepts the order and issues an invoice. The current admin screen uses a configurable due period (default 24 hours).
 - Payment is manual bank transfer to the configured BCA account. The customer uploads proof in the member area or sends it to Bagusin through WhatsApp; a WhatsApp-sent proof still needs to be recorded/checked by admin.
 - A payment is only marked paid after an admin checks the actual bank credit. A screenshot alone is not payment verification.
-- Unpaid expiry is represented by order/invoice expiry fields. Automatic scheduled expiry and message delivery still need a scheduler/notification provider integration.
+- Unpaid expiry is automated by Supabase Cron every five minutes. Reminder jobs are queued at configurable offsets (default 2, 12 and 22 hours); actual WhatsApp/email delivery still needs a connected provider and sender worker.
 - Order status, payment status and fulfilment status are separate fields.
 
 ## Shipping
@@ -74,7 +74,7 @@ This backend is exclusively for Bagusin: an independent digital studio and its b
 - Customer checkout is not yet connected to every public catalogue CTA. Initial operational flow is inquiry → admin-created order/invoice → customer member area.
 - The admin can create and process orders, but customer-facing self-service order creation and cart are a next phase.
 - WhatsApp notifications are not automated. Admin can contact a customer manually; the outbox table is only a queue structure until a WhatsApp Business provider and email provider are connected.
-- Scheduled reminders and automatic expiry are not yet running.
+- Automatic unpaid-order expiry is active. Reminder rows are queued on schedule, but WhatsApp/email messages are not delivered until a provider and sender worker are connected.
 - National courier APIs/rates, shipping aggregator and automatic tracking are not yet connected.
 - Course enrolment data structures and admin creation are present; full session planner and customer attendance workflow need more UI.
 - Secure digital download function is deployed; actual customer entitlement and end-to-end download testing require a paid/completed test order and a private source file.
