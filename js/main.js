@@ -1,4 +1,11 @@
 (function(){
+  var breadcrumbBase = window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin" ? "/bagusin" : "";
+  var breadcrumbScript = document.createElement("script");
+  breadcrumbScript.src = breadcrumbBase + "/js/breadcrumbs.js";
+  breadcrumbScript.defer = true;
+  document.head.appendChild(breadcrumbScript);
+})();
+(function(){
   var base = window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin" ? "/bagusin" : "";
   if (document.querySelector('script[data-bagusin-auth]')) return;
   var script = document.createElement("script");
