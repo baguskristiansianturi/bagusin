@@ -1,0 +1,23 @@
+/* Bagusin Store — dedicated storefront shell */
+.store-header{position:sticky;top:0;z-index:1100;background:#fff;border-bottom:1px solid #e8e8e8}
+.store-header-inner{width:min(100% - 2.5rem,76rem);min-height:4.6rem;margin:auto;display:flex;align-items:center;gap:2rem}
+.store-brand{display:inline-flex;align-items:center;gap:.65rem;color:#171717;flex:0 0 auto}
+.store-brand-mark{display:grid;place-items:center;width:2.35rem;height:2.35rem;background:#111;color:#fff;border-radius:.55rem;font-weight:850}
+.store-brand>span:last-child{display:grid;gap:.12rem}.store-brand strong{font-size:1rem;line-height:1}.store-brand small{font-size:.58rem;letter-spacing:.18em;color:#777;font-weight:800}
+.store-nav{display:flex;align-items:center;gap:1.45rem;margin-left:auto}.store-nav a,.store-mobile-nav a{font-size:.8rem;font-weight:650;color:#555}.store-nav a:hover,.store-mobile-nav a:hover{color:#111}
+.store-header-actions{display:flex;align-items:center;gap:.55rem}.store-search-trigger{display:flex;align-items:center;gap:.45rem;padding:.65rem .75rem;color:#555;border:1px solid #e5e5e5;border-radius:.45rem;font-size:.8rem}
+.store-header .store-cart-button{display:flex;align-items:center;gap:.5rem;background:#111;color:#fff;border:1px solid #111;border-radius:.45rem;padding:.7rem .9rem;min-height:2.6rem;font-size:.78rem;font-weight:750}
+.store-header .store-cart-button span{display:grid;place-items:center;min-width:1.3rem;height:1.3rem;background:#fff;color:#111;border-radius:50%;font-size:.68rem}
+.store-mobile-menu{display:none;width:2.6rem;height:2.6rem;border:1px solid #e5e5e5;border-radius:.45rem}
+.store-mobile-nav{padding:.3rem 1.25rem 1rem;background:#fff;border-top:1px solid #eee}.store-mobile-nav a{display:block;padding:.75rem 0;border-bottom:1px solid #f0f0f0}
+.store-footer{margin-top:4rem;background:#111;color:#fff;padding:3.2rem 0 0}
+.store-footer-inner{width:min(100% - 2.5rem,76rem);margin:auto;display:grid;grid-template-columns:1.5fr repeat(3,minmax(0,1fr));gap:2.5rem;padding-bottom:2.7rem}
+.store-brand-light{color:#fff}.store-brand-light .store-brand-mark{background:#fff;color:#111}.store-brand-light small{color:#aaa}
+.store-footer-brand p{max-width:21rem;color:#aaa;font-size:.82rem;line-height:1.7;margin:1rem 0}
+.store-footer-main-link{font-size:.78rem;font-weight:750;color:#fff}
+.store-footer-column h2{font-size:.8rem;margin:0 0 .9rem;color:#fff}
+.store-footer-column ul{display:grid;gap:.65rem;margin:0;padding:0;list-style:none}
+.store-footer-column a{font-size:.77rem;color:#aaa}.store-footer-column a:hover{color:#fff}
+.store-footer-bottom{width:min(100% - 2.5rem,76rem);margin:auto;border-top:1px solid #333;padding:1.1rem 0;display:flex;justify-content:space-between;gap:1rem;color:#888;font-size:.7rem}
+@media(max-width:760px){.store-header-inner{min-height:4.1rem;gap:.75rem}.store-nav{display:none}.store-header-actions{margin-left:auto}.store-search-trigger span{display:none}.store-mobile-menu{display:block}.store-footer-inner{grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem 1.2rem}.store-footer-brand{grid-column:1/-1}.store-footer-bottom{flex-direction:column;gap:.45rem}}
+@media(max-width:390px){.store-header-inner{width:calc(100% - 1.5rem)}.store-brand{gap:.45rem}.store-header-actions{gap:.3rem}.store-header .store-cart-button{padding:.65rem .7rem}.store-footer-inner,.store-footer-bottom{width:calc(100% - 2rem)}}
