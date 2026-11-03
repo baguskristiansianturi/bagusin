@@ -431,15 +431,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function getSupabaseClient() {
     if (window.BagusinSupabase) return window.BagusinSupabase;
+    if (!window.BagusinSupabaseClient) {
+      await new Promise(function(resolve) {
+        window.addEventListener("bagusin:supabase-factory-ready", resolve, { once: true });
+        window.setTimeout(resolve, 3000);
+      });
+    }
     if (window.BagusinSupabaseClient && typeof window.BagusinSupabaseClient.get === "function") {
       return window.BagusinSupabaseClient.get();
     }
-    await new Promise(function(resolve) {
-      window.addEventListener("bagusin:supabase-ready", resolve, { once: true });
-      window.setTimeout(resolve, 9000);
-    });
-    if (!window.BagusinSupabase) throw new Error(isEnglish ? "Bagusin database connection is not ready. Please retry." : "Koneksi database Bagusin belum siap. Silakan coba kembali.");
-    return window.BagusinSupabase;
+    if (window.BagusinSupabase) return window.BagusinSupabase;
+    throw new Error(isEnglish ? "Bagusin database connection is not ready. Please retry." : "Koneksi database Bagusin belum siap. Silakan coba kembali.");
   }
 
   form.addEventListener("submit", async function (event) {
