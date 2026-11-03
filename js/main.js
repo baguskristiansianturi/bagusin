@@ -16,10 +16,19 @@
 })();
 (function(){
   var base = window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin" ? "/bagusin" : "";
+  if (document.querySelector("script[data-bagusin-supabase-client]")) return;
+  var script = document.createElement("script");
+  script.src = base + "/js/supabase-client.js";
+  script.async = false;
+  script.dataset.bagusinSupabaseClient = "";
+  document.head.appendChild(script);
+})();
+(function(){
+  var base = window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin" ? "/bagusin" : "";
   if (document.querySelector('script[data-bagusin-auth]')) return;
   var script = document.createElement("script");
   script.src = base + "/js/supabase-auth.js?v=20261102-1";
-  script.async = true;
+  script.async = false;
   script.dataset.bagusinAuth = "";
   document.head.appendChild(script);
 })();
