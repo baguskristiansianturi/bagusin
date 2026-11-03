@@ -403,7 +403,7 @@ document.addEventListener("DOMContentLoaded", function () {
       company: valueOf("company") || (isEnglish ? "Not provided" : "Tidak diisi"),
       meeting_preference: valueOf("meeting_preference") || "online",
       meeting_location: valueOf("meeting_location") || (isEnglish ? "Not provided" : "Tidak diisi"),
-      "WhatsApp: " + (valueOf("phone") || (isEnglish ? "Not provided" : "Tidak diisi")),
+      phone: valueOf("phone") || (isEnglish ? "Not provided" : "Tidak diisi"),
       project_brief: brief,
       brief_summary: summary,
       terms_acknowledged: form.elements.namedItem("terms")?.checked ? (isEnglish ? "Yes" : "Ya") : (isEnglish ? "No" : "Tidak"),
