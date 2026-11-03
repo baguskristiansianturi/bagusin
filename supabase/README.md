@@ -27,6 +27,7 @@ This directory contains the versioned SQL migration history for the live Bagusin
 16. `20261103131001_bagusin_download_rpc_hardening_v1.sql`
 17. `20261103131319_bagusin_payment_expiry_and_reminder_scheduler_v1.sql`
 18. `20261103131720_bagusin_configurable_payment_reminder_offsets_v1.sql`
+19. `20261103132331_bagusin_voluntary_review_request_queue_v1.sql`
 
 ## Auth dashboard configuration
 Supabase Dashboard → Authentication → URL Configuration:
