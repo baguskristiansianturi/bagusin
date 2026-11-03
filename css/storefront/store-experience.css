@@ -133,3 +133,9 @@
  .store-related-heading>a{font-size:.65rem}
 }
 @media(max-width:370px){.store-category-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.store-hero-proof{display:none}}
+
+.store-promo-filter{flex:0 0 auto;min-height:2rem;padding:.35rem .85rem;border:1px solid #cbd9e3;border-radius:999px;background:#edf3f7;color:#36556d;font-size:.68rem;font-weight:800}
+.store-promo-filter:hover{background:#dce8f0}
+.store-order-reference{display:flex;align-items:center;justify-content:center;gap:.5rem;margin:1rem auto;padding:.85rem 1rem;border:1px solid #e3e8ec;border-radius:.4rem;color:#687783;font-size:.72rem}
+.store-order-reference strong{color:#1d3446;font-size:.85rem;letter-spacing:.04em}
+@media(max-width:760px){.store-category-strip-inner{gap:.65rem}.store-promo-filter{padding:.3rem .7rem;font-size:.62rem}}
