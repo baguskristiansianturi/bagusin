@@ -431,6 +431,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function getSupabaseClient() {
     if (window.BagusinSupabase) return window.BagusinSupabase;
+    if (window.BagusinSupabaseClient && typeof window.BagusinSupabaseClient.get === "function") {
+      return window.BagusinSupabaseClient.get();
+    }
     await new Promise(function(resolve) {
       window.addEventListener("bagusin:supabase-ready", resolve, { once: true });
       window.setTimeout(resolve, 9000);
