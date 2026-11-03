@@ -49,7 +49,7 @@ if(order.payment_status==="paid" && order.order_type==="course"){
   if(!enrollment){
    var form=node("form","admin-proof"),course=node("select"),instructor=node("input"),startDate=node("input"),meetings=node("input"),notes=node("input"),submit=node("button","is-primary","Buat pendaftaran kursus");
    course.required=true;course.appendChild(node("option","","Pilih course"));
-   courseCatalog.forEach(function(c){var o=node("option","",c.title);o.value=c.id;course.appendChild(o);});
+   courseCatalog.forEach(function(c){var o=node("option","",c.title);o.value=c.id;course.appendChild(o);});course.addEventListener("change",function(){var selected=courseCatalog.find(function(c){return c.id===course.value;});if(selected&&selected.meeting_count)meetings.value=selected.meeting_count;});
    instructor.placeholder="Nama pengajar";instructor.value="Bagus";startDate.type="date";meetings.type="number";meetings.min="1";meetings.value="19";notes.placeholder="Catatan jadwal / lokasi";submit.type="submit";
    form.append(course,instructor,startDate,meetings,notes,submit);
    form.addEventListener("submit",async function(e){e.preventDefault();var selected=courseCatalog.find(function(c){return c.id===course.value;});var ins=await client.from("course_enrollments").insert({order_item_id:item.id,customer_id:order.customer_id,course_id:course.value,instructor_name:instructor.value||null,start_date:startDate.value||null,meetings_total:Number(meetings.value)||selected&&selected.meeting_count||null,schedule_notes:notes.value||null,enrollment_status:"pending"});if(ins.error)alert(ins.error.message);else await loadOrders();});
