@@ -24,12 +24,45 @@ async function loadOrders(){
 var box=document.querySelector("[data-admin-orders]");box.replaceChildren(node("p","admin-note","Memuat pesanan…"));
 var r=await client.from("orders").select("*").order("created_at",{ascending:false});if(r.error)throw r.error;
 var orders=r.data||[];var ids=orders.map(function(o){return o.id;});var payments=[],items=[],shipments=[],enrollments=[],entitlements=[],invoices=[];
-if(ids.length){var q=await Promise.all([client.from("payments").select("*").in("order_id",ids),client.from("order_items").select("*").in("order_id",ids),client.from("shipments").select("*").in("order_id",ids),client.from("course_enrollments").select("id,order_item_id").in("order_item_id",(await client.from("order_items").select("id").in("order_id",ids)).data.map(function(i){return i.id;})),client.from("digital_entitlements").select("id,order_item_id").in("order_item_id",(await client.from("order_items").select("id").in("order_id",ids)).data.map(function(i){return i.id;})),client.from("invoices").select("id,order_id,invoice_number,invoice_status,due_at").in("order_id",ids)]);q.forEach(function(x){if(x.error)throw x.error;});payments=q[0].data||[];items=q[1].data||[];shipments=q[2].data||[];enrollments=q[3].data||[];entitlements=q[4].data||[];invoices=q[5].data||[];}
+if(ids.length){
+ var itemResult=await client.from("order_items").select("*").in("order_id",ids);if(itemResult.error)throw itemResult.error;items=itemResult.data||[];
+ var itemIds=items.map(function(i){return i.id;});
+ var q=await Promise.all([
+  client.from("payments").select("*").in("order_id",ids),
+  client.from("shipments").select("*").in("order_id",ids),
+  client.from("invoices").select("id,order_id,invoice_number,invoice_status,due_at").in("order_id",ids),
+  itemIds.length?client.from("course_enrollments").select("id,order_item_id").in("order_item_id",itemIds):Promise.resolve({data:[],error:null}),
+  itemIds.length?client.from("digital_entitlements").select("id,order_item_id").in("order_item_id",itemIds):Promise.resolve({data:[],error:null})
+ ]);
+ q.forEach(function(x){if(x.error)throw x.error;});
+ payments=q[0].data||[];shipments=q[1].data||[];invoices=q[2].data||[];enrollments=q[3].data||[];entitlements=q[4].data||[];
+}
 box.replaceChildren();if(!orders.length){box.appendChild(node("p","admin-note","Belum ada pesanan yang tercatat."));return;}
 orders.forEach(function(order){
 var card=node("article","admin-order"),top=node("div","admin-order__top"),left=node("div");left.append(node("strong","",order.order_number+" · "+order.customer_name),node("span","",order.customer_email+" · "+new Date(order.created_at).toLocaleString("id-ID")));top.append(left,node("span","admin-tag",order.order_status+" / "+order.payment_status));card.appendChild(top);
 var meta=node("div","admin-order__meta");[[ "Total",money(order.total_amount)],["Jenis",order.order_type],["Pengiriman",order.shipping_method||"—"]].forEach(function(pair){var d=node("div");d.append(node("small","",pair[0]),node("b","",pair[1]));meta.appendChild(d);});card.appendChild(meta);
 var line=items.filter(function(i){return i.order_id===order.id;});line.forEach(function(i){card.appendChild(node("p","admin-note",i.item_name+" × "+i.quantity));});
+if(order.payment_status==="paid" && order.order_type==="course"){
+ line.forEach(function(item){
+  if(enrollments.some(function(e){return e.order_item_id===item.id;}))return;
+  var form=node("form","admin-proof"),course=node("select"),instructor=node("input"),start=node("input"),meetings=node("input"),notes=node("input"),submit=node("button","is-primary","Buat pendaftaran kursus");
+  course.required=true;course.appendChild(node("option","","Pilih course"));
+  courseCatalog.forEach(function(c){var o=node("option","",c.title);o.value=c.id;course.appendChild(o);});
+  instructor.placeholder="Nama pengajar";instructor.value="Bagus";start.type="date";meetings.type="number";meetings.min="1";meetings.value="19";notes.placeholder="Catatan jadwal / lokasi";submit.type="submit";
+  form.append(course,instructor,start,meetings,notes,submit);
+  form.addEventListener("submit",async function(e){e.preventDefault();var selected=courseCatalog.find(function(c){return c.id===course.value;});var ins=await client.from("course_enrollments").insert({order_item_id:item.id,customer_id:order.customer_id,course_id:course.value,instructor_name:instructor.value||null,start_date:start.value||null,meetings_total:Number(meetings.value)||selected&&selected.meeting_count||null,schedule_notes:notes.value||null,enrollment_status:"pending"});if(ins.error)alert(ins.error.message);else await loadOrders();});
+  card.appendChild(form);
+ });
+}
+if(order.payment_status==="paid" && order.order_type==="digital"){
+ line.forEach(function(item){
+  if(entitlements.some(function(e){return e.order_item_id===item.id;}))return;
+  var form=node("form","admin-proof"),path=node("input"),limit=node("input"),submit=node("button","is-primary","Aktifkan unduhan");
+  path.placeholder="Path file di bagusin-private";path.required=true;limit.type="number";limit.min="1";limit.placeholder="Batas unduhan (kosong = tanpa batas)";submit.type="submit";form.append(path,limit,submit);
+  form.addEventListener("submit",async function(e){e.preventDefault();var ins=await client.from("digital_entitlements").insert({order_item_id:item.id,customer_id:order.customer_id,item_name:item.item_name,storage_bucket:"bagusin-private",storage_path:path.value.trim(),download_limit:limit.value?Number(limit.value):null,entitlement_status:"active"});if(ins.error)alert(ins.error.message);else await loadOrders();});
+  card.appendChild(form);
+ });
+}
 var invoice=invoices.find(function(i){return i.order_id===order.id;});if(invoice)card.appendChild(node("p","admin-note","Invoice: "+invoice.invoice_number+" · "+invoice.invoice_status+(invoice.due_at?" · jatuh tempo "+new Date(invoice.due_at).toLocaleString("id-ID"):"")));
 var acts=node("div","admin-actions");
 if(order.order_status==="pending_review"){var accept=node("button","is-primary","Terima & terbitkan invoice");accept.addEventListener("click",async function(){var setting=await client.from("site_settings").select("setting_value").eq("setting_key","payment_expiry_hours").maybeSingle();var hours=Math.max(1,Math.min(168,Number(setting.data&&setting.data.setting_value)||24));var now=new Date(),due=new Date(now.getTime()+hours*60*60*1000);var r=await client.from("orders").update({order_status:"awaiting_payment",accepted_at:now.toISOString(),expires_at:due.toISOString()}).eq("id",order.id);if(r.error){alert(r.error.message);return;}var inv=await client.from("invoices").upsert({order_id:order.id,invoice_status:"issued",issued_at:now.toISOString(),due_at:due.toISOString(),subtotal_amount:order.subtotal_amount,shipping_amount:order.shipping_amount,discount_amount:order.discount_amount,total_amount:order.total_amount},{onConflict:"order_id"});if(inv.error)alert(inv.error.message);await loadOrders();});acts.appendChild(accept);}
@@ -38,8 +71,21 @@ if(pay&&pay.proof_path){var proof=await client.storage.from("bagusin-payment-pro
 if(pay&&pay.payment_status==="proof_submitted"){var verify=node("button","is-primary","Konfirmasi dana masuk");verify.addEventListener("click",async function(){if(!confirm("Pastikan dana benar-benar sudah masuk ke rekening BCA. Konfirmasi pembayaran?"))return;var p=await client.from("payments").update({payment_status:"verified",verified_at:new Date().toISOString(),verified_by:user.id}).eq("id",pay.id);if(p.error){alert(p.error.message);return;}var paidAt=new Date().toISOString();var o=await client.from("orders").update({payment_status:"paid",paid_at:paidAt,order_status:"processing"}).eq("id",order.id);if(o.error){alert(o.error.message);return;}await client.from("invoices").update({invoice_status:"paid"}).eq("order_id",order.id);await loadOrders();});acts.appendChild(verify);}
 if(order.order_status==="awaiting_payment"){var expire=node("button","","Tandai kedaluwarsa");expire.addEventListener("click",async function(){var r=await client.from("orders").update({order_status:"expired"}).eq("id",order.id);if(r.error)alert(r.error.message);else{await client.from("invoices").update({invoice_status:"expired"}).eq("order_id",order.id);await loadOrders();}});acts.appendChild(expire);}
 if(order.order_type==="physical"&&order.payment_status==="paid"){var shipForm=node("form","admin-proof"),carrier=node("input"),tracking=node("input"),url=node("input"),submit=node("button","is-primary","Simpan resi");carrier.placeholder="Nama kurir";carrier.required=true;tracking.placeholder="Nomor resi";url.placeholder="URL pelacakan (opsional)";submit.type="submit";shipForm.append(carrier,tracking,url,submit);shipForm.addEventListener("submit",async function(e){e.preventDefault();var s=await client.from("shipments").insert({order_id:order.id,shipping_method:order.shipping_method||"courier_manual",carrier_name:carrier.value,tracking_number:tracking.value,tracking_url:url.value||null,shipment_status:"in_transit",shipped_at:new Date().toISOString()});if(s.error){alert(s.error.message);return;}var u=await client.from("orders").update({fulfillment_status:"shipped"}).eq("id",order.id);if(u.error)alert(u.error.message);await loadOrders();});card.appendChild(shipForm);}
+if(order.payment_status==="paid" && order.order_status==="processing" && order.order_type!=="physical"){
+ var complete=node("button","is-primary","Tandai pekerjaan selesai");
+ complete.addEventListener("click",async function(){var u=await client.from("orders").update({order_status:"completed",fulfillment_status:"completed",completed_at:new Date().toISOString()}).eq("id",order.id);if(u.error)alert(u.error.message);else await loadOrders();});
+ acts.appendChild(complete);
+}
 if(acts.childNodes.length)card.appendChild(acts);
-var shipment=shipments.find(function(s){return s.order_id===order.id;});if(shipment)card.appendChild(node("p","admin-note","Pengiriman: "+(shipment.carrier_name||shipment.shipping_method)+" · "+(shipment.tracking_number||shipment.shipment_status)));
+var shipment=shipments.find(function(s){return s.order_id===order.id;});
+if(shipment){
+ card.appendChild(node("p","admin-note","Pengiriman: "+(shipment.carrier_name||shipment.shipping_method)+" · "+(shipment.tracking_number||shipment.shipment_status)));
+ if(shipment.shipment_status!=="delivered"){
+  var delivered=node("button","admin-button admin-button--light","Tandai sudah diterima");
+  delivered.addEventListener("click",async function(){var now=new Date().toISOString();var s=await client.from("shipments").update({shipment_status:"delivered",delivered_at:now}).eq("id",shipment.id);if(s.error){alert(s.error.message);return;}var o=await client.from("orders").update({fulfillment_status:"delivered",order_status:"completed",completed_at:now}).eq("id",order.id);if(o.error)alert(o.error.message);await loadOrders();});
+  card.appendChild(delivered);
+ }
+}
 var wa=String(order.customer_phone||"").replace(/[^0-9]/g,"");if(wa){var link=node("a","admin-note","Buka WhatsApp pelanggan ↗");link.href="https://wa.me/"+(wa.startsWith("0")?"62"+wa.slice(1):wa)+"?text="+encodeURIComponent("Halo "+order.customer_name+", terkait pesanan "+order.order_number+" di Bagusin. Silakan cek member area untuk detail terbaru.");link.target="_blank";link.rel="noopener noreferrer";card.appendChild(link);}
 box.appendChild(card);
 });
