@@ -455,10 +455,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const summary = buildBrief();
     createBriefOutput(summary);
     const fallbackPayload = buildEmailPayload();
-    const requestType = mode === "consultation" || mode === "appointment"
-      ? "consultation"
-      : service === "course-interest" ? "course"
-      : params.get("template") ? "template" : "project";
+    const requestType = service === "course-interest" ? "course"
+      : params.get("template") ? "template"
+      : mode === "consultation" || mode === "appointment" ? "consultation" : "project";
     const submitButton = form.querySelector('button[type="submit"]');
     form.querySelector("[data-mailto-fallback]")?.remove();
     if (submitButton) {
