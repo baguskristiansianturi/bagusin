@@ -70,6 +70,9 @@ async function loadStoreProducts(){
   edit.addEventListener("click",async function(){
    ["id","name","slug","sku","category","product_type","price_amount","stock_quantity","availability","status","brand","short_description","description","image_path","seo_title","seo_description"].forEach(function(k){if(storeForm.elements[k])storeForm.elements[k].value=p[k]??"";});
    storeForm.elements.manage_stock.checked=!!p.manage_stock;
+   var variantResult=await client.from("store_product_variants").select("sku,variant_name,variant_options,price_override,stock_quantity,status,sort_order").eq("product_id",p.id).order("sort_order",{ascending:true});
+   if(variantResult.error)throw variantResult.error;
+   storeForm.elements.variants_json.value=JSON.stringify((variantResult.data||[]).map(function(v){return {variant_name:v.variant_name,variant_options:v.variant_options,sku:v.sku,price_override:v.price_override,stock_quantity:v.stock_quantity,status:v.status,sort_order:v.sort_order};}),null,2);
    storeForm.elements.image_files.value="";
    await renderProductGallery(p.id);
    storeForm.scrollIntoView({behavior:"smooth",block:"start"});
@@ -84,6 +87,8 @@ if(storeForm){
   var f=e.currentTarget,d=new FormData(f),id=String(d.get("id")||""),slug=String(d.get("slug")||"").trim().toLowerCase(),name=String(d.get("name")||"").trim(),files=Array.from(f.elements.image_files.files||[]),imagePath=String(d.get("image_path")||"").trim(),btn=f.querySelector('button[type="submit"]');
   if(!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)){say("[data-store-product-message]","Slug hanya boleh berisi huruf kecil, angka, dan tanda hubung.");return;}
   for(var file of files){if(file.size>8*1024*1024){say("[data-store-product-message]","Ukuran setiap foto maksimal 8 MB.");return;}if(!["image/jpeg","image/png","image/webp","image/avif"].includes(file.type)){say("[data-store-product-message]","Format foto harus JPG, PNG, WebP, atau AVIF.");return;}}
+  var variantRows=[],variantText=String(d.get("variants_json")||"").trim();
+  if(variantText){try{variantRows=JSON.parse(variantText);}catch(parseError){say("[data-store-product-message]","Format variasi harus berupa JSON yang valid.");return;}if(!Array.isArray(variantRows)){say("[data-store-product-message]","Data variasi harus berupa array JSON.");return;}for(var vi=0;vi<variantRows.length;vi++){var row=variantRows[vi],opts=row&&row.variant_options;if(!row||typeof row!=="object"||!opts||typeof opts!=="object"||Array.isArray(opts)||!Object.keys(opts).length){say("[data-store-product-message]","Setiap variasi harus memiliki variant_options berupa objek dengan minimal satu atribut.");return;}var normalized={};Object.keys(opts).forEach(function(k){normalized[String(k).trim()]=String(opts[k]??"").trim();});if(Object.values(normalized).some(function(v){return !v;})){say("[data-store-product-message]","Nama atribut dan nilai variasi tidak boleh kosong.");return;}var stock=Number(row.stock_quantity??0),price=row.price_override==null||row.price_override===""?null:Number(row.price_override);if(!Number.isInteger(stock)||stock<0||(price!==null&&(!Number.isFinite(price)||price<0))){say("[data-store-product-message]","Harga dan stok variasi harus berupa angka nol atau lebih.");return;}variantRows[vi]={variant_name:String(row.variant_name||Object.entries(normalized).map(function(pair){return pair[0]+": "+pair[1];}).join(" · ")).trim(),variant_options:normalized,sku:String(row.sku||"").trim()||null,price_override:price,stock_quantity:stock,status:row.status==="archived"?"archived":"published",sort_order:Number.isInteger(Number(row.sort_order))?Number(row.sort_order):vi};}}
   btn.disabled=true;btn.textContent="Menyimpan…";
   try{
    var existing=[];
@@ -106,6 +111,8 @@ if(storeForm){
    var result=id?await client.from("store_products").update(payload).eq("id",id).select("id").single():await client.from("store_products").insert(payload).select("id").single();
    if(result.error)throw result.error;
    var productId=result.data.id,uploaded=[];
+   var clearVariants=await client.from("store_product_variants").delete().eq("product_id",productId);if(clearVariants.error)throw clearVariants.error;
+   if(variantRows.length){var variantInsert=await client.from("store_product_variants").insert(variantRows.map(function(v){return Object.assign({product_id:productId},v);}));if(variantInsert.error)throw variantInsert.error;}
    for(var i=0;i<files.length;i++){
     var imageFile=files[i],ext=imageFile.name.split(".").pop().toLowerCase().replace(/[^a-z0-9]/g,"")||"webp",path="products/"+slug+"-"+Date.now()+"-"+i+"."+ext;
     var upload=await client.storage.from("bagusin-public").upload(path,imageFile,{upsert:false,contentType:imageFile.type});if(upload.error)throw upload.error;
@@ -114,13 +121,13 @@ if(storeForm){
    }
    if(uploaded.length){var inserted=await client.from("store_product_images").insert(uploaded);if(inserted.error)throw inserted.error;}
    if(imagePath!==payload.image_path){var sync=await client.from("store_products").update({image_path:imagePath}).eq("id",productId);if(sync.error)throw sync.error;}
-   say("[data-store-product-message]",'Produk "'+name+'" berhasil disimpan dengan '+(remaining.length+uploaded.length)+' foto. Status: '+payload.status+'.');
-   f.reset();f.elements.id.value="";f.elements.manage_stock.checked=true;await renderProductGallery("");await loadStoreProducts();
+   say("[data-store-product-message]",'Produk "'+name+'" berhasil disimpan dengan '+(remaining.length+uploaded.length)+' foto dan '+variantRows.length+' variasi. Status: '+payload.status+'.');
+   f.reset();f.elements.id.value="";f.elements.manage_stock.checked=true;f.elements.variants_json.value="";await renderProductGallery("");await loadStoreProducts();
   }catch(err){say("[data-store-product-message]",err.message||"Produk belum dapat disimpan.");}
   finally{btn.disabled=false;btn.textContent="Simpan produk";}
  });
  var reset=storeForm.querySelector("[data-reset-store-product]");
- if(reset)reset.addEventListener("click",function(){storeForm.reset();storeForm.elements.id.value="";storeForm.elements.manage_stock.checked=true;renderProductGallery("");say("[data-store-product-message]","Form siap untuk produk baru.");});
+ if(reset)reset.addEventListener("click",function(){storeForm.reset();storeForm.elements.id.value="";storeForm.elements.manage_stock.checked=true;storeForm.elements.variants_json.value="";renderProductGallery("");say("[data-store-product-message]","Form siap untuk produk baru.");});
 }
 var refreshStore=document.querySelector("[data-refresh-store-products]");
 if(refreshStore)refreshStore.addEventListener("click",function(){loadStoreProducts().catch(function(e){say("[data-store-product-message]",e.message);});});
