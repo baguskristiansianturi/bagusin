@@ -674,6 +674,9 @@ try {
   await interactionPage.route("https://hpmeoxynftankklwgntb.supabase.co/rest/v1/store_products*", route => route.fulfill({
     status: 200, contentType: "application/json", body: JSON.stringify([demoProduct])
   }));
+  await interactionPage.route("https://hpmeoxynftankklwgntb.supabase.co/rest/v1/store_product_variants*", route => route.fulfill({
+    status: 200, contentType: "application/json", body: JSON.stringify(demoVariants)
+  }));
   let storeCheckoutPayload = null;
   await interactionPage.route("https://hpmeoxynftankklwgntb.supabase.co/functions/v1/store-checkout", async route => {
     storeCheckoutPayload = route.request().postDataJSON();
