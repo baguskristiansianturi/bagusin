@@ -149,3 +149,15 @@ A new AI session must read this file, verify current repository state, and conti
 - **Next exact actions:** finish source/CI review; fix any JS/browser issues; test owner login and admin role on Android; create a test customer/order, submit proof, verify payment, complete order, test review and secure download; only then merge and verify GitHub Pages deployment.
 - **Current limitation:** customer-facing product/service CTAs are not all wired to automatic order creation yet. Initial operational flow is inquiry → admin-created order/invoice → member area.
 - **Rollback:** code changes are isolated in PR #160. Database changes are additive migrations; do not drop tables or buckets for rollback.
+
+
+## Session handoff — 2026-11-04: Store product responsive design pass
+
+- **Objective:** repair the Bagusin Store catalogue cards, product detail layout, breadcrumb, gallery, purchase controls, and mobile/tablet responsive behavior without changing commerce data or checkout logic.
+- **Branch:** `fix/store-product-responsive-design` (based on main `c7ae65a93ad4eb228d517d74ae3ea1a8bfe3406e`).
+- **Implementation:** added isolated `css/storefront/store-responsive.css` after the existing Store styles on both catalogue and product detail pages. This normalizes card image frames, card typography/actions, gallery sizing, product information columns, breadcrumb wrapping, header icon dimensions, and breakpoints down to 320px. Replaced the catalogue's text-glyph wishlist with the same consistent SVG heart treatment used by the product detail page, including a saved state.
+- **Scope guard:** no product data, Supabase schema, cart persistence, variant selection, order submission, checkout behavior, shared global header/footer, or unrelated pages changed.
+- **Tests:** pending static audit and responsive browser smoke checks at 320/360/375/390/520/760/820/1024/1440 px. Visual QA on an Android phone and live Pages verification remain pending.
+- **Known limitation:** existing legacy Store stylesheets contain repeated historical overrides; this pass uses a final isolated override layer rather than a broad stylesheet refactor.
+- **Next exact action:** run CI, review the PR diff, fix any failed checks, merge only after gates pass, then verify catalogue and detail pages on Bagus's Android browser.
+- **Rollback:** revert this focused branch/PR; previous known-good main SHA is `c7ae65a93ad4eb228d517d74ae3ea1a8bfe3406e`.
