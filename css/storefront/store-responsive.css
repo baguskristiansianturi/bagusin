@@ -1038,3 +1038,41 @@
  .store-card-price-stack .store-card-price{font-size:.66rem}
  .store-card-price-wrap>.store-detail-link{min-width:2.8rem;padding-inline:.35rem}
 }
+
+/* Card interior spacing: keep copy and price/action comfortably inside the border. */
+.store-page .store-card-body{
+ box-sizing:border-box!important;
+ padding:.62rem .72rem .72rem!important;
+ min-width:0;
+}
+.store-page .store-card-desc{
+ box-sizing:border-box;
+ padding-inline:.18rem!important;
+ margin:.24rem 0 .32rem!important;
+}
+.store-page .store-card-price-wrap{
+ box-sizing:border-box;
+ width:100%;
+ margin:auto 0 0!important;
+ padding:.58rem .18rem .12rem!important;
+ column-gap:.65rem!important;
+}
+.store-page .store-card-price-stack{
+ min-width:0;
+ padding-left:.02rem;
+}
+.store-page .store-card-price-wrap>.store-detail-link{
+ margin-right:.02rem;
+}
+@media(max-width:520px){
+ .store-page .store-card-body{padding:.55rem .58rem .62rem!important}
+ .store-page .store-card-desc{padding-inline:.14rem!important}
+ .store-page .store-card-price-wrap{
+  padding:.52rem .14rem .1rem!important;
+  column-gap:.48rem!important;
+ }
+}
+@media(max-width:370px){
+ .store-page .store-card-body{padding:.5rem .5rem .58rem!important}
+ .store-page .store-card-price-wrap{column-gap:.35rem!important}
+}
