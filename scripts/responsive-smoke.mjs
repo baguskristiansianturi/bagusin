@@ -762,7 +762,7 @@ try {
   if (!meetingHref?.includes("service=consultation") || !meetingHref.includes("meeting=in-person")) errors.push("Template detail: in-person meeting CTA does not preselect paid consultation");
 
   await interactionPage.goto(origin + "/bagusin/demos/starter/travel-rental/bagus-sewa-mobil-bali-01/", { waitUntil: "domcontentloaded" });
-  await interactionPage.waitForURL(/\\/bagusin\\/$/, { timeout: 5000 });
+  await interactionPage.waitForURL(url => url.pathname === "/bagusin/", { timeout: 5000 });
   if (!interactionPage.url().endsWith("/bagusin/")) errors.push("Template demo: closed demo route did not redirect to the Bagusin homepage");
 
   await interactionPage.goto(origin + "/bagusin/portfolio/", { waitUntil: "domcontentloaded" });
