@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#17191d">
+<meta name="robots" content="noindex,nofollow">
+<title>Bagusin Store Admin</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./admin.css?v=1">
+</head>
+<body>
+<header class="topbar"><a class="brand" href="/bagusin/admin/store/"><span class="brand-mark">B</span><span><b>Bagusin</b><small>STORE ADMIN</small></span></a><div class="top-actions"><a href="/bagusin/admin/" class="quiet-link">Dashboard utama</a><button id="signout" class="text-button" hidden>Keluar</button></div></header>
+<main class="wrap">
+<section id="auth-panel" class="auth-panel">
+ <div class="eyebrow">RUANG PENGELOLA TOKO</div><h1>Masuk ke Bagusin Admin</h1><p>Kelola produk, foto, harga, variasi, dan stok langsung dari HP.</p>
+ <form id="login-form" class="form-stack"><label>Email<input name="email" type="email" autocomplete="username" required placeholder="email admin"></label><label>Kata sandi<input name="password" type="password" autocomplete="current-password" minlength="8" required placeholder="Kata sandi"></label><button class="primary" type="submit">Masuk</button></form>
+ <p id="auth-message" class="message" role="status"></p><p class="hint">Belum memiliki akun? Buat akun melalui <a href="/bagusin/account/">halaman akun Bagusin</a>. Akses pengelola hanya diberikan kepada akun yang ditetapkan sebagai admin.</p>
+</section>
+<section id="app-panel" hidden>
+ <div class="page-heading"><div><div class="eyebrow">BAGUSIN STORE</div><h1>Kelola produk</h1><p id="welcome">Kelola katalog dari perangkat mobile.</p></div><button id="new-product" class="primary">＋ Produk baru</button></div>
+ <div class="stats" id="stats"><div><b id="total-count">—</b><span>Total produk</span></div><div><b id="published-count">—</b><span>Ditampilkan</span></div><div><b id="photo-count">—</b><span>Foto tersimpan</span></div></div>
+ <div class="toolbar"><input id="search" type="search" placeholder="Cari nama produk atau SKU"><select id="status-filter" aria-label="Filter status"><option value="">Semua status</option><option value="published">Published</option><option value="draft">Draft</option><option value="archived">Arsip</option></select></div>
+ <div id="product-list" class="product-list"><p class="muted">Memuat katalog…</p></div>
+</section>
+</main>
+<nav class="mobile-dock" id="dock" hidden><a class="active" href="/bagusin/admin/store/"><span>▦</span>Produk</a><a href="/bagusin/admin/#orders"><span>▤</span>Pesanan</a><a href="/bagusin/admin/"><span>⚙</span>Admin</a></nav>
+<dialog id="editor" class="editor">
+ <form id="product-form" method="dialog">
+  <div class="editor-head"><div><div class="eyebrow">KATALOG PRODUK</div><h2 id="editor-title">Produk baru</h2></div><button type="button" id="close-editor" class="close">×</button></div>
+  <input type="hidden" name="id">
+  <div class="editor-body">
+   <section class="form-section"><h3>Informasi produk</h3>
+    <label>Nama produk<input name="name" required maxlength="180" placeholder="Nama produk"></label>
+    <div class="two"><label>Slug<input name="slug" required pattern="[a-z0-9-]+" placeholder="nama-produk"></label><label>SKU<input name="sku" maxlength="80" placeholder="Kode produk"></label></div>
+    <div class="two"><label>Kategori<input name="category" list="category-list" maxlength="100" placeholder="Pilih atau tulis kategori"><datalist id="category-list"></datalist></label><label>Brand<input name="brand" maxlength="100"></label></div>
+    <label>Deskripsi singkat<input name="short_description" maxlength="240"></label>
+    <label>Deskripsi produk<textarea name="description" rows="4" maxlength="10000"></textarea></label>
+   </section>
+   <section class="form-section"><h3>Harga dan persediaan</h3>
+    <div class="two"><label>Harga jual (Rp)<input name="price_amount" type="number" min="0" step="1000" required value="0"></label><label>Harga sebelum diskon<input name="compare_at_price" type="number" min="0" step="1000"></label></div>
+    <div class="two"><label>Stok tersedia<input name="stock_quantity" type="number" min="0" step="1" value="0"></label><label>Ketersediaan<select name="availability"><option value="in_stock">Tersedia</option><option value="out_of_stock">Stok habis</option><option value="preorder">Pre-order</option></select></label></div>
+    <div class="two"><label>Status katalog<select name="status"><option value="draft">Draft</option><option value="published">Publikasikan</option><option value="archived">Arsip</option></select></label><label>Jenis produk<select name="product_type"><option value="physical">Produk fisik</option><option value="digital">Produk digital</option></select></label></div>
+    <label class="check"><input name="manage_stock" type="checkbox" checked> Kelola stok otomatis</label>
+   </section>
+   <section class="form-section"><div class="section-title"><div><h3>Foto produk</h3><p>Pilih dari galeri HP atau ambil foto langsung. Maksimal 15 foto, 8 MB per foto.</p></div><span id="photo-count-label" class="counter">0/15</span></div>
+    <label class="upload-zone"><span class="upload-icon">＋</span><b>Tambah foto produk</b><small>JPG, PNG, WebP, AVIF</small><input name="photos" type="file" accept="image/jpeg,image/png,image/webp,image/avif" multiple></label>
+    <div id="gallery" class="gallery"><p class="muted">Foto yang sudah tersimpan akan muncul di sini.</p></div>
+   </section>
+   <section class="form-section"><h3>Variasi produk</h3><p class="muted">Tambahkan ukuran, warna, kapasitas, atau pilihan lain. Harga kosong berarti mengikuti harga utama.</p><div id="variants" class="variants"></div><button type="button" id="add-variant" class="secondary">＋ Tambah variasi</button></section>
+   <section class="form-section"><h3>Informasi tambahan</h3><label>Label promo<input name="promo_label" maxlength="60" placeholder="Contoh: Hemat 15%"></label><label>Judul SEO<input name="seo_title" maxlength="70"></label><label>Deskripsi SEO<textarea name="seo_description" rows="2" maxlength="180"></textarea></label></section>
+  </div>
+  <div class="editor-foot"><p id="save-message" class="message" role="status"></p><button type="button" id="cancel-editor" class="secondary">Batal</button><button type="submit" id="save-product" class="primary">Simpan produk</button></div>
+ </form>
+</dialog>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="../../js/supabase-client.js"></script>
+<script src="./admin.js?v=1" defer></script>
+</body></html>
