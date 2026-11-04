@@ -456,11 +456,10 @@ try {
   if (englishFooterLinks.some(link => /search|author|portfolio|destinations/i.test(link.href))) {
     errors.push("English contact page: footer still exposes a legacy Search, Author, Portfolio, or Destinations link");
   }
-  await interactionPage.locator("[data-stepper-next]").click();
+  await interactionPage.locator("#project-form [data-stepper-next]").click();
   await interactionPage.locator("#project-form input[name=name]").fill("English Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("english@example.com");
   await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the English contact email flow.");
-  await interactionPage.locator("[data-stepper-next]").click();
   await interactionPage.locator("#project-form input[name=terms]").check();
   await interactionPage.locator("#project-form button[type=submit]").click();
   await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("Your request has been saved in Bagusin"), null, { timeout: 12000 });
