@@ -420,7 +420,7 @@ try {
   await interactionPage.locator("#project-form input[name=name]").fill("Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("test@example.com");
   await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the contact email submission flow.");
-  await interactionPage.locator("#project-form input[name=terms]").check();
+  await interactionPage.locator("#project-form .form-consent label").click();
   await interactionPage.locator("#project-form button[type=submit]").click();
   await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("Permintaan Anda berhasil tersimpan di Bagusin"), null, { timeout: 12000 });
   const preparedBrief = interactionPage.locator("#project-form [data-brief-output]");
@@ -460,7 +460,7 @@ try {
   await interactionPage.locator("#project-form input[name=name]").fill("English Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("english@example.com");
   await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the English contact email flow.");
-  await interactionPage.locator("#project-form input[name=terms]").check();
+  await interactionPage.locator("#project-form .form-consent label").click();
   await interactionPage.locator("#project-form button[type=submit]").click();
   await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("Your request has been saved in Bagusin"), null, { timeout: 12000 });
   if (!contactInquiryPayload || contactInquiryPayload.request_type !== "consultation" || !contactInquiryPayload.subject.includes("Copywriting")) errors.push("English contact form: inquiry record is missing the selected service and inquiry mode");
@@ -479,7 +479,7 @@ try {
   await interactionPage.locator("#project-form input[name=name]").fill("Fallback Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("fallback@example.com");
   await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the manual email fallback.");
-  await interactionPage.locator("#project-form input[name=terms]").check();
+  await interactionPage.locator("#project-form .form-consent label").click();
   await interactionPage.locator("#project-form button[type=submit]").click();
   await interactionPage.waitForFunction(() => document.querySelector("#project-form [data-mailto-fallback]") !== null, null, { timeout: 5000 });
   const fallbackLink = interactionPage.locator("#project-form [data-mailto-fallback]");
