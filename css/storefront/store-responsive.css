@@ -1142,3 +1142,63 @@
  }
  .store-page .store-card-wishlist svg{width:1.2rem!important;height:1.2rem!important}
 }
+
+
+/* Compact category navigation below the home hero (mobile-first). */
+@media(max-width:680px){
+ .store-page .store-category-feature{
+  margin:0 0 .9rem!important;
+  min-width:0;
+ }
+ .store-page .store-feature-heading{
+  margin:0 0 .55rem!important;
+  align-items:center!important;
+ }
+ .store-page .store-feature-heading h2{font-size:.92rem!important}
+ .store-page .store-section-kicker{font-size:.52rem!important}
+ .store-page .store-feature-arrows{gap:.25rem}
+ .store-page .store-feature-arrows button{
+  width:1.75rem!important;height:1.75rem!important;
+  min-width:1.75rem;padding:0;font-size:.8rem;
+ }
+ .store-page .store-category-tiles{
+  display:grid!important;
+  grid-template-columns:none!important;
+  grid-auto-flow:column!important;
+  grid-auto-columns:4.35rem!important;
+  gap:.4rem!important;
+  width:100%!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  padding:0 0 .2rem!important;
+  scroll-snap-type:x proximity;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+ }
+ .store-page .store-category-tiles::-webkit-scrollbar{display:none}
+ .store-page .store-category-tile{
+  min-width:0!important;
+  width:4.35rem!important;
+  min-height:4.25rem!important;
+  height:4.25rem!important;
+  padding:.4rem .2rem!important;
+  gap:.3rem!important;
+  border-radius:.45rem!important;
+  scroll-snap-align:start;
+ }
+ .store-page .store-tile-icon svg{
+  width:1.35rem!important;height:1.35rem!important;
+ }
+ .store-page .store-category-tile strong{
+  max-width:100%;
+  font-size:.57rem!important;
+  line-height:1.15!important;
+  text-align:center;
+  overflow-wrap:anywhere;
+ }
+}
+@media(max-width:380px){
+ .store-page .store-category-tiles{grid-auto-columns:4rem!important;gap:.35rem!important}
+ .store-page .store-category-tile{width:4rem!important;height:4.1rem!important;min-height:4.1rem!important}
+ .store-page .store-tile-icon svg{width:1.25rem!important;height:1.25rem!important}
+}
