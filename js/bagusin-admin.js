@@ -25,7 +25,7 @@ var inquiryBox=document.querySelector("[data-admin-inquiries]");
 async function loadInquiries(){if(!inquiryBox)return;inquiryBox.replaceChildren(node("p","admin-note","Memuat inquiry…"));var r=await client.from("inquiries").select("*").order("created_at",{ascending:false}).limit(100);if(r.error)throw r.error;inquiryBox.replaceChildren();var rows=r.data||[];if(!rows.length){inquiryBox.appendChild(node("p","admin-note","Belum ada inquiry masuk."));return;}rows.forEach(function(item){var card=node("article","admin-inquiry"),head=node("div","admin-store-product__head"),title=node("strong","",(item.subject||"Permintaan umum")+" · "+item.full_name),status=node("span","admin-store-product__status",item.status);head.append(title,status);card.append(head,node("p","admin-note",item.request_type+" · "+new Date(item.created_at).toLocaleString("id-ID")+" · "+(item.source_path||"")));var contact=node("p","admin-note",item.email+(item.phone?" · "+item.phone:"")+(item.company_name?" · "+item.company_name:""));card.appendChild(contact);var body=node("p","admin-inquiry__message",item.message);body.style.whiteSpace="pre-wrap";card.appendChild(body);var actions=node("div","admin-actions"),mail=node("a","admin-button admin-button--light","Balas email");mail.href="mailto:"+encodeURIComponent(item.email)+"?subject="+encodeURIComponent("Re: "+(item.subject||"Permintaan Bagusin"));actions.appendChild(mail);var phone=String(item.phone||"").replace(/[^0-9]/g,"");if(phone){var wa=node("a","admin-button admin-button--light","WhatsApp");wa.href="https://wa.me/"+(phone.startsWith("0")?"62"+phone.slice(1):phone)+"?text="+encodeURIComponent("Halo "+item.full_name+", terima kasih telah menghubungi Bagusin. Kami menindaklanjuti permintaan Anda.");wa.target="_blank";wa.rel="noopener noreferrer";actions.appendChild(wa);}var select=node("select","admin-inquiry-status");["new","in_review","replied","qualified","closed","spam"].forEach(function(v){var opt=node("option","",v.replace("_"," "));opt.value=v;select.appendChild(opt);});select.value=item.status;select.setAttribute("aria-label","Status inquiry");select.addEventListener("change",async function(){select.disabled=true;var u=await client.from("inquiries").update({status:select.value,updated_at:new Date().toISOString()}).eq("id",item.id);if(u.error){alert(u.error.message);select.value=item.status;}else{item.status=select.value;status.textContent=item.status;}select.disabled=false;});actions.appendChild(select);card.appendChild(actions);inquiryBox.appendChild(card);});}
 var refreshInquiries=document.querySelector("[data-refresh-inquiries]");if(refreshInquiries)refreshInquiries.addEventListener("click",function(){loadInquiries().catch(function(e){say("[data-admin-message]",e.message);});});
 var storeForm=document.querySelector("[data-store-product-form]"),storeBox=document.querySelector("[data-admin-store-products]"),galleryEditor=document.querySelector("[data-store-gallery-editor]"),storeProducts=[];
-function publicImage(path){return client.storage.from("bagusin-public").getPublicUrl(path).data.publicUrl;}
+function publicImage(path){var value=String(path||"");return value.indexOf("http://")===0||value.indexOf("https://")===0?value:client.storage.from("bagusin-public").getPublicUrl(value).data.publicUrl;}
 async function renderProductGallery(productId){
  if(!galleryEditor)return;
  galleryEditor.replaceChildren(node("p","admin-note","Memuat galeri foto…"));
@@ -71,10 +71,10 @@ async function loadStoreProducts(){
    ["id","name","slug","sku","category","product_type","price_amount","stock_quantity","availability","status","brand","condition","short_description","description","image_path","seo_title","seo_description"].forEach(function(k){if(storeForm.elements[k])storeForm.elements[k].value=p[k]??"";});
    storeForm.elements.manage_stock.checked=!!p.manage_stock;
    storeForm.elements.specifications_json.value=JSON.stringify(p.specifications||[],null,2);
-   var variantResult=await client.from("store_product_variants").select("sku,variant_name,variant_options,price_override,stock_quantity,status,sort_order").eq("product_id",p.id).order("sort_order",{ascending:true});
+   var variantResult=await client.from("store_product_variants").select("sku,variant_name,variant_options,price_override,stock_quantity,status,sort_order,image_path").eq("product_id",p.id).order("sort_order",{ascending:true});
    if(variantResult.error)throw variantResult.error;
-   storeForm.elements.variants_json.value=JSON.stringify((variantResult.data||[]).map(function(v){return {variant_name:v.variant_name,variant_options:v.variant_options,sku:v.sku,price_override:v.price_override,stock_quantity:v.stock_quantity,status:v.status,sort_order:v.sort_order};}),null,2);
-   storeForm.elements.image_files.value="";
+   storeForm.elements.variants_json.value=JSON.stringify((variantResult.data||[]).map(function(v){return {variant_name:v.variant_name,variant_options:v.variant_options,sku:v.sku,price_override:v.price_override,stock_quantity:v.stock_quantity,status:v.status,sort_order:v.sort_order,image_path:v.image_path||null};}),null,2);
+   storeForm.elements.image_files.value="";storeForm.elements.variant_image_files.value="";
    await renderProductGallery(p.id);
    storeForm.scrollIntoView({behavior:"smooth",block:"start"});
    say("[data-store-product-message]","Mengedit "+p.name+". Kelola foto yang ada atau tambahkan foto baru, lalu simpan.");
@@ -85,13 +85,13 @@ async function loadStoreProducts(){
 if(storeForm){
  storeForm.addEventListener("submit",async function(e){
   e.preventDefault();
-  var f=e.currentTarget,d=new FormData(f),id=String(d.get("id")||""),slug=String(d.get("slug")||"").trim().toLowerCase(),name=String(d.get("name")||"").trim(),files=Array.from(f.elements.image_files.files||[]),imagePath=String(d.get("image_path")||"").trim(),btn=f.querySelector('button[type="submit"]');
+  var f=e.currentTarget,d=new FormData(f),id=String(d.get("id")||""),slug=String(d.get("slug")||"").trim().toLowerCase(),name=String(d.get("name")||"").trim(),files=Array.from(f.elements.image_files.files||[]),variantFiles=Array.from(f.elements.variant_image_files.files||[]),imagePath=String(d.get("image_path")||"").trim(),btn=f.querySelector('button[type="submit"]');
   if(!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)){say("[data-store-product-message]","Slug hanya boleh berisi huruf kecil, angka, dan tanda hubung.");return;}
-  for(var file of files){if(file.size>8*1024*1024){say("[data-store-product-message]","Ukuran setiap foto maksimal 8 MB.");return;}if(!["image/jpeg","image/png","image/webp","image/avif"].includes(file.type)){say("[data-store-product-message]","Format foto harus JPG, PNG, WebP, atau AVIF.");return;}}
+  for(var file of files.concat(variantFiles)){if(file.size>8*1024*1024){say("[data-store-product-message]","Ukuran setiap foto maksimal 8 MB.");return;}if(!["image/jpeg","image/png","image/webp","image/avif"].includes(file.type)){say("[data-store-product-message]","Format foto harus JPG, PNG, WebP, atau AVIF.");return;}}
   var specificationRows=[],specificationText=String(d.get("specifications_json")||"").trim();
   if(specificationText){try{specificationRows=JSON.parse(specificationText);}catch(parseError){say("[data-store-product-message]","Format spesifikasi harus berupa JSON yang valid.");return;}if(!Array.isArray(specificationRows)){say("[data-store-product-message]","Spesifikasi harus berupa array JSON.");return;}for(var si=0;si<specificationRows.length;si++){var group=specificationRows[si],items=group&&group.items;if(!group||typeof group!=="object"||!String(group.group||"").trim()||!items||typeof items!=="object"||Array.isArray(items)||!Object.keys(items).length){say("[data-store-product-message]","Setiap kelompok spesifikasi harus memiliki nama dan objek items.");return;}var normalizedItems={};Object.keys(items).forEach(function(k){normalizedItems[String(k).trim()]=String(items[k]??"").trim();});if(Object.values(normalizedItems).some(function(v){return !v;})){say("[data-store-product-message]","Nama dan nilai spesifikasi tidak boleh kosong.");return;}specificationRows[si]={group:String(group.group).trim(),items:normalizedItems};}}
   var variantRows=[],variantText=String(d.get("variants_json")||"").trim();
-  if(variantText){try{variantRows=JSON.parse(variantText);}catch(parseError){say("[data-store-product-message]","Format variasi harus berupa JSON yang valid.");return;}if(!Array.isArray(variantRows)){say("[data-store-product-message]","Data variasi harus berupa array JSON.");return;}for(var vi=0;vi<variantRows.length;vi++){var row=variantRows[vi],opts=row&&row.variant_options;if(!row||typeof row!=="object"||!opts||typeof opts!=="object"||Array.isArray(opts)||!Object.keys(opts).length){say("[data-store-product-message]","Setiap variasi harus memiliki variant_options berupa objek dengan minimal satu atribut.");return;}var normalized={};Object.keys(opts).forEach(function(k){normalized[String(k).trim()]=String(opts[k]??"").trim();});if(Object.values(normalized).some(function(v){return !v;})){say("[data-store-product-message]","Nama atribut dan nilai variasi tidak boleh kosong.");return;}var stock=Number(row.stock_quantity??0),price=row.price_override==null||row.price_override===""?null:Number(row.price_override);if(!Number.isInteger(stock)||stock<0||(price!==null&&(!Number.isFinite(price)||price<0))){say("[data-store-product-message]","Harga dan stok variasi harus berupa angka nol atau lebih.");return;}variantRows[vi]={variant_name:String(row.variant_name||Object.entries(normalized).map(function(pair){return pair[0]+": "+pair[1];}).join(" · ")).trim(),variant_options:normalized,sku:String(row.sku||"").trim()||null,price_override:price,stock_quantity:stock,status:row.status==="archived"?"archived":"published",sort_order:Number.isInteger(Number(row.sort_order))?Number(row.sort_order):vi};}}
+  if(variantText){try{variantRows=JSON.parse(variantText);}catch(parseError){say("[data-store-product-message]","Format variasi harus berupa JSON yang valid.");return;}if(!Array.isArray(variantRows)){say("[data-store-product-message]","Data variasi harus berupa array JSON.");return;}for(var vi=0;vi<variantRows.length;vi++){var row=variantRows[vi],opts=row&&row.variant_options;if(!row||typeof row!=="object"||!opts||typeof opts!=="object"||Array.isArray(opts)||!Object.keys(opts).length){say("[data-store-product-message]","Setiap variasi harus memiliki variant_options berupa objek dengan minimal satu atribut.");return;}var normalized={};Object.keys(opts).forEach(function(k){normalized[String(k).trim()]=String(opts[k]??"").trim();});if(Object.values(normalized).some(function(v){return !v;})){say("[data-store-product-message]","Nama atribut dan nilai variasi tidak boleh kosong.");return;}var stock=Number(row.stock_quantity??0),price=row.price_override==null||row.price_override===""?null:Number(row.price_override);if(!Number.isInteger(stock)||stock<0||(price!==null&&(!Number.isFinite(price)||price<0))){say("[data-store-product-message]","Harga dan stok variasi harus berupa angka nol atau lebih.");return;}variantRows[vi]={variant_name:String(row.variant_name||Object.entries(normalized).map(function(pair){return pair[0]+": "+pair[1];}).join(" · ")).trim(),variant_options:normalized,sku:String(row.sku||"").trim()||null,price_override:price,stock_quantity:stock,status:row.status==="archived"?"archived":"published",sort_order:Number.isInteger(Number(row.sort_order))?Number(row.sort_order):vi,image_path:String(row.image_path||"").trim()||null};}}
   btn.disabled=true;btn.textContent="Menyimpan…";
   try{
    var existing=[];
@@ -103,7 +103,7 @@ if(storeForm){
     var removed=existing.filter(function(x){return removeIds.includes(x.id);});
     var removedPrimary=removed.find(function(x){return x.is_primary;});
     var del=await client.from("store_product_images").delete().in("id",removeIds);if(del.error)throw del.error;
-    var storageDel=await client.storage.from("bagusin-public").remove(removed.map(function(x){return x.image_path;}));if(storageDel.error)throw storageDel.error;
+    var storageDel=await client.storage.from("bagusin-public").remove(removed.map(function(x){return x.image_path;}).filter(function(path){var value=String(path||"");return value.indexOf("http://")!==0&&value.indexOf("https://")!==0;}));if(storageDel.error)throw storageDel.error;
     if(removedPrimary&&imagePath===removedPrimary.image_path)imagePath=remaining.length?remaining[0].image_path:null;
     for(var ri=0;ri<remaining.length;ri++){
      var normalize=await client.from("store_product_images").update({sort_order:ri,is_primary:removedPrimary?ri===0:!!remaining[ri].is_primary}).eq("id",remaining[ri].id);
@@ -114,13 +114,15 @@ if(storeForm){
    var result=id?await client.from("store_products").update(payload).eq("id",id).select("id").single():await client.from("store_products").insert(payload).select("id").single();
    if(result.error)throw result.error;
    var productId=result.data.id,uploaded=[];
+   var matchedVariantFiles=variantFiles.map(function(file){var base=file.name.replace(/\\.[^.]+$/,"").trim().toLowerCase();var row=variantRows.find(function(v){return String(v.sku||"").trim().toLowerCase()===base;});if(!row)throw Error("Nama file foto variasi harus sama dengan SKU variasi: "+file.name);return {file:file,row:row};});
+   for(var vf=0;vf<matchedVariantFiles.length;vf++){var pair=matchedVariantFiles[vf],variantFile=pair.file,variantExt=variantFile.name.split(".").pop().toLowerCase().replace(/[^a-z0-9]/g,"")||"webp",variantSku=String(pair.row.sku||"variant").replace(/[^a-zA-Z0-9_-]/g,"-"),variantPath="products/"+slug+"/variants/"+variantSku+"-"+Date.now()+"."+variantExt;var variantUpload=await client.storage.from("bagusin-public").upload(variantPath,variantFile,{upsert:true,contentType:variantFile.type});if(variantUpload.error)throw variantUpload.error;pair.row.image_path=variantPath;}
    var clearVariants=await client.from("store_product_variants").delete().eq("product_id",productId);if(clearVariants.error)throw clearVariants.error;
    if(variantRows.length){var variantInsert=await client.from("store_product_variants").insert(variantRows.map(function(v){return Object.assign({product_id:productId},v);}));if(variantInsert.error)throw variantInsert.error;}
    for(var i=0;i<files.length;i++){
     var imageFile=files[i],ext=imageFile.name.split(".").pop().toLowerCase().replace(/[^a-z0-9]/g,"")||"webp",path="products/"+slug+"-"+Date.now()+"-"+i+"."+ext;
     var upload=await client.storage.from("bagusin-public").upload(path,imageFile,{upsert:false,contentType:imageFile.type});if(upload.error)throw upload.error;
     uploaded.push({product_id:productId,image_path:path,alt_text:name+" — foto "+(remaining.length+i+1),sort_order:remaining.length+i,is_primary:remaining.length===0&&i===0});
-    if(!imagePath&&remaining.length===0&&i===0)imagePath=path;
+    if((!imagePath||imagePath.indexOf("http://")===0||imagePath.indexOf("https://")===0)&&remaining.length===0&&i===0)imagePath=path;
    }
    if(uploaded.length){var inserted=await client.from("store_product_images").insert(uploaded);if(inserted.error)throw inserted.error;}
    if(imagePath!==payload.image_path){var sync=await client.from("store_products").update({image_path:imagePath}).eq("id",productId);if(sync.error)throw sync.error;}
@@ -130,10 +132,23 @@ if(storeForm){
   finally{btn.disabled=false;btn.textContent="Simpan produk";}
  });
  var reset=storeForm.querySelector("[data-reset-store-product]");
- if(reset)reset.addEventListener("click",function(){storeForm.reset();storeForm.elements.id.value="";storeForm.elements.manage_stock.checked=true;storeForm.elements.specifications_json.value="";storeForm.elements.variants_json.value="";renderProductGallery("");say("[data-store-product-message]","Form siap untuk produk baru.");});
+ if(reset)reset.addEventListener("click",function(){storeForm.reset();storeForm.elements.id.value="";storeForm.elements.manage_stock.checked=true;storeForm.elements.specifications_json.value="";storeForm.elements.variants_json.value="";storeForm.elements.variant_image_files.value="";renderProductGallery("");say("[data-store-product-message]","Form siap untuk produk baru.");});
 }
 var refreshStore=document.querySelector("[data-refresh-store-products]");
 if(refreshStore)refreshStore.addEventListener("click",function(){loadStoreProducts().catch(function(e){say("[data-store-product-message]",e.message);});});
+var importStoreMedia=document.querySelector("[data-import-store-media]");
+if(importStoreMedia)importStoreMedia.addEventListener("click",async function(){
+ importStoreMedia.disabled=true;var original=importStoreMedia.textContent;importStoreMedia.textContent="Menyimpan foto…";
+ say("[data-store-product-message]","Mengunduh foto produk dan variasi dari sumber katalog, lalu menyimpannya ke Supabase Storage. Jangan tutup halaman ini dulu.");
+ try{
+  var result=await client.functions.invoke("store-import-product-media",{body:{}});
+  if(result.error)throw result.error;
+  var data=result.data||{},failed=Array.isArray(data.failed_assets)?data.failed_assets:[];
+  say("[data-store-product-message]","Impor foto selesai: "+Number(data.uploaded_files||0)+" file disimpan, "+Number(data.updated_references||0)+" referensi diperbarui, "+failed.length+" gagal."+(failed.length?" Periksa sumber foto yang gagal lalu coba lagi.":""));
+  await loadStoreProducts();
+ }catch(error){say("[data-store-product-message]",error.message||"Foto belum dapat disimpan ke Storage.");}
+ finally{importStoreMedia.disabled=false;importStoreMedia.textContent=original;}
+});
 async function loadOrders(){
 var box=document.querySelector("[data-admin-orders]");box.replaceChildren(node("p","admin-note","Memuat pesanan…"));
 var r=await client.from("orders").select("*").order("created_at",{ascending:false});if(r.error)throw r.error;
