@@ -1257,3 +1257,25 @@
  .store-form-actions button{flex:1;min-width:0!important}
  .store-checkout-item img{width:3.5rem;height:3.5rem;flex-basis:3.5rem}
 }
+
+/* Product trust details and customer review cards. */
+.store-product-social-proof{display:flex;flex-wrap:wrap;gap:.8rem 1.1rem;margin:.35rem 0 .8rem;color:#526678;font-size:.72rem;font-weight:650}
+.store-product-social-proof span+span{padding-left:.85rem;border-left:1px solid #dfe5e9}
+.store-product-delivery{display:grid;gap:.55rem;margin:1rem 0;padding:.85rem 0;border-block:1px solid #e8edf0}
+.store-product-delivery>div{display:grid;gap:.18rem}
+.store-product-delivery strong{font-size:.74rem;color:#243b4d}
+.store-product-delivery span{font-size:.7rem;line-height:1.5;color:#6c7a85}
+.store-product-reviews{margin:3rem 0 1rem;padding:1.7rem 0;border-top:1px solid #e7ebee}
+.store-reviews-heading{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem}
+.store-reviews-heading h2{margin:.35rem 0 0;font-size:1.35rem;letter-spacing:-.035em}
+.store-reviews-score{color:#273f52;font-size:1rem}
+.store-reviews-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}
+.store-review-card,.store-reviews-empty{padding:1rem;border:1px solid #e6ebef;border-radius:.45rem;background:#fff}
+.store-review-top{display:flex;justify-content:space-between;gap:.6rem}
+.store-review-top strong{font-size:.8rem}
+.store-review-top span{color:#c28a32;letter-spacing:.08em}
+.store-review-verified{margin:.4rem 0;color:#4c7b68;font-size:.65rem;font-weight:700}
+.store-review-card h3{margin:.35rem 0;font-size:.85rem}
+.store-review-card>p:last-child,.store-reviews-empty p{margin:.35rem 0 0;color:#697680;font-size:.76rem;line-height:1.65}
+.store-reviews-empty{grid-column:1/-1;background:#f8fafb}
+@media(max-width:680px){.store-product-reviews{margin-top:2rem;padding-top:1.2rem}.store-reviews-heading h2{font-size:1.08rem}.store-reviews-list{grid-template-columns:1fr}}
