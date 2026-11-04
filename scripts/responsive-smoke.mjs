@@ -663,10 +663,10 @@ try {
   }
 
   // Bagusin Store: catalogue, persistent cart, variant selection and checkout.
-  const demoProduct = {"id":"11111111-1111-4111-8111-111111111111","slug":"demo-produk","sku":"DEMO-001","name":"Produk Demo Bagusin","short_description":"Produk contoh untuk pengujian alur katalog.","description":"Deskripsi demo produk.","brand":"Bagusin","category":"RAM","product_type":"physical","price_amount":100000,"compare_at_price":150000,"currency":"IDR","stock_quantity":20,"manage_stock":true,"availability":"in_stock","image_path":null,"status":"published","condition":"new","specifications":[{"group":"Memori","items":{"Kapasitas":"16 GB","Tipe":"DDR5"}},{"group":"Kompatibilitas","items":{"Form factor":"DIMM"}}]};
+  const demoProduct = {"id":"11111111-1111-4111-8111-111111111111","slug":"demo-produk","sku":"DEMO-001","name":"Produk Demo Bagusin","short_description":"Produk contoh untuk pengujian alur katalog.","description":"Deskripsi demo produk.","brand":"Bagusin","category":"RAM","product_type":"physical","price_amount":100000,"compare_at_price":150000,"currency":"IDR","stock_quantity":20,"manage_stock":true,"availability":"in_stock","image_path":"https://assets.example.test/demo-product.jpg","status":"published","condition":"new","specifications":[{"group":"Memori","items":{"Kapasitas":"16 GB","Tipe":"DDR5"}},{"group":"Kompatibilitas","items":{"Form factor":"DIMM"}}]};
   const demoVariants = [
-    {"id":"22222222-2222-4222-8222-222222222222","sku":"DEMO-RAM-8-DDR4","variant_name":"RAM 8 GB · DDR4","variant_options":{"RAM":"8 GB","DDR":"DDR4"},"price_override":110000,"stock_quantity":4,"status":"published","sort_order":0},
-    {"id":"33333333-3333-4333-8333-333333333333","sku":"DEMO-RAM-16-DDR5","variant_name":"RAM 16 GB · DDR5","variant_options":{"RAM":"16 GB","DDR":"DDR5"},"price_override":125000,"stock_quantity":5,"status":"published","sort_order":1}
+    {"id":"22222222-2222-4222-8222-222222222222","sku":"DEMO-RAM-8-DDR4","variant_name":"RAM 8 GB · DDR4","variant_options":{"RAM":"8 GB","DDR":"DDR4"},"price_override":110000,"stock_quantity":4,"status":"published","sort_order":0,"image_path":"https://assets.example.test/variant-ddr4.jpg"},
+    {"id":"33333333-3333-4333-8333-333333333333","sku":"DEMO-RAM-16-DDR5","variant_name":"RAM 16 GB · DDR5","variant_options":{"RAM":"16 GB","DDR":"DDR5"},"price_override":125000,"stock_quantity":5,"status":"published","sort_order":1,"image_path":"https://assets.example.test/variant-ddr5.jpg"}
   ];
   await interactionPage.evaluate(() => { localStorage.removeItem("bagusin-store-cart"); localStorage.removeItem("bagusin-store-wishlist"); });
   await interactionPage.route("https://hpmeoxynftankklwgntb.supabase.co/rest/v1/store_products*", route => route.fulfill({
@@ -703,6 +703,7 @@ try {
   await interactionPage.locator('[data-variant-option="RAM"]').selectOption("16 GB");
   await interactionPage.locator('[data-variant-option="DDR"]').selectOption("DDR5");
   if (!(await interactionPage.locator("[data-current-price]").innerText()).includes("125.000")) errors.push("Bagusin Store detail: selected variant price was not applied");
+  if (await interactionPage.locator("[data-gallery-main]").getAttribute("src") !== demoVariants[1].image_path) errors.push("Bagusin Store detail: selected variant photo did not replace the main gallery image");
   if (await interactionPage.locator("[data-product-add]").isDisabled()) errors.push("Bagusin Store detail: available variant cannot be added to cart");
   if (await interactionPage.locator(".store-product-assurances").count()) errors.push("Bagusin Store detail: redundant checklist assurances are still visible");
   if (!(await interactionPage.locator(".store-product-seo").isVisible())) errors.push("Bagusin Store detail: contextual product copy is missing");
@@ -714,6 +715,7 @@ try {
   await interactionPage.locator("[data-store-drawer]").waitFor({ state: "visible", timeout: 10000 });
   const variantCartText = await interactionPage.locator("[data-cart-items]").innerText();
   if (!variantCartText.includes("RAM: 16 GB") || !variantCartText.includes("DDR: DDR5") || !variantCartText.includes("125.000")) errors.push("Bagusin Store: selected variant did not persist into the cart");
+  if (await interactionPage.locator("[data-cart-items] .store-cart-thumb img").getAttribute("src") !== demoVariants[1].image_path) errors.push("Bagusin Store: selected variant photo did not persist into the cart");
   await interactionPage.locator("[data-start-checkout]").click();
   await interactionPage.locator('input[name="full_name"]').fill("Variant Test User");
   await interactionPage.locator('input[name="email"]').fill("variant@example.com");
