@@ -198,3 +198,122 @@
  .store-card-wishlist { top:.35rem; left:.35rem; width:2rem; height:2rem; }
  .store-card-wishlist svg { width:1.05rem; height:1.05rem; }
 }
+
+
+/* Store navigation: compact second-row links on mobile; no hamburger drawer. */
+.store-header-inner{display:flex;flex-wrap:wrap;align-items:center;gap:.65rem 1rem}
+.store-nav{display:flex;align-items:center;gap:clamp(.7rem,1.5vw,1.35rem);min-width:0}
+.store-nav a{white-space:nowrap}
+.store-header-actions{margin-left:auto;flex:0 0 auto}
+.store-mobile-menu,.store-mobile-nav{display:none!important}
+@media(max-width:820px){
+ .store-header-inner{width:calc(100% - 1.5rem);gap:.25rem .7rem;padding:.55rem 0 .45rem}
+ .store-brand{flex:0 0 auto}
+ .store-nav{order:3;display:flex!important;flex:1 0 100%;width:100%;gap:1.2rem;overflow-x:auto;overscroll-behavior-inline:contain;padding:.35rem 0 .15rem;scrollbar-width:none}
+ .store-nav::-webkit-scrollbar{display:none}
+ .store-nav a{flex:0 0 auto;font-size:.72rem}
+ .store-header-actions{gap:.35rem;margin-left:auto}
+ .store-search-trigger,.store-header-icon{flex-basis:2.45rem;width:2.45rem!important;min-width:2.45rem;height:2.45rem!important;min-height:2.45rem}
+ .store-search-trigger span{display:none}
+ .store-category-strip{top:6.5rem}
+}
+@media(max-width:520px){
+ .store-header-inner{width:calc(100% - 1rem);gap:.2rem .45rem;padding:.45rem 0 .35rem}
+ .store-brand{gap:.35rem}
+ .store-brand-mark{width:2.1rem;height:2.1rem}
+ .store-brand strong{font-size:.86rem}
+ .store-header-actions{gap:.22rem}
+ .store-search-trigger,.store-header-icon{flex-basis:2.15rem;width:2.15rem!important;min-width:2.15rem;height:2.15rem!important;min-height:2.15rem}
+ .store-nav{gap:1rem;padding:.25rem 0 .1rem}
+ .store-nav a{font-size:.68rem}
+ .store-category-strip{top:5.95rem}
+}
+@media(max-width:360px){
+ .store-header-actions{gap:.12rem}
+ .store-search-trigger,.store-header-icon{flex-basis:2rem;width:2rem!important;min-width:2rem;height:2rem!important;min-height:2rem}
+}
+
+/* Product cards: equal rhythm, stable image crop, predictable content and touch targets. */
+.store-grid,.store-related-grid{align-items:stretch}
+.store-card{min-height:100%;gap:0}
+.store-card-media{aspect-ratio:1/1;isolation:isolate}
+.store-card-image-link{overflow:hidden}
+.store-card-media img{object-fit:contain;transition:transform .28s ease}
+.store-card:hover .store-card-media img{transform:scale(1.035)}
+.store-card-body{display:flex;min-height:0;flex:1;gap:0}
+.store-card h3{display:-webkit-box;overflow:hidden;-webkit-box-orient:vertical;-webkit-line-clamp:2;min-height:2.65em;line-height:1.32}
+.store-card-desc{min-height:2.8em}
+.store-card-price-wrap{margin-top:auto;padding-top:.55rem}
+.store-card-actions{padding-top:.25rem}
+.store-detail-link{width:100%;min-height:2.65rem}
+.store-card-wishlist{top:.55rem;left:.55rem}
+@media(max-width:520px){
+ .store-grid,.store-related-grid{gap:1.05rem .65rem}
+ .store-card-media{aspect-ratio:1/1}
+ .store-card-body{padding:.55rem .05rem .1rem}
+ .store-card h3{font-size:.78rem;min-height:2.65em}
+ .store-card-desc{font-size:.65rem;min-height:2.7em}
+ .store-card-price-wrap{padding-top:.35rem;margin-bottom:.55rem}
+ .store-detail-link{min-height:2.4rem;font-size:.68rem}
+}
+
+/* Detail page: editorial product layout with clear interactive gallery and controls. */
+.store-product-detail{gap:clamp(1.25rem,3.5vw,3.25rem)}
+.store-product-page-media{background:#f5f7f8}
+.store-product-page-media img{transition:opacity .2s ease}
+.store-product-thumb{cursor:pointer;transition:border-color .18s,transform .18s}
+.store-product-thumb:hover{transform:translateY(-2px);border-color:#8da2b2}
+.store-product-thumb.is-active{border:2px solid #344f65;box-shadow:0 0 0 2px #dfe8ee}
+.store-product-info{padding:clamp(.25rem,1.2vw,1rem) 0}
+.store-product-note{margin:.7rem 0;color:#89939b;font-size:.7rem;line-height:1.5}
+.store-variant-field select,.store-variant-field input{min-height:2.8rem;border:1px solid #dce2e6;border-radius:.35rem;background:#fff;padding:.65rem .8rem}
+.store-product-purchase{gap:.5rem}
+.store-product-purchase button{cursor:pointer;transition:background .18s,border-color .18s,transform .18s}
+.store-product-purchase button:active{transform:scale(.98)}
+.store-product-purchase>.store-primary-button{box-shadow:0 .35rem .9rem #172a3918}
+.store-product-wishlist{border:1px solid #dce2e6;background:#fff;color:#344d61}
+.store-product-wishlist.is-saved{border-color:#d9bbc3;background:#f8eef1;color:#98465a}
+.store-product-information{align-items:start}
+.store-product-description{line-height:1.8}
+.store-related-section{margin-top:3.25rem}
+
+/* Store checkout drawer: polished, readable two-step order form. */
+.store-checkout{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:1rem;background:rgba(16,25,33,.48);backdrop-filter:blur(5px);overflow-y:auto}
+.store-checkout[hidden]{display:none}
+.store-checkout-card{width:min(100%,48rem);max-height:min(92vh,56rem);overflow:auto;padding:clamp(1.1rem,3vw,2rem);border:1px solid #e4e9ed;border-radius:.8rem;background:#fff;box-shadow:0 1.5rem 5rem rgba(13,28,40,.22)}
+.store-checkout-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding-bottom:1rem;border-bottom:1px solid #e9edf0}
+.store-checkout-head h2{margin:.25rem 0 0;color:#172a39;font-size:clamp(1.45rem,3vw,2rem);letter-spacing:-.04em}
+.store-eyebrow{margin:0;color:#748493;font-size:.65rem;font-weight:800;letter-spacing:.14em}
+.store-steps{display:flex;gap:.65rem;margin:1.25rem 0;padding:0;list-style:none}
+.store-steps li{flex:1;min-width:0;padding:.7rem .8rem;border:1px solid #e5e9ec;border-radius:.4rem;color:#87919a;font-size:.76rem;font-weight:700}
+.store-steps li.is-current{border-color:#9eafbd;background:#f0f4f7;color:#263f52}
+.store-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem}
+.store-form-grid label{display:grid;gap:.4rem;min-width:0;color:#35424d;font-size:.76rem;font-weight:700}
+.store-form-grid label span{display:inline;color:#89939b;font-weight:400}
+.store-form-grid input,.store-form-grid select,.store-form-grid textarea{width:100%;min-width:0;min-height:2.85rem;padding:.7rem .8rem;border:1px solid #dce2e6;border-radius:.35rem;background:#fff;color:#202b34;font:inherit;font-size:.84rem;outline:none}
+.store-form-grid textarea{min-height:5rem;resize:vertical}
+.store-form-grid input:focus,.store-form-grid select:focus,.store-form-grid textarea:focus{border-color:#66849a;box-shadow:0 0 0 3px #66849a20}
+.store-field-wide{grid-column:1/-1}
+.store-step-panel h3{margin:0 0 .8rem;font-size:1rem}
+.store-checkout-summary{display:grid;gap:.75rem;padding:1rem;border:1px solid #e8edf0;border-radius:.5rem;background:#fafbfc}
+.store-summary-line{display:flex;justify-content:space-between;gap:1rem;color:#586671;font-size:.8rem;line-height:1.5}
+.store-summary-line strong{color:#263746;text-align:right}
+.store-summary-total{margin-top:.3rem;padding-top:.8rem;border-top:1px solid #dfe5e9;font-weight:800}
+.store-consent{display:flex;align-items:flex-start;gap:.65rem;margin:1rem 0;color:#56636d;font-size:.8rem;line-height:1.55}
+.store-consent input{flex:0 0 auto;margin-top:.2rem;accent-color:#344f65}
+.store-submit-note{color:#7d8992;font-size:.75rem;line-height:1.6}
+.store-form-actions{display:flex;justify-content:flex-end;gap:.65rem;margin-top:1.25rem;padding-top:1rem;border-top:1px solid #e9edf0}
+.store-form-actions button{min-height:2.8rem;padding:.7rem 1.1rem;border-radius:.35rem;font-size:.78rem;font-weight:750}
+.store-secondary-button{border:1px solid #d9e0e5;background:#fff;color:#354b5d}
+.store-form-error{margin-top:.8rem;padding:.75rem;border:1px solid #e8c9c9;border-radius:.35rem;background:#fff7f7;color:#8e3e3e;font-size:.8rem}
+.store-checkout .store-icon-button{width:2.5rem;height:2.5rem;border:1px solid #e0e5e8;border-radius:50%;background:#fff;color:#354b5d}
+@media(max-width:520px){
+ .store-checkout{place-items:end center;padding:.45rem}
+ .store-checkout-card{width:100%;max-height:96vh;padding:1rem;border-radius:.7rem .7rem .35rem .35rem}
+ .store-form-grid{grid-template-columns:1fr;gap:.75rem}
+ .store-field-wide{grid-column:auto}
+ .store-steps li{padding:.6rem .55rem;font-size:.7rem}
+ .store-form-actions{position:sticky;bottom:-1rem;z-index:2;background:#fff;padding:.8rem 0 1rem}
+ .store-form-actions button{flex:1;min-width:0;padding:.65rem .55rem}
+ .store-summary-line{font-size:.74rem}
+}
