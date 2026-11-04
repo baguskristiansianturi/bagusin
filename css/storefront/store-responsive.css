@@ -626,7 +626,7 @@
 .store-page .store-card-wishlist{position:absolute;top:.55rem;right:.55rem;left:auto;z-index:3;width:2.25rem;height:2.25rem;min-width:2.25rem;min-height:2.25rem;}
 .store-page .store-card-wishlist svg{width:1.05rem;height:1.05rem;}
 .store-page .store-header-actions{gap:.4rem;}
-.store-page .store-header-icon.store-account-icon{display:grid;place-items:center;text-decoration:none;}
+.store-page .store-account-icon{display:grid;place-items:center;flex:0 0 2.65rem;width:2.65rem;min-width:2.65rem;height:2.65rem;min-height:2.65rem;border:1px solid #e2e6e9;border-radius:.45rem;background:#fff;color:#263746;text-decoration:none;} .store-page .store-account-icon svg{display:block;width:1.2rem;height:1.2rem;}
 .store-page .store-card-actions{display:flex;align-items:center;gap:.5rem;margin-top:.85rem;}
 .store-page .store-card-actions .store-detail-link{flex:1;min-width:0;}
 .store-page .store-card-add{display:grid;place-items:center;flex:0 0 2.55rem;width:2.55rem;height:2.55rem;min-height:2.55rem;padding:0;border:1px solid #243b4b;background:#243b4b;color:#fff;border-radius:.4rem;cursor:pointer;}
