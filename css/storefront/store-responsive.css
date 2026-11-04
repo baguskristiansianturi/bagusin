@@ -641,3 +641,6 @@
  .store-page .store-mobile-action-bar svg{display:block;width:1.05rem;height:1.05rem;flex:0 0 auto;}
 }
 @media(max-width:360px){.store-page .store-mobile-action-bar{gap:.3rem;padding-inline:.45rem}.store-page .store-mobile-action-bar a,.store-page .store-mobile-action-bar button{gap:.25rem;font-size:.64rem;padding-inline:.2rem}}
+
+@media(max-width:760px){.store-page .store-account-icon{flex-basis:2.3rem;width:2.3rem;min-width:2.3rem;height:2.3rem;min-height:2.3rem}.store-page .store-account-icon svg{width:1.15rem;height:1.15rem}}
+@media(max-width:360px){.store-page .store-account-icon{flex-basis:2.15rem;width:2.15rem;min-width:2.15rem;height:2.15rem;min-height:2.15rem}}
