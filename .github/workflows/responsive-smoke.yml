@@ -49,6 +49,14 @@ jobs:
           cat /tmp/bagusin-static-server.log
           exit 1
 
+      - name: Check Store JavaScript syntax
+        run: |
+          node --check js/storefront/storefront.js
+          node --check js/storefront/product-detail.js
+          node --check js/storefront/store-shell.js
+          node --check js/bagusin-admin.js
+          node --check js/components/site-footer.js
+
       - name: Run responsive browser smoke test
         run: node scripts/responsive-smoke.mjs
 
