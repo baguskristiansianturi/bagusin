@@ -26,6 +26,7 @@ Sepuluh produk uji telah memiliki referensi foto produk dan deskripsi spesifikas
 - Foto variasi disimpan pada bucket `bagusin-public` dengan pola `products/<slug>/variants/<sku>-<timestamp>.<ext>`.
 - Di Admin → Store Admin, tambahkan variasi pada bagian **Variasi produk**. Foto variasi yang memiliki URL sumber akan ikut disalin oleh tombol **Simpan semua foto ke Storage**. Untuk mengganti atau menambah foto manual, pilih file pada kolom **Foto variasi** di baris variasi yang bersangkutan.
 - Foto variasi yang dipilih akan mengganti foto utama ketika opsi variasi dipilih, dan path-nya ikut dibawa ke keranjang.
+- Impor URL berjalan di Edge Function yang memeriksa sesi dan role admin, membatasi host sumber, format gambar, dan ukuran file maksimal 8 MB.
 - Produk uji yang sudah memiliki variasi: ASUS Vivobook 15 (Cool Silver / Quiet Blue), Logitech G102 (Black / White), dan Kingston FURY Beast (1×16 GB / 2×8 GB).
 
 ## Deskripsi dan spesifikasi
