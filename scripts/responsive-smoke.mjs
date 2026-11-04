@@ -696,7 +696,7 @@ try {
   await interactionPage.locator('input[name="full_name"]').fill("Store Test User");
   await interactionPage.locator('input[name="email"]').fill("store@example.com");
   await interactionPage.locator('input[name="phone"]').fill("+628123456789");
-  await interactionPage.locator('select[name="delivery_method"]').selectOption("digital");
+  await interactionPage.locator('select[name="delivery_method"]').selectOption("pickup");
   await interactionPage.locator("[data-step-next]").click();
   if (!(await interactionPage.locator("[data-checkout-summary]").innerText()).includes("Produk Demo Bagusin")) errors.push("Bagusin Store: confirmation step lost the selected product");
   await interactionPage.locator('input[name="consent"]').check();
