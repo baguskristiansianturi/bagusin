@@ -420,7 +420,6 @@ try {
   await interactionPage.locator("#project-form input[name=name]").fill("Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("test@example.com");
   await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the contact email submission flow.");
-  await interactionPage.locator("#project-form [data-stepper-next]").click();
   await interactionPage.locator("#project-form input[name=terms]").check();
   await interactionPage.locator("#project-form button[type=submit]").click();
   await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("Permintaan Anda berhasil tersimpan di Bagusin"), null, { timeout: 12000 });
