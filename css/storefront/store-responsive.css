@@ -644,3 +644,6 @@
 
 @media(max-width:760px){.store-page .store-account-icon{flex-basis:2.3rem;width:2.3rem;min-width:2.3rem;height:2.3rem;min-height:2.3rem}.store-page .store-account-icon svg{width:1.15rem;height:1.15rem}}
 @media(max-width:360px){.store-page .store-account-icon{flex-basis:2.15rem;width:2.15rem;min-width:2.15rem;height:2.15rem;min-height:2.15rem}}
+
+.store-page .store-product-purchase [data-product-add]{display:inline-flex;align-items:center;justify-content:center;gap:.55rem}
+.store-page .store-product-purchase [data-product-add] svg{display:block;width:1.1rem;height:1.1rem;flex:0 0 auto}
