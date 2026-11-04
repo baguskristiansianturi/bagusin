@@ -993,3 +993,48 @@
  .store-card-price-row .store-card-price{font-size:.68rem}
  .store-card-price-row .store-detail-link{min-width:2.85rem;padding-inline:.35rem}
 }
+
+
+/* Explicit two-column price group: both prices stacked left, Detail right. */
+.store-card-price-wrap{
+ display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;
+ align-items:center!important;column-gap:.5rem!important;row-gap:0!important;
+ min-width:0;
+}
+.store-card-price-stack{
+ display:flex;flex-direction:column;align-items:flex-start;
+ justify-content:center;gap:.12rem;min-width:0;
+}
+.store-card-price-stack .store-price-old{
+ display:block;margin:0;font-size:.62rem;line-height:1.15;
+ color:#92999e;text-decoration:line-through;
+}
+.store-card-price-stack .store-card-price{
+ display:block;min-width:0;font-size:.88rem;line-height:1.2;
+ color:#172a39;font-weight:800;overflow-wrap:anywhere;
+}
+.store-card-price-wrap>.store-detail-link{
+ display:inline-flex;align-items:center;justify-content:center;
+ justify-self:end;align-self:center;min-width:3.7rem;min-height:2rem;
+ padding:.35rem .62rem;border:1px solid #d9dfe3;border-radius:.25rem;
+ background:transparent;color:#435563;font-size:.65rem;font-weight:700;
+ line-height:1;text-decoration:none;white-space:nowrap;
+ transition:background-color .18s,border-color .18s,color .18s;
+}
+.store-card-price-wrap>.store-detail-link:hover,
+.store-card-price-wrap>.store-detail-link:focus-visible,
+.store-card-price-wrap>.store-detail-link:active{
+ background:#172a39;border-color:#172a39;color:#fff;
+}
+@media(max-width:520px){
+ .store-card-price-wrap{column-gap:.35rem!important}
+ .store-card-price-stack .store-price-old{font-size:.56rem}
+ .store-card-price-stack .store-card-price{font-size:.73rem}
+ .store-card-price-wrap>.store-detail-link{
+  min-width:3.1rem;min-height:1.85rem;padding:.28rem .45rem;font-size:.6rem;
+ }
+}
+@media(max-width:370px){
+ .store-card-price-stack .store-card-price{font-size:.66rem}
+ .store-card-price-wrap>.store-detail-link{min-width:2.8rem;padding-inline:.35rem}
+}
