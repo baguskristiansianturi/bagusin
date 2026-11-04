@@ -717,6 +717,7 @@ try {
   await interactionPage.goto(origin + "/bagusin/store/product/?slug=demo-produk", { waitUntil: "domcontentloaded" });
   await interactionPage.locator(".store-product-info h1").waitFor({ state: "visible", timeout: 10000 });
   if (await interactionPage.locator(".store-breadcrumb li").count() !== 3) errors.push("Bagusin Store detail: breadcrumb hierarchy is incomplete");
+  if (!(await interactionPage.locator(".store-breadcrumb li:nth-child(2) a").getAttribute("href")).includes("category=Komponen%20PC")) errors.push("Bagusin Store detail: breadcrumb category does not link to the matching catalogue filter");
   if (await interactionPage.locator(".store-variant-field").count() !== 2) errors.push("Bagusin Store detail: multi-attribute variant selectors are missing");
   if (await interactionPage.locator(".store-product-spec-group").count() !== 2) errors.push("Bagusin Store detail: grouped product specifications are missing");
   await interactionPage.locator('[data-variant-option="RAM"]').selectOption("16 GB");
