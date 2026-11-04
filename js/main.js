@@ -5,7 +5,7 @@
 (function(){
   var footerBase = window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin" ? "/bagusin" : "";
   var footerStyle = document.createElement("link"); footerStyle.rel = "stylesheet"; footerStyle.href = footerBase + "/css/components/site-footer.css"; document.head.appendChild(footerStyle);
-  var footerScript = document.createElement("script"); footerScript.src = footerBase + "/js/components/site-footer.js"; footerScript.defer = true; document.head.appendChild(footerScript);
+  var footerScript = document.createElement("script"); footerScript.src = footerBase + "/js/components/site-footer.js?v=20261104-1"; footerScript.defer = true; document.head.appendChild(footerScript);
 })();
 (function(){
   var breadcrumbBase = window.location.pathname.startsWith("/bagusin/") || window.location.pathname === "/bagusin" ? "/bagusin" : "";
