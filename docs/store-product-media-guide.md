@@ -14,10 +14,20 @@
 3. Tambahkan foto lain ke `store_product_images.image_path` dengan `product_id`, `alt_text`, dan `sort_order`.
 4. Foto utama harus memiliki `is_primary=true`. Gunakan foto produk asli: sudut depan/samping/belakang, detail port/fitur, dan isi paket.
 5. Maksimal 15 foto ditampilkan di halaman detail.
+6. Buka **Admin → Store Admin** (`/bagusin/admin/store/`) dari HP. Tekan **Simpan semua foto ke Storage** untuk menyalin referensi foto produk dan variasi yang sudah terdaftar ke bucket `bagusin-public`. Proses ini hanya menerima sumber gambar dari host katalog yang diizinkan. Untuk mengganti atau menambah foto utama/galeri, gunakan bagian **Foto produk**.
 
 ## Kondisi aset uji sekarang
 
-Sepuluh produk uji telah memiliki foto produk dan deskripsi spesifikasinya. URL gambar yang sekarang tersimpan masih mengarah ke situs produsen atau sumber katalog eksternal; file belum disalin ke bucket Bagusin. Lingkungan kerja ini tidak dapat mengakses jaringan untuk mengunduh file secara lokal. Setelah file diunggah ke bucket, ganti `image_path` dengan path Storage Bagusin agar foto tidak bergantung pada host luar.
+Sepuluh produk uji telah memiliki referensi foto produk dan deskripsi spesifikasinya. Foto galeri dan foto variasi yang tersedia sudah tercatat di database. Jalankan tombol **Simpan semua foto ke Storage** dari Admin untuk menyalin file biner ke bucket Bagusin dan mengganti URL eksternal dengan path Storage.
+
+## Variasi produk dan foto variasi
+
+- Data variasi berada di `public.store_product_variants`; setiap kombinasi menyimpan `sku`, `variant_options`, `price_override`, `stock_quantity`, `status`, dan `image_path`.
+- Foto variasi disimpan pada bucket `bagusin-public` dengan pola `products/<slug>/variants/<sku>-<timestamp>.<ext>`.
+- Di Admin → Store Admin, tambahkan variasi pada bagian **Variasi produk**. Foto variasi yang memiliki URL sumber akan ikut disalin oleh tombol **Simpan semua foto ke Storage**. Untuk mengganti atau menambah foto manual, pilih file pada kolom **Foto variasi** di baris variasi yang bersangkutan.
+- Foto variasi yang dipilih akan mengganti foto utama ketika opsi variasi dipilih, dan path-nya ikut dibawa ke keranjang.
+- Impor URL berjalan di Edge Function yang memeriksa sesi dan role admin, membatasi host sumber, format gambar, dan ukuran file maksimal 8 MB.
+- Produk uji yang sudah memiliki variasi: ASUS Vivobook 15 (Cool Silver / Quiet Blue), Logitech G102 (Black / White), dan Kingston FURY Beast (1×16 GB / 2×8 GB).
 
 ## Deskripsi dan spesifikasi
 

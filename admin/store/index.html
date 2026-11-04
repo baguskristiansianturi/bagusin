@@ -8,7 +8,7 @@
 <title>Bagusin Store Admin</title>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="./admin.css?v=3">
+<link rel="stylesheet" href="./admin.css?v=5">
 </head>
 <body>
 <header class="topbar"><a class="brand" href="/bagusin/admin/store/"><span class="brand-mark">B</span><span><b>Bagusin</b><small>STORE ADMIN</small></span></a><div class="top-actions"><button id="install-app" class="install-button" hidden>Pasang aplikasi</button><a href="/bagusin/admin/" class="quiet-link">Dashboard utama</a><button id="signout" class="text-button" hidden>Keluar</button></div></header>
@@ -19,7 +19,7 @@
  <p id="auth-message" class="message" role="status"></p><p class="hint">Belum memiliki akun? Buat akun melalui <a href="/bagusin/account/">halaman akun Bagusin</a>. Akses pengelola hanya diberikan kepada akun yang ditetapkan sebagai admin.</p>
 </section>
 <section id="app-panel" hidden>
- <div class="page-heading"><div><div class="eyebrow">BAGUSIN STORE</div><h1>Kelola produk</h1><p id="welcome">Kelola katalog dari perangkat mobile.</p></div><button id="new-product" class="primary">＋ Produk baru</button></div>
+ <div class="page-heading"><div><div class="eyebrow">BAGUSIN STORE</div><h1>Kelola produk</h1><p id="welcome">Kelola katalog dari perangkat mobile.</p></div><div class="page-actions"><button id="import-media" class="secondary" type="button">Simpan semua foto ke Storage</button><button id="new-product" class="primary" type="button">＋ Produk baru</button></div></div><p id="media-import-message" class="message" role="status"></p>
  <div class="stats" id="stats"><div><b id="total-count">—</b><span>Total produk</span></div><div><b id="published-count">—</b><span>Ditampilkan</span></div><div><b id="photo-count">—</b><span>Foto tersimpan</span></div></div>
  <div class="toolbar"><input id="search" type="search" placeholder="Cari nama produk atau SKU"><select id="status-filter" aria-label="Filter status"><option value="">Semua status</option><option value="published">Published</option><option value="draft">Draft</option><option value="archived">Arsip</option></select></div>
  <div id="product-list" class="product-list"><p class="muted">Memuat katalog…</p></div>
@@ -56,5 +56,5 @@
 </dialog>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 <script src="../../js/supabase-client.js"></script>
-<script src="./admin.js?v=5" defer></script>
+<script src="./admin.js?v=6" defer></script>
 </body></html>
