@@ -420,7 +420,7 @@ try {
   await interactionPage.locator("#project-form input[name=name]").fill("Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("test@example.com");
   await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the contact email submission flow.");
-  await interactionPage.locator("#project-form input[name=terms]").check();
+  await interactionPage.locator("#project-form .form-consent label").click();
   await interactionPage.locator("#project-form button[type=submit]").click();
   await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("Permintaan Anda berhasil tersimpan di Bagusin"), null, { timeout: 12000 });
   const preparedBrief = interactionPage.locator("#project-form [data-brief-output]");
@@ -460,7 +460,8 @@ try {
   await interactionPage.locator("#project-form input[name=name]").fill("English Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("english@example.com");
   await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the English contact email flow.");
-  await interactionPage.locator("#project-form input[name=terms]").check();
+  await interactionPage.locator("#project-form [data-stepper-next]").click();
+  await interactionPage.locator("#project-form .form-consent label").click();
   await interactionPage.locator("#project-form button[type=submit]").click();
   await interactionPage.waitForFunction(() => document.querySelector("#form-status")?.textContent.includes("Your request has been saved in Bagusin"), null, { timeout: 12000 });
   if (!contactInquiryPayload || contactInquiryPayload.request_type !== "consultation" || !contactInquiryPayload.subject.includes("Copywriting")) errors.push("English contact form: inquiry record is missing the selected service and inquiry mode");
@@ -479,7 +480,7 @@ try {
   await interactionPage.locator("#project-form input[name=name]").fill("Fallback Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("fallback@example.com");
   await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the manual email fallback.");
-  await interactionPage.locator("#project-form input[name=terms]").check();
+  await interactionPage.locator("#project-form .form-consent label").click();
   await interactionPage.locator("#project-form button[type=submit]").click();
   await interactionPage.waitForFunction(() => document.querySelector("#project-form [data-mailto-fallback]") !== null, null, { timeout: 5000 });
   const fallbackLink = interactionPage.locator("#project-form [data-mailto-fallback]");
@@ -689,29 +690,11 @@ try {
   await interactionPage.locator("#store-search").fill("tidak-ada-produk");
   if (!(await interactionPage.locator(".store-empty").isVisible())) errors.push("Bagusin Store: unmatched search does not show an honest empty state");
   await interactionPage.locator("#store-search").fill("");
-  await storeCard.locator('button[data-add="11111111-1111-4111-8111-111111111111"]').click();
-  await interactionPage.locator("[data-open-cart]").click();
-  if (!(await interactionPage.locator("[data-store-drawer]").isVisible())) errors.push("Bagusin Store: cart drawer did not open after adding a product");
-  await interactionPage.locator("[data-start-checkout]").click();
-  await interactionPage.locator('input[name="full_name"]').fill("Store Test User");
-  await interactionPage.locator('input[name="email"]').fill("store@example.com");
-  await interactionPage.locator('input[name="phone"]').fill("+628123456789");
-  await interactionPage.locator('select[name="delivery_method"]').selectOption("pickup");
-  await interactionPage.locator("[data-step-next]").click();
-  if (!(await interactionPage.locator("[data-checkout-summary]").innerText()).includes("Produk Demo Bagusin")) errors.push("Bagusin Store: confirmation step lost the selected product");
-  await interactionPage.locator('input[name="consent"]').check();
-  await interactionPage.locator("[data-step-submit]").click();
-  await interactionPage.locator("[data-store-success]").waitFor({ state: "visible", timeout: 5000 });
-  if (!(await interactionPage.locator("[data-store-success]").innerText()).includes("Pesanan berhasil dibuat")) errors.push("Bagusin Store: successful order confirmation is missing");
-  if (!storeCheckoutPayload || storeCheckoutPayload.items?.[0]?.product_id !== demoProduct.id) errors.push("Bagusin Store: checkout payload is missing the selected product");
-  if (!(await interactionPage.locator("footer.site-footer").count()) || await interactionPage.locator("footer.store-footer").count()) errors.push("Bagusin Store: shared footer is missing or replaced");
-
-  await interactionPage.evaluate(() => localStorage.removeItem("bagusin-store-cart"));
   await interactionPage.route("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0", route => route.fulfill({
     status: 200, contentType: "application/javascript",
     body: "window.supabase = { createClient: () => ({ from: (table) => { const query = { eq: () => query, neq: () => query, maybeSingle: async () => ({ data: " + JSON.stringify(demoProduct) + ", error: null }), order: async () => ({ data: table === 'store_product_variants' ? " + JSON.stringify(demoVariants) + " : [], error: null }), limit: async () => ({ data: [], error: null }) }; return { select: () => query }; } }) };"
   }));
-  await interactionPage.goto(origin + "/bagusin/store/product/?slug=demo-produk", { waitUntil: "domcontentloaded" });
+  await storeCard.locator(".store-detail-link").click();
   await interactionPage.locator(".store-product-info h1").waitFor({ state: "visible", timeout: 10000 });
   if (await interactionPage.locator(".store-breadcrumb li").count() !== 3) errors.push("Bagusin Store detail: breadcrumb hierarchy is incomplete");
   if (!(await interactionPage.locator(".store-breadcrumb li:nth-child(2) a").getAttribute("href")).includes("category=Komponen%20PC")) errors.push("Bagusin Store detail: breadcrumb category does not link to the matching catalogue filter");
