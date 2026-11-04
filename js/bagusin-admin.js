@@ -136,6 +136,19 @@ if(storeForm){
 }
 var refreshStore=document.querySelector("[data-refresh-store-products]");
 if(refreshStore)refreshStore.addEventListener("click",function(){loadStoreProducts().catch(function(e){say("[data-store-product-message]",e.message);});});
+var importStoreMedia=document.querySelector("[data-import-store-media]");
+if(importStoreMedia)importStoreMedia.addEventListener("click",async function(){
+ importStoreMedia.disabled=true;var original=importStoreMedia.textContent;importStoreMedia.textContent="Menyimpan foto…";
+ say("[data-store-product-message]","Mengunduh foto produk dan variasi dari sumber katalog, lalu menyimpannya ke Supabase Storage. Jangan tutup halaman ini dulu.");
+ try{
+  var result=await client.functions.invoke("store-import-product-media",{body:{}});
+  if(result.error)throw result.error;
+  var data=result.data||{},failed=Array.isArray(data.failed_assets)?data.failed_assets:[];
+  say("[data-store-product-message]","Impor foto selesai: "+Number(data.uploaded_files||0)+" file disimpan, "+Number(data.updated_references||0)+" referensi diperbarui, "+failed.length+" gagal."+(failed.length?" Periksa sumber foto yang gagal lalu coba lagi.":""));
+  await loadStoreProducts();
+ }catch(error){say("[data-store-product-message]",error.message||"Foto belum dapat disimpan ke Storage.");}
+ finally{importStoreMedia.disabled=false;importStoreMedia.textContent=original;}
+});
 async function loadOrders(){
 var box=document.querySelector("[data-admin-orders]");box.replaceChildren(node("p","admin-note","Memuat pesanan…"));
 var r=await client.from("orders").select("*").order("created_at",{ascending:false});if(r.error)throw r.error;
