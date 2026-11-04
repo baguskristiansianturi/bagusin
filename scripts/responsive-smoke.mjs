@@ -476,11 +476,10 @@ try {
     await route.fulfill({ status: 500, headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }, contentType: "application/json", body: JSON.stringify({ message: "Simulated database failure" }) });
   });
   await interactionPage.goto(origin + "/bagusin/contact/", { waitUntil: "domcontentloaded" });
-  await interactionPage.locator("[data-stepper-next]").click();
+  await interactionPage.locator("#project-form [data-stepper-next]").click();
   await interactionPage.locator("#project-form input[name=name]").fill("Fallback Test User");
   await interactionPage.locator("#project-form input[name=email]").fill("fallback@example.com");
   await interactionPage.locator("#project-form textarea[name=brief]").fill("Testing the manual email fallback.");
-  await interactionPage.locator("[data-stepper-next]").click();
   await interactionPage.locator("#project-form input[name=terms]").check();
   await interactionPage.locator("#project-form button[type=submit]").click();
   await interactionPage.waitForFunction(() => document.querySelector("#project-form [data-mailto-fallback]") !== null, null, { timeout: 5000 });
