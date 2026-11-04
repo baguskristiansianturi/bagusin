@@ -3,7 +3,7 @@ import { createClient } from "npm:@supabase/supabase-js@2.118.0";
 const allowedOrigin = "https://baguskristiansianturi.github.io";
 const allowedHosts = new Set([
   "images-cdn.ubuy.co.in", "cdn11.bigcommerce.com", "www.ammancart.com",
-  "catalog.cdn.bixoto.com", "down-my.img.susercontent.com", "img2.quasarzone.com",
+  "catalog.cdn.bixoto.com", "dlcdnwebimgs.asus.com", "down-my.img.susercontent.com", "img2.quasarzone.com",
   "cdn.comfy.ua", "cdn.dooca.store", "brainy.co.ke", "down-id.img.susercontent.com",
   "www.awd-it.co.uk", "www.pbtech.co.nz"
 ]);
