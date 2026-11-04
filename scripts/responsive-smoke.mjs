@@ -665,7 +665,7 @@ try {
   }
 
   // Bagusin Store: catalogue, persistent cart, variant selection and checkout.
-  const demoProduct = {"id":"11111111-1111-4111-8111-111111111111","slug":"demo-produk","sku":"DEMO-001","name":"Produk Demo Bagusin","short_description":"Produk contoh untuk pengujian alur katalog.","description":"Deskripsi demo produk.","brand":"Bagusin","category":"Komponen PC","product_type":"physical","price_amount":100000,"compare_at_price":150000,"currency":"IDR","stock_quantity":20,"manage_stock":true,"availability":"in_stock","image_path":null,"status":"published","condition":"new"};
+  const demoProduct = {"id":"11111111-1111-4111-8111-111111111111","slug":"demo-produk","sku":"DEMO-001","name":"Produk Demo Bagusin","short_description":"Produk contoh untuk pengujian alur katalog.","description":"Deskripsi demo produk.","brand":"Bagusin","category":"RAM","product_type":"physical","price_amount":100000,"compare_at_price":150000,"currency":"IDR","stock_quantity":20,"manage_stock":true,"availability":"in_stock","image_path":null,"status":"published","condition":"new"};
   const demoVariants = [
     {"id":"22222222-2222-4222-8222-222222222222","sku":"DEMO-RAM-8-DDR4","variant_name":"RAM 8 GB · DDR4","variant_options":{"RAM":"8 GB","DDR":"DDR4"},"price_override":110000,"stock_quantity":4,"status":"published","sort_order":0},
     {"id":"33333333-3333-4333-8333-333333333333","sku":"DEMO-RAM-16-DDR5","variant_name":"RAM 16 GB · DDR5","variant_options":{"RAM":"16 GB","DDR":"DDR5"},"price_override":125000,"stock_quantity":5,"status":"published","sort_order":1}
