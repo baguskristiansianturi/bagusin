@@ -665,7 +665,7 @@ try {
   }
 
   // Bagusin Store: catalogue, persistent cart, variant selection and checkout.
-  const demoProduct = {"id":"11111111-1111-4111-8111-111111111111","slug":"demo-produk","sku":"DEMO-001","name":"Produk Demo Bagusin","short_description":"Produk contoh untuk pengujian alur katalog.","description":"Deskripsi demo produk.","brand":"Bagusin","category":"RAM","product_type":"physical","price_amount":100000,"compare_at_price":150000,"currency":"IDR","stock_quantity":20,"manage_stock":true,"availability":"in_stock","image_path":null,"status":"published","condition":"new"};
+  const demoProduct = {"id":"11111111-1111-4111-8111-111111111111","slug":"demo-produk","sku":"DEMO-001","name":"Produk Demo Bagusin","short_description":"Produk contoh untuk pengujian alur katalog.","description":"Deskripsi demo produk.","brand":"Bagusin","category":"RAM","product_type":"physical","price_amount":100000,"compare_at_price":150000,"currency":"IDR","stock_quantity":20,"manage_stock":true,"availability":"in_stock","image_path":null,"status":"published","condition":"new","specifications":[{"group":"Memori","items":{"Kapasitas":"16 GB","Tipe":"DDR5"}},{"group":"Kompatibilitas","items":{"Form factor":"DIMM"}}]};
   const demoVariants = [
     {"id":"22222222-2222-4222-8222-222222222222","sku":"DEMO-RAM-8-DDR4","variant_name":"RAM 8 GB · DDR4","variant_options":{"RAM":"8 GB","DDR":"DDR4"},"price_override":110000,"stock_quantity":4,"status":"published","sort_order":0},
     {"id":"33333333-3333-4333-8333-333333333333","sku":"DEMO-RAM-16-DDR5","variant_name":"RAM 16 GB · DDR5","variant_options":{"RAM":"16 GB","DDR":"DDR5"},"price_override":125000,"stock_quantity":5,"status":"published","sort_order":1}
@@ -718,6 +718,7 @@ try {
   await interactionPage.locator(".store-product-info h1").waitFor({ state: "visible", timeout: 10000 });
   if (await interactionPage.locator(".store-breadcrumb li").count() !== 3) errors.push("Bagusin Store detail: breadcrumb hierarchy is incomplete");
   if (await interactionPage.locator(".store-variant-field").count() !== 2) errors.push("Bagusin Store detail: multi-attribute variant selectors are missing");
+  if (await interactionPage.locator(".store-product-spec-group").count() !== 2) errors.push("Bagusin Store detail: grouped product specifications are missing");
   await interactionPage.locator('[data-variant-option="RAM"]').selectOption("16 GB");
   await interactionPage.locator('[data-variant-option="DDR"]').selectOption("DDR5");
   if (!(await interactionPage.locator("[data-current-price]").innerText()).includes("125.000")) errors.push("Bagusin Store detail: selected variant price was not applied");
