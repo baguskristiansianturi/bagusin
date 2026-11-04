@@ -762,10 +762,8 @@ try {
   if (!meetingHref?.includes("service=consultation") || !meetingHref.includes("meeting=in-person")) errors.push("Template detail: in-person meeting CTA does not preselect paid consultation");
 
   await interactionPage.goto(origin + "/bagusin/demos/starter/travel-rental/bagus-sewa-mobil-bali-01/", { waitUntil: "domcontentloaded" });
-  if (!(await interactionPage.locator('meta[name="robots"]').getAttribute("content"))?.includes("noindex")) errors.push("Template demo: demo is not marked noindex");
-  if (!(await interactionPage.locator('a[href="/bagusin/templates/detail/?template=BG-TRV-STR-001"]').count())) errors.push("Template demo: detail and pricing CTA is missing");
-  await interactionPage.locator("[data-demo-whatsapp]").first().click();
-  if (await interactionPage.locator("#demo-notice").evaluate(el => getComputedStyle(el).display === "none")) errors.push("Template demo: unconfigured WhatsApp CTA does not explain the placeholder");
+  await interactionPage.waitForURL(/\\/bagusin\\/$/, { timeout: 5000 });
+  if (!interactionPage.url().endsWith("/bagusin/")) errors.push("Template demo: closed demo route did not redirect to the Bagusin homepage");
 
   await interactionPage.goto(origin + "/bagusin/portfolio/", { waitUntil: "domcontentloaded" });
   const portfolioSeparationText = await interactionPage.locator("main").innerText();
