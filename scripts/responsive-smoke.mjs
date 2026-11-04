@@ -664,39 +664,84 @@ try {
     if (!contextLabel || !contextLabel.includes(item.label)) errors.push("Service inquiry: selected service was not prefilled for " + item.service);
   }
 
-  // Bagusin Store: exercise the real public catalog and four-step inquiry flow with an isolated demo product.
-  await interactionPage.route("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0", route => route.fulfill({
-    status: 200, contentType: "application/javascript",
-    body: `window.supabase = { createClient: () => ({ from: () => ({ select: () => ({ eq: () => ({ order: async () => ({ data: [{"id":"store-demo-1","slug":"demo-produk","sku":"DEMO-001","name":"Produk Demo Bagusin","short_description":"Produk contoh untuk pengujian alur katalog.","description":"Deskripsi demo produk.","brand":"Bagusin","category":"Digital","product_type":"digital","price_amount":49000,"currency":"IDR","stock_quantity":1,"manage_stock":false,"availability":"in_stock","image_path":null,"status":"published"}], error: null }) }) }), insert: async () => ({ error: null }) }) }) };`
+  // Bagusin Store: catalogue, persistent cart, variant selection and checkout.
+  const demoProduct = {"id":"11111111-1111-4111-8111-111111111111","slug":"demo-produk","sku":"DEMO-001","name":"Produk Demo Bagusin","short_description":"Produk contoh untuk pengujian alur katalog.","description":"Deskripsi demo produk.","brand":"Bagusin","category":"Komponen PC","product_type":"physical","price_amount":100000,"compare_at_price":150000,"currency":"IDR","stock_quantity":20,"manage_stock":true,"availability":"in_stock","image_path":null,"status":"published","condition":"new"};
+  const demoVariants = [
+    {"id":"22222222-2222-4222-8222-222222222222","sku":"DEMO-RAM-8-DDR4","variant_name":"RAM 8 GB · DDR4","variant_options":{"RAM":"8 GB","DDR":"DDR4"},"price_override":110000,"stock_quantity":4,"status":"published","sort_order":0},
+    {"id":"33333333-3333-4333-8333-333333333333","sku":"DEMO-RAM-16-DDR5","variant_name":"RAM 16 GB · DDR5","variant_options":{"RAM":"16 GB","DDR":"DDR5"},"price_override":125000,"stock_quantity":5,"status":"published","sort_order":1}
+  ];
+  await interactionPage.evaluate(() => { localStorage.removeItem("bagusin-store-cart"); localStorage.removeItem("bagusin-store-wishlist"); });
+  await interactionPage.route("https://hpmeoxynftankklwgntb.supabase.co/rest/v1/store_products*", route => route.fulfill({
+    status: 200, contentType: "application/json", body: JSON.stringify([demoProduct])
   }));
+  let storeCheckoutPayload = null;
+  await interactionPage.route("https://hpmeoxynftankklwgntb.supabase.co/functions/v1/store-checkout", async route => {
+    storeCheckoutPayload = route.request().postDataJSON();
+    await route.fulfill({ status: 201, contentType: "application/json", body: JSON.stringify({ success: true, order: { order_number: "BS-TEST-001", total_amount: 49000 } }) });
+  });
+  await interactionPage.setViewportSize({ width: 390, height: 844 });
   await interactionPage.goto(origin + "/bagusin/store/", { waitUntil: "domcontentloaded" });
   const storeCard = interactionPage.locator(".store-card").first();
   await storeCard.waitFor({ state: "visible", timeout: 10000 });
   if (!(await storeCard.innerText()).includes("Produk Demo Bagusin")) errors.push("Bagusin Store: published product card is missing");
-  await interactionPage.locator('#store-categories button[data-category="Digital"]').click();
+  await interactionPage.locator('#store-categories button[data-category="Komponen PC"]').click();
   if (await interactionPage.locator(".store-card").count() !== 1) errors.push("Bagusin Store: category filter did not retain the matching product");
   await interactionPage.locator("#store-search").fill("tidak-ada-produk");
   if (!(await interactionPage.locator(".store-empty").isVisible())) errors.push("Bagusin Store: unmatched search does not show an honest empty state");
   await interactionPage.locator("#store-search").fill("");
-  await storeCard.locator('button[data-add="store-demo-1"]').click();
+  await storeCard.locator('button[data-add="11111111-1111-4111-8111-111111111111"]').click();
   await interactionPage.locator("[data-open-cart]").click();
+  if (!(await interactionPage.locator("[data-store-drawer]").isVisible())) errors.push("Bagusin Store: cart drawer did not open after adding a product");
   await interactionPage.locator("[data-start-checkout]").click();
   await interactionPage.locator('input[name="full_name"]').fill("Store Test User");
   await interactionPage.locator('input[name="email"]').fill("store@example.com");
   await interactionPage.locator('input[name="phone"]').fill("+628123456789");
-  await interactionPage.locator("[data-step-next]").click();
   await interactionPage.locator('select[name="delivery_method"]').selectOption("digital");
-  await interactionPage.locator('input[name="city"]').fill("Denpasar");
   await interactionPage.locator("[data-step-next]").click();
-  if (!(await interactionPage.locator("[data-checkout-summary]").innerText()).includes("Produk Demo Bagusin")) errors.push("Bagusin Store: review step lost the selected product");
+  if (!(await interactionPage.locator("[data-checkout-summary]").innerText()).includes("Produk Demo Bagusin")) errors.push("Bagusin Store: confirmation step lost the selected product");
   await interactionPage.locator('input[name="consent"]').check();
-  await interactionPage.locator("[data-step-next]").click();
-  if (await interactionPage.locator('[data-step-indicator="4"]').getAttribute("class") === "is-current" && !(await interactionPage.locator("[data-step-submit]").isVisible())) errors.push("Bagusin Store: final submit action is not visible");
   await interactionPage.locator("[data-step-submit]").click();
   await interactionPage.locator("[data-store-success]").waitFor({ state: "visible", timeout: 5000 });
-  if (!(await interactionPage.locator("[data-store-success]").innerText()).includes("berhasil dikirim")) errors.push("Bagusin Store: successful inquiry confirmation is missing");
+  if (!(await interactionPage.locator("[data-store-success]").innerText()).includes("Pesanan berhasil dibuat")) errors.push("Bagusin Store: successful order confirmation is missing");
+  if (!storeCheckoutPayload || storeCheckoutPayload.items?.[0]?.product_id !== demoProduct.id) errors.push("Bagusin Store: checkout payload is missing the selected product");
   if (!(await interactionPage.locator("footer.site-footer").count()) || await interactionPage.locator("footer.store-footer").count()) errors.push("Bagusin Store: shared footer is missing or replaced");
 
+  await interactionPage.evaluate(() => localStorage.removeItem("bagusin-store-cart"));
+  await interactionPage.route("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0", route => route.fulfill({
+    status: 200, contentType: "application/javascript",
+    body: "window.supabase = { createClient: () => ({ from: (table) => { const query = { eq: () => query, neq: () => query, maybeSingle: async () => ({ data: " + JSON.stringify(demoProduct) + ", error: null }), order: async () => ({ data: table === 'store_product_variants' ? " + JSON.stringify(demoVariants) + " : [], error: null }), limit: async () => ({ data: [], error: null }) }; return { select: () => query }; } }) };"
+  }));
+  await interactionPage.goto(origin + "/bagusin/store/product/?slug=demo-produk", { waitUntil: "domcontentloaded" });
+  await interactionPage.locator(".store-product-info h1").waitFor({ state: "visible", timeout: 10000 });
+  if (await interactionPage.locator(".store-breadcrumb li").count() !== 3) errors.push("Bagusin Store detail: breadcrumb hierarchy is incomplete");
+  if (await interactionPage.locator(".store-variant-field").count() !== 2) errors.push("Bagusin Store detail: multi-attribute variant selectors are missing");
+  await interactionPage.locator('[data-variant-option="RAM"]').selectOption("16 GB");
+  await interactionPage.locator('[data-variant-option="DDR"]').selectOption("DDR5");
+  if (!(await interactionPage.locator("[data-current-price]").innerText()).includes("125.000")) errors.push("Bagusin Store detail: selected variant price was not applied");
+  if (await interactionPage.locator("[data-product-add]").isDisabled()) errors.push("Bagusin Store detail: available variant cannot be added to cart");
+  if (await interactionPage.locator(".store-product-assurances").count()) errors.push("Bagusin Store detail: redundant checklist assurances are still visible");
+  if (!(await interactionPage.locator(".store-product-seo").isVisible())) errors.push("Bagusin Store detail: contextual product copy is missing");
+  const iconWidths = await interactionPage.locator(".store-header-icon").evaluateAll(nodes => nodes.map(node => node.getBoundingClientRect().width));
+  if (iconWidths.length !== 2 || Math.abs(iconWidths[0] - iconWidths[1]) > 1) errors.push("Bagusin Store detail: wishlist and cart icon sizes are inconsistent");
+  const breadcrumbFits = await interactionPage.locator(".store-breadcrumb").evaluate(node => node.scrollWidth <= node.clientWidth + 1);
+  if (!breadcrumbFits) errors.push("Bagusin Store detail: breadcrumb overflows the mobile viewport");
+  await interactionPage.locator("[data-product-add]").click();
+  await interactionPage.locator("[data-store-drawer]").waitFor({ state: "visible", timeout: 10000 });
+  const variantCartText = await interactionPage.locator("[data-cart-items]").innerText();
+  if (!variantCartText.includes("RAM: 16 GB") || !variantCartText.includes("DDR: DDR5") || !variantCartText.includes("125.000")) errors.push("Bagusin Store: selected variant did not persist into the cart");
+  await interactionPage.locator("[data-start-checkout]").click();
+  await interactionPage.locator('input[name="full_name"]').fill("Variant Test User");
+  await interactionPage.locator('input[name="email"]').fill("variant@example.com");
+  await interactionPage.locator('input[name="phone"]').fill("+628123456789");
+  await interactionPage.locator('select[name="delivery_method"]').selectOption("pickup");
+  await interactionPage.locator("[data-step-next]").click();
+  const variantSummary = await interactionPage.locator("[data-checkout-summary]").innerText();
+  if (!variantSummary.includes("RAM: 16 GB") || !variantSummary.includes("125.000")) errors.push("Bagusin Store: checkout summary lost the selected variant or its price");
+  await interactionPage.locator('input[name="consent"]').check();
+  await interactionPage.locator("[data-step-submit]").click();
+  await interactionPage.locator("[data-store-success]").waitFor({ state: "visible", timeout: 5000 });
+  if (!storeCheckoutPayload || storeCheckoutPayload.items?.[0]?.variant_id !== demoVariants[1].id) errors.push("Bagusin Store: variant ID was not passed to the checkout service");
+  if (!storeCheckoutPayload || storeCheckoutPayload.items?.[0]?.quantity !== 1) errors.push("Bagusin Store: selected variant quantity was not passed to checkout");
   // Collections and Portfolio have distinct roles and destinations.
   await interactionPage.goto(origin + "/bagusin/collections/", { waitUntil: "domcontentloaded" });
   await interactionPage.locator("[data-template-grid] .template-product").first().waitFor({ timeout: 10000 });
