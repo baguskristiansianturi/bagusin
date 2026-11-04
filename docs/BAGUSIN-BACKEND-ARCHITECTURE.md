@@ -23,7 +23,7 @@ This backend is exclusively for Bagusin: an independent digital studio and its b
 | Services | service_categories, services, inquiries | Service catalogue and custom project requests |
 | Portfolio | portfolio_projects | Client work, concept demos, internal work and experiments are explicitly classified |
 | Courses | course_categories, courses, course_curriculum, course_enrollments, course_sessions | Course catalogue, enrolment, instructor, schedule and meeting progress |
-| Store | store_products, store_product_variants | Physical and digital catalogue, stock, multi-attribute variant combinations (`variant_options` JSONB), per-variant SKU/price/stock, and product metadata |
+| Store | store_products, store_product_variants | Physical and digital catalogue, stock, grouped specifications (`specifications` JSONB), multi-attribute variant combinations (`variant_options` JSONB), per-variant SKU/price/stock, and product metadata |
 | Orders | orders, order_items, order_status_history, invoices | Order lifecycle, item snapshots, invoice number, totals and audit trail |
 | Payments | payments, payment_methods | Manual BCA transfer and proof review; no gateway enabled |
 | Shipping | shipments, customer_addresses | Local same-day, Bagusin delivery, pickup and manually handled national courier tracking |
@@ -72,7 +72,7 @@ This backend is exclusively for Bagusin: an independent digital studio and its b
 
 ## Current limitations — do not describe as live
 - Customer checkout is not yet connected to every public catalogue CTA. Initial operational flow is inquiry → admin-created order/invoice → customer member area.
-- Bagusin Store now has a customer-facing persistent cart and checkout draft-order flow. Product variants are selected on the detail page, retained in browser cart state, validated server-side by `create_store_order`, and stored in `order_items.item_snapshot`. Admin manages combinations through the Store product form; each variant row supports arbitrary attribute keys such as RAM, DDR type, colour, size, or capacity.
+- Bagusin Store now has a customer-facing persistent cart and checkout draft-order flow. Product variants are selected on the detail page, retained in browser cart state, validated server-side by `create_store_order`, and stored in `order_items.item_snapshot`. Admin manages combinations through the Store product form; specification groups store static product attributes, while each variant row supports arbitrary selectable attributes such as RAM, DDR type, colour, size, or capacity.
 - Checkout creates an order for review; it does not collect payment or trigger automatic courier fulfilment. Payment and shipping are confirmed by the Bagusin team.
 - WhatsApp notifications are not automated. Admin can contact a customer manually; the outbox table is only a queue structure until a WhatsApp Business provider and email provider are connected.
 - Automatic unpaid-order expiry is active. Reminder rows are queued on schedule, but WhatsApp/email messages are not delivered until a provider and sender worker are connected.
