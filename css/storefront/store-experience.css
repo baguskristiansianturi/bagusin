@@ -269,3 +269,11 @@
  .store-product-purchase>.store-primary-button{min-height:2.5rem}
 }
 @media(prefers-reduced-motion:reduce){.store-loading-spinner{animation:none}}
+
+
+.store-product-spec-group{margin-top:1.1rem;padding-top:.85rem;border-top:1px solid #edf0f2}
+.store-product-spec-group h3{margin:0 0 .5rem;color:#485965;font-size:.78rem;font-weight:800}
+.store-product-spec-group dl{display:grid;gap:0;margin:0}
+.store-product-spec-group dl>div{display:grid;grid-template-columns:minmax(6rem,.8fr) minmax(0,1.2fr);gap:.8rem;padding:.58rem 0;border-bottom:1px solid #edf0f2;font-size:.72rem}
+.store-product-spec-group dt{color:#7d8991}
+.store-product-spec-group dd{margin:0;color:#293842;font-weight:650;overflow-wrap:anywhere}
