@@ -68,7 +68,7 @@ async function loadStoreProducts(){
   card.append(head,node("p","admin-note",(p.category||"Tanpa kategori")+" · "+(p.sku||"Tanpa SKU")+" · "+money(p.price_amount)),node("p","admin-note","Slug: "+p.slug+" · "+(p.manage_stock?"Stok: "+p.stock_quantity:"Stok tidak dikelola")+" · "+(p.gallery||[]).length+" foto"));
   var edit=node("button","admin-button admin-button--light","Edit produk");edit.type="button";
   edit.addEventListener("click",async function(){
-   ["id","name","slug","sku","category","product_type","price_amount","stock_quantity","availability","status","brand","short_description","description","image_path","seo_title","seo_description"].forEach(function(k){if(storeForm.elements[k])storeForm.elements[k].value=p[k]??"";});
+   ["id","name","slug","sku","category","product_type","price_amount","stock_quantity","availability","status","brand","condition","short_description","description","image_path","seo_title","seo_description"].forEach(function(k){if(storeForm.elements[k])storeForm.elements[k].value=p[k]??"";});
    storeForm.elements.manage_stock.checked=!!p.manage_stock;
    var variantResult=await client.from("store_product_variants").select("sku,variant_name,variant_options,price_override,stock_quantity,status,sort_order").eq("product_id",p.id).order("sort_order",{ascending:true});
    if(variantResult.error)throw variantResult.error;
@@ -107,7 +107,7 @@ if(storeForm){
      if(normalize.error)throw normalize.error;
     }
    }
-   var payload={slug:slug,name:name,sku:String(d.get("sku")||"").trim()||null,category:String(d.get("category")||"").trim()||null,product_type:String(d.get("product_type")||"physical"),price_amount:Number(d.get("price_amount")||0),currency:"IDR",stock_quantity:Math.max(0,Number(d.get("stock_quantity")||0)),availability:String(d.get("availability")||"in_stock"),manage_stock:f.elements.manage_stock.checked,brand:String(d.get("brand")||"").trim()||null,short_description:String(d.get("short_description")||"").trim()||null,description:String(d.get("description")||"").trim(),image_path:imagePath||null,status:String(d.get("status")||"draft"),seo_title:String(d.get("seo_title")||"").trim()||null,seo_description:String(d.get("seo_description")||"").trim()||null,updated_at:new Date().toISOString()};
+   var payload={slug:slug,name:name,sku:String(d.get("sku")||"").trim()||null,category:String(d.get("category")||"").trim()||null,product_type:String(d.get("product_type")||"physical"),price_amount:Number(d.get("price_amount")||0),currency:"IDR",stock_quantity:Math.max(0,Number(d.get("stock_quantity")||0)),availability:String(d.get("availability")||"in_stock"),manage_stock:f.elements.manage_stock.checked,brand:String(d.get("brand")||"").trim()||null,condition:String(d.get("condition")||"new"),short_description:String(d.get("short_description")||"").trim()||null,description:String(d.get("description")||"").trim(),image_path:imagePath||null,status:String(d.get("status")||"draft"),seo_title:String(d.get("seo_title")||"").trim()||null,seo_description:String(d.get("seo_description")||"").trim()||null,updated_at:new Date().toISOString()};
    var result=id?await client.from("store_products").update(payload).eq("id",id).select("id").single():await client.from("store_products").insert(payload).select("id").single();
    if(result.error)throw result.error;
    var productId=result.data.id,uploaded=[];
