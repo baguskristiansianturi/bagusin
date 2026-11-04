@@ -492,3 +492,130 @@
  .store-page .store-card-price{font-size:.75rem}
  .store-page .store-detail-link{font-size:.64rem}
 }
+
+
+/* Store finish: consistent interaction states, detail layout and checkout form. */
+.store-page a:focus-visible,
+.store-page button:focus-visible,
+.store-page input:focus-visible,
+.store-page select:focus-visible,
+.store-page textarea:focus-visible{
+ outline:2px solid #59768d;
+ outline-offset:3px;
+}
+.store-page .store-card{
+ border:1px solid #edf0f2;
+ border-radius:.55rem;
+ background:#fff;
+ transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease;
+}
+.store-page .store-card:hover{
+ border-color:#d8e0e6;
+ box-shadow:0 .65rem 1.8rem rgba(28,44,57,.07);
+ transform:translateY(-2px);
+}
+.store-page .store-card-media{border-radius:.45rem .45rem .25rem .25rem}
+.store-page .store-card-wishlist{
+ top:.65rem;
+ left:auto;
+ right:.65rem;
+ background:rgba(255,255,255,.96);
+ box-shadow:0 2px 8px rgba(20,32,42,.08);
+}
+.store-page .store-card-wishlist svg{
+ width:1rem;
+ height:1rem;
+}
+.store-page .store-card-wishlist.is-saved{background:#f7edf0;color:#98465a;border-color:#e8d2d9}
+.store-page .store-card-category{letter-spacing:.075em;font-weight:700}
+.store-page .store-card-price-wrap{align-items:flex-start}
+.store-page .store-detail-link{font-weight:750;text-decoration:none}
+.store-page .store-product-page{width:100%;min-width:0}
+.store-page .store-breadcrumb{display:flex;flex-wrap:wrap;gap:.35rem .55rem;min-width:0;line-height:1.55}
+.store-page .store-breadcrumb ol{display:flex;flex-wrap:wrap;gap:.35rem .55rem;margin:0;padding:0;list-style:none}
+.store-page .store-breadcrumb li{min-width:0;overflow-wrap:anywhere}
+.store-page .store-product-detail{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)}
+.store-page .store-product-gallery-column{min-width:0}
+.store-page .store-product-page-media{display:grid;place-items:center;aspect-ratio:1/0.9;min-height:0}
+.store-page .store-product-page-media img{width:100%;height:100%;max-height:38rem;aspect-ratio:auto;object-fit:contain;padding:clamp(.5rem,2vw,1.5rem)}
+.store-page .store-product-thumbnails{gap:.65rem;padding:.8rem .1rem .35rem}
+.store-page .store-product-thumb{flex:0 0 4.5rem;width:4.5rem;height:4.5rem}
+.store-page .store-product-thumb img{padding:.2rem;object-fit:contain}
+.store-page .store-product-thumb.is-active{border-color:#344f65;box-shadow:0 0 0 2px #dfe8ee}
+.store-page .store-product-info h1{margin:.35rem 0 .7rem}
+.store-page .store-product-brand{margin:0;color:#73818c;font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.store-page .store-product-price-stack{gap:.35rem}
+.store-page .store-detail-discount{order:0}
+.store-page .store-price-old[data-old-price]{order:1}
+.store-page .store-product-current-price{order:2;font-size:clamp(1.5rem,2.4vw,2rem);font-weight:850}
+.store-page .store-variant-picker{display:grid;gap:.7rem;margin:1.1rem 0;padding:1rem;border:1px solid #e7ecef;border-radius:.5rem;background:#fafbfc}
+.store-page .store-variant-picker h2{margin:0;font-size:.85rem;letter-spacing:0}
+.store-page .store-variant-field{display:grid;gap:.4rem;color:#53616c;font-size:.72rem;font-weight:750}
+.store-page .store-variant-field select{width:100%;min-height:2.8rem;padding:.65rem .8rem;border:1px solid #dce2e6;border-radius:.35rem;background:#fff;color:#263744;font:inherit}
+.store-page .store-variant-feedback{margin:0;color:#71808b;font-size:.7rem;line-height:1.5}
+.store-page .store-product-selected-variant{min-height:1.2rem;color:#647887;font-size:.7rem}
+.store-page .store-product-purchase{display:grid;grid-template-columns:auto minmax(0,1fr) 2.9rem;gap:.55rem}
+.store-page .store-quantity-control{min-width:7.5rem}
+.store-page .store-quantity-control button{flex:0 0 2.25rem}
+.store-page .store-quantity-control input{min-width:0;flex:1}
+.store-page .store-product-wishlist{display:grid;place-items:center;flex:0 0 2.9rem;width:2.9rem;height:2.9rem;aspect-ratio:1}
+.store-page .store-product-wishlist svg{width:1.2rem;height:1.2rem}
+.store-page .store-product-wishlist.is-saved{background:#f7edf0;color:#98465a;border-color:#e8d2d9}
+.store-page .store-product-information{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(15rem,.7fr);gap:2.5rem;margin-top:3rem;padding-top:2rem;border-top:1px solid #e9edf0}
+.store-page .store-product-information h2{margin:0 0 .9rem;font-size:1.15rem;letter-spacing:-.025em}
+.store-page .store-product-spec-core,.store-page .store-product-spec-group dl{display:grid;gap:0;margin:0}
+.store-page .store-product-spec-core>div,.store-page .store-product-spec-group dl>div{display:flex;justify-content:space-between;gap:1rem;padding:.65rem 0;border-bottom:1px solid #edf0f2;font-size:.76rem}
+.store-page .store-product-spec-core dt,.store-page .store-product-spec-group dt{color:#7c8992}
+.store-page .store-product-spec-core dd,.store-page .store-product-spec-group dd{margin:0;color:#354653;text-align:right;font-weight:650}
+.store-page .store-product-spec-group h3{margin:1rem 0 .35rem;font-size:.85rem}
+.store-page .store-checkout{z-index:1300}
+.store-page .store-checkout-card{display:flex;flex-direction:column;gap:0}
+.store-page .store-checkout-head{position:sticky;top:0;z-index:3;background:#fff}
+.store-page .store-steps{padding:0;list-style:none}
+.store-page .store-steps li{position:relative;display:flex;align-items:center;gap:.55rem;min-height:2.8rem}
+.store-page .store-steps li.is-current{font-weight:800}
+.store-page .store-form-grid{align-items:start}
+.store-page .store-form-grid label{display:grid;gap:.45rem;min-width:0;color:#34434e;font-size:.75rem;font-weight:750;line-height:1.4}
+.store-page .store-form-grid label>span{color:#89939b;font-weight:400}
+.store-page .store-form-grid input,
+.store-page .store-form-grid select,
+.store-page .store-form-grid textarea{box-sizing:border-box;width:100%;min-width:0;max-width:100%;font:inherit;font-size:.84rem;line-height:1.4}
+.store-page .store-form-grid textarea{min-height:5rem}
+.store-page .store-step-panel[hidden]{display:none!important}
+.store-page .store-form-actions{display:flex;gap:.65rem}
+.store-page .store-form-actions button{flex:1;min-width:0;cursor:pointer}
+.store-page .store-form-actions button[hidden]{display:none!important}
+.store-page .store-form-error{line-height:1.55}
+.store-page .store-checkout-summary{gap:.8rem}
+.store-page .store-summary-line{align-items:flex-start}
+.store-page .store-summary-line span{min-width:0;overflow-wrap:anywhere}
+.store-page .store-summary-line strong{flex:0 0 auto}
+.store-page .store-consent{align-items:flex-start;line-height:1.55}
+.store-page .store-consent input{width:1rem;height:1rem;margin-top:.15rem;flex:0 0 1rem}
+.store-page .store-success{padding:1.5rem 0;text-align:center}
+.store-page .store-success>span{display:grid;place-items:center;width:3rem;height:3rem;margin:0 auto 1rem;border-radius:50%;background:#eaf1f5;color:#34566f;font-size:1.35rem}
+.store-page .store-order-reference{margin:1rem 0;padding:.9rem;border:1px solid #e5eaee;border-radius:.4rem;background:#fafbfc}
+@media(max-width:760px){
+ .store-page .store-product-detail{grid-template-columns:minmax(0,1fr);gap:1.25rem}
+ .store-page .store-product-info{position:static;top:auto}
+ .store-page .store-product-page-media{aspect-ratio:1/0.82}
+ .store-page .store-product-page-media img{max-height:30rem}
+ .store-page .store-product-information{grid-template-columns:minmax(0,1fr);gap:1.5rem;margin-top:2rem}
+ .store-page .store-product-info h1{font-size:clamp(1.55rem,6vw,2.1rem)}
+ .store-page .store-product-purchase{grid-template-columns:minmax(6.5rem,auto) minmax(0,1fr) 2.75rem}
+ .store-page .store-product-wishlist{width:2.75rem;height:2.75rem}
+}
+@media(max-width:520px){
+ .store-page .store-checkout-card{gap:0}
+ .store-page .store-checkout-head{padding-bottom:.8rem}
+ .store-page .store-checkout-head h2{font-size:1.4rem}
+ .store-page .store-steps{gap:.45rem;margin:.9rem 0}
+ .store-page .store-steps li{padding:.55rem .6rem;font-size:.7rem}
+ .store-page .store-form-grid{gap:.8rem}
+ .store-page .store-form-grid label{font-size:.72rem}
+ .store-page .store-form-grid input,.store-page .store-form-grid select{min-height:2.75rem}
+ .store-page .store-form-actions{position:sticky;bottom:-1rem;z-index:4;margin-top:1rem;padding:.8rem 0 1rem;background:#fff}
+ .store-page .store-form-actions button{min-height:2.75rem;font-size:.73rem}
+ .store-page .store-product-page .store-breadcrumb{font-size:.65rem;margin-bottom:1rem}
+ .store-page .store-product-thumb{flex-basis:3.9rem;width:3.9rem;height:3.9rem}
+}
